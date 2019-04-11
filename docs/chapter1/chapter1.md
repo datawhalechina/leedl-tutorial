@@ -41,7 +41,7 @@ $$
 
 ### 多元线性模型（多个特征）
 在实际应用中，输入特征肯定不止 $x_{cp}$ 这一个。例如，进化前的CP值、物种（Bulbasaur）、血量（HP）、重量（Weight）、高度（Height）等，特征会有很多。
-<div  align="center">图1：<img src=http://ppryt2uuf.bkt.clouddn.com/chapter1-1.png" width = "600" height = "200" align=center /></div>
+<div  align="center">图1：<img src="http://ppryt2uuf.bkt.clouddn.com/chapter1-1.png" width = "600" height = "200" align=center /></div>
 
 所以我们假设 **线性模型 Linear model**：$y = b + \sum w_ix_i$
 - $x_i$：就是各种特征(fetrure)  $x_{cp},x_{hp},x_w,x_h,···$	
