@@ -1,21 +1,21 @@
 ### GD
-![image](https://note.youdao.com/yws/res/29950/80B89D7CF6914912A7D6C7E7D2304E54)
-- 给到`$\theta$`(weight and bias)
-- 先选择一个初始的`$\theta^0$`，计算`$\theta^0$`的loss function(没一个参数的偏微分)
-- 计算完这个vector(偏微分)，然后就可以去更新的你`$\theta$`
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-1.png)
+- 给到 $\theta$ (weight and bias)
+- 先选择一个初始的 $\theta^0$，计算 $\theta^0$ 的loss function(没一个参数的偏微分)
+- 计算完这个vector(偏微分)，然后就可以去更新的你 $\theta$ 
 - millions of parameters
 - BP是一个比较有效率的算法，让你计算gradient 的vector时，可以有效率的计算出来
 
 ### Chain Rule
-![image](https://note.youdao.com/yws/res/29960/4ECB6CCE4A874E528B113BB718EB912C)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-2.png)
 - 连锁影响
 - BP主要用到了chain rule
 ### BP
-![image](https://note.youdao.com/yws/res/29952/6FC03F07201F4792BD00049068E7BA81)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-3.png)
 - cross entropy 到total loss 
 - 问题是咋样计算每一笔data的partial
 #### 取出一个Neural
-![image](https://note.youdao.com/yws/res/29953/FD3C2789C60847A583463671315D11AA)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-4.png)
 -  
 
 
@@ -23,49 +23,53 @@
 #####  forward pass
 
 - 这个直接计算
-- `$\frac{\partial z}{\partial w}$`，input是什么，计算结果是什么
- 
+- $\frac{\partial z}{\partial w}$，input是什么，计算结果是什么
+
 ##### Backward pass
-![image](https://note.youdao.com/yws/res/29959/38AF86AB49C14D87BC41821F3319423C)
-- `$\frac{\partial a}{\partial z}$`得到解决
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-5.png)
+- $\frac{\partial a}{\partial z}$得到解决
 
-###### 计算`$\frac{\partial c}{\partial a}$`
-![image](https://note.youdao.com/yws/res/29955/A0B302DDC96948308574DA38E8F866C8)
+###### 计算`$\frac{\partial c}{\partial a}###### 
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-6.png)
 - 后面有几个Neural就要加几项
-- `$\frac{\partial z}{\partial a}$`得到解决
-- `$\frac{\partial c}{\partial {a}'}$`，`$\frac{\partial c}{\partial {a}''}$`假设已经知道，那么`$\frac{\partial c}{\partial z}$`，就是可以算出来了
+- $\frac{\partial z}{\partial a}$得到解决
+- $\frac{\partial c}{\partial {a}'}$，$\frac{\partial c}{\partial {a}''}$假设已经知道，那么$\frac{\partial c}{\partial z}$，就是可以算出来了
 
-![image](https://note.youdao.com/yws/res/29963/B8C719C2379748F19541C9D6C5ABEF63)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-7.png)
 
 ##### 换个角度来看，我们得到的新neural
 
-![image](https://note.youdao.com/yws/res/29962/2F9830B6FB5B4685923ECA639C826A7C)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-8.png)
 - `${\sigma }'(z)$`和之前的不同，这次看做是一个常数(constant)
 - `$\frac{\partial c}{\partial {a}'}$`和`$\frac{\partial c}{\partial {a}''}$`做为输入的vector
 
 
 ##### case1:output layer
-![image](https://note.youdao.com/yws/res/29956/02FD6523A0D940CE82203C0C7F5DC140)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-9.png)
 - 问题直接是output layer,直接计算
 
 
 ##### case2：not output layer
-![image](https://note.youdao.com/yws/res/29988/B3AE88B7739A4718BDB99E600DD34F7F)
-![image](https://note.youdao.com/yws/res/29964/050343294B0B45DC905CF88C15DC0843)
-- 通过`$\frac{\partial c}{\partial z_a}$`和`$\frac{\partial c}{\partial z_b}$`计算出`$\frac{\partial c}{\partial {a}'}$`
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-10.png)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-11.png)
+- 通过 $\frac{\partial c}{\partial z_a}$ 和 $\frac{\partial c}{\partial z_b}$ 计算出$\frac{\partial c}{\partial {a}'}$ 
 
-##### 计算`$\frac{\partial c}{\partial z_a}$`和`$\frac{\partial c}{\partial z_b}$`
+##### 计算 $\frac{\partial c}{\partial z_a}
+
+##### 和 $\frac{\partial c}{\partial z_b}
+
+##### 
 - 若为output layer，很快就计算出来了
 - 若为not output layer，往前推(递归)
 
 #### Backward pass 
-![image](https://note.youdao.com/yws/res/29957/A37A40F27E4C43AFB5D872235DD841F2)
-- 先从输出层开始计算，`$\frac{\partial c}{\partial z_5}$`和`$\frac{\partial c}{\partial z_5}$`
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-12.png)
+- 先从输出层开始计算，$\frac{\partial c}{\partial z_5}$ 和 $\frac{\partial c}{\partial z_5}$ 
 - 实际上就是建立一个反向的neural network
- 
+
 #### Summary
 
-![image](https://note.youdao.com/yws/res/29951/6F2FCCD63D5E44A09FF41EB42FE72700)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter7-13.png)
 
 
 
