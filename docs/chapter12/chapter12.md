@@ -1,166 +1,276 @@
-http://note.youdao.com/noteshare?id=f686ea90cc23c32ccd022af1ee1ab498&sub=987C1A5A00BF42519D760774296FFAAD
+http://note.youdao.com/noteshare?id=45ae15bad36394e7c93a0aa06e497608&sub=A2719EAD44724C7F8538FF304F064145
 
+![image](6799F03A29C14FBBB4107F3160720E1E)
+我把dimension reduction分为两种，一种做的事情叫做“化繁为简”，它可以分为两种：一种是cluster，一种是dimension reduction。所谓的“化繁为简”的意思：现在有很多种不同的input，比如说：你现在找一个function，它可以input看起来像树的东西，output都是抽象的树，把本来比较复杂的input变成比较简单的output。那在做unsupervised learning的时候，你只会有function的其中一边。比如说：我们要找一个function要把所有的树都变成抽象的树，但是你所拥有的train data就只有一大堆的image(各种不同的image)，你不知道它的output应该是要长什么样子。
 
-![image](482F70C9DB8D468FA90BC14D3EE2A047)
-在supervised里面，你就是有一大推的training data，这些training data的组成是一个function的input跟output，假设你有R笔train data，每一笔train data有`$x^r,\hat{y}^r $`。假设`$x^r$`是一张image，`$\hat{y}$`是class label。semi-supervised learning是在label上面，是有另外一组unlabel的data，这组data记做`$x^u$`,这组data只有input，没有output(U笔data)。在做semi-superised learning时，U远远大于R(unlabel的数量远远大于label data的数量)。semi-surprised learning可以分成两种，一种是transductive learning，一种是inductive learning。这两种最简单的分法是：在做transductive的时候，你的unlabel data就是你的testing data，inductive learning 就是说：不把unlabel data考虑进来。
+那另外一个unsupervised learning可以做                 ，我们要找一个function，这个function你随机给它一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只要这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
 
-为什么做semi-supervised learning，因为有人常会说，我们缺data，其实我们不是缺data，其实我们缺的是与label的data。比如说，你收集image很容易(在街上一直照就行了)，但是这些image是没有的label。label data 是很少的，unlabel是非常多的。所以semi-surprvised learning如果可以利用这些unlabel data来做某些事是会很有价值的。
+![image](6106ED9E7C5546D4ACC352572297A05A)
+那我们现在来说clustering，什么是clustering呢？clustering就是说：假设有一大堆的image，然后你就把它们分成一类一类的。之后你就可以说：这边所有的image都属于cluster1，这边都属于cluster2，这边都属于cluster3。有些不同的image用同一个cluster来表示，就可以做到“化繁为简”这件事。那这边的问题是：要到底有几个cluster，这个没有好的方法，就跟neural network要有几层一样。但是你不能太多，这张有9张image，就有9个cluster ，这样做跟没做是一样的。把全部的image放在一个cluster里，这跟没做是一样的。要咋样选择适当的cluster，==这个你要==                                                                                                      
 
-我们人类可能一直是在semi-supervised learning，比如说，小孩子会从父母那边得到一点点的supervised(小孩子在街上，问爸爸妈妈这是什么，爸爸妈妈说：这是狗。在以后的日子里，小孩子会看到很多奇奇怪怪的东西，也没有人在告诉这是什么动物，但小孩子依然还是会判别出狗)
+那在cluster方法里面，最常用的叫做k-means。我们有一大堆的data，他们都是unlabel(`$x^1,...x^N$`)，一个x就代表一张image ，我们要把它做成K个cluster。咋样做呢？我们要先找这些cluster的center。(==假设这边的==用vector来表示的话，这边的center也都是一样长度的vector)有K个cluster就需要有K个center。那初始的center咋样来呢，你可以从你的train data里面随机找K`$x^n$`出来，就是你的k个center。
 
 
-![image](983137F993CE4AB6BE2DF6CCA434CB37)
-为什么semi-supervised learning有可能会带来帮助呢？假设我们现在要做分类的task，建一个猫跟狗的classifier，我们同时有一大堆猫跟狗的图片。这些图片是没有label的，并不知道哪些事猫哪些事狗。
+接下里，你要对所有在train data 中的x，都做以下的事情：你决定说，现在的每一个`$x^n$`属于1到K，哪一个cluster。现在假设`$x^n$`跟第i个class center最接近的话，那`$x^n$`就属于`$c^i$`，那我们用一个binary value(上标n，下标i)来代表说n个x有没有属于第i个class，如果第n个x属于第i个class的话，它的value就是1，反之就是0.接下来，你要update你的cluster，方法也是很直觉的(假设你要update第i个cluster center，你就把所有属于第i个cluster的x通通拿出来做平均，你就得到第i个cluster的center，然后你要反复的做)
 
 
-![image](5C0399397C8C48EB825C5777EEA619F1)
-那今天我们只考虑有label的猫跟狗的data，画一个boundary，将猫跟狗的train data分开的话，你可能就会画在中间(垂直)。那如果unlabel的分布长的像灰色的点这个样子的话，这可能会影响你的决定。虽然unlabel data只告诉我们了input，但unlabel data的分布可以告诉我们一些事。那你可能会把boundary变为这样(斜线)。但是semi-supervised learning使用unlabel的方式往往伴随着一些假设，其实semi-supervised learning有没有用，是取决于你这个假设符不符合实际/精不精确。
 
 
-![image](CB9C3C2785264549B61896E378228E37)
-这边要讲四件事，第一个是在generative model的时候，肿么用semi-supervised learning。还要讲两个还蛮通用的假设(Low-density Separation Assumption,Smoothness Assumption)，还有一个是：Better Representation
+![image](A917A41B8CB746099EC0F5BF81A021F4)
+那cluster有另外一种方法叫做Hierarchical Agglomerative Clusteing(HAC),那这个方法是先建一个tree。假设你现在有5个example，你想要把它做cluster，那你先做一个tree structure，咋样来建这个tree structure呢？你把这5个example两两去算它的相似度，然后挑最相似的那个pair出来。假设最相似的那个pair是第一个example和第二个example merge起来再平均，得到一个新的vector，这个vector代表第一个和第二个example。现在只剩下四笔data了，然后两两再算相似度，发现说最后两笔是最像的，再把他们merge average起来。得到另外一笔data。现在只剩下三笔data了，然后两两算他们的similarity，发现黄色这个和中间这个最像，然后再把他们平均起来，最后只发现只剩红色跟绿色，在把它们平均起来，得到这个tree 的root。你就根据这五笔data他们之间的相似度，就建立出一个tree structure，这只是建立一个tree structure，这个tree structure告诉我们说：哪些example是比较像的。比较早分枝代表比较不像的。
 
+接下来你要做clustering，你要决定在这个tree structure上面切一刀(切在图上蓝色的线)，你如果切这个地方的时候，那你就把你的五笔data变成是三个cluster。如果你这一刀切在红色的那部分，就变成了二个cluster，如果你这一刀切在绿色这一部分，就变成了四个cluster。这个就是HAC的做法
 
-![image](EE2EA878272640D1B0D726BEB24C9141)
-我们都已经看过，supervised generative model，在supervised learning里面有一堆train example，你知道分别是属于class1，class2。你会去估测class1，class2的probability(`$P(X|C_i)$`)
+HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目，在k-means里面你要决定K value是多少，有时候你不知道有多少cluster不容易想，你可以换成HAC，好处就是你现在不决定有多少cluster，而是决定你要切在这个 tree structure的哪里
 
-假设每一个class它的分布都是一个gaussion distribution，那你会估测说class1是从μ是`$μ^1$`，covariance是`$\sum $`的gaussion估测出来的，class2是从μ是`$μ^2$`，covariance是`$\sum $`的gaussion估测出来的。
 
-那现在有了这些probability，有了这些`$μ$`、covariance，你就可以估测given一个新的data做classification，然后你就会决定boundary的位置在哪里。
 
-![image](490C558F2E10444ABC4192D4053FD02B)
-但是今天给了我们一些unlabel data，它就会影响你的决定。举例来说，我们看左边这笔data，我们假设绿色这些使unlabel data，那如果你的`$\mu $`跟variance是`$\mu ^1$`,`$\mu ^2,\sum$`显然是不合理的。今天这个`$\sum$`应该比较接近圆圈，或者说你在sample的时候有点问题，所以你sample出比较奇怪的distribution。比如说，这两个class label data是比较多的(可能class2是比较多的，所以这边probability是比较大的)，总之看这些unlabel data以后，会影响你对probability，`$\mu$`,`$\sum $`的估测，就影响你的probability的式子，就影响了你的decision boundary。
 
-![image](E942AC6E5F18412EB75C0C2E9CF411D5)
-先讲操作方式，再讲原理。先初始化参数(class1,class2的几率，`$\mu ^1$`,`$\mu ^2, \sum$`，这些值，你可以用已经有label data先估测一个值，得到一组初始化的参数，这些参数统称`$\theta$`)step1 先计算每一笔unlabel data的 posterior probability，根据现有的`$\theta$`计算每一笔unlabel data属于class1的几率，那这个几率算出来是咋样的，是跟你的model的值有关的。算出这个几率以后呢，你就可以update你的model，这个update的式子是非常的直觉，这个`$C_1$`的probability是咋样算呢，原来的没有unlabel data的时候，你的计算方法可能是：这个N是所有的example,`$N_1$`是被标注的`$C_1$`example，如果你要算`$C_1$`的probability，这件事情太直觉了，如果不考虑unlabel data的话(感觉就是`$N_1$`除以N)。但是现在我们要考虑unlabel data，那根据unlabel告诉我们的咨询，`$C_1$`是出现次数就是所有unlabel data它是`$C_1$`posterior probability的和。所有unlabel data而是根据它的posterior probability决定它有百分之多少是属于`$C_1$`,有多少是属于`$C_2$`
+![image](6B3D20A786E24A1A82C78BF1C6E2A4A8)
+光只做cluster是比较卡的，在做cluster的时候，我们就是"以偏概全"这个就好像说：“念能力”有分成六大类，每一个人都要被assumption这其中的一类。要咋样决定它是属于哪一类呢？拿一杯水看看它有什么反应，就assumption成哪一类。比如说：水满出来了就是强化系，所以小傑是强化系。这么把每一个人都assumption某一个类是不够的，太过粗糙的。像bisiji就有说：小傑其实是接近放出系的强化系能力。如果你只是说它是强化系的，这是loss掉很多information的，你应该这样表示小傑，应该说：强化系是0.7，放出系是0.25，强化系是跟变化系是比较接近的，所以有强化系就有一部分的变化系的能力，其他系的能力为0。所以你应该要用一个vector来表示你的x，那这个vector每一个dimension就代表了某一种特值，那这件事就叫做：distribution representation。
 
-`$\mu^1$`咋样算呢，原来不考虑unlabel data时，`$\mu^1$`就是把所有`$C_1$`的label data都平均起来就结束了。如果今天加上unlabel data的话，其实就是把unlabel data的每一笔data`$x^u$`根据它的posterior probability做相乘。如果这个`$x^u$`比较偏向class1`$C^1$`的话，它对class1的影响就大一点，反之就小一点。(不用解释这是为什么这样，因为这太直觉了)
+原来你的x是一个非常high dimension的东西，比如说image，你现在用它的特值来描述，它就会从比较高维的空间变成比较低维的空间。那这件事情就被叫做：dimension reduction。这是一样的事情，只是不同的称呼而已。
 
 
-`$C_2$`的 probability就是这样的做的`$\mu^1,\mu^2,\sum$`也都是这样做的，有了新的model，你就会做step1，有了新的model以后，这个几率就不一样了，这个几率不一样了，在做step2，你的model就不一样了。这样update你的几率，然后就反复反复的下去。理论上这个方法会保证收敛，但是它的初始值跟GD会影响你收敛的结果。
+![image](1322FEA894D94461B88188DB46BB373B)
+那从另外一个角度来看：为什么dimension reduction可能是有用的。举例来说：假设你的data分布是这样的(在3D里面像螺旋的样子)，但是用3D空间来描述这些data其实是很浪费的，其实你从资源就可以说：你把这个类似地毯卷起来的东西把它摊开就变成这样(右边的图)。所以你只需要在2D的空间就可以描述这个3D的information，你根本不需要把这个问题放到这个3D来解，这是把问题复杂化，其实你可以在2D就可以做这个task
 
-![image](8D15225B09B64C76A251AA601C2669BF)
-我们现在来解释下为什么这样做的：想法是这样子的。假设我们有原来的label data的时候，我们要做的事情是maximum likehood，每一笔train data 它的likehood是可以算出来的。把所有的 log likehood加起来就是log total loss。然后去maximum。那今天是unlabel data的话今天是不一样的。unlabel data我们并不知道它是来自哪一个class，我们咋样去估测它的几率呢。那我们说一笔unlabel data`$x^u$`出现的几率(我不知道它是从claas1还是class2来的，所以class1，class2都有可能)就是它在`$C_1$`的posterior probability跟`$C_1$`这个class产生这笔unlabel data的几率加上`$C_2$`的posterior probability乘以`$C_2$`这个class产生这笔unlabel data的几率。把他们通通合起来，就是这笔unlabel data产生的几率。
 
+![image](A766559C0A834D4AA171B0AFB27921CC)
+我们来举一个具体的例子：比如说我们考虑MNIST，在MNIST里面，每一个input digit都是用28*28dimension来描述它。但是多数28 *28dimension的vector你把它转成一个image看起来不像一个数字。你random sample一个28 *28vector转成一个image，可以是这样的(数字旁边的图)，它看起来根本就不不是数字。所以在这28 *28维空间里面 。digit这个vector其实是很少的，所以你要描述一个digit，你根本就不需要用到28 *28维，你要描述一个digit，你要的dimension远比28 *28维少。
 
+我们举一个很极端的例子：比如说这里有一堆3，这堆3如果你是从pixel来看待的话，你要用28*28维来描述一个image，然后实际上这些3只需要一个维度就可以来表示了。因为这些3就只是说：把原来的3放在这就是中间这张image，右转10度就是这张，右转2度变它，左转10、20度。所以你唯一要记录的只有，今天这张image它是左转多少度右转多少度，你就可以知道说它在维的空间里面应该长什么样子。你只需要抓重这个重点(角度的变化)，你就可以知道28维空间中的变化，所以你只需要一维就可以描述这些image
 
-接下来要做事情就是maximum这件事情。你要去iteratively solved 
 
 
-![image](95852CC4B07D4CC09AAB56A2095CDA6C)
-那接下来我们讲一个general的方式，这边基于的假设是low-density Separation，也就是说：这个世界非黑即白的。什么是非黑即白呢？非黑即白意思就是说：假设我们现在有一大堆的data(有label data，也有unlabel data)，在两个class之间会有一个非常明显的红色boundary。比如说：现在两边都是label data，boundary 的话这两条直线都是可以的，就可以把这两个class分开，在train data上都是100 percent。但是你考虑unlabel data的话，右边的boundary是比较好的，左边的boundary是不好的。因为这个假设是基于。low-density separation意思就是说，在这两个class交界处，density是比较低的。
+![image](184AC9167A6743FF9A011017DF6510F7)
+那肿么做dimension reduction呢?在做dimension reduction的时候，我们要做的事情就是找一个function，这个function的input是一个vector，output是另外一个vector z。但是因为是dimension reduction，所以你output这个vector z这个dimension要比input这个x还要小，这样才是在做dimension reduction。
 
-![image](0F28183D9EFE4E889BA208237700B5EA)
-low-density separation最简单的方法是self-training。self-training就是说，我们有一些label data并且还有一些unlabel data。接下来从label data中去train一个model，这个model叫做`$f^\ast $`,根据这个`$f^\ast$`去label你的unlabel data。你就把`$x^u$`丢进`$f^\ast$`,看它吐出来的`$y^u$`是什么，那就是你的label data。那这个叫做pseudo-label。那接下来你要从你的unlabel data set中拿出一些data，把它加到data set里面。然后再回头去train你的`$f^\ast$`
+在做dimension reduction里面最简单是feature selection，这个方法是：你把你的data分布拿出来看一下，本来在二维的平面上，但是你发现都集中在`$x_2$`dimension这里，这个`$x_1$`dimension没什么用，把它拿掉就只有`$x_2$`dimension，你就等于做到dimension reduction这件事了。这个方法不见得有用，因为有很多时候，你的case是：你任何一个dimension都不能拿掉。
 
-在做regression时是不能用这一招的。
+另外一个常见的方法叫做Principe component abalysis(PCA),PCA做的事情就是：这个function是一个很简单的linear function，这个input x跟这个output z之间的关系就是一个linear transform，你把这个x乘上一个matrix w，你就得到它的output z。现在要做的事情就是:根据一大堆的x(我们现在不知道z长什么样子)我们要把w找出来
 
-![image](BAF03240917F4A509318CEDFD6CE8C5B)
 
-你可能会觉得slef-training它很像是我们刚才generative model里面用的那个方法。他们唯一的差别就是在做self-training的时候，你用的是hard label；你在做generative mode时，你用的是soft model。在做self-training的时候我们会强制一笔train data是属于某一个class，但是在generative model的时候，根据它的posterior probability 它有一部分是属于class1一部分是属于class2。那到底哪一个比较好呢？那如果我们今天考虑的neural network的话，你可以比较看看哪一个方法比较好。
 
-假设我们用neural network，你从你的 label data得到一笔network parameter(`$\theta^\ast $`)。现在有一笔unlabel data`$x^u$`，根据参数`$\theta^\ast $`分为两类(0.7的几率是class1,0.3的几率是class2)。如果是hard label的话，你就把它直接label成class1，所以`$x^u$`新的target第一维是1第二维是0(拿`$x^u$`train neural network)。如果去做soft的话。70 percent是属于class1,30percent是属于class2，那新的target是0.7跟0.3。在neural network中，这两个方法你觉得哪个是有用的呢，soft这个方法是没有用的，一定要用hard label。但我们用hard label 是什么意思呢？我们用hard label的时候，就是用low-density separation的概念。也就是说：今天我们看`$x^u$`它属于class1的几率只是比较高而已，我们没有很确定它一定是属于class1的，但这是一个非黑即白的世界，如果你看起来有点像class1，那就一定是class1。本来根据我的model说：0.7是class1 0.3是class2，那用hard label(low-density-separation)就改成它属于class1的几率是1(完全就不可能是class2)。soft是不会work的。
+![image](7C412FDD3F0849FB8E29D9A06F27DF51)
 
+接下来我们来介绍一下PCA，我们刚才讲过PCA要做的事情就是找这个W(z=Wx)，这个W咋样找呢？假设我们现在考虑一个比较简单的case，我们考虑一个one dimension的case。我们现在假设只要把我们的data project到一维的空间上，也就是z是一个一维的vector，w其实就是一个row。那我们就用`$w^1$`来表示W的第一个row，把x跟`$w^1$`做乘积就得到了`$z_1$`。接下来我们要问的问题是：我们要找的这个`$W^1$`，应该要长什么样子。我们先假设`$w^1$`的长度是1(这个假设是有必要的，等下你会更清楚我们为什么要这个假设)如果的长度是1的话，那`$w^1$`跟x做乘积得到的`$z_1$`意味着：w跟x是高维空间中的一个点，`$w^1$`是高维空间中的vector，`$z_1$`就是x在`$w^1$`上的投影。所以我们现在做的事情就是把一堆x通过`$w^1$`变成`$z_1$`(得到一堆`$z_1$`，每个x都变成`$z_1$`)那现在的问题就是这个`$w^1$`应该长什么样子呢？
 
+举例来说，这个x的分布(图中蓝色的点，每一个点代表宝可梦)，这个分布的横坐标是攻击力，纵坐标是防御力。那今天我要把二维投影到一维，我应该要选什么样的`$w^1$`呢？我可以选`$w^1$`指向这个方向(红色的箭头)，也可以选`$w^1$`指向那个方向(橙色的箭头)，我选不同的方向得到的结果它会是不一样的。那你总得给我们一个目标，我们才能知道要选咋样的`$w^1$`。我们的目标是这样的：我们希望选一个`$w^1$`，它经过projection以后得到这些`$z_1$`的分布是越大越好，也就是我们不希望说通过这个projection以后所有的点通通挤在一起，把本来的data point跟data point之间的奇异度拿掉了。我们是希望说：经过projection以后，不同的data point他们之间的区别我们仍然是可以看的出来，所以找一个projection方向它可以让projection后的various是越大越好。如果我们看这个例子的话，你就会觉得说：如果是选这个方向的话(红色箭头)，经过projection以后，可能会分布在这个range(large variance)；如果选这个方向的话(橙色箭头)，那么你的点可以是这个range(small variance)。所以你要选择`$w^1$`的时候，你可能会选择`$w^1$`的方向是large variance这个方向。从这个图上，你可以看出`$w^1$`其实是代表宝可梦的强度，宝可梦可能有一个factor代表它的强度，这个隐藏的factor同时影响了它的防御力跟攻击力，所以防御力跟攻击力是会同时上升的。
 
-![image](11C8BA67AEBC4C47BF160273A4C47E88)
-刚才那一招有进阶版是“entropy-based Regularization”。如果你用neural network，你的output是一个distribution，那我们不要限制说这个output一定要是class1、class2，但是我们做的假设是这样的，这个output distribution一定要是很集中，因为这是一个非黑即白的世界。假设我们现在做五个class的分类，在class1的几率很大，在其他class的几率很小，这个是好的。在class5的几率很大，在其他class上几率很小，这也是好的。如果今天分布很平均的话，这样是不好的(因为这是一个非黑即白的世界)，这不是符合low-density separation的假设。
+那我们要用equation来表示的话，你就会说：我们现在要去maximize的对象是`$z_1$`的variance，`$z_1$`的variance就是summation over所有的`$z_1$`，然后`$z_1$`减去`$z_1$`bar的平方。
 
-但是现在的问题是咋样用数值的方法evaluate这个distribution是好的还是不好的。这边用的是entropy，算一个distribution的entropy，这个distribution entropy告诉你说：这个distribution到底是集中的还是不集中的。我们用一个值来表示distribution是集中的还是分散的，某一个distribution的entropy就是负的它对每一个class的几率乘以log class的几率。所以我们今天把第一个distribution的几率带到这个公式里面去，只有一个是1其他都是0，你得到的entropy会得到是0(`$E(y^u)=-\sum_{m=1}^{5}y^u_m(lny^u)$`),第二个也是0。第三个entropy是`$ln5$`。散的比较开(不集中)entropy比较大，散的比较窄(集中)entropy比较小。
 
-所以我们需要做的事情是，这个model的output在label data上分类整确，但在unlabel data上的entropy越小越好。所以根据这个假设，你就可以去重新设计你的loss function。我们原来的loss function是说：我希望找一个参数，让我现在在label data上model的output跟正确的model output越小越好，你可以cross entropy evaluate它们之间的距离，这个是label data的部分。在unlabel data的部分，你会加上每一笔unlabel data的output distribution的entropy，那你会希望这些unlabel data的entropy 越小越好。那么在这两个中间，你可以乘以一个weight(`$ln5$`)来考虑说：你要偏向unlabel data多一点还是少一点
+![image](52CFC6F452904777B113471C3989E341)
 
-在train的时候，用GD来一直minimize这件事情，没有什么问题的。unlabel data的角色就很像regularization，所以它被称之位 entropy-based regulariztion。之前我们说regularization是在原来的loss function后面加一个惩罚项(L2,L1)，让它不要overfitting；现在加上根据unlabel data得到的entropy 来让它不要overfitting。
+假设你知道咋样来做(等一下来讲肿么做)，你找到一个`$w^1$`，你就可以让`$z_1$`最大，然后就结束了。你现在不只是想要投影到一维，你想要投影到更多维(二维)。现在你想要投影到二维的平面的话，这时候你就把x跟另外一个`$w^2$`做乘积,`$w^1,w^2$`就是W的第一个row和第二个row。那我们咋样来找`$w^2$`呢？跟刚才找`$z_1$`一样，首先假设`$w^2$`的长度为1，`$z_2$`的分布也是越大越好，但是你只是要让`$z_2$`的variance越大越好，这样你找出不就是`$w^1$`吗，但是你`$w^1$`刚才已经找过了，这样的话你就等于什么事都没有做。所以你要再加一个condition，刚才已经找到`$w^1$`了，这次要`$w^2$`跟`$w^1$`是垂直的(`$w1 * w^2=0$`)。你先把`$w^1$`，再找`$w^2$`,等等，这就看你要projection到几维了。(projection要几维是你自己要决定的)。把`$w^1,w^2,...$`排起来成W就结束了。
 
+这个W是一个orthogonal matrix，这时候，你看它的row(`$w^1,w^2$`)是orthogonal，`$w^1,w^2$`的长度都是1，所以它是一个orthogonal matrix。
 
-![image](500F7D302D8C49E39302987FDFA47492)
+![image](2E6A72965A394827A72CE4D6F3EC618E)
 
-那还有其他semi-supervised的方式，叫做semi-supervised SVM。SVM精神是这样的：SVM做的事情就是：给你两个class的data，找一个boundary，这个boundary一方面要做有最大的margin(最大margin就是让这两个class分的越开越好)同时也要有最小的分类的错误。现在假设有一些unlabel data，semi-supervised SVM会咋样处理这个问题呢？它会穷举所有可能的label，就是这边有4笔unlabel data，每一笔它都可以是属于class1，也可以是属于class2，穷举它所有可能的label(如右图所示)。对每一个可能的结果都去做一个SVM，然后再去说哪一个unlabel data的可能性能够让你的margin最大同时又minimize error。
+接下里的问题就是咋样来找`$w^1,w^2$`(咋样来解这个问题)，这个解法是蛮容易的。经典的方法:`$z_1$`等于`$w^1x$`,`$z_1$`的平均值summation over`$z_1$`,也就是summation over `$w^1x$`,`$w^1$`跟data point无关，可以提出来变为先summation over x在`$w^1 \sum x$` 得到`$w^1$`跟`$\bar{x}$`。接下来我们要maximize的对象是`$z_1$`的variance(`$\sum_{z_1} (z_1-\bar{z_1})^2$`)公式整理为`$\sum( w^1(x-\bar{x}))^2$`。可以把这个式子做一个转化：`$w^1$`是一个vector，`$x- \bar{x}$`是一个vector。假设`$w^1$`是啊，`$x-\bar{x}$`是b，可以写成a的transform b的平方，可以写成a的transpose b乘以a的transpose b，可以写成a的transpose b乘以a的transpose b的transpose(a的transpose b是一个scale，在transpose自己还是它自己)，可以写成a的transpose b 乘以btranspose a。然后把b带回`$w^1$`，把b带回`$x-\bar{x}$`。因为是summation data，所以跟`$w^1$`无关，把`$w^1$`拿出去(注意是summation over (`$(x-\bar{x})(x-\bar{x})^T$`)。summation over data point是x的covariance matrix。所以`$var(z_1)=(w^1)^Tcov(x)w^1$`，我们用S来描述x的covariance(s=cov(x))。
 
-问题：穷举所有的unlabel data label，这是非常多的事情。这篇paper提出了一个process mode的方法，基本精神是：一开始得到一些label，然后你每次该一笔unlabel data看可不可以让margin变大，变大了就改一下。
+所以现在我们要解的问题是：找一个`$w^1$`，它可以maximizeing`$(w^1)^TSw^1$`。但这个是要有constraint，如果没有constriant的话，这个问题会有无聊的solution，把每个值都变无穷大，这样就结束了，所以这个问题是要有constraint。这个问题constraint是：`$w^2$`的L-Norm等于1
 
-![image](E2CC0CFD5F8D4C2080E1C12B5080E9E1)
-接下来，我们要讲的方法是Smoothness Assumption。近朱者赤，近墨者黑
+![image](1929EFC3F9F547AC811B0E5C6902891D)
 
-![image](F28B5652373B4FAC9265B935766CB616)
-它的假设是这样子的，如果x是相似的，那label y就要相似。光讲这个假设是不精确的，因为正常的model，你给它一个input，如果不是很deep的话，output就很像，这样讲是不够精确的。
+有了这些以后呢，我们要解这个问题。S是covariance matrix，又是半正定。也就是说所有的eigenvalues都是non-negative(比较困惑的话，可以去看李老师的现代课)。这个问题的solution就是：`$w^1$`是covariance matrix的eigenvector。它不只是一个eigenvector，它是对应到最大的eigenvalue `$\lambda $`那一个eigenvector。这个就是结论
 
-真正假设是下面所要说的，x的分布是不平均的，它在某些地方是很集中，某些地方又很分散。如果今天`$x_1,x_2$`它们在high density region很close的话，`$y^1,y^2$`才会是是很像的。
-high density region这句话就是说：可以用high density path做connection，可以还不知道在说什么。举个例子，假设图中是data的分布，分布就像是写轮眼一样，那现在假设我们有三笔data(`$x_1,x_2,x_3$`)。如果我们今天考虑的是比较粗略的假设(相似的x，那么output就很像，那感觉`$x_2,x_3$`的label比较像，但`$x_1,x_2$`的label是比较不像)，其实Smoothness Assumption更精确的假设是这样的，你的相似是要透过一个high density region。比如说，`$x_1,x_2$`它们中间有一个high density region(`$x_1,x_2$`中间有很多很多的data，他们两个相连的地方是通过high density path相连的)。根据真正Smoothness Assumption的假设，它要告诉我们的意思就是说：`$x_1,x_2$`是可能会有一样的label，`$x_2,x_3$`可能会有比较不一样的label(他们中间没有high density path)。
+中间的过程是：首先我要用lagrange multiplier(bitshop appendix)，式子是：`$g(w^1)=(w^1)^TSw^1-\alpha ((w^1)^Tw^1-1)$`，接下来你把这个g对所有的w做偏微分(w是一个vector，有很多的element)，令这个式子通通等于0(偏微分)，整理一下你会得到这个式子：`$Sw^1-\alpha w^1=0$`。这个式子告诉我们说：solution是满足这个式子，如果写成`$Sw^1=\alpha w^1$`的话，`$w^1$`就是S的一个eigenvector。但是S的eigenvector有很多，而且你还可以找到eigenvector的长度等于1。所以你接下来要做的事情是，看哪一个eigenvector带到这个式子里面(`$(w^1)^TSw^1$`)可以maximizing`$(w^1)^TSw^1$`。整理一下变为`$\alpha (w^1)^Tw^1$`，得到结果为`$$\alpha`，谁可以让这个`$\alpha$`最大呢？答案是：`$w^1$`是对应到largest eigenvalue 的eigenvector时最大，这个`$\alpha$`是最大的eigenvalue `\lambda _1$`.
 
-那为什么会有Smoothness Assumption这样的假设呢？因为在真实的情况下是很多可能成立的
 
-![image](F0F6F79EE0754D04994A8BFB7F7F2375)
-比如说，我们考虑这个例子(手写数字辨识的例子)。看到这变有两个2有一个3，单纯算它们peixel相似度的话，搞不好，两个2是比较不像的，右边两个是比较像的(右边的2和3)。如果你把你的data都通通倒出来的话，你会发现这个2(最左边)跟这个2(右边)中间有很多连续的形态(中间有很多不直接相连的相似，但是有很多stepping stones可以直接跳过去)。所以根据smoothness Assumption的话，左边的2跟右边的2是比较像的，右边的2跟3中间没有过渡的形态，它们两个之间是不像的。如果看人脸辨识的是，也是一样的。如果从一个人的左脸照一张相跟右脸照一张相，这是差很多的。如果你拿另外一个人眼睛朝左的相片来比较的话，会比较像这个跟眼睛朝右相比的话。如果你收集更多unlabel data的话，在这一张脸之间有很多过渡的形态，眼睛朝左的脸跟眼睛朝向右的脸是同一个脸。
+![image](3BA5C302D00A4E4A9697F48DE5B7C6F5)
+那我要找`$w^2$`的话，我们要解是这样的equation：`$(w^2)^TSw^2$` `$(w^2)^Tw^2=1$` `$(w^2)^Ts^1=0$`。我们要maximizing根据`$w^2$`投影以后的variance。结论是：`$w^2$`也是covariance matrix S的一个eigenvector，然后它对应到`$2^{nd}$` largest eigenvector`$\lambda _2$`。那我们现在来解它：你先写一个function g，function里包括了你要maximzing的对象，还包括了两个constraint，分别乘以`$\alpha,\beta $`。接下来你对所有的参数做偏微分(所有的element)。做完以后你得到这个式子(`$Sw^2-\alpha w^2-\beta w^1=0$`)，然后坐左同时乘以`$w^1$`的transpose(乘以`$w^1$`的transpose以后，会出现`$(w^1)^Tw^1$`会等于1,`$(w^1)^TW^2$`等于0)，整理一下等于`$((w^1)^TSw^2)^T$`(scale)，在整理一下得到`$(w^{2})TSw^1$`。我们已经知道`$w^1$`是S的eigenvector，而且它对应到最大的eigenvalue `$\lambda_1 $`(`$Sw^1=\lambda w^1$`)。从这边我们得到的`$\beta $`等于0，所以剩下的`$Sw^2- \alpha w^2=0$`，然后得出`$Sw^2=\alpha w^2$`。`$w^2$`是一个eigenvector，但是它是哪一个eigenvector呢？它是第二大eigenvector。
 
+ 
 
+![image](4B397858EC12444485EBB039398F0E7F)
+z =Wx，这里神奇的地方就是：z的covariance是diagonal matrix，也就是说如果我们今天做PCA，你原来的data distribution可能是左边这张图，做完PCA以后，你会做decorrelation，你会让你不同的dimension间的covariance是0.也就是说你算z这个vector covariance matrix的话，会发现它是(==没太懂==)，这样做是有好处的。假设你PCA得到的feature(z)，这个新的feature是要其他的model用的，你的model假设说是一个generative model，你用gaussion来描述某一个class的distribution，而你在做gaussion假设的时候，你假设说input data它的covariance是diagonal，你假设不同的dimension之间没有decorrelation，这样可以减少你的参数量。
 
-![image](CD7A0C51ADA24781A86A5F543E22D5DD)
-这一招在文件分类上也是非常有用的，这是为什么呢？假设你现在要分天文学跟旅游类的文章，那天文学有一个固定的word distribution，会出现“asteroid,bright”.那旅游的文章会出现“yellowstone,zion等等”。那如果今天你的unlabel data跟你的label data是有similarity的话，你就很轻易处理这个问题。但是在真是的情况下，你的unlabel data跟label data中间没有siimilarity word。为什么呢？一篇文章可能词汇不是很多，但是word多，所以每篇文章(==没听懂)==，所以你拿到两篇，有重复的word比例其实是没有那么多的。所以很有可能你的unlabel data跟label data之间是没有任何关系的。
+你把原来的input data做PCA以后，再丢给其他的model，其它的model就可以假设现在的input data它的dimension之间没有decorrelation。所以它就可以用简单的model处理你的input data，这样就可以避免overfitting的情形。
 
+这件事情肿么说明呢？z的covariance是`$z-\bar{z}$`乘以`$(z-\bar{z})^T=WSW^T$`,s=Cov(x)，把S乘进`$w^1,...w^k$`变成`$[Sw^1,Sw^2,...Sw^k]$`,`$w^1$`是S的eigenvector，`$\lambda$`是eigenvalue，所以`$[Sw^1,Sw^2,...Sw^k]$`,`$w^1$`变成`$[\lambda w^1,\lambda w^2,...\lambda w^k,]$`，然后把W乘进去，然后就变成了`$[\lambda W w^1,\lambda Ww^2,...\lambda Ww^k,]$`。(`$w^1$`是W的第一个row)W乘以`$w^1$`等于`$e_1$`,`$e_1$`就是vector第一维是1，其它都是0，这个东西就是Diagonal matrix。
 
-![image](F159EA142751482A82A44872290B2360)
-如何实践这个smoothness assumption，最简单的方法是cluster and then label。现在distribution长这么样子，橙色是class1，绿色是class2，蓝色是unlabel data。接下来你就做一下cluster，你可能分成三个cluster，然后你看cluster1里面class1的label data最多，所以cluster1里面所有的data都算是class1，cluster2，cluster3都算是class2、class3，然后把这些data拿去learn就结束了，但是这个方法不一定有用。如果你今天要做cluster label，cluster要很强，因为这一招work的假设就是不同class cluster在一起。可是在image里面，把不同class cluster在一起是没有那么容易的。我们之前讲过说，为什么要用deep learning，不同class可能会长的很像，也有可能长的不像，你单纯只有pixel来做class，你结果是会坏掉的。如果你要让class and then label这个方法有用，你的class要很强。你要用很好的方法来描述image
+PCA,第一个找出的`$w^1$`是covariance matrix对应到最大eigenvalue的eigenvector，然后找出的`$w^2$`就是对应到第二大的eigenvector,以此类推。有一个证明告诉你说：这么做的话，每次投影的时候都可以让variance最大。
 
 
 
-刚才讲的是很直觉的方法，另外一个方法是Graph-based Approach，我们用graph-based approach来表达这个connected by a high density path这件事情。就说我们现在把所有的data points都建成一个graph，每一笔data points都是这个graph上一个点，要想把他们之间的range建出来。有了这个graph以后，你就可以说：high density path的意思就是说，如果今天有两个点，他们在这个graph上面是相的(走的到)，那么他们这就是同一个class，如果没有相连，就算实际的距离也不是很远，那也不是同一个class。
+![image](5923AA247EA34F53A47BA621ACD8D0EF)
+我们从更清楚的角度来看PCA，你就会知道PCA到底在做什么。假设我们考虑的是手写的数字，我们知道这些数字其实是一些basic component所组成的。这些basic component可能就代表笔画。举例来说：人类所手写的数字就是这些basic component所组成的，有斜的直线，横的直线，有比较长的直线，然后还有小圈，大圈等等，这些basic component加起来就可以得到一个数字。这些basic component写做`$u^1,u^2,...u^5$`，这些basic component其实就是一个一个的vector。假设我们现在考虑的是mnist，mnist一张image28*28piexl，也就是28 *28维的vector。这些component其实就是28 *28维的vector，把这些vector加起来以后，你所得到的vector就代表了一个diagit。如果把它写成formulation的话就是：`$x\approx c_1u^1+c_2u^2+....c_ku^k+\bar{x}$`，x代表一张image里面的pixel，x等于`$c_1u^1$`component乘以`$c_2u^2$`这个component，一直加到`$c_ku^k$`component，再加上`$\bar{x}$`,`$\bar{x}$`是所有image的平均。所以每一张image就是有一堆component的linear conformation再加上它平均所组成的。
 
-![image](B6B4B3A82E6949DEA49F314428B91271)
-那咋样建一个graph呢？有些时候这个graph representation是很自然就得到了。举例来说：假设你现在要做的是网页的分类，而你有记录网页之间的Hyperlink，那Hyperlink就很自然的告诉你网页之间是如何连接的。假设现在做的是论文的分类，论文和论文之间有引用之间的关系，这个引用也是graph，可以很自然地把图画出来给你。
+举例来说：7是这三个component加起来的结果，假设7就是x的话，`$c_1=1,c_2=0,c_3=1,c_4=0,c_5=1$`，你可以用`$c_1,c_2,...c_k$`来表示一张image。假设component比pixel的数目少的话，那么这个描述是比较有效的。7是1倍的`$u^1$`,1倍`$u^2$`,1倍的`$u^5$`所组成的，所以7是一个vector，它的第一维，第三维，第5维是1.
 
-![image](740478EAA91549E98D3D83B2605FEDB6)
-但有时候你要想办法来建这个graph。通常是这样做的：你要定义`$x^i,x^j$`咋样来算它们的相似度。影像的话可以用pixel来算相似度，但是performance不太好。算完相似度你就可以建graph，graph有很多种：比如说可以建K Nearest Neighbor，K Nearest Neighbor意思就是说，我现在有一大堆的data，data和data之间，我都可以算出它们的相似度，那我K=3(K Nearest Neighbor)，每一个point跟他最近的三个point做标记。或者也可以做e-Neighborhood:意思就是说，每个点只有跟它相似度超过某一个fresh hood,跟它相似度大于的1点才会连起来。所谓的edge也不是只有相连不相连这样boundary的选择而已，你可以给edge一些weight，你可以让你的edge跟你的要被连接起来的两个data points的相似度是成正比的。咋样定义这个相似度呢？我会建议比较好的选择就是Gaussian Radial Basis function来定义这个相似度。
 
+![image](23CAEC13DEBE4B21A189134C1B9670DA)
+现在把`$\bar{x}$`移到左边，x减掉所以image的平均等于一堆component linear conformation，这些linear comformation写作`$\hat{x}$`，那现在假设我们不知道这些component 是什么，不知道`$u^1$`到`$u^k$`的vector长什么样子。那我们咋样找K vector出来呢？我们要做的事情就是：我们要去找K vector使得`$\hat{x}$`跟`$x-\bar{x}$`越接近越好，他们的差用reconstruction error来描述。接下来我们要做事情就是：找K 个vector可以minimize这个reconstruction error。
 
-咋样算这个function呢？你可以先算说：`$x^i,x^j$`你都把它们用vector来描述的话，算他们的distance乘以一个参数，再取负号，然后再算exponentiation。其实exponentiation这件事在经验上还是会给你比较好的performance。为什么用这样的方式会给你比较好的performance呢？如果你现在看这个function(Gaussian Radial Basis function)它的下降速度是非常快的。你用这个Gaussian Radial Basis function的话，你能制造出像这个图(有两个橙色距离很近，绿色这个点离橙色也蛮近，稍微远一点)如果你用exponentiation的话，每一个点只能与非常近的点离,它跟稍微远一点就不连了。你要有这样的机制，你才能避免跨海沟的link，所以你用exponentiation通常效果比较好。
+在PCA中我们想说：我们要找一个matrix W，x乘以matrix W就得到了z，把W的每一个写出来就是`$[w_1,w_2,...,w_k]$`，x乘上一个`$[(w_1)^T,(w_2)^T,...(w_k)^T]$`,以此类推。那么说：是`$[w_1,w_2,...,w_k]$`是covariance matrix的eigenvector，事实上你要解这个式子`$L=mi_n(u^1,...u^k)\sum \left \| (x-\bar{x}) -(\sum_{k=1}^{k}c_ku^k)\right \|$`，找出`$u^1,...u^k$`。由PCA找出的这个解`$w^1,...w^k$`就是可以让L最小化
 
-![image](2553267B4F7048B9A3CD51321A3EE3EB)
-如果我们现在在graph上有一些label data，在这个graph上我们说这笔data1是属于class1，那跟它有相连的data points属于class1的几率也会上升，所以每笔data会影响它的邻居。光是会影响它的邻居是不够的，如果你只考虑光是影响它的邻居的话可能帮助是不会太大。为什么呢？如果说相连的本来就很像，你train一个model，input很像output马上就很像的话，帮助不会太大。那graph-based approach真正帮助的是：它的class是会传递的，本来这个点有跟class1相连所以它会变得比较像class1。但是这件事会像传染病一样传递过去，虽然这个点真正没有跟class1相连，因为像class1这件事情是会感染，所以这件事情会通过graph link传递过来。
 
 
-举例来说看这个例子，你把你的data points建成graph，这个如果是理想的例子的话，一笔label是属于class1(蓝色)，一笔label是属于class2(红色)。经过garph-based approach，你的graph建的这么漂亮的话(这边通通都是蓝色的，这边都是红色的)
+![image](9C985A3F6A4142289C4B50B5CF3FFDA8)
+我们有一大堆的x，现在假设有一个`$x_1$`，这个`$x_1$`减去`$\bar{x}$`等于`$u^1$`乘以component weight，c上标1下标1(下标1代表说：它是`$u^1$`的weight,上标1代表说：`$x^1$`的`$u^1$`component weight)，`$x^1-\bar{x} \approx c^1_1u^1+c^1_2u^1+...$`.
 
-![image](8C6CE7A2D1564C47AA4114E9FF4447B6)
-这样的semi-supervised有用，你的data要足够多，如果data不够多的话，这个地方没收集到data，那这个点就断掉了，那这个information就传不过去了。
+`$x-\bar{x}$`是一个vector(把这个vector拿出来),`$u^1,u^2...$`是一排vector(把它排起来，排起来就是一个matrix)，columns的数目是K个，把这些component weight排成一排变成一个vector，vector乘以matrix变成另一个vector。我们不只是有一笔data，`$x^2-\bar{x}$`是另外一个黄色的vector，这个vector(`$c_1^2,c_2^2$`)乘以matrix`$u^2$`等于另一个黄色的vector，依次类推。
 
+那我们把所有的data用这个式子来表示的话，这样就会得到一个matrix，这个matrix的cloumns等于data的数目(你有1万笔data，cloumns=10000)。现在`$\left\{\begin{matrix}
+... &... \\ 
+u^1 & u^2 \\ 
+ ...& ...
+\end{matrix}\right.$`乘以这个matrix `$\left\{\begin{matrix}
+c_1^1 &c_1^2 \\ 
+c_2^1 & c_2^2 \\ 
+ ...& ...
+\end{matrix}\right.$`跟这个matrix越接近越好，所以你要minimize左边两个matrix跟右边这个matrix之间的差距是会被minimize的，也就是说：用SVD提供给我们的matrix拆解方法，拆成这是三个matrix相乘后，跟左边的matrix是最接近的。
 
-![image](4E60581B4E3E4467A12F8D60592B773B)
-刚才是定性的说咋样使用这个graph，接下来说咋样定量使用这个graph。那这个定量的使用是在这个graph structure上面定义一个东西叫做：label的 smoothness，我们会定义说label有多符合我们刚才说的smoothness assumption 的假设
 
-现在看这两个例子，在这两个例子都有四个data points，data point跟data point连接的数字代表了weight。在左边这个例子中，你给它的label是(1,1,1，0)，在右边的例子中，给的label是(0,1,1,0)。左边的这个例子是比较smothness的，但是我们需要一个数字定量的描述它说：它有多smothness。常见的做法是这样子的：`$S=\frac{1}{2}\sum_{ij}w_{i,j}(y^i-y^j)^2$`。这个式子是我们考虑两两有相连的point，两两拿出来(summation over所有data i,j)，然后计算i,j之间的weight跟y的label减去j的label的平方(这个是summation 所有data，不管他现在是有label还是没有label)。所以你看左边这个case，在summation over所有的data的时候，你只需要考虑`$x_3,x_4$`,s=0.5(只是在计算时比较方便而已，没有真正的效用)，右边的class s=3，这个值(s)越小越smothness，你会希望你得出的labelsmothness的定义算出来越小越好。
 
+![image](EB5BB17CDB4F4248B9402C58B4C9D470)
+那要咋样来解这个问题呢？加入你有学过大一现代化，你就应该知道该咋样来解(可以参考李宏毅老师现代的课程)。每一个matrix X，你可以用SVD把它拆成一个matrix U(m *k)乘上一个matrix `$\sum$`(k *k)乘上matrix V(k *n)。这个matrix U就是matrix`$\left\{\begin{matrix}
+... &... \\ 
+u^1 & u^2 \\ 
+ ...& ...
+\end{matrix}\right.$`，这个`$\sum$`V就是`$\left\{\begin{matrix}
+c_1^1 &c_1^2 \\ 
+c_2^1 & c_2^2 \\ 
+ ...& ...
+\end{matrix}\right.$`。
 
-![image](D6B4EAC00D6A41249C044D2AFA3129CD)
-这个算式可以稍微整理整理一下，可以写成一个简洁的式子。我们把y串成一个vector(现在y包括label data，也包括unlabel data)，每一个笔label data和label data都赋一个值给你，现在你有R+U个dimension vector，可以写成y。如果你这样写的话，s这个式子可以写成y(vector)的transform乘以L(matrix)再乘以y，L是属于(R+U)*(R+U)matrix，这个L被叫做“Graph Laplacian”。
+如果我们今天用SVD将X拆成这三个matrix相乘，那右边三个matrix相乘的结果跟左边这个matrix的
 
-这个L的定义是：两个matrix相减(L=D-W)。W就是你把这些data point两两之间weight connection建成一个matrix，这个matrix的四个row个四个columns分别代表data`$x^1,x^4$`,D是你把w的每个row合起来。
+解出来的结果是：U这个matrix的 K columns其实就是一组orthonormal vector，这组orthonormal vector是`$XX^T$`的eigenvector，U总共有K个orthonormal vector，这K 个orthonormal vector对应到`$XX^T$`最大的k个eigenvalue的eigenvector。
 
+这个`$XX^T$`就是covariance matrix，PCA之前找出的W就是covariance matrix的eigenvector。而我们这边说做SVD，解出来U的每个column就是covariance matrix的eigenvector，所以这个U得出的解就是PCA得到的解。所以我们说：PCA做的事情就是：你找出来的那些W其实就是minimize reconstruction error。
 
 
-现在我们可以用这个式子`$y^TLy$`evaluation说：我们现在得到的label有多smothness。在这个式子里面我们会看到有y，这个y是label，这个label的值也就是neural network output的值是取决于neural parameters。这一项其实是neural 的depending，所以你要把graph的information考虑到neural network的train的时候，你要做的事情其实就是在原来的loss function里面加一项。假设你原来的loss function是cross entropy，你就加另外一项，你加的这一项是smoothness的值乘以某一个你想要调的参数，后面这一项其实就是象征了 regulization term。你不只要调整参数让你那些label data的output跟真正的label越接近越好，你同时还要做到说：output这些label，不管是在label data还是在unlabel data上面，它都符合smothness assuption的假设是由这个s所衡量出来的。所以你要minimize前一项还要minimize后一项(GD)
+![image](EB68EC5C9C81477485AFCC17DC71CE14)
+我们现在已经知道从PCA找出的`$w^1,...w^K$`就是k个component`$u^1,...u^K$`。我们现在有一个根据component linear combination叫做`$\hat{x}$`(`$\sum_{k=1}^{K}c_kw^k$`)。我们希望`$\hat{x}$`跟`$x-\bar{x}$`越小越好，你要minimize reconstruction error。那我们现在已经根据SVD找出这个W了，那这个`$c_k$`的值是多少呢？这个`$c_k$`是每一个image都有自己的`$c_k$`，这个`$c_k$`就每个image各自找就好。现在要用`$c_1,...c^k$`对`$w^k$`做linear combination。这个`$c_k=(x-\bar{x}w^k)$`，找一组`$c_k$`可以minimize`$ \hat{x},x-\bar{x}$`
 
-其实你要算smothness时不一定要放在output的地方，如果你今天是deep neural network的话，你可以把你的smothness放在network任何地方。你可以假设你的output是smooth，你也可以同时说：我把某一个hidden layer接出来再乘上别的一些transform，它也要是smooth，也可以说每一个hidden layer的output都是smooth
+linear combinarion做的事情你可以想成用neural network来表示它，假设我们的`$x-\bar{x}$`就是一个vector(三维的vector)，假设现在只有2个component(k=2)，那我们先算出`$c_1,c_2$`，`$c_1=(x-\bar{x})$`(`$x-\bar{x}$`的每一个component乘上`$w^1$`的每一个component，接下来你就得到了`$c_1$`。(`$x-\bar{x}$`是neural network的input，`$c_1$`是一个neural(linear neural )，`$w^1_1,w^1_2,w^1_3$`是weight，)。`$c_1$`
+乘以`$w^1$`(`$c_1$`乘上`$w_1$`的第一维(`$w_1^1$`)得到一个value，乘上`$w_1$`的第二维(`$w_2^1$`)得到一个value，乘上`$w_1$`的第三维(`$w_3^1$`)得到一个value)。接下来再算一下`$c_1$`，`$c_2$`乘以`$w^2$`的结果和之前的加起来就是最后的output，`$\hat{x_1},\hat{x_2},\hat{x_3}$`就是`$\hat{x}$`。
 
+接下来就是minimize error，我们要`$\bar{x}$`跟`$x-\hat{x}$`越接近越好(也就是这个output跟`$x-\hat{x}$`越接近越好)，那你可以发现说PCA可以表示成一个neural network，这个neural network只有一个hidden layer，这个hidden layer是linear activation function。那现在我们train 这个neural network是要input一个东西得到output，这个input跟output越接近越好。这个东西就叫做Autoencode
 
-最后一个方法是：Better Representation，这个方法的精神是：“去无存青，化繁为简”，等到unsupervised的时候再讲。
 
+这边就有一个问题，假设我们现在这个weight，不是用PCA的方法去找出`$w^1,w^2,...w^k$`。而是兜一个neural network，我们要minimize error，然后用Gradient Descent去train得到的weight，那就觉得你得到的结果会跟PCA得到的结果一样吗？这其实是会一样的(neural network没有办法保证是垂直的,你会得到另外一组解)。所以在linear的情况下，或许你就想要用PCA来找这个`$W$`比较快的，你用neural network是比较麻烦的。但是用neural network的好处是：可以deep
 
 
-它的精神是这样子的：我们观察到的世界其实是很复杂的，我们在我们观察到的世界背后其实是有一些比较简单的东西在操控着我们这个复杂的世界，所以你只要能看透这个世界的假象，直指它的核心的话就可以让train变得容易。
+![image](B1614E25DB474EE39476BEBD5F7E098A)
+PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入给它一大堆点没有label。假设你要把它project到一维上，PCA可以找一个可以让data variance最大的那个dimension，在这个case中，就把它project到这一维上(红色箭头))。有一种可能是，这两组data point它们分别代表了两个class，如果你用PCA来做dimension reduction的话，你就会使得蓝色跟橙色的class被meger在一起，这样就无法分别了。
 
+这时候你要肿么办呢？这时候你要引入label data，LDA是考虑label data考虑降维的方法，不过它是supervised，所以这个不是我们要讲的对象。
 
+另外一个PCA的弱点是Linear，我们刚开始举得例子会说。我们刚开始举的例子说：这边有一堆点的分布是像S型的，我们期待说：做dimension reduction后可以把这个S型曲面可以把它拉直，这件事情对PCA来说是做不到的。如果这个S型曲面做PCA的话，它是这样子的(如图)，就像打扁一样，而不是把它拉开，拉开这件事情PCA是办不到的。等下我们会讲non-linear
 
 
 
 
+![image](62BEA9D16BCE4EE391A46AE1E9512685)
+接下来，我们把PCA用在一些实际的问题上。比如说：用它来分析宝可梦的data，宝可梦总共有800种宝可梦，每个宝可梦可以用6个features来表示，分别是：生命值，攻击力，防御力，特殊攻击力，特殊防御力，速度。所以每一个宝可梦就是一个6维的vector，我们现在用PCA来分析它。
 
+在PCA中有个常问的问题：我需要有多少个component，要把它project到一维，二维还是三维...。要多少个component就好像是neural network要几个layer，每个layer要有几个neural一样，所以这是你要自己决定的。
 
+那一个常见的方法是这样的：我们去计算每一个principle components的`$\lambda $`(每一个principle component 就是一个eigenvector，一个eigenvector对应到一个eigenvalue `$\lambda $`)。这个eigenvalue代表principle component去做dimension reduction的时候，在principle component的那个dimension上它的variance有多大(variance就代表`$\lambda$`)。
 
 
+今天这个宝可梦的data总共有6维，所以covariance matrix是有6维。你可以找出6个eigenvector，找出6个eigenvalue。现在我们来计算一下每个eigenvalue的ratio(每个eigenvalue除以6个eigenvalue的总和)，得到的结果如图。
 
+可以从这个结果看出来说：第五个和第六个principle component的作用是比较小的，你用这两个dimension来做projection的时候project出来的variance是很小的，代表说：现在宝可梦的特性在第五个和第六个principle component上是没有太多的information。所以我们今天要分析宝可梦data的话，感觉只需要前面四个principle component就好了。
 
+![image](040BC7996AEE459BB96B395BA3E5BBD0)
 
+我们实际来分析一下，你做PCA以后得到四个principle component就是这个样子，每一个principle component就是一个vector，每一个宝可梦是用6位的vector来描述。我们来看每一个principle component做的事情是什么：如果我们看第一个principle component，第一个principle component每一个dimension都是正的，这个东西其实就代表了宝可梦的强度(如果你要产生一只宝可梦的时候，每一个宝可梦都是由这四个vector做linear conformation ，每一个宝 可梦可以想成是，这六个vector做linear conformation的结果，在选第一个principle component的时候，你给它的weight比较大，那这个宝可梦的六维都是强的，所以这第一个principle component就代表了这一只宝可梦的强度)。第二个principle component它在防御力的地方是正值，在速度的地方是负值，也就是说这个防御力跟速度是成反比的，你给第二个principle component一个weight的时候，你会增加那只宝可梦的防御力但是会减低它的速度。
+
+我们把第一个和第二个principle component 画出来的话，你会发现是这个样子(图上有800个点，每一个点对应到一只宝可梦)，但这样我么很难知道每一只宝可梦是什么
+
+
+![image](F40597DC8A79481DA6CD563E03042B68)
+如果我们看第三个和第四个component的话，会发现第三个principle component的特殊防御力是正的，攻击力和生命值是负的，说明是用生命值和攻击力换取特殊防御力的宝可梦。最后一个是：它的HP是正的，攻击力和防御力是负的，也就是说：它是用攻击力和防御力来换取生命力的宝可梦。
+
+![image](09BA2842B4C142C39BF1F4F1DCBBE44F)
+我们拿它来做手写数字辨识的话，我们可以把每一张数字都拆成component乘以weight，加上另外一个component乘以weight，每一张component是一张image(28* 28的vector)。我们现在来画前30component的话(PCA)，你得到的结果是这样子的(如图所示)，你用这些component做linear conformation，你就得到所有的digit(0-9)，所以这些component就叫做Eigen digits(这些component其实都是covariance matrix的eigenvector)
+
+![image](B15DC1607DB243EDA7022FB26D2E55C8)
+如果我们做人脸辨识的话，得到的结果是这样子的。找它们前30的pixel component，叫做Eigen-face。你把这些脸做linear conformation以后就可以得到所有的脸。但是这边跟我们预期的有些是不一样的，这是不是有bug啊。因为我们PCA找出来的是component，我们把很多component 做linear combine以后它会变成face。但是现在我们找出来的不是component，我们找出来的每一个图都几乎是完整的脸。
+
+![image](4B73310FEB604D7D90FAE3978C981D40)
+为什么会这样呢？其实你仔细想PCA的特性，你会发现说，会得到这个结果是可能的。因为在PCA里面，weight它可以是任何值(可以是正的，也可以是负的)，所以当我们用pixel component组成一张image的时候，你可以把这个component相加，也可以相减。所以这会导致你找出的component不见得是一个图的basic的东西。
+
+假设我要画一个9，那我可以先画一个8，把下面的圈圈减掉，然后把一杠加上去(你可以先画一个复杂的图，再把多于的减掉)。这些component其实不见得是笔画的东西，若你要得到类似笔画的东西，你要用Non-negative matrix factotization(NMF)。在Non-negative matrix factotization里面，我们刚才说：PCA它可以看做是对matrix X做SVD，SVD是matrix factorization的技术，它分解出来的两个matrix的值可以是正的，也可以是负的。那现在你要用NMF的话，我们会强迫所有的component weight都是正的。是正的好处就是，现在一张image必须由component叠加得到(你不能说：我先画一个很复杂的东西，再把一些东西去掉，得到一个digit)。如果你用PCA的话，你的dimension每一回都不见得是正的，会有一些负值，负值你是不知道要该肿么处理的。
+
+用NMF的话值都是正的，那些component自然会形成一张image。
+
+
+![image](1034DFD0A84E4331861D6EE3F2B6EC87)
+在MNIST用NMF的话，你找出来的那些piexl component它就会清楚很多，你会发现你找出来的每个东西都是笔画了。
+
+
+![image](BE1825BC24B447308EEA2B1336F10DE5)
+如果你要看脸的话，你就会发现说：它长的是这个样子，它比较像是脸的一些部分。
+
+![image](81151C5F0C254B719DCBE309C9759B0F)
+假设我们现在做一个调查，调查每个人买公仔的数目。ABCDE代表五个人，A有5个春日，B有4个，C有1个，D有1个，E有0个。A有炮姐3个，B有3个，C有1个，D有1个，E有1个。A有姐寺0个，B有0个，C有0个，D有4个，E有5个。A有小唯1个，B有1个，C有5个，D有4个，E有4个。你会发现说：在这个matrix上面，每一个table block并不是随机出现的。如果有两个公仔的人，那是因为每个人跟角色的背后是有一些特性的(有一些factor来操控这些特性)
+
+
+
+![image](599A002943294E51964053A29576AA7A)
+这些动漫仔会分为两种，有一种是萌傲娇的，有一种是萌天然呆的，每个人就是在萌傲娇和萌天然这个天然上一个点。假设A是偏萌傲娇的，可能有傲娇属性也可能有呆萌属性，所以每个角色就是就是平面上的一个点，所以每个角色都可以用vector来描述它。如果某一个人萌的属性跟某一个角色它本身所具有的属性是match的话(它们背后的vector很像)，那这个人就会买这个公仔。
+
+A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇的(没有A那么强)，C是萌天然呆的，每一个动漫人物角色后面也都有傲娇，天然呆这两种属性。如果它们背后属性是match的话，那这个人就会买这个公仔。世界操控的逻辑是这样子的，但是这些factors(萌傲娇还是萌天然呆)这些是没有办法直接被观察的
+![image](13B32D2F031C4C5DB1A605E07F54E916)
+但是这些factors(萌傲娇还是萌天然呆)这些是没有办法直接被观察的，因为没有人去关心他心里是想什么，你也没有办法说：每一个动漫人物它背后的属性是什么，这个是没有办法直接观察到的
+
+
+
+![image](5A8BA24BB3BD4CD4AC6C6EE5BDDF4777)
+我们有的是动漫人物跟手上有的公仔的数目，我们要根据这个关系论出每一个人跟每一个动漫人物背后的factor(每个人背后都有一个二维的vector，代表他萌傲娇，萌天然呆的程度)，每个人物的背后也都有一个vector，代表他傲娇的属性和天然呆的属性。我们知道每个人手上有公仔的数目，把它合起来看做是一个matrix X。这个matrix X的row的数目是Otakud的数目，它的columns的数目是动漫角色的数目。
+
+那我们现在做一个假设，这个matrix里面的element它都来自于两个vector的inner product。为什么A有5个春日的公仔呢？是因为`$r^A$`跟`$r^1$`的inner product很大(它的inner product是5，所以有5个春日的公仔)，如果`$r^A$`跟`$r^1$`的inner product是4，那B就会有4个炮姐的公仔，以此类推。
+
+如果这件事你用数学来表示的话，我们可以写成这样子。把`$r^A$`
+跟`$r^B$`排成一排，把`$r^1$`到`$r^4$`
+排起来。这个K是latent factor的数目，这个东西我们是没有办法知道的(我们把人分成萌傲娇萌天然呆，这样是不精确的分析方式。如果我们有更多data的话，我们应该更准确的知道有多少factor，要多少factor这些必须是试出来，这个就行principle component或者neural network的层数一样，你要事先决定好)我们就假设说现在latent factor的数目是K，你把它当成matrix row，就是一个M*K的matrix。如果你把`$r^1$`到`$r^4$`当做cloumns，就是K *N 的matrix。如果你这个M *K跟K *N的matrix乘起来就是M *N的matrix。那它的每一个dimension就是(最上角的dimension就是`$r^A$`乘以`$r^1$`，第一个row第二个column是`$r^A$`乘以`$r^2$`，以此类推)matrix X。那这样的话，我们做的事情就是找一组`$r^A$`到`$r^E$`，找一组`$r^1$`到`$r^4$`，把这两个matrix相乘以后，跟左边这个matrix X越接近越好(minimize error)。
+
+这个就可以用刚才的SVD来解，你可能说SVD不是有三个解吗？这时候你看你是要把`$\sum$`并到左边还是右边，把这个matrix X拆成两个matrix，然后minimize error。
+
+
+![image](F6EA47918B6C4AEE9BF093201C18AE90)
+但是有时候你会遇到这个问题，就是一些information是missing的(不知道这个information)。比如说：你不直道ABC手上有没有小叶撕的公仔，有可能在他所在的地区没有发行，那这个table只能写？
+
+在table上是？的话，你用刚才SVD的方法就会有点卡。那在这个matrix上有missing的value的话，我们还是可以做的，我们就用gradient descent的方法来做。我们来写一个loss function `$L=\sum _{(i,j)}(r^i*r^j-n_{ij})^2$`(你要i这个人乘以j这个角色的inner product跟它购买的数量`$n_{ij}$`是越接近越好)重点是说：我们在summation over这些element的时候，我可以避开这些missing data(我们在summation overi,j的时候，如果值没有，我就不算它，我们只算有定义值的部分)
+
+![image](86C976D3979D4CFB936DA441C1433DAE)
+那我们就用gradient descent来实际做一下
+，我们假设latent factor的数目为2。那A到E都会对应到二维的vector，那每一个角色都会对应到一个vector(属性)。所以我们把它在两个维度里面比较大的维度挑出来的话，你就会发现说：A,B是同一种属性，C,D,E是同一种属性，1,2有一种属性，3,4有同样的属性。你没有办法说每一个属性分别都代表着什么(不知道那个维度代表着天然呆或者傲娇)。
+
+你需要先找出这些latent factor去分析它的结果，你就可以知道说(因为我们事先已经知道姐寺跟小唯是有天然呆属性)第一个维度代表天然呆的属性，第二个维度是傲娇的属性。有了这些data以后，你就可以预测你的missing value。
+
+如果我们已经知道`$r^3$`,`$r^A$`，我们知道一个会购买公仔的数量其实是动漫角色背后的latent factor跟人背后的latent factor做inner product的结果。那我们把`$r^3$`跟`$r^A$`做inner product之后，你就可以预测说这个人会买多少公仔
+
+![image](E8B0CDBABF394D0CBF541B5E1A09B757)
+刚才那个model可以做的更精致一点，我们刚才说：A背后的latent factor `$r^A$`跟1背后的latent factor`$r^1$`得到的结果就是table上面的数值。但是事实上可能还会有别的因素会操控它的数值，所以更精确的写法是：`$r^A$`跟`$r^1$`的inner product加上某一个跟A有关的scale`$b_A$`，再加上跟1有关的scale`$b_1$`其实才等于5。`$b_A$`代表说：A本身有多喜欢买工仔，`$b_1$`代表说：这个角色它本身会有多想让别人购买(这件事情跟属性是无关的)
+
+所以改一下minimize的式子，改为`$r^i$`跟`$r^j$`的inner product加上`$b_i$`,`$b_j$`，然后你希望这个值跟`$n_{ij}$`越小越好，用gradient descent来解。(你也可以在loss function后面加上regularization)
+
+
+![image](F297666B776347A49E7CD8A62A62B154)
+matrix factorization有很多的应用，可以应用到topic analysis上面。如果把刚才讲的matrix factorization的技术用到topic analysis上面就叫做latent semantic analysis(LSA)。就是把刚才的动漫人物换成文章，把刚才的人换成词汇。table里面的值就是term frequency，把这个term frequency乘上一个weight代表说这个term本身有多重要。
+
+咋样evaluation一个term重不重要呢？常用的方式是：inverse document frequency(计算每一个词汇在整个paper有多少比率的document涵盖这个词汇，假如说，每个词汇，每个document都有，那它的inverse document frequency就很小)
+
+
+在这个task里面，如果你今天把这个matrix做分解的话，你就会找到每一个document背后那个latent factor，那这边的latent factor是什么呢？可能指的是topic(主题)，这个topic有多少是跟财经有关的，有多少是跟政治有关的。document1跟document2有比较多的“投资，股票”这样的词汇，那document1跟document2就有比较高的可能背后的latent factor是比较偏向“财经”的
+
+
+topic analysis的方法多如牛毛，基本的精神是差不多的(有很多各种各样的变化)。常见的是probability latent semantic analysis(PLSA)和latent Dirchlet allocation(LDA)。这跟之前在machine learning讲的LDA是完全不一样的东西
+
+![image](0E11153343554B569ADFA6ECCC8CC608)
+这些是一些reference给大家参考，这边是跟PCA比较有关系的。
+
+dimension reduction的方法多如牛毛，比如说MDS，MDS的特别是：它不需要把每一个data都表示成feature vector，它要知道feature vector跟feature vector之间的distance，知道这个distance，你就可以做dimension reduction。一般教科书举得例子会说：我现在一堆城市，你不知道咋样把城市描述成vector，但你知道城市跟城市之间的距离(每一笔data之间的距离)，难你就可以画在二维的平面上。其实MDS跟PCA是有一些关系的，如果你用某些特定的distance来衡量两个data point之间的距离的话，你做MDS就等于做PCA。其实PCA有个特性是：它保留了原来在高维空间中的距离(在高维空间的距离是远的，那么在低维空间中的距离也是远的)
+
+PCA有几率的版本，叫做probability PCA。PCA有非线性的版本，叫做kernel PCA。CCA是说：你有两种不同的source，这时候你想要用CCA。假如说你要做语音辨识，两个source(一个是声音讯号，有那个人嘴巴的image(可以看到这个人的唇形，可以读他的唇语))把这两种不同的source都做dimension reduction，那这个就是CCA
 
 
 
