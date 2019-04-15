@@ -1,7 +1,11 @@
 
 
-# Tips for deep learning
-## recipe of deep learning(流程)
+[TOC]
+
+# 概要
+> 本文主要是李宏毅机器学习的笔记，主要介绍在训练DNN过程中，不同阶段用到的一些技巧，本文所用到的图示来自随堂PPT
+
+## 深度学习的流程（Recipe of deep learning）
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter9-1.png)
 
 三个步骤
@@ -18,7 +22,7 @@
 如果training set上的结果变现不好，那么就要去neural network在一些调整，如果在testing set表现的很好，就意味成功了
 
 
-# Do not always blame overfitting
+# 不要总是抱怨过拟合（Do not always blame overfitting）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter9-2.png)
 
@@ -34,7 +38,8 @@
 
 当一个方法要被approaches时，往往都是针对这两个其中一个做处理，比如，你可能会挺到这个方法(dropout),dropout是在testing data不好的时候才会去使用，testing data好的时候不需要
 
-
+## 训练集上效果差
+### 更换激活函数（New activation function）
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter9-4.png)
 现在你的training data performance不好的时候，是不是你在做neural的架构时设计的不好，举例来说，你可能用的activation function不够好
 
