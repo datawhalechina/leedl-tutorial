@@ -6,8 +6,7 @@
 > 本文主要是李宏毅机器学习的笔记，主要介绍Keras基本使用，就像我们学编程语言时入门必学“hello world”，本文所用到的图示来自随堂PPT
 
 ## keras 是什么
-
-## keras 的发展
+Keras 是一个用 Python 编写的高级神经网络 API，它能够以 TensorFlow, CNTK, 或者 Theano 作为后端运行。
 
 
 
@@ -115,4 +114,4 @@ print("Accuracy of Testing Set:", score[1])
 # case2：模型预测
 result = model。predict(x_test)
 ```
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter8-9.png)
+![image](http://ppryt2uuf.bkt.clouddn.com/chapter8-9.png)	

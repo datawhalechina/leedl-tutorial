@@ -2,11 +2,13 @@
 [有道云笔记原文](http://note.youdao.com/noteshare?id=45ae15bad36394e7c93a0aa06e497608&sub=A2719EAD44724C7F8538FF304F064145)
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter12-1.png)
+
 我把dimension reduction分为两种，一种做的事情叫做“化繁为简”，它可以分为两种：一种是cluster，一种是dimension reduction。所谓的“化繁为简”的意思：现在有很多种不同的input，比如说：你现在找一个function，它可以input看起来像树的东西，output都是抽象的树，把本来比较复杂的input变成比较简单的output。那在做unsupervised learning的时候，你只会有function的其中一边。比如说：我们要找一个function要把所有的树都变成抽象的树，但是你所拥有的train data就只有一大堆的image(各种不同的image)，你不知道它的output应该是要长什么样子。
 
 那另外一个unsupervised learning可以做                 ，我们要找一个function，这个function你随机给它一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只要这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter12-2.png)
+
 那我们现在来说clustering，什么是clustering呢？clustering就是说：假设有一大堆的image，然后你就把它们分成一类一类的。之后你就可以说：这边所有的image都属于cluster1，这边都属于cluster2，这边都属于cluster3。有些不同的image用同一个cluster来表示，就可以做到“化繁为简”这件事。那这边的问题是：要到底有几个cluster，这个没有好的方法，就跟neural network要有几层一样。但是你不能太多，这张有9张image，就有9个cluster ，这样做跟没做是一样的。把全部的image放在一个cluster里，这跟没做是一样的。要咋样选择适当的cluster，==这个你要==                                                                                                      
 
 那在cluster方法里面，最常用的叫做k-means。我们有一大堆的data，他们都是unlabel(`$x^1,...x^N$`)，一个x就代表一张image ，我们要把它做成K个cluster。咋样做呢？我们要先找这些cluster的center。(==假设这边的==用vector来表示的话，这边的center也都是一样长度的vector)有K个cluster就需要有K个center。那初始的center咋样来呢，你可以从你的train data里面随机找K`$x^n$`出来，就是你的k个center。

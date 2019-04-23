@@ -1,16 +1,28 @@
+[TOC]
 
+
+
+# 参考
+[有道云笔记原文](http://note.youdao.com/noteshare?id=4ed13453a7ed620d6bd57e1b88745671&sub=1C9FA48EBD344F3CB5C490FA09F7D9DD)
+
+# Deeper is Better？
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-1.png)
 
 learning从1层到七层，error rate在不断的下降。但问题是，仔细的思考下，你的network越深，你的参数越多，performance较好，这没有好说的
 
-##### 真正比较deep和shallow
+## Fat + Short v.s. Thin + Tall
+#### 真正比较deep和shallow
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-2.png)
 调整shallow和Deep让他们的参数是一样多的，接下来的问题是，是这个shallow model较好还是deep model较好
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-3.png)
 后半段的实验结果是：我们用5层hidden layer，每层2000个neural，得到的error rate，error rate是越小越好的。如果你只是单纯的增加parameters，是让network长宽不是长高的话，其实对performance的帮助是比较小的。
 
 如果把network长高对performance是很有帮助的，network长宽对performance帮助没有那么好的
+
+
+
+# Modularization
 
 #### 为什么长高比长高好呢
 
@@ -34,7 +46,10 @@ learning从1层到七层，error rate在不断的下降。但问题是，仔细�
 
 所以他们可以对后面的classifier来说就可以利用前面的classifier(中间)，所以它就可以用比较少的train data就可以把结果train好。复杂的事basic classifier都已经做好了。
 
+## Deep learning
+
 #### deep learning咋样跟模组化的概念扯上关系呢
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-8.png)
 每一个neural可以被看做是一个basic classifier，第一次的neural就是最basci classifier，第二层的neural是比较复杂的classifier，把第一层basic classifier 的output当做第二层的input(把第一层的classifier当做module)，第三层把第二层当做module，以此类推。
 
@@ -114,7 +129,14 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 但是这个理论没有告诉我们的是，它只告诉我们可能性，但是它没有告诉我们说要做到这件事情到底有多有效率。没错，你只要要有够多的参数，hidden layer够宽，你就可以描述任何的function。但是这个理论没有告诉我们的是，当我们用这一件事(我们只用一个hidde layer来描述function的时候)它其实是没有效率的。当你有more layer(high structure)你用这种方式来描述你的function的时候，它是比较有效率的。
 
+
+
+# Analogy
+
+
+
 #### Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例子)
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-17.png)
 逻辑电路(logistic circuits)跟neural network可以类比。在逻辑电路里面是有一堆逻辑闸所构成的在neural network里面，neural是有一堆神经元所构成的。若你有修过逻辑电路的话，你会说其实只要两层逻辑闸你就可以表示任何的Boolean function，那有一个hidden layer的neural network(一个neural network其实是两层，input，output)可以表示任何的continue function。
 
@@ -144,13 +166,20 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 那现在我们减小参数的量，减少到只用2万笔来做train，这时候你会发现说，你用一个hidden lyaer的时候你的结果的就崩掉了，但如果是3个hidden layer的时候，你的结果变得只是比较差(比train data多的时候要差)，但是你会发现说你用3个hidden layer的时候是有次序的崩坏。这个结果(最右下角)就像是你今天要剪窗花的时候，折起来最后剪坏了，展开以后成这个样子。你会发现说在使用比较少的train data的时候，你有比较多的hidden layer最后得到的结果其实是比较好的。
 
 
+
+# End-to-end Learning
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-22.png)
+
 当我们用deep learning的时候，另外的一个好处是我们可以做End-to-end learning。
 
 所谓的End-to-end learning的意思是这样，有时候我们要处理的问题是非常的复杂，比如说语音辨识就是一个非常复杂的问题。那么说我们要解一个machine problem我们要做的事情就是，先把一个Hypothesis funuctions(也就是找一个model)，当你要处理1的问题是很复杂的时候，你这个model里面它会是需要是一个生产线(由许多简单的function串接在一起)。比如说，你要做语音辨识，你要把语音送进来再到通过一层一层的转化，最后变成文字。当你多End-to-end learning的时候，意思就是说你只给你的model input跟output，你不告诉它说中间每一个function要咋样分工(只给input跟output，让它自己去学)，让它自己去学中间每一个function(生产线的每一个点)应该要做什么事情。
 
 那在deep learning里面要做这件事的时候，你就是叠一个很深的neural network，每一层就是生产线的每一个点(每一层就会学到说自己要做什么样的事情)
 
+
+
+## End-to-end Learning- Speech Recognition
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-23.png)
 比如说，在语音辨识里面。还没有用deep learning的时候，我们肿么来做语音辨识呢，我们可能是这样做的。
@@ -167,14 +196,17 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 Google 有一篇paper是这样子，它最后的结果是这样子的，它拼死去learn了一个很多neural network，input就是声音讯号完全不做其它的任何事情，它最后可以做到跟有做(eel reacher from)的事情打平，也仅次于打平而已。我目前还没看到input一个声音讯号，不做(feel racher for)结果比这要好的。
 
+## End-to-end Learning - Image Recognition
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-25.png)
 刚刚都是讲语音的例子，影像也是差不多的。大家也都知道，我们就跳过去(过去影像也是叠很多很多的graph在最后一层用比较简单的classifier)
 
-
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-26.png)
 那现在用一个很深的neural，input直接是piexel，output里面是影像是什么
 
+
+
+# Complex Task
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-27.png)
 那deep learning还有什么好处呢。通常我们在意的task是非常复杂的，在这非常复杂的task里面，有非常像的input，会有很不同的output。举例来说，在做影视辨识的时候，白色的狗跟北极熊看起来很像，但是你的machine左边要outp dog，右边要output bear。有时候很不一样的东西，其实是一样的，横着看火车和侧面看火车，他们其实是不一样，但是output告诉我说一样的。
@@ -203,8 +235,7 @@ Google 有一篇paper是这样子，它最后的结果是这样子的，它拼�
 从物理/化学的角度为什么要做deep learning
 
 
-# 参考
-[有道云笔记原文](http://note.youdao.com/noteshare?id=4ed13453a7ed620d6bd57e1b88745671&sub=1C9FA48EBD344F3CB5C490FA09F7D9DD)
+
 
 
 
