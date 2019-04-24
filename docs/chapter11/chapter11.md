@@ -1,18 +1,18 @@
-[TOC]
+# 背景
+
+> 本文主要是李宏毅机器学习的笔记，主要讲解为什么是深度学习（高瘦结构），而不是宽度学习（矮胖结构）和相关的问题。本文所用到的图示来自随堂PPT
 
 
 
-# 参考
-[有道云笔记原文](http://note.youdao.com/noteshare?id=4ed13453a7ed620d6bd57e1b88745671&sub=1C9FA48EBD344F3CB5C490FA09F7D9DD)
-
-# Deeper is Better？
+##  问题1：越深越好？
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-1.png)
 
 learning从1层到七层，error rate在不断的下降。但问题是，仔细的思考下，你的network越深，你的参数越多，performance较好，这没有好说的
 
-## Fat + Short v.s. Thin + Tall
-#### 真正比较deep和shallow
+## 问题2：矮胖结构 v.s. 高瘦结构
+**真正比较deep和shallow**
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-2.png)
 调整shallow和Deep让他们的参数是一样多的，接下来的问题是，是这个shallow model较好还是deep model较好
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-3.png)
@@ -22,9 +22,9 @@ learning从1层到七层，error rate在不断的下降。但问题是，仔细�
 
 
 
-# Modularization
+# 引入模块化（Modularization）
 
-#### 为什么长高比长高好呢
+问题1：为什么长高比长高好呢？
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-4.png)
 
@@ -35,8 +35,8 @@ learning从1层到七层，error rate在不断的下降。但问题是，仔细�
 
 在 machine learning上，可以想象有这样的test。我们现在要做影像分类，我们把image分为四类(每个类别都有一些data)，然后去train 四个classifier。但问题是boys with long hair的data较少(没有太多的training data)，所以这个boys with long hair的classifier就比较weak(performance比较差)
 
+解决方法：肿么办呢，这时候可以用模组化的概念(modularization)
 
-#### 肿么办呢，这时候可以用模组化的概念(modularization)
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-6.png)
 假设我们先不去解那个问题，而是把原来的问题切成比较小的问题。比如说，我们先classifier，这些classifier的工作就是depen有没有一种attribute出现。
 
@@ -46,18 +46,18 @@ learning从1层到七层，error rate在不断的下降。但问题是，仔细�
 
 所以他们可以对后面的classifier来说就可以利用前面的classifier(中间)，所以它就可以用比较少的train data就可以把结果train好。复杂的事basic classifier都已经做好了。
 
-## Deep learning
+## 深度学习（Deep learning）
 
-#### deep learning咋样跟模组化的概念扯上关系呢
+问题2：deep learning咋样跟模组化的概念扯上关系呢？
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-8.png)
-每一个neural可以被看做是一个basic classifier，第一次的neural就是最basci classifier，第二层的neural是比较复杂的classifier，把第一层basic classifier 的output当做第二层的input(把第一层的classifier当做module)，第三层把第二层当做module，以此类推。
+每一层neural可以被看做是一个basic classifier，第一层的neural就是最basci classifier，第二层的neural是比较复杂的classifier，把第一层basic classifier 的output当做第二层的input(把第一层的classifier当做module)，第三层把第二层当做module，以此类推。
 
 在做deep learning的时候，咋样做模组化这件事，是machine自动学到的。
 
 做modularization这件事，把我们的模型变简单了(把本来复杂的问题变得简单了)，把问题变得简单了，就算train data没有那么多，我们也就可以把这个做好
 
-#### deep learning 在语音的变现
+### 使用语音识别举例
 
 在语音上我们为什么会用到模组化的概念
 
@@ -71,10 +71,13 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 一个phoneme可以拆成几个state，state有几个通常自己定义，通常就定义为三个state
 
+咋样做语音辨识呢？？？
 
-#### 咋样做语音辨识呢
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-10.png)
 语音辨识特别的复杂，现在来讲第一步，第一步要做的事情就是把acoustic feature转成state。所谓的acoustic feature简单说起来就是声音讯号发生一段wave phone，这这个wave phone通常取一段window(这个window通常不是太大)。一个window里面就用一个feature来描述里面的特性，那这个就是一个acoustic feature。你会在这个声音讯号上每隔一段时间来取一个window，声音讯号就变成一串的vector sequence。在语音辨识的第一阶段，你需要做的就是决定了每一个acoustic feature属于哪一个state。把state转成phone，phoneme，在把phoneme转成文字，接下来考虑同音字的问题，这不是我们今天讨论的问题。
+
+#### 传统的实现方法：HMM-GMM
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-11.png)
 在deep learning之前和之后，语音辨识有什么不同，这时候你就更能体会deep learning会在语音辨识有显著的成果。
 
@@ -87,7 +90,9 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 仔细一想，这一招根本不太work，因为这个Tri-phone的数目太多了。一般的语言(中文、英文)都有将近30、40phone。在Tri-phone里面，每一个phoneme随着它constant不同，你要用不同的model。到底有多少个Tri-phone，你有30的三次方的Tri-phone(27000)，每个Tri-phone有三个state，所以，你有数万的state，你每一个state都要用Gaussian Mixture Model来描述，参数太多了。
 
 
-#### 传统上在deep learning之前咋样去处理这件事呢
+
+传统上在deep learning之前咋样去处理这件事呢？？？
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-12.png)
 
 有一些state，他们会共用同一个model distribution，这件事叫做Tied-state。加入说，我们在写一些程式的时候，不同的state名称就好像是pointer，那不同的pointer他们可能会指向同样的distribution。所以有一些state，它的distribution是共用的，有些是不共用的。那到底哪些事共用的，哪些不是共用的，那么就变成你要凭着经验和一些语言学的知识来决定哪些state是要共用的
@@ -106,7 +111,10 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 所以这个不同的phoneme之间是有关系的，如果说每个phoneme都搞一个model，这件事是没有效率的。
 
-#### 那今天用deep learning是咋样做的呢？
+#### 深度学习的实现方法 DNN
+
+那今天用deep learning是咋样做的呢？？
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-14.png)
 
 如果是deep learning的话，那你就是去learn一个neural network，这个neural network的input就是一个acoustic feature，output就是这个feature属于每一个state的几率。就是一个很单纯classification probably跟作业上做的影像是没有差别的。learn一个DNN，input是一个acoustic feature，然后output就是告诉你说，acoustic feature属于每个state的几率，那最关键的一点是所有的state都共用同一个DNN，在这整个辨识里面就做一个DNN而已，你没有每一个state都有一个DNN。
@@ -115,13 +123,16 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 其实DNN不是暴力碾压的方法，你仔细想想看，在做HMM-GMM的时候，你说GMM有64个matrix觉得很简单，那其实是每一个state都有一个Gauusian matrix，真正合起来那参数是多的不得了的。如果你仔细去算一下GMM用的参数和DNN用的参数，在不同的test去测这件事情，他们的参数你就会发现几乎是差不多多的。DNN几乎是一个很大的model，GMM是很多很小的model，但将这两个比较参数量是差不多多的。但是DNN是将所有的state通通用同一个model来做分类，会使有效率的方法。
 
-#### 为什么这样做是比较有效率的方法呢？
+#### 两种方法的对比 GMM v.s. DNN
+
+为什么这样做是比较有效率的方法呢？？？
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-15.png)
 举例来说，如果你今天把一个DNN它的某一个hidden layer拿出来，然后把那个hidden layer假设有1000个neural你没有办法分析它，但是你可以把那1000个layer的output降维降到二维。所以在这个图上面呢，一个点代表一个acoustic feature，然后它通过DNN以后，把这个output降到二维，可以发现它的分布是这样的。
 
 在这个图上的颜色代表什么意思呢？这边颜色其实就是a,e,i,o,u这样，特别把这五个母音跟左边这个图用相同的颜色框起来。那你会神奇的发现，左边这五个母音的分布跟右边的图几乎是一样的。所以你可以发现DNN做的事情比较low layer的事情它其实是在它并不是真的要马上去侦测这个发音是属于哪个state。它的做事是它先观察说，当你听到这个发音的时候，人是用什么方式在发这个声音的，它的石头的位置在哪里(舌头的位置是高还是低呢，舌头位置是在前还是后呢等等)。然后lower layer比较靠近input layer先知道发音的方式以后，接下来的layer在根据这个结果去说现在的发音是属于哪个state/phone。所以所有的phone会用同一组detector。也就是这些lower layer是人类发音方式的detector，而所有phone的侦测都用是同一组detector完成的，所有phone的侦测都share(承担)同一组的参数，所以这边就做到模组化这件事情。当你做模组化的事情，你是要有效率的方式来使用你的参数。
 
-#### Universality Theorem
+#### 普遍性定理（Universality Theorem）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-16.png)
 
@@ -129,13 +140,11 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 但是这个理论没有告诉我们的是，它只告诉我们可能性，但是它没有告诉我们说要做到这件事情到底有多有效率。没错，你只要要有够多的参数，hidden layer够宽，你就可以描述任何的function。但是这个理论没有告诉我们的是，当我们用这一件事(我们只用一个hidde layer来描述function的时候)它其实是没有效率的。当你有more layer(high structure)你用这种方式来描述你的function的时候，它是比较有效率的。
 
+## 举例（Analogy）
 
+### 使用逻辑电路举例
 
-# Analogy
-
-
-
-#### Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例子)
+Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例子)
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-17.png)
 逻辑电路(logistic circuits)跟neural network可以类比。在逻辑电路里面是有一堆逻辑闸所构成的在neural network里面，neural是有一堆神经元所构成的。若你有修过逻辑电路的话，你会说其实只要两层逻辑闸你就可以表示任何的Boolean function，那有一个hidden layer的neural network(一个neural network其实是两层，input，output)可以表示任何的continue function。
@@ -147,6 +156,8 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 举例来说，你可以把好几个XNOR接在一起(input和output真值表在右上角)做parity check这件事。当你用多层次的架构时，你只需要$O(d)$gates你就可以完成你现在要做的这个任务，对neural network来说也是一样的，可以用比较的neural就能描述同样的function。
 
+### 使用剪窗花举例
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-19.png)
 一个日常生活中的例子，这个例子是剪窗花(折起来才去剪，而不是真的去把这个形状的花样去剪出来，这样就太麻烦了)，这个跟deep learning有什么关系呢？
 
@@ -155,6 +166,10 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 这个跟deep learning 有什么关系呢，我们用之前讲的例子来做比喻，假设我们现在input的点有四个(红色的点是一类，蓝色的点是一类)。我们之前说，如果你没有hidden layer的话，如果你是linear model，你怎么做都没有办法把蓝色的点和红色的点分来开，当你加上hidden layer会发生怎样的事呢？当你加hidde layeer的时候，你就做了features transformation。你把原来的$x_1$,$x_2$转换到另外一个平面$x_1$plane,$x_2$plane(蓝色的两个点是重合在一起的，如右图所示)，当你从左下角的图通过hidden layer变到右下角图的时候，其实你就好像把原来这个平面对折了一样，所以两个蓝色的点重合在了一起。这就好像是说剪窗花的时候对折一样，如果你在图上戳一个洞，那么当你展开的时候，它在这些地方都会有一些洞(看你对折几叠)。如果你把剪窗花的事情想成training。你把这件事想成是根据我们的training data，training data告诉我们说有画斜线的部分是positive，没画斜线的部分是negative。假设我们已经把这个已经折起来的时候，这时候training data只要告诉我们说，在这个范围之内(有斜线)是positive，在这个区间(无斜线)展开之后就是复杂的图样。training data告诉我们比较简单的东西，但是现在有因为对折的关系，展开以后你就可以有复杂的图案(或者说你在这上面戳个洞，在就等同于在其他地方戳了个洞)。
 
 所以从这个例子来看，一笔data，就可以发挥五笔data效果。所以，你在做deep learning的时候，你其实是在用比较有效率的方式来使用你的data。你可能很想说真的是这样子吗？我在文件上没有太好的例子。所以我做了一个来展示这个例子。
+
+### 使用二位坐标举例
+
+
 
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-21.png)
@@ -167,7 +182,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 
 
-# End-to-end Learning
+# 端到端的学习（End-to-end Learning）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-22.png)
 
@@ -179,7 +194,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 
 
-## End-to-end Learning- Speech Recognition
+## 语音识别（peech Recognition）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-23.png)
 比如说，在语音辨识里面。还没有用deep learning的时候，我们肿么来做语音辨识呢，我们可能是这样做的。
@@ -196,7 +211,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 Google 有一篇paper是这样子，它最后的结果是这样子的，它拼死去learn了一个很多neural network，input就是声音讯号完全不做其它的任何事情，它最后可以做到跟有做(eel reacher from)的事情打平，也仅次于打平而已。我目前还没看到input一个声音讯号，不做(feel racher for)结果比这要好的。
 
-## End-to-end Learning - Image Recognition
+## 图像识别（Image Recognition）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-25.png)
 刚刚都是讲语音的例子，影像也是差不多的。大家也都知道，我们就跳过去(过去影像也是叠很多很多的graph在最后一层用比较简单的classifier)
@@ -206,7 +221,7 @@ Google 有一篇paper是这样子，它最后的结果是这样子的，它拼�
 
 
 
-# Complex Task
+## 更复杂的任务（Complex Task）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-27.png)
 那deep learning还有什么好处呢。通常我们在意的task是非常复杂的，在这非常复杂的task里面，有非常像的input，会有很不同的output。举例来说，在做影视辨识的时候，白色的狗跟北极熊看起来很像，但是你的machine左边要outp dog，右边要output bear。有时候很不一样的东西，其实是一样的，横着看火车和侧面看火车，他们其实是不一样，但是output告诉我说一样的。
@@ -236,6 +251,9 @@ Google 有一篇paper是这样子，它最后的结果是这样子的，它拼�
 
 
 
+# 参考文章
+
+[有道云笔记原文](http://note.youdao.com/noteshare?id=4ed13453a7ed620d6bd57e1b88745671&sub=1C9FA48EBD344F3CB5C490FA09F7D9DD)
 
 
 

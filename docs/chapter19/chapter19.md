@@ -1,4 +1,4 @@
-
+http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A3986DA534B16BCF39C1B7E29ABC9
 
 ![image](542BBF1E0803491FBE7273F33FAA4F9D)
 Transfer learning指的就是，假设你手上有一些跟你现在要进行的task没有直接相关的data，那你能不能用这些没有直接相关的data来帮助我们做一些什么事情。比如说：你现在做的是猫跟狗的classifer，那所谓没有什么直接相关的data是什么意思呢？没有什么直接相关其实是有很多不同的可能。比如说input distribution 是类似的(一样时动物的图片)，但是你的label是无关的(domain是类似的，task是不像的)。还有另外的一个可能是：input domain是不同的，但是task是相同的(猫跟狗的分类，一个招财猫图片，一个是高非狗的图片)
