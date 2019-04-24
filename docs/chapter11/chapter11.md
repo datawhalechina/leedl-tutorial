@@ -57,7 +57,7 @@ learning从1层到七层，error rate在不断的下降。但问题是，仔细�
 
 做modularization这件事，把我们的模型变简单了(把本来复杂的问题变得简单了)，把问题变得简单了，就算train data没有那么多，我们也就可以把这个做好
 
-### 例子1：深度学习语音识别
+### 使用语音识别举例
 
 在语音上我们为什么会用到模组化的概念
 
@@ -75,6 +75,9 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-10.png)
 语音辨识特别的复杂，现在来讲第一步，第一步要做的事情就是把acoustic feature转成state。所谓的acoustic feature简单说起来就是声音讯号发生一段wave phone，这这个wave phone通常取一段window(这个window通常不是太大)。一个window里面就用一个feature来描述里面的特性，那这个就是一个acoustic feature。你会在这个声音讯号上每隔一段时间来取一个window，声音讯号就变成一串的vector sequence。在语音辨识的第一阶段，你需要做的就是决定了每一个acoustic feature属于哪一个state。把state转成phone，phoneme，在把phoneme转成文字，接下来考虑同音字的问题，这不是我们今天讨论的问题。
+
+#### 传统的实现方法：HMM-GMM
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-11.png)
 在deep learning之前和之后，语音辨识有什么不同，这时候你就更能体会deep learning会在语音辨识有显著的成果。
 
@@ -86,7 +89,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 仔细一想，这一招根本不太work，因为这个Tri-phone的数目太多了。一般的语言(中文、英文)都有将近30、40phone。在Tri-phone里面，每一个phoneme随着它constant不同，你要用不同的model。到底有多少个Tri-phone，你有30的三次方的Tri-phone(27000)，每个Tri-phone有三个state，所以，你有数万的state，你每一个state都要用Gaussian Mixture Model来描述，参数太多了。
 
-#### 传统的实现方法
+
 
 传统上在deep learning之前咋样去处理这件事呢？？？
 
@@ -108,7 +111,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 所以这个不同的phoneme之间是有关系的，如果说每个phoneme都搞一个model，这件事是没有效率的。
 
-#### 最新的实现方法
+#### 深度学习的实现方法 DNN
 
 那今天用deep learning是咋样做的呢？？
 
@@ -120,9 +123,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 其实DNN不是暴力碾压的方法，你仔细想想看，在做HMM-GMM的时候，你说GMM有64个matrix觉得很简单，那其实是每一个state都有一个Gauusian matrix，真正合起来那参数是多的不得了的。如果你仔细去算一下GMM用的参数和DNN用的参数，在不同的test去测这件事情，他们的参数你就会发现几乎是差不多多的。DNN几乎是一个很大的model，GMM是很多很小的model，但将这两个比较参数量是差不多多的。但是DNN是将所有的state通通用同一个model来做分类，会使有效率的方法。
 
-#### 两种方法的对比
-
-
+#### 两种方法的对比 GMM v.s. DNN
 
 为什么这样做是比较有效率的方法呢？？？
 
@@ -139,9 +140,9 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 但是这个理论没有告诉我们的是，它只告诉我们可能性，但是它没有告诉我们说要做到这件事情到底有多有效率。没错，你只要要有够多的参数，hidden layer够宽，你就可以描述任何的function。但是这个理论没有告诉我们的是，当我们用这一件事(我们只用一个hidde layer来描述function的时候)它其实是没有效率的。当你有more layer(high structure)你用这种方式来描述你的function的时候，它是比较有效率的。
 
+## 举例（Analogy）
 
-
-# 模块化举例（Analogy）
+### 使用逻辑电路举例
 
 Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例子)
 
@@ -155,6 +156,8 @@ Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例
 
 举例来说，你可以把好几个XNOR接在一起(input和output真值表在右上角)做parity check这件事。当你用多层次的架构时，你只需要$O(d)$gates你就可以完成你现在要做的这个任务，对neural network来说也是一样的，可以用比较的neural就能描述同样的function。
 
+### 使用剪窗花举例
+
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-19.png)
 一个日常生活中的例子，这个例子是剪窗花(折起来才去剪，而不是真的去把这个形状的花样去剪出来，这样就太麻烦了)，这个跟deep learning有什么关系呢？
 
@@ -163,6 +166,10 @@ Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例
 这个跟deep learning 有什么关系呢，我们用之前讲的例子来做比喻，假设我们现在input的点有四个(红色的点是一类，蓝色的点是一类)。我们之前说，如果你没有hidden layer的话，如果你是linear model，你怎么做都没有办法把蓝色的点和红色的点分来开，当你加上hidden layer会发生怎样的事呢？当你加hidde layeer的时候，你就做了features transformation。你把原来的$x_1$,$x_2$转换到另外一个平面$x_1$plane,$x_2$plane(蓝色的两个点是重合在一起的，如右图所示)，当你从左下角的图通过hidden layer变到右下角图的时候，其实你就好像把原来这个平面对折了一样，所以两个蓝色的点重合在了一起。这就好像是说剪窗花的时候对折一样，如果你在图上戳一个洞，那么当你展开的时候，它在这些地方都会有一些洞(看你对折几叠)。如果你把剪窗花的事情想成training。你把这件事想成是根据我们的training data，training data告诉我们说有画斜线的部分是positive，没画斜线的部分是negative。假设我们已经把这个已经折起来的时候，这时候training data只要告诉我们说，在这个范围之内(有斜线)是positive，在这个区间(无斜线)展开之后就是复杂的图样。training data告诉我们比较简单的东西，但是现在有因为对折的关系，展开以后你就可以有复杂的图案(或者说你在这上面戳个洞，在就等同于在其他地方戳了个洞)。
 
 所以从这个例子来看，一笔data，就可以发挥五笔data效果。所以，你在做deep learning的时候，你其实是在用比较有效率的方式来使用你的data。你可能很想说真的是这样子吗？我在文件上没有太好的例子。所以我做了一个来展示这个例子。
+
+### 使用二位坐标举例
+
+
 
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-21.png)
