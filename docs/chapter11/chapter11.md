@@ -221,7 +221,7 @@ Google 有一篇paper是这样子，它最后的结果是这样子的，它拼�
 
 
 
-# 更复杂的任务（Complex Task）
+## 更复杂的任务（Complex Task）
 
 ![image](http://ppryt2uuf.bkt.clouddn.com/chapter11-27.png)
 那deep learning还有什么好处呢。通常我们在意的task是非常复杂的，在这非常复杂的task里面，有非常像的input，会有很不同的output。举例来说，在做影视辨识的时候，白色的狗跟北极熊看起来很像，但是你的machine左边要outp dog，右边要output bear。有时候很不一样的东西，其实是一样的，横着看火车和侧面看火车，他们其实是不一样，但是output告诉我说一样的。
