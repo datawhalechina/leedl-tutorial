@@ -1,3 +1,4 @@
+![](NeighborEmbedding.png)
 # 参考
 [有道云笔记原文](http://note.youdao.com/noteshare?id=39eb91b29570c74371adb99f350906e8&sub=0B6E6A0540F4471F84A283F20158BEBC)
 

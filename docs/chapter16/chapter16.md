@@ -1,3 +1,4 @@
+![](WordEmbedding.png)
 # 参考
 [有道云笔记原文](http://note.youdao.com/noteshare?id=61dc6d8d917f4de709cdfbde0f6ce5e1&sub=53CBD71A661247258F0CD38E1F01EAD9)
 
