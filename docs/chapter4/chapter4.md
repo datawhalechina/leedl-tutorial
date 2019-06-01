@@ -1,5 +1,5 @@
 ![](Classification.png)
-[toc]
+[TOC]
 # 背景
 ## 分类概念
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170611198.png)
@@ -99,7 +99,7 @@ $$
 
 > $P(C_1|x)$  是由贝叶斯（bayes）公式得到的；$P(x)$ 是由全概率公式得到的，详情见《概率论与数理统计，浙江大学，第一章》。
 
-### 先验概率（Priori probability）
+### 先验概率（Prior probability）
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170813571.png)
 先考虑简单的二分类，水属性或者一般属性，通过训练集的数据可以计算出 $P(C_1)$ 和 $P(C_2)$，如图所示：
 - 水属性占比：$P(C_1) = 0.56$ 
