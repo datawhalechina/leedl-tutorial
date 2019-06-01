@@ -1,6 +1,8 @@
-@[toc]
+![](GradientDescent.png)
+[TOC]
 
 # 什么是Gradient Descent（梯度下降法）？
+
 在第二篇文章中有介绍到梯度下降法的做法，传送门：机器学习入门系列02，Regression 回归：案例研究
 
 ## Review: 梯度下降法
@@ -17,7 +19,7 @@ $$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
 假设 $\theta$ 有里面有两个参数 $\theta_1, \theta_2$
 随机选取初始值
 
-$$ 
+$$
 \theta^0 = \begin{bmatrix}
 \theta_1^0 \\
 \theta_2^0

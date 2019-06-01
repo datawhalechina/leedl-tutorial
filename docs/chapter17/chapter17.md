@@ -1,4 +1,4 @@
-
+![](GenerativeModel1.png)
 http://note.youdao.com/noteshare?id=d4ed06cd35f3cca02ed45c8d372f52d4&sub=626D051130254D85A44BC331C659FC53
 
 ![image](D6187D2E7C064B0B968BE77A00170E79)

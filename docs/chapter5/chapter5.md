@@ -1,5 +1,6 @@
-@[toc]
 
+![](Logistic-Regression.png)
+[TOC]
 # Step1 逻辑回归的函数集
 上一篇讲到分类问题的解决方法，推导出函数集的形式为：
 
