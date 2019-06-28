@@ -56,9 +56,11 @@ $（公式的LaTeX表达式）$
 
 # 主要贡献者（按首字母排名）
 
-[@ImayKing](https://github.com/Imay-King)
-[@jinjidehechengshi](https://github.com/jinjidehechengshi)
-[@spareribs](https://github.com/spareribs)
+- [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)
+- [@hahlw](https://github.com/hahlw)
+- [@Heitao5200](https://github.com/Heitao5200)
+- [@ImayKing](https://github.com/Imay-King)
+- [@spareribs](https://github.com/spareribs)
 
 # 关注我们
 
