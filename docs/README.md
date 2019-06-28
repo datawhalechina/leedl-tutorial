@@ -1,9 +1,9 @@
-# 李宏毅《机器学习》笔记(leeml-book)
-李宏毅老师的机器学习视频是机器学习领域经典的中文视频之一，也被称为中文世界中最好的机器学习视频。李老师以幽默风趣的上课风格让很多晦涩难懂的机器学习理论变得轻松易懂，并且老师会通过很多有趣的例子结合机器学习理论在课堂上展现出来，并且逐步推导深奥的理论知识。比如老师会经常用宝可梦来结合很多机器学习算法。对于想入门机器学习又想看中文讲解的人来说绝对是非常推荐的。
+# 李宏毅机器学习笔记(leeml-book)
+李宏毅老师的[机器学习视频](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)是机器学习领域经典的中文视频之一，也被称为中文世界中最好的机器学习视频。李老师以幽默风趣的上课风格让很多晦涩难懂的机器学习理论变得轻松易懂，并且老师会通过很多有趣的例子结合机器学习理论在课堂上展现出来，并且逐步推导深奥的理论知识。比如老师会经常用宝可梦来结合很多机器学习算法。对于想入门机器学习又想看中文讲解的人来说绝对是非常推荐的。学有余力的同学也可以看一下[李宏毅机器学习2019](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML19.html)(大部分是一样的，只有小部分更新)
 
 
 ## 使用说明
-这个笔记是根据李宏毅老师机器学习视频的一个辅助资料，本笔记基本上完全复刻李老师课堂上讲的所有内容，并加入了一些和相关的学习资料，如果觉得看视频比较慢可以直接看笔记的内容。
+这个笔记是根据李宏毅老师机器学习视频的一个辅助资料，本笔记基本上完全复刻李老师课堂上讲的所有内容，并加入了一些和相关的学习补充资料和参考资料，结合这些资料一起学习，相信你会对机器学习有更加深刻的理解。
 
 ### 在线阅读地址
 在线阅读地址：https://datawhalechina.github.io/Leeml-Book/
@@ -25,7 +25,8 @@ bilibili地址：[李宏毅机器学习(2017)](https://www.bilibili.com/video/av
 #  协作规范
 
 ### 文档书写规范：
-文档采用Markdown语法编写，数学公式采用LaTeX语法编写，数学符号和视频里完全一致
+文档采用Markdown语法编写，数学公式采用LaTeX语法编写，数学符号和视频里完全一致，文中所用到的图片均来自[李宏毅机器学习课程主页](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)
+脑图推荐使用[百度脑图](http://naotu.baidu.com)
 
 |          | 格式     | 参考资料                                                     |
 | :------: | :------- | :----------------------------------------------------------- |
@@ -38,27 +39,48 @@ bilibili地址：[李宏毅机器学习(2017)](https://www.bilibili.com/video/av
 ```
 leeML-book
 ├─docs
-|  ├─chapter1  # 第1章
+|  ├─chapter1  # 第1章(对应在线网站的 P1 Introduction of Machine Learning)
 |  |  ├─res  # 资源文件夹（图片、资料）
 |  |  |  └─chapter1-1.png
+|  |  ├─chapter1.md
 |  ├─chapter2
 ...
+|  ├─AdditionalReferences（所有补充资料）
+|  |  ├─DecisionTree  
+|  |  |  └─Entropy.md 
 ```
+
+
 ### 公式全解文档规范：
 ```
-## 公式编号
-$（公式的LaTeX表达式）$
-[推导]：（公式推导步骤） or [解析]：（公式解析说明）
-## 附录
-（附录内容）
+## 公式格式与PPT上保持一致
+## 总结每篇笔记的脑图作为大纲,并选择百度脑图外观中的鱼骨图
+## 每节笔记标题用一级标题
+## 笔记开头都先放上脑图作为笔记内容概要(脑图命名chapterX-0.png，如有多张可按chapterX-0_1.png等等来命名)
+## 每节小标题用二级标题(如有必要可以继续分三级四级，理论上不能超过四级)
+## 文中所有图片均放在同级的res文件夹下并按照chapterX-X.png格式命名(第一个X指章节编号，第二个X是指图片编号(从1开始))
+## 保证文档语言的书面化和清晰的逻辑
+
 ```
-样例参见`docs/chapter2/chapter2.md`和`docs/chapter3/chapter3.md`
+### 修正记录：
+版本|时间|作者|文档信息
+---|:--:|:--:|:--|---
+v1.0|2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)[@hahlw](https://github.com/hahlw)[@Heitao5200](https://github.com/Heitao5200)[@ImayKing](https://github.com/Imay-King)[@spareribs](https://github.com/spareribs)|建立初始仓库
+v1.1|内容|内容|内容
+v1.2|内容|内容|内容
+
+
+
+
+样例参见[chapter38.md](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter38)
 
 # 主要贡献者（按首字母排名）
 
-[@ImayKing](https://github.com/Imay-King)
-[@jinjidehechengshi](https://github.com/jinjidehechengshi)
-[@spareribs](https://github.com/spareribs)
+- [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)
+- [@hahlw](https://github.com/hahlw)
+- [@Heitao5200](https://github.com/Heitao5200)
+- [@ImayKing](https://github.com/Imay-King)
+- [@spareribs](https://github.com/spareribs)
 
 # 关注我们
 
