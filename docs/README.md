@@ -64,8 +64,8 @@ leeML-book
 ```
 ### 修正记录：
 版本|时间|作者|文档信息
----|:--:|:--:|:--|---
-v1.0|2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)[@hahlw](https://github.com/hahlw)[@Heitao5200](https://github.com/Heitao5200)[@ImayKing](https://github.com/Imay-King)[@spareribs](https://github.com/spareribs)|建立初始仓库
+---|:--:|:--|:--
+v1.0|2019.06.28 | [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@ImayKing](https://github.com/Imay-King)<br>[@spareribs](https://github.com/spareribs) |建立初始仓库
 v1.1|内容|内容|内容
 v1.2|内容|内容|内容
 
