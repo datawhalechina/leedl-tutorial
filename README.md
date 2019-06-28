@@ -26,7 +26,7 @@ bilibili地址：[李宏毅机器学习(2017)](https://www.bilibili.com/video/av
 
 ### 文档书写规范：
 文档采用Markdown语法编写，数学公式采用LaTeX语法编写，数学符号和视频里完全一致，文中所用到的图片均来自[李宏毅机器学习课程主页](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)
-脑图推荐使用[百度脑图](http://naotu.baidu.com)
+，脑图则推荐使用[百度脑图](http://naotu.baidu.com)
 
 |          | 格式     | 参考资料                                                     |
 | :------: | :------- | :----------------------------------------------------------- |
@@ -72,7 +72,7 @@ v1.2|内容|内容|内容
 
 
 
-样例参见[chapter38.md](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter38)
+样例参见[chapter38](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter38)
 
 # 主要贡献者（按首字母排名）
 
