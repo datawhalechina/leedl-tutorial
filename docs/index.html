@@ -23,11 +23,24 @@
   <!-- CDN files for docsify-katex -->
   <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
   <!-- or <script src="//cdn.jsdelivr.net/gh/upupming/docsify-katex/dist/docsify-katex.js"></script> -->
-  <link
-    rel="stylesheet"
-    href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"
-  />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <!-- Put them above docsify.min.js -->
   <script src="//cdn.jsdelivr.net/npm/docsify@latest/lib/docsify.min.js"></script>
+  
+  // 评论插件的应用
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      clientID: '02724a2355f93ed58315',
+      clientSecret: '014380e0fb7bfa7beea3385328d29e7dc9c46f99',
+      repo: 'Leeml-Book',
+      owner: 'datawhalechina',
+      admin: ['datawhalechina','Spareribs'],
+      id: window.location.pathname, // Ensure uniqueness and length less than 50
+      distractionFreeMode: false // facebook-like distraction free mode
+    })
+  </script>
 </body>
 </html>

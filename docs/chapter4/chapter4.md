@@ -1,218 +1,149 @@
-![](Classification.png)
-[TOC]
-# 背景
-## 分类概念
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170611198.png)
-分类要找一个 $function$ 函数，输入对象 $x$ 特征， 输出是该对象属于 $n$ 个类别中是属于哪一个。
-
-- 例子1：比如信用评分【二分类问题】
-	- 输入：收入，储蓄，行业，年龄，金融史…
-	- 输出：是否拒绝拒绝贷款
-- 例子2：比如医疗诊断【多分类问题】
-	- 输入：当前症状，年龄，性别，医疗史…
-	- 输出：患了哪种疾病
-- 例子3：比如手写文字辨识【多分类问题】
-	- 输入：手写的文字
-	- 输出：约9353个汉字中输入哪一个
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170628742.png)
-> 个人总结：我接触到的分类问题目前还是相对较少。在多分类问题上，如果特征复杂，类别又多，对机器的计算性能要求也相对较高。
-
-## 神奇宝贝的属性（水、电、草）预测
-这里再次使用《神奇宝贝》作为例子讲解。如下图，首先认识一下神奇宝贝中的属性：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517063686.png)
-神奇宝贝有很多的属性，比如电，火，水。要做的就是一个分类的问题：需要找到一个 $function$，
-- 输入：一只神奇宝贝的特征（整体强度，生命值，攻击力，防御力，特殊攻击力，特殊防御力，速度等）
-- 输出：属于哪一种类型的神奇宝贝
-
-首先将神奇宝贝数值化：以比卡丘为例
-
-- Total：整体强度，大概的表述神奇宝贝有多强，比如皮卡丘是320
-- HP：生命值，比如皮卡丘35
-- Attack：攻击力，比如皮卡丘55
-- Defense：防御力，比如皮卡丘40
-- SP Atk：特殊攻击力，比如皮卡丘50
-- SP Def：特殊防御力，比如皮卡丘50
-- Speed：速度，比如皮卡丘90
-- 
-所以一只 《神奇宝贝》可以用一个向量来表示，上述7个数字组成的向量。
+# 课程介绍
+上节课[《李宏毅·机器学习》读书笔记（一）Regression - Case Study](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-0.png)，主要介绍了回归算法的整个演算过程。在课程最后为了改善模型，不断提升模型的复杂度，但是效果反而变差了。
+本节课主要介绍其他改善模型的方法，并介绍交叉验证这种模型选择的方案。
 
-因为没有玩过《神奇宝贝》，我猜测在PK厂可以大概知道一只神奇宝贝的特征，但是不知道属于属性。因为在战斗的时候会有属性相克，下面给了张表，只需要知道，战斗的时候遇到对面神奇宝贝的特征，己方不知道属性的情况会吃亏，所以需要预测它的属性。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170642583.png)
 
+# Error的来源
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-1.png)
+从上节课测试集数据来看，$Average\ Error$ 随着模型复杂增加呈指数上升趋势。更复杂的模型并不能给测试集带来更好的效果，而这些 $Error$ 的主要有两个来源，分别是 $bias$ 和 $variance$ 。
 
-## 回归模型 vs 概率模型
-我们收集当前神奇宝贝的特征数据和属性数据，例如：皮卡丘$(x^1,\hat{y}^1)$  电属性；杰尼龟 $(x^2,\hat{y}^2)$ 水属性；···；妙蛙草  $(x^3,\hat{y}^3)$ 草属性
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170728263.png)
+然而 $bias$ 和 $variance$ 是什么？可以查看 [机器学习中的Bias(偏差)，Error(误差)，和Variance(方差)有什么区别和联系？](https://www.zhihu.com/question/27068705)
 
-### 回归模型
+# 估测
+假设真实的模型为 $\hat f$ ， 如果我们知道 $\hat f$ 模型，那是最好不过了，但是 $\hat f$ 只有 Niamtic 公司才知道。
 
-假设还不了解怎么做，但之前已经学过了 $regression$。就把分类当作回归硬解。
-举一个二分类的例子，假设输入神奇宝贝的特征 $x$，判断属于类别1或者类别2，把这个当作回归问题。
-- 类别1：相当于target是 $1$。
-- 类别2：相当于target是 $-1$。
+![](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-2.png)
 
-然后训练模型：因为是个数值，如果数值比较接近 $1$，就当作类别1，如果数值接近 $-1$，就当做类别2。这样做遇到什么问题？
+所以我们只能通过收集 Pokemon精灵 的数据，然后通过 step1~step3 训练得到我们的理想模型 $f^*$，$f^*$ 其实是  $\hat f$ 的一个预估。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170732711.png)
+![](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-3.png)
 
-- 左图：绿色是分界线，红色叉叉就是 Class2 的类别，蓝色圈圈就是 Class1 的类别。
-- 右图：紫色是分界线，红色叉叉就是 Class2 的类别，蓝色圈圈就是 Class1 的类别。训练集添加有很多的距离远大于1的数据后，分界线从绿色偏移到紫色
+这个过程就像打靶，$\hat f$ 就是我们的靶心，$f^*$ 就是我们投掷的结果。如上图所示，$\hat f$ 与  $f^*$ 之间蓝色部分的差距就是 $bias$ 和 $variance$ 导致的。
 
-这样用回归的方式硬训练可能会得到紫色的这条。直观上就是将绿色的线偏移一点到紫色的时候，就能让右下角的那部分的值不是那么大了。但实际是绿色的才是比较好的，用回归硬训练并不会得到好结果。此时可以得出用回归的方式定义，对于分类问题来说是不适用的。
+## 估测变量x的偏差（bias）和方差（variance）
+我们先理解一下偏差和方差是怎样计算的呢？ [偏差(Bias)和方差(Variance)——机器学习中的模型选择](https://segmentfault.com/a/1190000016447144)
 
-还有另外一个问题：比如多分类，类别1当作target1，类别2当作target2，类别3当作target3…如果这样做的话，就会认为类别2和类别3是比较接近的，认为它们是有某种关系的；认为类别1和类别2也是有某种关系的，比较接近的。但是实际上这种关系不存在，它们之间并不存在某种特殊的关系。这样是没有办法得到好的结果。
+### 评估 x 的偏差（bias）
+- 假设 $x$ 的平均值是  $\mu$，方差为 $\sigma^2$
 
-### 其他模型（理想替代品）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170740777.png)
+评估平均值要怎么做呢？
 
-先看二分类，将 $function$ 中内嵌一个函数 $g(x)$，如果大于0，就认识是类别1，否则认为是类别2。损失函数的定义就是，如果选中某个 $funciton \ f(x)$，在训练集上预测错误的次数。当然希望错误次数越小越好。
+- 首先拿到 $N$ 个样本点：$\{x^1,x^2,···,x^N\}$
+- 计算平均值 $m$, 得到 $m=\frac{1}{N}\sum_n x^n \neq \mu$
 
-但是这样的损失函数没办法解，这种定义没办法微分。这是有方法的，比如Perceptron（感知机），SVM等。这里先引入一个概率模型。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-4.png)
 
-# 概率模型实现原理
-## 盒子抽球概率举例
-说明：假设两个盒子，各装了5个球，还得知随机抽一个球，抽到的是盒子1的球的概率是 $2/3$，是盒子2的球的概率是$1/3$。从盒子中蓝色球和绿色球的分配可以得到：
-- 在盒子1中随机抽一个球，是蓝色的概率为 $4/5$，绿的的概率为 $1/5$
-- 在盒子2中随机抽一个球，是蓝色的概率为 $2/5$，绿的的概率为 $3/5$
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170744910.png)
-现在求随机从两个盒子中抽一个球，抽到的是盒子1中蓝色球的概率是多少？
+但是如果计算很多组的 $m$ ，然后求 $m$ 的期望：
 
-$$
-\begin{aligned} 
-P(B_1|Blue) &= \frac{P(Blue|B_1)P(B_1)}{P(Blue|B_1)P(B_1)+P(Blue|B_2)P(B_2) } \\
-& = \frac{\frac{4}{5}*\frac{2}{3}}{\frac{4}{5} * \frac{2}{3}+\frac{2}{5}*\frac{1}{3}}  \\
-& = \frac{4}{5}
-\end{aligned} 
-\tag{1}
-$$
+$$E[m]=E[\frac{1}{N}\sum x^n]=\frac{1}{N}\sum_nE[x^n]=\mu$$
 
-所以，两个盒子中抽一个球，抽到的是盒子1中蓝色球的概率是 $\frac{4}{5}$
+这个估计呢是无偏估计（unbiased）。
 
-## 概率与分类的关系
-将上面两个盒子换成两个类别
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170808342.png)
-- 那么，两个盒子中抽一个球，抽到的是盒子1中蓝色球的概率是多少？
-- 相当于两个类别中抽一个 $x$，抽到的是类别1中 $x$ 的概率是多少？
-- 可以转化成，随机给出一个 $x$，那么它属于哪一个类别（属于概率相对比较大的类别）？
+然后 $m$ 分布对于 $\mu$ 的离散程度（方差）：
+$$Var[m]=\frac{\sigma^2}{N}$$
 
-同理知道红色方框的值，就可以计算出给一个 $x$，它是属于哪个类型的，$P(C_1|x)$ 和 $P(C_ 2 | x)$，哪个类别的概率大就属于哪个类别。接下来就需要从训练集中估测红色方框中的值。这一套想法叫做**生成模型**（Generative Model）。因为有了这个模型，就可以生成一个 $x$，可以计算某个 $x$ 出现的概率，知道了$x$ 的分布，就可以自己产生 $x$ 。
+这个取决于 $N$，下图看出 $N$ 越小越离散：
 
-> $P(C_1|x)$  是由贝叶斯（bayes）公式得到的；$P(x)$ 是由全概率公式得到的，详情见《概率论与数理统计，浙江大学，第一章》。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-5.png)
 
-### 先验概率（Prior probability）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170813571.png)
-先考虑简单的二分类，水属性或者一般属性，通过训练集的数据可以计算出 $P(C_1)$ 和 $P(C_2)$，如图所示：
-- 水属性占比：$P(C_1) = 0.56$ 
-- 普通属性占比：$P(C_2) = 0.44$
+### 估测变量 x 的方差（variance）
+如何估算 $variance$ 呢？
 
-下面想计算 神奇宝贝原盖海龟是水属性的概率，即 $P(x|C_1)$。虽然知道这是一只原盖海龟，一看就是水属性的，但是在模型中，我们输入的是一个特征向量（vector）。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170818222.png)
-也就是在水系的神奇宝贝中随机选一只，是海龟的概率。下面将训练集中79个水系的神奇宝贝，属性`Defense`和`SP Defense`进行可视化
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170824194.png)
-这里假设这79点是从高斯分布（Gaussian distribution）中采样的，现在需要从这79个点找出符合的那个高斯分布。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-6.png)
 
-### 高斯分布（Gaussian distribution）
-下面简单说一下高斯分布：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-7.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170828467.png)
+## 为什么会有很多的 $f^*$ ?
+讨论系列02中的案例：这里假设是在平行宇宙中，抓了不同的神奇宝贝
 
-简单点可以把高斯分布当作一个 $function$，输入就是一个向量 $x$ ，输出就是选中 $x$ 的概率（实际上高斯分布不等于概率，只是和概率成正比，这里简单说成概率）。 $function$由期望  $\mu$ 和协方差矩阵  $\sum$ 决定。上图的例子是说同样的  $\sum$，不同的 $\mu$ ，概率分布的最高点的位置是不同的。下图的例子是同样的 $\mu$，不同的 $\sum$，概率分布的最高点是一样的，但是离散度是不一样的。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-8.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170833665.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170840658.png)
 
-假设通过79个点估测出了期望 $\mu$ 和协方差矩阵 $\sum$。期望是图中的黄色点，协方差矩阵是红色的范围。现在给一个不在79个点之内的新点，用刚才估测出的期望和协方差矩阵写出高斯分布的 $function \ f_{μ,Σ}(x)$，然后把 $x$ 带进去，计算出被挑选出来的概率
+用同一个model，在不同的训练集中找到的 $f^∗$ 就是不一样的
 
-### 最大似然估计（Maximum Likelihood）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170844754.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-9.png)
 
-首先对于这79个点，任意期望和协方差矩阵构成的高斯分布，都可以生成这些点。当然，像图中左边的高斯分布生成这些点，比右边高斯分布生成这些点的几率要大。那给一个 $\mu$ 和 $\sum$，它生成这79个点的概率为图中的 $L(\mu,\sum)$，$L(\mu,\sum)$ 也称为样本的似然函数。
 
-将使得 $L(\mu,\sum)$ 最大的 $L(\mu,\sum)$ 记做 $(\mu^∗,\sum^∗)$ ， $(\mu^∗,\sum^∗)$ 就是所有 $L(\mu,\sum)$ 的 Maximum Likelihood（最大似然估计）
+这就像在靶心上射击，进行了很多组（一组多次）。现在需要知道它的散布是怎样的，将100个宇宙中的model画出来
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170849169.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-10.png)
 
-这些解法很直接，直接对 $L(\mu,\sum)$ 求两个偏微分，求偏微分是0的点。
+不同的数据集之前什么都有可能发生—||
 
-> 最大似然估计更多详情参看《概率论与数理统计，浙江大学，第七章》
+### 考虑不同 model 的 variance
 
-### 应用最大似然估计计算期望和协方差
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170853776.png)
 
-算出之前水属性和一般属性高斯分布的期望和协方差矩阵的最大似然估计值。
+一次model的variance就比较小的，也就是是比较集中，离散程度较小。而5次model 的 variance就比较大，同理散布比较广，离散程度较大。
 
-## 分类模型
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170858147.png)
+所以用比较简单的model，variance是比较小的（就像射击的时候每次的时候，每次射击的设置都集中在一个比较小的区域内）。如果用了复杂的model，variance就很大，散布比较开。
 
-上图看出我们已经得到了需要计算的值，可以进行分类了。
+这也是因为简单的model受到不同训练集的影响是比较小的。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170907375.png)
+### 考虑不同 model的 bias
 
-左上角的图中蓝色点是水属性的神奇宝贝，红色点是一般属性的神奇宝贝，图中的颜色：越偏向红色代表是水属性的可能性越高，越偏向蓝色代表是水属性的可能性越低。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-11.png)
 
-右上角在训练集上进行分类的结果，红色就是 P(C1|x)P(C1|x) 大于0.5的部分，是属于类别1，相对蓝色属于类别2。右下角是放在测试集上进行分类的结果。结果是测试集上正确率只有 47% 。当然这里只处理了二维（两个属性）的情况，那在7维空间计算出最大释然估计值，此时μμ是7维向量，ΣΣ是7维矩阵。得到结果也只有54% 的正确率，so so。。。
+这里没办法知道真正的 $\hat{f}$，所以假设图中的那条黑色曲线为真正的 $\hat{f}$
 
-## 模型优化
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170912559.png)
 
-通常来说，不会给每个高斯分布都计算出一套不同的最大似然估计，协方差矩阵是和输入feature大小的平方成正比，所以当feature很大的时候，协方差矩阵是可以增长很快的。此时考虑到model参数过多，容易Overfitting，为了有效减少参数，给描述这两个类别的高斯分布相同的协方差矩阵。
+结果可视化，一次平均的 $\bar{f}$ 没有5次的好，虽然5次的整体结果离散程度很高。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170922453.png)
 
-此时修改似然函数为 L(μ1,μ2,Σ)L(μ1,μ2,Σ)。μ1,μ2μ1,μ2 计算方法和上面相同，分别加起来平均即可；而ΣΣ的计算有所不同。
 
-这里详细的理论支持可以查看《Pattern Recognition and Machine Learning》Christopher M. Bishop 著，chapter4.2.2
+一次model的bias比较大，而复杂的5次model，bias就比较小。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517092749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+直观的解释：简单的model函数集的space比较小，所以可能space里面就没有包含靶心，肯定射不中。而复杂的model函数集的space比较大，可能就包含的靶心，只是没有办法找到确切的靶心在哪，但足够多的，就可能得到真正的 f¯f¯。
 
-右图新的结果，分类的boundary是线性的，所以也将这种分类叫做 linear model。如果考虑所有的属性，发现正确率提高到了73%。
+### bias v.s. variance
 
-# 概率模型-建模三部曲
-将上述问题简化为前几个系列说过的三大步：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-12.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170930877.png)
+将系列02中的误差拆分为bias何variance。简单model（左边）是bias比较大造成的error，这种情况叫做 Underfitting（欠拟合），而复杂model（右边）是variance过大造成的error，这种情况叫做Overfitting（过拟合）。
 
-实际做的就是要找一个概率分布模型，可以最大化产生data的likelihood。
+# 怎么判断？
+## 分析
 
-# 为什么是高斯分布？
-可能选择其他分布也会问同样的问题。。。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-13.png)
 
-有一种常见的假设
+如果model没有很好的fit训练集，就是bias过大，也就是Underfitting
+如果model很好的fit训练集，即再训练集上得到很小的error，但在测试集上得到大的error，这意味着model可能是variance比较大，就是Overfitting。
+对于Underfitting和Overfitting，是用不同的方式来处理的
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170935880.png)
+### bias大，Underfitting
+此时应该重新设计model。因为之前的函数集里面可能根本没有包含f^f^。可以：
 
-假设每一个维度用概率分布模型产生出来的几率是相互独立的，所以可以将 P(x|C1)P(x|C1) 拆解。
+将更多的feature加进去，比如考虑高度重量，或者HP值等等。
+或者考虑更多次幂、更复杂的model。
+如果此时强行再收集更多的data去训练，这是没有什么帮助的，因为设计的函数集本身就不好，再找更多的训练集也不会更好。
 
-可以认为每个 P(xk|C1)P(xk|C1) 产生的概率都符合一维的高斯分布，也就是此时P(x|C1)P(x|C1) 的高斯分布的协方差是对角型的（不是对角线的地方值都是0），这样就可以减少参数的量。但是试一下这种做法会坏掉。
+### variance大，Overfitting
+简单粗暴的方法：More data
 
-对于二元分类来说，此时用通常不会用高斯分布，可以假设是符合 Bernoulli distribution（伯努利分布）。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-14.png)
 
-假设所有的feature都是相互独立产生的，这种分类叫做 Naive Bayes Classifier（朴素贝叶斯分类器）
+但是很多时候不一定能做到收集更多的data。可以针对对问题的理解对数据集做调整（Regularization）。比如识别手写数字的时候，偏转角度的数据集不够，那就将正常的数据集左转15度，右转15度，类似这样的处理。
 
-# 后验概率（Posterior Probability）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170943261.png)
+# 选择model
+现在在bias和variance之间就需要一个权衡
+想选择的model，可以平衡bias和variance产生的error，使得总error最小
+但是下面这件事最好不要做：
 
-将 P(C1|x)P(C1|x)整理，得到一个 σ(z)σ(z)，这叫做Sigmoid function。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-15.png)
 
-接下来算一下zz 长什么样子。
+用训练集训练不同的model，然后在测试集上比较error，model3的error比较小，就认为model3好。但实际上这只是你手上的测试集，真正完整的测试集并没有。比如在已有的测试集上error是0.5，但有条件收集到更多的测试集后通常得到的error都是大于0.5的。
 
-数学推导：
+## Cross Validation（交叉验证）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170946814.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-16.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305170952496.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305171000929.png)
+图中public的测试集是已有的，private是没有的，不知道的。Cross Validation 就是将训练集再分为两部分，一部分作为训练集，一部分作为验证集。用训练集训练model，然后再验证集上比较，确实出最好的model之后（比如model3），再用全部的训练集训练model3，然后再用public的测试集进行测试，此时一般得到的error都是大一些的。不过此时会比较想再回去调一下参数，调整model，让在public的测试集上更好，但不太推荐这样。（心里难受啊，大学数模的时候就回去调，来回痛苦折腾）
 
+上述方法可能会担心将训练集拆分的时候分的效果比较差怎么办，可以用下面的方法。
 
-求得z，然后：
+## N-fold Cross Validation（N-折交叉验证）
+将训练集分成N份，比如分成3份。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305171004792.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter4/res/chapter4-17.png)
 
-> 这里用到简单的矩阵知识，比如转置，矩阵的逆，矩阵乘法。详情可参考《高等代数》or《线性代数》；喜欢代数的，推荐丘维声著的《高等代数》，分上下册，这本书是国内代数方面的翘楚，数学系的鄙人强烈推荐。别被抄来抄去的书害了—||
+比如在三份中训练结果Average Error是model1最好，再用全部训练集训练model1。（貌似数模也干过，当年都是莫名其妙的分，想想当年数模的时候都根本来不及看是为什么，就是一股脑上去做00oo00）
 
-化简z，x的系数记做向量wTwT，后面3项结果都是标量，所以三个数字加起来记做bb。最后P(C1|x)=σ(w⋅x+b)P(C1|x)=σ(w⋅x+b)。从这个式子也可以看出上述当共用协方差矩阵的时候，为什么分界线是线性的。
-
-既然这里已经化简为上述的式子，直观感受就是可以估测N1,N2,μ1,μ2,ΣN1,N2,μ1,μ2,Σ，就可以直接得到结果了。下一篇讲述另外一种方法
-
-> 参考：《Pattern Recognition and Machine Learning》Christopher M. Bishop 著 Chapter4.1 -4.2 
-Data: https://www.kaggle.com/abcsds/pokemon

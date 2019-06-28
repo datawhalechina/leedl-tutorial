@@ -1,178 +1,261 @@
-
-![](Logistic-Regression.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-0.png)
 [TOC]
-# Step1 逻辑回归的函数集
-上一篇讲到分类问题的解决方法，推导出函数集的形式为：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174003164.png)
+# 什么是Gradient Descent（梯度下降法）？
 
-将函数集可视化：
+在第二篇文章中有介绍到梯度下降法的做法，传送门：机器学习入门系列02，Regression 回归：案例研究
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517400690.png)
+## Review: 梯度下降法
+在回归问题的第三步中，需要解决下面的最优化问题：
 
-图中z写错了，应该是 z=∑iwixi+bz=∑iwixi+b。这种函数集的分类问题叫做 Logistic Regression（逻辑回归），将它和第二篇讲到的线性回归简单对比一下函数集：
+$$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
+- $L$ :lossfunction（损失函数）
+- $\theta$ :parameters（参数）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517401228.png)
+这里的parameters是复数，即 $\theta$ 指代一堆参数，比如上篇说到的 $w$ 和 $b$ 。
 
-# Step2 定义损失函数
+我们要找一组参数 $\theta$ ，让损失函数越小越好，这个问题可以用梯度下降法解决：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517401533.png)
-上图有一个训练集，每个对象分别对应属于哪个类型（例如 x3x3 属于 C2C2 ）。假设这些数据都是由后验概率 fw,b(x)=Pw,b(C1|x)fw,b(x)=Pw,b(C1|x)产生的。
+假设 $\theta$ 有里面有两个参数 $\theta_1, \theta_2$
+随机选取初始值
 
-给定一组 w和b，就可以计算这组w，b下产生上图N个训练数据的概率，
+$$
+\theta^0 = \begin{bmatrix}
+\theta_1^0 \\
+\theta_2^0
+\end{bmatrix} \tag2
+$$
 
-L(w,b)=fw,b(x1)fw,b(x2)(1−fw,b(x3))⋯fw,b(xN)(1−1)
-L(w,b)=fw,b(x1)fw,b(x2)(1−fw,b(x3))⋯fw,b(xN)(1−1)
-对于使得 L(w,b)L(w,b)最大的ww和 bb，记做w∗w∗ 和 b∗b∗ ，即：
+这里可能某个平台不支持矩阵输入，看下图就好。
 
-w∗,b∗=argmaxw,bL(w,b)(1−2)
-w∗,b∗=arg⁡maxw,bL(w,b)(1−2)
-将训练集数字化，并且将式1-2中求max通过取负自然对数转化为求min ：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-1.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517413069.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+然后分别计算初始点处，两个参数对 $L$ 的偏微分，然后 $\theta^0$ 减掉 $\eta$ 乘上偏微分的值，得到一组新的参数。同理反复进行这样的计算。黄色部分为简洁的写法，$\triangledown L(\theta)$ 即为梯度。
+ > $\eta$ 叫做Learning rates（学习速率）
 
-然后将−lnL(w,b)−ln⁡L(w,b)改写为下图中带蓝色下划线式子的样子：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-2.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174134239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+上图举例将梯度下降法的计算过程进行可视化。
 
-图中蓝色下划线实际上代表的是两个伯努利分布（0-1分布，两点分布）的 cross entropy（交叉熵）
+# Tip1：调整 learning rates（学习速率）
+## 小心翼翼地调整 learning rate
+举例：
 
-假设有两个分布 p 和 q，如图中蓝色方框所示，这两个分布之间交叉熵的计算方式就是 H(p,q)H(p,q)；交叉熵代表的含义是这两个分布有多接近，如果两个分布是一模一样的话，那计算出的交叉熵就是0
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-3.png)
 
-交叉熵的详细理论可以参考《Information Theory（信息论）》，具体哪本书我就不推荐了，由于学这门科目的时候用的是我们学校出版的教材。。。没有其他横向对比，不过这里用到的不复杂，一般教材都会讲到。
+上图左边黑色为损失函数的曲线，假设从左边最高点开始，如果 $learning rate$ 调整的刚刚好，比如红色的线，就能顺利找到最低点。如果 $learning rate$ 调整的太小，比如蓝色的线，就会走的太慢，虽然这种情况给足够多的时间也可以找到最低点，实际情况可能会等不及出结果。如果 $learning rate$ 调整的有点大，比如绿色的线，就会在上面震荡，走不下去，永远无法到达最低点。还有可能非常大，比如黄色的线，直接就飞出去了，update参数的时候只会发现损失函数越更新越大。
 
-下面再拿逻辑回归和线性回归作比较，这次比较损失函数：
+虽然这样的可视化可以很直观观察，但可视化也只是能在参数是一维或者二维的时候进行，更高维的情况已经无法可视化了。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174138397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+解决方法就是上图右边的方案，将参数改变对损失函数的影响进行可视化。比如 learning rate 太小（蓝色的线），损失函数下降的非常慢；$learning rate$ 太大（绿色的线），损失函数下降很快，但马上就卡住不下降了；$learning rate$ 特别大（黄色的线），损失函数就飞出去了；红色的就是差不多刚好，可以得到一个好的结果。
 
-此时直观上的理解：如果把function的输出和target（真正的function y^ny^n）都看作是两个伯努利分布，所做的事情就是希望这两个分布越接近越好。
+## 自适应 learning rate
+举一个简单的思想：随着次数的增加，通过一些因子来减少 $learning rate$
+- 通常刚开始，初始点会距离最低点比较远，所以使用大一点的 $learning rate$
+- update好几次参数之后呢，比较靠近最低点了，此时减少 $learning rate$
+- 比如 $\eta^t =\frac{\eta^t}{\sqrt{t+1}}$，$t$ 是次数。随着次数的增加，$\eta^t$ 减小
 
-# Step3 寻找最好的function
-下面用梯度下降法求：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174142975.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+但 $learning rate$ 不能是 one-size-fits-all ，不同的参数需要不同的 $learning rate$
 
+## Adagrad 算法
+### Adagrad 是什么？
+每个参数的学习率都把它除上之前微分的均方根。解释：
 
-要求−lnL(w,b)−ln⁡L(w,b) 对 wiwi的偏微分，只需要先算出lnfw,b(xn)ln⁡fw,b(xn) 对 wiwi的偏微分以及 ln(1−fw,b(xn))ln⁡(1−fw,b(xn)) 对 wiwi的偏微分。计算lnfw,b(xn)ln⁡fw,b(xn) 对 wiwi偏微分，fw,b(x)fw,b(x)可以用σ(z)σ(z)表示，而zz可以用wiwi和 bb表示，所以利用链式法则展开。
+普通的梯度下降为：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174146326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+$$w^{t+1} \leftarrow  w^t -η^tg^t \tag3$$
+$$\eta^t =\frac{\eta^t}{\sqrt{t+1}} \tag4$$
+- $w$ 是一个参数
 
-计算 ln(1−fw,b(xn))ln⁡(1−fw,b(xn)) 对 wiwi 的偏微分，同理求得结果。
+Adagrad 可以做的更好：
+$$w^{t+1} \leftarrow  w^t -\frac{η^t}{\sigma}g^t \tag5$$
+$$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
+- $\sigma^t$ :之前参数的所有微分的均方根，对于每个参数都是不一样的。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174149872.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+### Adagrad举例
+下图是一个参数的更新过程
 
-将求得两个子项的偏微分带入，化简得到结果。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-4.png)
 
-现在 wiwi 的更新取决于学习率 ηη ，xnixin 以及上图的紫色划线部分；紫色下划线部分直观上看就是真正的目标 y^ny^n 与我们的function差距有多大。
+将 Adagrad 的式子进行化简：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-5.png)
 
-下面再拿逻辑回归和线性回归作比较，这次比较如果挑选最好的function：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174154350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+### Adagrad 存在的矛盾？
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-6.png)
 
-对于逻辑回归，target y^ny^n 是0或者1，输出是介于0和1之间。而线性回归的target可以是任何实数，输出也可以是任何值。
+在 Adagrad 中，当梯度越大的时候，步伐应该越大，但下面分母又导致当梯度越大的时候，步伐会越小。
 
-# 为什么不学线性回归用平方误差？
+下图是一个直观的解释：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174202477.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
-考虑上图中的平方误差形式。在step3计算出了对 w[iw[i 的偏微分。假设 y^n=1y^n=1 ，如果 fw,b(xn)=1fw,b(xn)=1，就是非常接近target，会导致偏微分中第一部分为0，从而偏微分为0；而 fw,b(xn)=0fw,b(xn)=0，会导致第二部分为0，从而偏微分也是0。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-7.png)
 
-对于两个参数的变化，对总的损失函数作图：
+下面给一个正式的解释：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174226902.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-8.png)
 
-如果是交叉熵，距离target越远，微分值就越大，就可以做到距离target越远，更新参数越快。而平方误差在距离target很远的时候，微分值非常小，会造成移动的速度非常慢，这就是很差的效果了。
+比如初始点在 $x_0$，最低点为 $−\frac{b}{2a}$，最佳的步伐就是 $x0$ 到最低点之间的距离 $\left | x_0+\frac{b}{2a} \right |$，也可以写成 $\left | \frac{2ax_0+b}{2a} \right |$。而刚好 $|2ax_0+b|$ 就是方程绝对值在 $x_0$ 这一点的微分。
 
-# Discriminative（判别）v.s. Generative（生成）
-逻辑回归的方法称为Discriminative（判别） 方法；上一篇中用高斯来描述后验概率，称为 Generative（生成） 方法。它们的函数集都是一样的：
+这样可以认为如果算出来的微分越大，则距离最低点越远。而且最好的步伐和微分的大小成正比。所以如果踏出去的步伐和微分成正比，它可能是比较好的。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174602275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+结论1-1：梯度越大，就跟最低点的距离越远。
 
-如果是逻辑回归，就可以直接用梯度下降法找出w和b；如果是概率生成模型，像上篇那样求出 μ1μ1 ， μ2μ2 ，协方差矩阵的逆，然后就能算出w和b。
+这个结论在多个参数的时候就不一定成立了。
 
-用逻辑回归和概率生成模型找出来的w和b是不一样的。
+### 多参数下结论不一定成立
+对比不同的参数
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174606233.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-9.png)
 
-上图是前一篇的例子，图中画的是只考虑两个因素，如果考虑所有因素，结果是逻辑回归的效果好一些。
+上图左边是两个参数的损失函数，颜色代表损失函数的值。如果只考虑参数 $w_1$，就像图中蓝色的线，得到右边上图结果；如果只考虑参数 $w_2$，就像图中绿色的线，得到右边下图的结果。确实对于 $a$ 和 $b$，结论1-1是成立的，同理 $c$ 和 $b$ 也成立。但是如果对比$a$ 和 $c$，就不成立了，$c$ 比 $a$ 大，但 $c$ 距离最低点是比较近的。
 
-## 一个好玩的例子
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019030517461223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+所以结论1-1是在没有考虑跨参数对比的情况下，才能成立的。所以还不完善。
 
-上图的训练集有13组数据，类别1里面两个特征都是1，剩下的(1, 0), (0, 1), (0, 0) 都认为是类别2；然后给一个测试数据(1, 1)，它是哪个类别呢？人类来判断的话，不出意外基本都认为是类别1。下面看一下朴素贝叶斯分类器（Naive Bayes）会有什么样的结果。
+之前说到的最佳距离 $\left | \frac{2ax_0+b}{2a} \right |$，还有个分母 $2a$ 。对function进行二次微分刚好可以得到：
+$$\frac{\partial ^2y}{\partial x^2} = 2a \tag7$$
+所以最好的步伐应该是：
+$$\frac{一次微分}{二次微分}$$
+即不止和一次微分成正比，还和二次微分成反比。最好的step应该考虑到二次微分：
 
-朴素贝叶斯分类器如图中公式：xx属于CiCi 的概率等于每个特征属于CiCi 概率的乘积。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-10.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/201903051746181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+### Adagrad 进一步的解释
+再回到之前的 Adagrad
 
-计算出P(C1|x)P(C1|x)的结果是小于0.5的，即对于朴素贝叶斯分类器来说，测试数据 (1, 1)是属于类别2的，这和直观上的判断是相反的。其实这是合理，实际上训练集的数据量太小，但是对于 (1, 1)可能属于类别2这件事情，朴素贝叶斯分类器是有假设这种情况存在的（机器脑补这种可能性==）。所以结果和人类直观判断的结果不太一样。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-11.png)
 
-## 判别（Discriminative）方法不一定比生成（Generative）方法好
-生成方法的优势：
+对于 $\sqrt{\sum_{i=0}^t(g^i)^2}$ 就是希望再尽可能不增加过多运算的情况下模拟二次微分。（如果计算二次微分，在实际情况中可能会增加很多的时间消耗）
 
-训练集数据量很小的情况；因为判别方法没有做任何假设，就是看着训练集来计算，训练集数量越来越大的时候，error会越小。而生成方法会自己脑补，受到数据量的影响比较小。
-对于噪声数据有更好的鲁棒性（robust）。
-先验和类相关的概率可以从不同的来源估计。比如语音识别，可能直观会认为现在的语音识别大都使用神经网络来进行处理，是判别方法，但事实上整个语音识别是 Generative 的方法，DNN只是其中的一块而已；因为还是需要算一个先验概率，就是某句话被说出来的概率，而估计某句话被说出来的概率不需要声音数据，只需要爬很多的句子，就能计算某句话出现的几率。
+# Tip2：Stochastic Gradient Descent（随机梯度下降法）
+之前的梯度下降：
 
-# Multi-class Classification（多类别分类）
-## Softmax
-下面看一下多类别分类问题的做法，具体原理可以参考《Pattern Recognition and Machine Learning》Christopher M. Bishop 著 ，P209-210
+$$L=\sum_n(\hat y^n-(b+\sum w_ix_i^n))^2 \tag8$$
+$$\theta^i =\theta^{i-1}- \eta\triangledown L(\theta^{i-1}) \tag9$$
 
-假设有3个类别，每个都有自己的weight和bias
+而Stochastic Gradient Descent（更快）：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174624293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+损失函数不需要处理训练集所有的数据，选取一个例子 $x^n$
 
-把z1,z2,z3z1,z2,z3放到一个叫做Softmax的方程中，Softmax做的事情就是它们进行exponential（指数化），将exponential 的结果相加，再分别用 exponential 的结果除以相加的结果。原本z1,z2,z3z1,z2,z3可以是任何值，但做完Softmax之后输出会被限制住，都介于0到1之间，并且和是1。Softmax做事情就是对最大值进行强化。
+$$L=(\hat y^n-(b+\sum w_ix_i^n))^2 \tag{10}$$
+$$\theta^i =\theta^{i-1}- \eta\triangledown L^n(\theta^{i-1}) \tag{11}$$
 
-把结果看成
+此时不需要像之前那样对所有的数据进行处理，只需要计算某一个例子的损失函数Ln，就可以赶紧update 梯度。
 
-yi=P(Ci|x)=exp(zk)∑nj=1exp(zj)
-yi=P(Ci|x)=exp⁡(zk)∑j=1nexp⁡(zj)
-比如图中数字的例子，即输入x，属于类别1的几率是0.88，属于类别2的几率是0.12，属于类别3的几率是0。
+对比：
 
-Softmax的输出就是用来估计后验概率（Posterior Probability）。为什么会这样？下面进行简单的说明：
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-12.png)
 
-## 为什么Softmax的输出可以用来估计后验概率？
-假设有3个类别，这3个类别都是高斯分布，它们也共用同一个协方差矩阵，进行类似上一篇讲述的推导，就可以得到Softmax。
+常规梯度下降法走一步要处理到所有二十个examples，但Stochastic 此时已经走了二十步（没处理一个example就更新）
 
-信息论学科中有一个 Maximum Entropy（最大熵）的概念，也可以推导出Softmax。简单说信息论中定义了一个最大熵。指数簇分布的最大熵等价于其指数形式的最大似然界。二项式的最大熵解等价于二项式指数形式(sigmoid)的最大似然，多项式分布的最大熵等价于多项式分布指数形式(softmax)的最大似然，因此为什么用sigmoid函数，那是因为指数簇分布最大熵的特性的必然性。假设分布求解最大熵，引入拉格朗日函数，求偏导数等于0，直接求出就是sigmoid函数形式。还有很多指数簇分布都有对应的最大似然界。而且，单个指数簇分布往往表达能力有限，就引入了多个指数簇分布的混合模型，比如高斯混合，引出了EM算法。想LDA就是多项式分布的混合模型。
+# Tip3：Feature Scaling（特征缩放）
+比如有个function：
 
-关于最大熵推导Softmax有一篇论文讲的比较好：。传送门：http://www.win-vector.com/dfiles/LogisticRegressionMaxEnt.pdf。如果传送门失效，google一下就好。
+$$y=b+w_1x_1+w_2x_2 \tag{12}$$
+两个输入的分布的范围很不一样，建议把他们的范围缩放，使得不同输入的范围是一样的。
 
-## 定义target
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-13.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174630823.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+## 为什么要这样做？
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-14.png)
 
-上一篇讲到如果定义类别1 y^=1y^=1，类别2 y^=2y^=2，类别3 y^=3y^=3，这样会人为造成类别1 和类型2有一定的关系这种问题。但可以将 y^y^定义为矩阵，这样就避免了。而且为了计算交叉熵，y^y^也需要是个概率分布才可以。
+上图左边是 $x_1$ 的scale比 $x_2$ 要小很多，所以当 $w_1$ 和 $w_2$ 做同样的变化时，$w_1$ 对 $y$ 的变化影响是比较小的，$x_2$ 对 $y$ 的变化影响是比较大的。
 
-# 逻辑回归的限制
+坐标系中是两个参数的error surface（现在考虑左边蓝色），因为 $w_1$ 对 $y$ 的变化影响比较小，所以 $w_1$ 对损失函数的影响比较小，$w_1$ 对损失函数有比较小的微分，所以 $w_1$ 方向上是比较平滑的。同理 $x_2$ 对 $y$ 的影响比较大，所以 $x_2$ 对损失函数的影响比较大，所以在 $x_2$ 方向有比较尖的峡谷。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174635278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+上图右边是两个参数scaling比较接近，右边的绿色图就比较接近圆形。
 
-考虑上图的例子，两个类别分布在两个对角线两端，用逻辑回归可以处理吗？
+对于左边的情况，上面讲过这种狭长的情形不过不用Adagrad的话是比较难处理的，两个方向上需要不同的学习率，同一组学习率会搞不定它。而右边情形更新参数就会变得比较容易。左边的梯度下降并不是向着最低点方向走的，而是顺着等高线切线法线方向走的。但绿色就可以向着圆心（最低点）走，这样做参数更新也是比较有效率。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174638587.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+## 怎么做 scaling？
+方法非常多，这里举例一种常见的做法：
 
-这里的逻辑回归所能做的分界线就是一条直线，没有办法将红蓝色用一条直线分开。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-15.png)
 
-## Feature Transformation（特征转换）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174645439.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+上图每一列都是一个例子，里面都有一组feature。
 
-特征转换的方式很多，举例类别1转化为某个点到 (0,0)(0,0) 点的距离，类别2转化为某个点到 (1,1)(1,1) 点的距离。然后问题就转化右图，此时就可以处理了。但是实际中并不是总能轻易的找到好的特征转换的方法。
+对每一个维度 $i$（绿色框）都计算平均数，记做 $m_i$；还要计算标准差，记做 $\sigma _i$。
 
-## Cascading logistic regression models（级联逻辑回归模型）
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174650156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+然后用第 $r$ 个例子中的第 $i$ 个输入，减掉平均数 $m_i$，然后除以标准差 $\sigma _i$，得到的结果是所有的维数都是 $0$，所有的方差都是 $1$
 
-可以将很多的逻辑回归接到一起，就可以进行特征转换。比如上图就用两个逻辑回归 z1z1和 z2z2来进行特征转换，然后对于 x′1x1′ 和 x′2x2′，再用一个逻辑回归zz来进行分类。
+# 梯度下降的理论基础
+## 问题
+当用梯度下降解决问题：
 
-对上述例子用这种方式处理：
+$$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174655264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+每次更新参数 $\theta$，都得到一个新的 $\theta$，它都使得损失函数更小。即：
 
-右上角的图，可以调整参数使得得出这四种情况。同理右下角也是
+$$L(\theta^0) >L(\theta^1)>L(\theta^2)>···\tag{13}$$
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174659375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+上述结论正确吗？
 
-经过这样的转换之后，点就被处理为可以进行分类的结果。
+结论是不正确的。。。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190305174703530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3EzNzA4MzUwNjI=,size_16,color_FFFFFF,t_70)
+# 数学理论
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-16.png)
 
-一个逻辑回归的输入可以来源于其他逻辑回归的输出，这个逻辑回归的输出也可以是其他逻辑回归的输入。把每个逻辑回归称为一个 Neuron（神经元），把这些神经元连接起来的网络，就叫做 Neural Network（神经网络）。
+比如在 $\theta^0$ 处，可以在一个小范围的圆圈内找到损失函数细小的 $\theta^1$，不断的这样去寻找。
+
+接下来就是如果在小圆圈内快速的找到最小值？
+
+## Taylor Series（泰勒展开式）
+先介绍一下泰勒展开式
+
+### 定义
+若 $h(x)$ 在 $x=x_0$ 点的某个领域内有无限阶导数（即无限可微分，infinitely differentiable），那么在此领域内有：
+
+$$
+\begin{aligned}
+h(x)  &= \sum_{k=0}^{\infty }\frac{h^k(x_0)}{k!}(x-x_0)^k  \\
+& =h(x_0)+{h}'(x_0)(x−x_0)+\frac{h''(x_0)}{2!}(x−x_0)^2+⋯
+\tag{14}
+\end{aligned} 
+$$
+
+
+当 $x$ 很接近 $x_0$ 时，有 $h(x)≈h(x_0)+{h}'(x_0)(x−x_0)$
+式14 就是函数 $h(x)$ 在 $x=x_0$ 点附近关于 $x$ 的幂函数展开式，也叫泰勒展开式。
+
+举例：
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-17.png)
+
+图中3条蓝色线是把前3项作图，橙色线是 $sin(x)$。
+
+### 多变量泰勒展开式
+下面是两个变量的泰勒展开式
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-18.png)
+
+## 利用泰勒展开式简化
+回到之前如何快速在圆圈内找到最小值。基于泰勒展开式，在 $(a,b)$ 点的红色圆圈范围内，可以将损失函数用泰勒展开式进行简化：
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-19.png)
+
+将问题进而简化为下图：
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-20.png)
+
+不考虑s的话，可以看出剩下的部分就是两个向量$(\triangle \theta_1,\triangle \theta_2)$ 和  $(u,v)$ 的内积，那怎样让它最小，就是和向量 $(u,v)$ 方向相反的向量
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-21.png)
+
+然后将u和v带入。
+
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-22.png)
+$$L(\theta)\approx s+u(\theta_1 - a)+v(\theta_2 - b) \tag{14}$$
+
+发现最后的式子就是梯度下降的式子。但这里用这种方法找到这个式子有个前提，泰勒展开式给的损失函数的估算值是要足够精确的，而这需要红色的圈圈足够小（也就是学习率足够小）来保证。所以理论上每次更新参数都想要损失函数减小的话，即保证式1-2 成立的话，就需要学习率足够足够小才可以。
+
+所以实际中，当更新参数的时候，如果学习率没有设好，是有可能式1-2是不成立的，所以导致做梯度下降的时候，损失函数没有越来越小。
+
+式1-2只考虑了泰勒展开式的一次项，如果考虑到二次项（比如牛顿法），在实际中不是特别好，会涉及到二次微分等，多很多的运算，性价比不好。
+
+# 梯度下降的限制
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-23.png)
+
+容易陷入局部极值
+还有可能卡在不是极值，但微分值是0的地方
+还有可能实际中只是当微分值小于某一个数值就停下来了，但这里只是比较平缓，并不是极值点
+
+
