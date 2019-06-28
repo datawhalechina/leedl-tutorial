@@ -36,6 +36,6 @@
   - [P35 24:Structured Learning - Sequence Labelin](chapter24/chapter24.md)
   - [P36 25:Recurrent Neural Network (Part I)](chapter25/chapter25.md)
   - [P37 26:Recurrent Neural Network (Part II)](chapter26/chapter26.md)
-  - [P38 27:Ensemble](chapter27/chapter27.md)
+  - [P38 27:Ensemble](chapter38/chapter38.md)
   - [P39 28:Deep Reinforcement Learning - Scratching the surface](chapter28/chapter28.md)
   - [P40 The Next Step for Machine Learning](chapter29/chapter29.md)
