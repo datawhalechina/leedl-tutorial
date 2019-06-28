@@ -16,17 +16,17 @@
 - [第3课 梯度下降](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter5)
 - [第4课 概率生成模型](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter8)
 - [第5课 逻辑回归](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter9)
-- 等等（详细查看在线文档）
+
 
 ## 视频观看地址
-bilibili地址：[机器学习-李宏毅(2019) Machine Learning](https://www.bilibili.com/video/av35932863)
+bilibili地址：[李宏毅机器学习(2017)](https://www.bilibili.com/video/av10590361/)
 网易云课堂地址：[台大李宏毅机器学习中文课程](https://study.163.com/course/introduction/1208946807.htm)
 
 #  协作规范
 
 ### 文档书写规范：
 文档采用Markdown语法编写，数学公式采用LaTeX语法编写，数学符号和视频里完全一致，文中所用到的图片均来自[李宏毅机器学习课程主页](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)
-脑图推荐使用[百度脑图](http://naotu.baidu.com)
+，脑图则推荐使用[百度脑图](http://naotu.baidu.com)
 
 |          | 格式     | 参考资料                                                     |
 | :------: | :------- | :----------------------------------------------------------- |
@@ -53,26 +53,27 @@ leeML-book
 
 ### 公式全解文档规范：
 ```
+## 复现笔记在原则上是记录李老师课堂的话，对于比较繁琐的公式推导或者概念理解可以自己总结写上去
 ## 公式格式与PPT上保持一致
 ## 总结每篇笔记的脑图作为大纲,并选择百度脑图外观中的鱼骨图
-## 每节笔记标题用一级标题
+## 每张图片下面都空一行(为了在电脑端显示格式不乱)
 ## 笔记开头都先放上脑图作为笔记内容概要(脑图命名chapterX-0.png，如有多张可按chapterX-0_1.png等等来命名)
-## 每节小标题用二级标题(如有必要可以继续分三级四级，理论上不能超过四级)
+## 每节笔记标题用一级标题，每节小标题用二级标题(目录只能识别一级和二级标题)
 ## 文中所有图片均放在同级的res文件夹下并按照chapterX-X.png格式命名(第一个X指章节编号，第二个X是指图片编号(从1开始))
 ## 保证文档语言的书面化和清晰的逻辑
 
 ```
 ### 修正记录：
 版本|时间|作者|文档信息
----|:--:|:--|:--
-v1.0|2019.06.28 | [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@ImayKing](https://github.com/Imay-King)<br>[@spareribs](https://github.com/spareribs) |建立初始仓库
+---|:--:|:--:|:--|---
+v1.0|2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)[@hahlw](https://github.com/hahlw)[@Heitao5200](https://github.com/Heitao5200)[@ImayKing](https://github.com/Imay-King)[@spareribs](https://github.com/spareribs)|建立初始仓库
 v1.1|内容|内容|内容
 v1.2|内容|内容|内容
 
 
 
 
-样例参见[chapter38.md](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter38)
+样例参见[chapter38](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter38)
 
 # 主要贡献者（按首字母排名）
 
