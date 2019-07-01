@@ -1,4 +1,4 @@
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-0.png)
+![](res/chapter6-0.png)
 [TOC]
 
 # 什么是Gradient Descent（梯度下降法）？
@@ -28,12 +28,12 @@ $$
 
 这里可能某个平台不支持矩阵输入，看下图就好。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-1.png)
+![](res/chapter6-1.png)
 
 然后分别计算初始点处，两个参数对 $L$ 的偏微分，然后 $\theta^0$ 减掉 $\eta$ 乘上偏微分的值，得到一组新的参数。同理反复进行这样的计算。黄色部分为简洁的写法，$\triangledown L(\theta)$ 即为梯度。
  > $\eta$ 叫做Learning rates（学习速率）
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-2.png)
+![](res/chapter6-2.png)
 
 上图举例将梯度下降法的计算过程进行可视化。
 
@@ -41,7 +41,7 @@ $$
 ## 小心翼翼地调整 learning rate
 举例：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-3.png)
+![](res/chapter6-3.png)
 
 上图左边黑色为损失函数的曲线，假设从左边最高点开始，如果 $learning rate$ 调整的刚刚好，比如红色的线，就能顺利找到最低点。如果 $learning rate$ 调整的太小，比如蓝色的线，就会走的太慢，虽然这种情况给足够多的时间也可以找到最低点，实际情况可能会等不及出结果。如果 $learning rate$ 调整的有点大，比如绿色的线，就会在上面震荡，走不下去，永远无法到达最低点。还有可能非常大，比如黄色的线，直接就飞出去了，update参数的时候只会发现损失函数越更新越大。
 
@@ -75,24 +75,24 @@ $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 ### Adagrad举例
 下图是一个参数的更新过程
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-4.png)
+![](res/chapter6-4.png)
 
 将 Adagrad 的式子进行化简：
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-5.png)
+![](res/chapter6-5.png)
 
 
 ### Adagrad 存在的矛盾？
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-6.png)
+![](res/chapter6-6.png)
 
 在 Adagrad 中，当梯度越大的时候，步伐应该越大，但下面分母又导致当梯度越大的时候，步伐会越小。
 
 下图是一个直观的解释：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-7.png)
+![](res/chapter6-7.png)
 
 下面给一个正式的解释：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-8.png)
+![](res/chapter6-8.png)
 
 比如初始点在 $x_0$，最低点为 $−\frac{b}{2a}$，最佳的步伐就是 $x0$ 到最低点之间的距离 $\left | x_0+\frac{b}{2a} \right |$，也可以写成 $\left | \frac{2ax_0+b}{2a} \right |$。而刚好 $|2ax_0+b|$ 就是方程绝对值在 $x_0$ 这一点的微分。
 
@@ -105,7 +105,7 @@ $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 ### 多参数下结论不一定成立
 对比不同的参数
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-9.png)
+![](res/chapter6-9.png)
 
 上图左边是两个参数的损失函数，颜色代表损失函数的值。如果只考虑参数 $w_1$，就像图中蓝色的线，得到右边上图结果；如果只考虑参数 $w_2$，就像图中绿色的线，得到右边下图的结果。确实对于 $a$ 和 $b$，结论1-1是成立的，同理 $c$ 和 $b$ 也成立。但是如果对比$a$ 和 $c$，就不成立了，$c$ 比 $a$ 大，但 $c$ 距离最低点是比较近的。
 
@@ -117,12 +117,12 @@ $$\frac{\partial ^2y}{\partial x^2} = 2a \tag7$$
 $$\frac{一次微分}{二次微分}$$
 即不止和一次微分成正比，还和二次微分成反比。最好的step应该考虑到二次微分：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-10.png)
+![](res/chapter6-10.png)
 
 ### Adagrad 进一步的解释
 再回到之前的 Adagrad
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-11.png)
+![](res/chapter6-11.png)
 
 对于 $\sqrt{\sum_{i=0}^t(g^i)^2}$ 就是希望再尽可能不增加过多运算的情况下模拟二次微分。（如果计算二次微分，在实际情况中可能会增加很多的时间消耗）
 
@@ -143,7 +143,7 @@ $$\theta^i =\theta^{i-1}- \eta\triangledown L^n(\theta^{i-1}) \tag{11}$$
 
 对比：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-12.png)
+![](res/chapter6-12.png)
 
 常规梯度下降法走一步要处理到所有二十个examples，但Stochastic 此时已经走了二十步（没处理一个example就更新）
 
@@ -153,10 +153,10 @@ $$\theta^i =\theta^{i-1}- \eta\triangledown L^n(\theta^{i-1}) \tag{11}$$
 $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 两个输入的分布的范围很不一样，建议把他们的范围缩放，使得不同输入的范围是一样的。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-13.png)
+![](res/chapter6-13.png)
 
 ## 为什么要这样做？
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-14.png)
+![](res/chapter6-14.png)
 
 上图左边是 $x_1$ 的scale比 $x_2$ 要小很多，所以当 $w_1$ 和 $w_2$ 做同样的变化时，$w_1$ 对 $y$ 的变化影响是比较小的，$x_2$ 对 $y$ 的变化影响是比较大的。
 
@@ -169,7 +169,7 @@ $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 ## 怎么做 scaling？
 方法非常多，这里举例一种常见的做法：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-15.png)
+![](res/chapter6-15.png)
 
 上图每一列都是一个例子，里面都有一组feature。
 
@@ -192,7 +192,7 @@ $$L(\theta^0) >L(\theta^1)>L(\theta^2)>···\tag{13}$$
 结论是不正确的。。。
 
 # 数学理论
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-16.png)
+![](res/chapter6-16.png)
 
 比如在 $\theta^0$ 处，可以在一个小范围的圆圈内找到损失函数细小的 $\theta^1$，不断的这样去寻找。
 
@@ -218,31 +218,31 @@ $$
 
 举例：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-17.png)
+![](res/chapter6-17.png)
 
 图中3条蓝色线是把前3项作图，橙色线是 $sin(x)$。
 
 ### 多变量泰勒展开式
 下面是两个变量的泰勒展开式
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-18.png)
+![](res/chapter6-18.png)
 
 ## 利用泰勒展开式简化
 回到之前如何快速在圆圈内找到最小值。基于泰勒展开式，在 $(a,b)$ 点的红色圆圈范围内，可以将损失函数用泰勒展开式进行简化：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-19.png)
+![](res/chapter6-19.png)
 
 将问题进而简化为下图：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-20.png)
+![](res/chapter6-20.png)
 
 不考虑s的话，可以看出剩下的部分就是两个向量$(\triangle \theta_1,\triangle \theta_2)$ 和  $(u,v)$ 的内积，那怎样让它最小，就是和向量 $(u,v)$ 方向相反的向量
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-21.png)
+![](res/chapter6-21.png)
 
 然后将u和v带入。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-22.png)
+![](res/chapter6-22.png)
 $$L(\theta)\approx s+u(\theta_1 - a)+v(\theta_2 - b) \tag{14}$$
 
 发现最后的式子就是梯度下降的式子。但这里用这种方法找到这个式子有个前提，泰勒展开式给的损失函数的估算值是要足够精确的，而这需要红色的圈圈足够小（也就是学习率足够小）来保证。所以理论上每次更新参数都想要损失函数减小的话，即保证式1-2 成立的话，就需要学习率足够足够小才可以。
@@ -252,7 +252,7 @@ $$L(\theta)\approx s+u(\theta_1 - a)+v(\theta_2 - b) \tag{14}$$
 式1-2只考虑了泰勒展开式的一次项，如果考虑到二次项（比如牛顿法），在实际中不是特别好，会涉及到二次微分等，多很多的运算，性价比不好。
 
 # 梯度下降的限制
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter6/res/chapter6-23.png)
+![](res/chapter6-23.png)
 
 容易陷入局部极值
 还有可能卡在不是极值，但微分值是0的地方

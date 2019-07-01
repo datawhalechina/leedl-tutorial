@@ -1,22 +1,22 @@
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-0.jpg)
+![](res/chapter11-0.jpg)
 [TOC]
 # Step1 逻辑回归的函数集
 上一篇讲到分类问题的解决方法，推导出函数集的形式为：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-1.png)
+![](res/chapter11-1.png)
 
 将函数集可视化：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-2.png)
+![](res/chapter11-2.png)
 
 图中z写错了，应该是 z=∑iwixi+bz=∑iwixi+b。这种函数集的分类问题叫做 Logistic Regression（逻辑回归），将它和第二篇讲到的线性回归简单对比一下函数集：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-3.png)
+![](res/chapter11-3.png)
 
 # Step2 定义损失函数
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-4.png)
+![](res/chapter11-4.png)
 上图有一个训练集，每个对象分别对应属于哪个类型（例如 x3x3 属于 C2C2 ）。假设这些数据都是由后验概率 fw,b(x)=Pw,b(C1|x)fw,b(x)=Pw,b(C1|x)产生的。
 
 给定一组 w和b，就可以计算这组w，b下产生上图N个训练数据的概率，
@@ -29,11 +29,11 @@ w∗,b∗=argmaxw,bL(w,b)(1−2)
 w∗,b∗=arg⁡maxw,bL(w,b)(1−2)
 将训练集数字化，并且将式1-2中求max通过取负自然对数转化为求min ：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-5.png)
+![](res/chapter11-5.png)
 
 然后将−lnL(w,b)−ln⁡L(w,b)改写为下图中带蓝色下划线式子的样子：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-6.png)
+![](res/chapter11-6.png)
 
 图中蓝色下划线实际上代表的是两个伯努利分布（0-1分布，两点分布）的 cross entropy（交叉熵）
 
@@ -43,22 +43,22 @@ w∗,b∗=arg⁡maxw,bL(w,b)(1−2)
 
 下面再拿逻辑回归和线性回归作比较，这次比较损失函数：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-7.png)
+![](res/chapter11-7.png)
 
 此时直观上的理解：如果把function的输出和target（真正的function y^ny^n）都看作是两个伯努利分布，所做的事情就是希望这两个分布越接近越好。
 
 # Step3 寻找最好的function
 下面用梯度下降法求：
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-8.png)
+![](res/chapter11-8.png)
 
 
 要求−lnL(w,b)−ln⁡L(w,b) 对 wiwi的偏微分，只需要先算出lnfw,b(xn)ln⁡fw,b(xn) 对 wiwi的偏微分以及 ln(1−fw,b(xn))ln⁡(1−fw,b(xn)) 对 wiwi的偏微分。计算lnfw,b(xn)ln⁡fw,b(xn) 对 wiwi偏微分，fw,b(x)fw,b(x)可以用σ(z)σ(z)表示，而zz可以用wiwi和 bb表示，所以利用链式法则展开。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-9.png)
+![](res/chapter11-9.png)
 
 计算 ln(1−fw,b(xn))ln⁡(1−fw,b(xn)) 对 wiwi 的偏微分，同理求得结果。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-10.png)
+![](res/chapter11-10.png)
 
 将求得两个子项的偏微分带入，化简得到结果。
 
@@ -66,42 +66,42 @@ w∗,b∗=arg⁡maxw,bL(w,b)(1−2)
 
 下面再拿逻辑回归和线性回归作比较，这次比较如果挑选最好的function：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-11.png)
+![](res/chapter11-11.png)
 
 对于逻辑回归，target y^ny^n 是0或者1，输出是介于0和1之间。而线性回归的target可以是任何实数，输出也可以是任何值。
 
-# 为什么不学线性回归用平方误差？
+# 损失函数：为什么不学线性回归用平方误差？
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-12.png)
+![](res/chapter11-12.png)
 考虑上图中的平方误差形式。在step3计算出了对 w[iw[i 的偏微分。假设 y^n=1y^n=1 ，如果 fw,b(xn)=1fw,b(xn)=1，就是非常接近target，会导致偏微分中第一部分为0，从而偏微分为0；而 fw,b(xn)=0fw,b(xn)=0，会导致第二部分为0，从而偏微分也是0。
 
 对于两个参数的变化，对总的损失函数作图：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-13.png)
+![](res/chapter11-13.png)
 
 如果是交叉熵，距离target越远，微分值就越大，就可以做到距离target越远，更新参数越快。而平方误差在距离target很远的时候，微分值非常小，会造成移动的速度非常慢，这就是很差的效果了。
 
 # Discriminative（判别）v.s. Generative（生成）
 逻辑回归的方法称为Discriminative（判别） 方法；上一篇中用高斯来描述后验概率，称为 Generative（生成） 方法。它们的函数集都是一样的：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-14.png)
+![](res/chapter11-14.png)
 
 如果是逻辑回归，就可以直接用梯度下降法找出w和b；如果是概率生成模型，像上篇那样求出 μ1μ1 ， μ2μ2 ，协方差矩阵的逆，然后就能算出w和b。
 
 用逻辑回归和概率生成模型找出来的w和b是不一样的。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-15.png)
+![](res/chapter11-15.png)
 
 上图是前一篇的例子，图中画的是只考虑两个因素，如果考虑所有因素，结果是逻辑回归的效果好一些。
 
 ## 一个好玩的例子
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-16.png)
+![](res/chapter11-16.png)
 
 上图的训练集有13组数据，类别1里面两个特征都是1，剩下的(1, 0), (0, 1), (0, 0) 都认为是类别2；然后给一个测试数据(1, 1)，它是哪个类别呢？人类来判断的话，不出意外基本都认为是类别1。下面看一下朴素贝叶斯分类器（Naive Bayes）会有什么样的结果。
 
 朴素贝叶斯分类器如图中公式：xx属于CiCi 的概率等于每个特征属于CiCi 概率的乘积。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-17.png)
+![](res/chapter11-17.png)
 
 计算出P(C1|x)P(C1|x)的结果是小于0.5的，即对于朴素贝叶斯分类器来说，测试数据 (1, 1)是属于类别2的，这和直观上的判断是相反的。其实这是合理，实际上训练集的数据量太小，但是对于 (1, 1)可能属于类别2这件事情，朴素贝叶斯分类器是有假设这种情况存在的（机器脑补这种可能性==）。所以结果和人类直观判断的结果不太一样。
 
@@ -118,7 +118,7 @@ w∗,b∗=arg⁡maxw,bL(w,b)(1−2)
 
 假设有3个类别，每个都有自己的weight和bias
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-18.png)
+![](res/chapter11-18.png)
 
 把z1,z2,z3z1,z2,z3放到一个叫做Softmax的方程中，Softmax做的事情就是它们进行exponential（指数化），将exponential 的结果相加，再分别用 exponential 的结果除以相加的结果。原本z1,z2,z3z1,z2,z3可以是任何值，但做完Softmax之后输出会被限制住，都介于0到1之间，并且和是1。Softmax做事情就是对最大值进行强化。
 
@@ -139,41 +139,41 @@ Softmax的输出就是用来估计后验概率（Posterior Probability）。为�
 
 ## 定义target
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-19.png)
+![](res/chapter11-19.png)
 
 上一篇讲到如果定义类别1 y^=1y^=1，类别2 y^=2y^=2，类别3 y^=3y^=3，这样会人为造成类别1 和类型2有一定的关系这种问题。但可以将 y^y^定义为矩阵，这样就避免了。而且为了计算交叉熵，y^y^也需要是个概率分布才可以。
 
 # 逻辑回归的限制
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-20.png)
+![](res/chapter11-20.png)
 
 考虑上图的例子，两个类别分布在两个对角线两端，用逻辑回归可以处理吗？
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-21.png)
+![](res/chapter11-21.png)
 
 这里的逻辑回归所能做的分界线就是一条直线，没有办法将红蓝色用一条直线分开。
 
 ## Feature Transformation（特征转换）
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-22.png)
+![](res/chapter11-22.png)
 
 特征转换的方式很多，举例类别1转化为某个点到 (0,0)(0,0) 点的距离，类别2转化为某个点到 (1,1)(1,1) 点的距离。然后问题就转化右图，此时就可以处理了。但是实际中并不是总能轻易的找到好的特征转换的方法。
 
 ## Cascading logistic regression models（级联逻辑回归模型）
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-23.png)
+![](res/chapter11-23.png)
 
 可以将很多的逻辑回归接到一起，就可以进行特征转换。比如上图就用两个逻辑回归 z1z1和 z2z2来进行特征转换，然后对于 x′1x1′ 和 x′2x2′，再用一个逻辑回归zz来进行分类。
 
 对上述例子用这种方式处理：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-24.png)
+![](res/chapter11-24.png)
 
 右上角的图，可以调整参数使得得出这四种情况。同理右下角也是
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-25.png)
+![](res/chapter11-25.png)
 
 经过这样的转换之后，点就被处理为可以进行分类的结果。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter11/res/chapter11-26.png)
+![](res/chapter11-26.png)
 
 一个逻辑回归的输入可以来源于其他逻辑回归的输出，这个逻辑回归的输出也可以是其他逻辑回归的输入。把每个逻辑回归称为一个 Neuron（神经元），把这些神经元连接起来的网络，就叫做 Neural Network（神经网络）。
 
