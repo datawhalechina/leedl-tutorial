@@ -1,6 +1,5 @@
 # 课程介绍
-上节课[《李宏毅·机器学习》读书笔记（一）Regression - Case Study](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-0.png)，主要介绍了回归算法的整个演算过程。在课程最后为了改善模型，不断提升模型的复杂度，但是效果反而变差了。
-本节课主要介绍其他改善模型的方法，并介绍交叉验证这种模型选择的方案。
+![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-0.png)
 
 
 # Error的来源
@@ -123,7 +122,10 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 但是很多时候不一定能做到收集更多的data。可以针对对问题的理解对数据集做调整（Regularization）。比如识别手写数字的时候，偏转角度的数据集不够，那就将正常的数据集左转15度，右转15度，类似这样的处理。
 
-# 选择model
+# 模型选择
+
+
+
 现在在bias和variance之间就需要一个权衡
 想选择的model，可以平衡bias和variance产生的error，使得总error最小
 但是下面这件事最好不要做：
