@@ -5,16 +5,15 @@ deep learning这么潮的东西，实现起来也很简单。首先是load_data�
 import numpy as np
 from keras.models import Sequential
 from keras.layers.core import Dense,Dropout,Activation
-from keras.layers import Con2D,MaxPooling2D,Flatten
 from keras.optimizers import SGD,Adam
 from keras.utils import np_utils
-from keras.datasets impoet mnist
+from keras.datasets import mnist
 
 def load_data():
 	(x_train,y_train),(x_test,y_test)=mnist.load_data()
 	number=10000
-	x_train=x_train(0:number)
-	y_train=y_train(0:number)
+	x_train=x_train[0:number]
+	y_train=y_train[0:number]
 	x_train=x_train.reshape(number,28*28)
 	x_test=x_test.reshape(x_test.shape[0],28*28)
 	x_train=x_train.astype('float32')
@@ -30,18 +29,18 @@ def load_data():
 (x_train,y_train),(x_test,y_test)=load_data()
 
 model=Sequential()
-model.add(Dense(input_dim=28*28,units=689,activation='sigmoid'))
-model.add(Dense(units=689,activation='sigmoid'))
-model.add(Dense(units=689,activation='sigmoid'))
+model.add(Dense(input_dim=28*28,units=633,activation='sigmoid'))
+model.add(Dense(units=633,activation='sigmoid'))
+model.add(Dense(units=633,activation='sigmoid'))
 model.add(Dense(units=10,activation='softmax'))
 
 model.compile(loss='mse',optimizer=SGD(lr=0.1),metrics=['accuracy'])
 
 model.fit(x_train,y_train,batch_size=100,epochs=20)
 
-result= model.evaluate(x_test,y_test,batch_size=10000)
+result= model.evaluate(x_test,y_test)
 
-print('Test Acc:'result[1])
+print('TEST ACC:',result[1])
 ```
 ![在这里插入图片描述](./res/chapter19_1.png)
 结果是差的，那么该怎么办。首先先看你在train data的performer，如果它在train data上做得好，那么可能是过拟合，如果在train data上做得不好，怎么能让它做到举一反三呢。所以我们至少先让它在train data 上得到好的结果。

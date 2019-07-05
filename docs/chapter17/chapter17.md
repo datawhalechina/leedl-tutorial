@@ -5,16 +5,15 @@ deep learning这么潮的东西，实现起来也很简单。首先是load_data�
 import numpy as np
 from keras.models import Sequential
 from keras.layers.core import Dense,Dropout,Activation
-from keras.layers import Con2D,MaxPooling2D,Flatten
 from keras.optimizers import SGD,Adam
 from keras.utils import np_utils
-from keras.datasets impoet mnist
+from keras.datasets import mnist
 
 def load_data():
 	(x_train,y_train),(x_test,y_test)=mnist.load_data()
 	number=10000
-	x_train=x_train(0:number)
-	y_train=y_train(0:number)
+	x_train=x_train[0:number]
+	y_train=y_train[0:number]
 	x_train=x_train.reshape(number,28*28)
 	x_test=x_test.reshape(x_test.shape[0],28*28)
 	x_train=x_train.astype('float32')
@@ -41,7 +40,7 @@ model.fit(x_train,y_train,batch_size=100,epochs=20)
 
 result= model.evaluate(x_test,y_test)
 
-print('TEST ACC:'result[1])
+print('TEST ACC:',result[1])
 ```
 其中x_train是一个二维的向量，x_train.shape=(10000,784)，这个是什么意思呢，就告诉我们现在train data一共有一万笔，每笔由一个784维的vector所表示。y_train也是一个二维向量，y_train.shape=(10000,10)，其中只有一维的数字是1，其余的为0。结果如下图
 ![在这里插入图片描述](./res/chapter17_1.png)
