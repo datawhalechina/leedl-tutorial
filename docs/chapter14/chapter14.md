@@ -1,95 +1,89 @@
-![](NeighborEmbedding.png)
-# 参考
-[有道云笔记原文](http://note.youdao.com/noteshare?id=39eb91b29570c74371adb99f350906e8&sub=0B6E6A0540F4471F84A283F20158BEBC)
+# BackPropagation
+![](res/chapter14-0.png)
+# 背景
+## 梯度下降（Gradient Descent）
+![](res/chapter14-1.png)
+- 给到 $\theta$ (weight and bias)
+- 先选择一个初始的 $\theta^0$，计算 $\theta^0$ 的损失函数（Loss Function）设一个参数的偏微分
+- 计算完这个向量（vector）偏微分，然后就可以去更新的你 $\theta$ 
+- 百万级别的参数（millions of parameters）
+- 反向传播（Backpropagation）是一个比较有效率的算法，让你计算梯度（Gradient） 的向量（Vector）时，可以有效率的计算出来
+
+## 链式法则（Chain Rule）
+![](res/chapter14-2.png)
+- 连锁影响(可以看出x会影响y，y会影响z)
+- BP主要用到了chain rule
+
+
+# 反向传播
+
+1. **损失函数(Loss function)是定义在单个训练样本上的**，也就是就算一个样本的误差，比如我们想要分类，就是预测的类别和实际类别的区别，是一个样本的，用L表示。
+2. **代价函数(Cost function)是定义在整个训练集上面的**，也就是所有样本的误差的总和的平均，也就是损失函数的总和的平均，有没有这个平均其实不会影响最后的参数的求解结果。
+3. **总体损失函数(Total loss function)是定义在整个训练集上面的**，也就是所有样本的误差的总和。也就是平时我们反向传播需要最小化的值。
+![](res/chapter14-3.png)
+对于$L(\theta)$就是所有$l^n$的损失之和，所以如果要算每个$L(\theta)$的偏微分，我们只要算每个$l^n$的偏微分，再把所有$l^n$偏微分的结果加起来就是$L(\theta)$的偏微分，所以等下我们只计算每个$l^n​$的偏微分。
+我们先在整个神经网络（Neural network）中抽取出一小部分的神经（Neural）去看（也就是红色标注的地方）：
+![](res/chapter14-4.png)
+
+### 取出一个Neural进行分析
+![](res/chapter14-5.png)
+从这一小部分中去看，把计算梯度分成两个部分
+
+- 计算$\frac{\partial z}{\partial w}$（Forward pass的部分）
+- 计算$\frac{\partial l}{\partial z}​$ ( Backward pass的部分 )
+## Forward Pass
+
+那么，首先计算$\frac{\partial z}{\partial w}​$（Forward pass的部分）：
+![](res/chapter14-6.png)
+
+根据求微分原理，forward pass的运算规律就是：
+
+$\frac{\partial z}{\partial w_1} = x_1 \\ \frac{\partial z}{\partial w_2} = x_2$
+这里计算得到的$x_1$和$x_2$恰好就是输入的$x_1$和$x_2$
+直接使用数字，更直观地看到运算规律：
+![](res/chapter14-7.png)
 
 
 
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-1.png)
-TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是我们之前讲过的降维，只是我们要做的是非线性的降维。
+## Backward Pass
+ (Backward pass的部分)这就很困难复杂因为我们的l是最后一层：
+那怎么计算 $\frac{\partial l}{\partial z}$ （Backward pass的部分）这就很困难复杂因为我们的$l$是最后一层：
 
-我们知道data point可能是在高维空间里面的一个manifold，也就是说：data point的分布其实是在低维的一个空间里，只是被扭曲被赛到高维空间里面。讲到manifold ，常常举的例子是地球，地球的表面就是一个manifold(一个二维的平面，被塞到一个三维的空间里面)。在manifold里面只有很近距离的点，Euclidean distance才会成立，如果距离很远的时候，欧式几何不一定成立。也就是说：我们在这个S型的空间里面取一个点，我们用Euclidean distance比较跟其他两个点的距离。这个点跟离的近的点比较像，离的远的点比较不像(相邻的两个点)。如果是距离比较远的时候，如果你要比较这个点跟离的非常远的点的相似程度，你在高维空间中，你直接算Euclidean distance，你就变得不made sence。
+![](res/chapter14-8.png)
 
-所以manifold learning要做的事情是把S型的这块东西展开，把塞到高维空间的低维空间摊平。摊平的好处就是：把这个塞到高维空间里的manifold摊平以后，那我们就可以在这个manifold上面用Euclidean distance(来算点和点之间的距离)，这会对接下来你要做supervised learning都是会有帮助的
+计算所有激活函数的偏微分，激活函数有很多，这里使用Sigmoid函数为例
 
+这里使用链式法则（Chain Rule）的case1，计算过程如下：
 
+$\frac{\partial l}{\partial z} = \frac{\partial a}{\partial z}\frac{\partial l}{\partial a} \Rightarrow   {\sigma}'(z)​$
+$\frac{\partial l}{\partial a} = \frac{\partial z'}{\partial a}\frac{\partial l}{\partial z'} +\frac{\partial z''}{\partial a}\frac{\partial l}{\partial z''}​$
+![](res/chapter14-9.png)
+最终的式子结果：
 
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-2.png)
-有个方法叫做Locally Linear Embedding，这个方法意思是说：在原来的空间里面，你的点分别长这个样子。有某一个点叫做$x^i$，我们先选出$x^i$的neighbor叫做$x^j$。接下来我们找$x^i$跟$x^j$之间的关系，它们之间的关系我们写作$w_{ij}$。
+![](res/chapter14-10.png)
 
-这个$w_{ij}$是咋样找出来的呢？我们假设说：每一个$x^i$都是可以用它的neighbor做linear combination以后组合而成，这个$w_{ij}$是拿$x^j$组成$x^i$的时候，linear combination的weight。那找这一组$x_{ij}$要咋样做呢，你就说：我们现在找一组$x_{ij}$，$x^i$减掉summation over$x_{ij}$乘以$x^j$的L2-Norm是越接近越好，然后summation over所以的data point。接下里我们要做dimension reduction，把原来的$x^i,x^j$转成$z^i,z^j$。但是现在的原则就是：从$x^i,x^j$转成$z^i,z^j$它们中间的关系$w_{ij}$是不变的
+但是你可以想象从另外一个角度看这个事情，现在有另外一个神经元，把forward的过程逆向过来,其中${\sigma}'(z)$是常数，因为它在向前传播的时候就已经确定了
 
+![](res/chapter14-11.png)
 
+### case 1 : Output layer
+假设$\frac{\partial l}{\partial z'}$和$\frac{\partial l}{\partial z''}​$是最后一层的隐藏层
+也就是就是y1与y2是输出值，那么直接计算就能得出结果
+![](res/chapter14-12.png)
 
+但是如果不是最后一层，计算$\frac{\partial l}{\partial z'}$和$\frac{\partial l}{\partial z''}​$的话就需要继续往后一直通过链式法则算下去
+### case 2 : Not Output Layer
+![](res/chapter14-13.png)
+对于这个问题，我们要继续计算后面绿色的$\frac{\partial l}{\partial z_a}$和$\frac{\partial l}{\partial z_b}$,然后通过继续乘$w_5$和$w_6$得到$\frac{\partial l}{\partial z'}$，但是要是$\frac{\partial l}{\partial z_a}$和$\frac{\partial l}{\partial z_b}$都不知道，那么我们就继续往后面层计算，一直到碰到输出值，得到输出值之后再反向往输入那个方向走。
 
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-3.png)
-这个东西就是白居易《长恨歌里面》讲的“在天愿作比翼鸟，在地愿为连理枝”。所谓的“在天”就是$x^i,x^j$在原来的space上面，“比翼鸟”就是“$w_{ij}$”，“在地”就是把$x^i,x^j$transform到另外一个sapce就是$z^i,z^j$，“连理枝”等于“比翼鸟”就是$w_{ij}$
+![](res/chapter14-14.png)
+对上图，我们可以从最后一个$\frac{\partial l}{\partial z_5}$和$\frac{\partial l}{\partial z_6}$看，因为$\frac{\partial l}{\partial z_a}$和$\frac{\partial l}{\partial z_b}$比较容易通过output求出来，然后继续往前求$\frac{\partial l}{\partial z_3}$和$\frac{\partial l}{\partial z_4}$，再继续求$\frac{\partial l}{\partial z_1}$和$\frac{\partial l}{\partial z_2}$
+最后我们就得到下图的结果
+![](res/chapter14-15.png)
+实际上进行backward pass时候和向前传播的计算量差不多。
 
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-4.png)
-所以LLE做的事情，首先$x^i,x^j$在原来的space上面找完以后就fix住它，接下来为每一个$x^i,x^j$找另外一个vector$z^i,z^j$(因为我们在做dimension reduction，新找的dimension要比原来的要小)。我们找的$z^i,z^j$可以minimize这个function。也就是说原来的$x^i$它可以做linear combination产生x，原来的$x^j$做linear combination 产生$x^j$，这些$z^j$它也可以用同样的linear combination产生$z^i$，我们就是要找这一组z可以满足这个$w_{ij}$给我们的constraint
-
-所以在这个式子里面$w_{ij}$变成是已知的，但是我们要找一组z，让$z^j$透过$w_{ij}$跟$在z^i$越接近越好，$z^j$用这组weight做linear combination以后跟$z^i$越接近越好，然后summation over所以的data point。
-
-
-这个LLE你要注意一下，它并没有一个明确的function告诉你说我们咋样来做dimension reduction，不像我们在做auto encoding的时候，你learn出一个encoding的network，你input一个新的data point，然后你就得到结果。在LLE里面，你并没有找一个明确的function告诉我们，咋样从一个x变到z
-
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-5.png)
-其实LLE你要好好的调以下你的neighbor，neighbor的数目要刚刚好，你才会得到好的结果。这个是从原始的paper里面截得图，它调了不同的k。如果k太小，得出来的结果会不太好，k太大，得出的结果的也不太好。为什么k太大，得出的结果也不好呢？因为我们之前的假设是Euclidean distance只是在很近的距离里面可以这样想，当k很大的时候，你会考虑很远的点，所以你不应该把它考虑进来，你的k要选一个适当的值。
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-6.png)
-另外一个方法是Laplaciain Eigenmaps，它的想法是这样子的。我们之前在讲smei-supervised learning的时候，我们有讲过smothness assumption。如果你要比较这两个红点之间的距离，算他们的Euclidean diastance是不足够的。你要看的是在他们high distant range之间的distance，如果两个点之间有high density collection，那它们才是真正的很接近。
-
-那你可以用graph来描述这件事，你把你的data point construct成一个graph(把比较近的点连起来，变成一个graph)，你把点变成graph以后，你考虑smoothness的距离，就可以被graph上面的collection来approximate
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-7.png)
-我们之间在讲semi-supervised learning的时候，如果$x^1,x^2$在high density region上面它们是相近的，那它们的laebl$y^1,y^2$很有可能是一样的。所以做supervised learning的时候，我们可以这么做：我们考虑有label data的项，另一个跟laebl data没有关系的(可以利用unlabel data)，这一项的作用是：要考虑我们现在得到的label是不是smooth的，它的作用很像regularization term。S这一项等于$y^i$跟$y^j$之间的距离乘以$w_{i,j}$($w_{i,j}$的意思是：两个data point它们在图上是相连的，$w_{i,j}$是它们的相似程度；在图上没有相连就是0)。如果$x^i$跟$x^j$很接近的话，那$w_{i,j}$就是一个很大的值。这个S就是evaluate你现在得到的label有多么的smooth，这个S还可以写成$S=y^TLy$(L是graph laplacian，L=D-W)
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-8.png)
-也可以在Unsupervised learning上面，如果说$x^1,x^2$在high desity region 是close的，那我们就希望$z^1,z^2$也是相近的。我们刚才smooth式子写出来，如果$x^i,x^j$两个data point很像，那$z^i,z^j$做完dimension reduction以后距离就很近，反之$w_{i,j}$很小，距离要咋样都可以。
-
-找一个$z^i,z^j$minimize S的值，这样做的话是有问题的。你不需要告诉我$w_{i,j}$是什么，要minimize S的时候，我选$z^i=z^j=0$，S=0，这样的话就结。所以光做这样的式子是不够的，你可能会说在supervised learning的时候，你咋不讲这句话呢？之前在semi-supervised learning的时候，我们还有supervised learning 给我们的那一项。如果你把所有的label都设成一样的，那你在supervised那一项，你得到的loss就会很大。那我们要同时supervised跟semi-supervised那一项，所以你不选择让所有的y通通一样的。这边少了supervised的东西，所以选择所以的z都是一样，反而是一个最好的solution。
-
-所以这件事是行不通的，你要给你的z一些constraints：如果z降维以后是M维空间，你会希望说：你的z它还分布在比M还要小的dimension里面。我们现在要做的是希望把高维空间中塞进去的低维空间展开，我们不希望展开的结果是在更低维的空间里面。今天假设你的z的dimension是M，你会希望你找出来的那些点(假设现在总共有N个点，$z^1$到$z^N$)它们做span以后会等于$R^M$
-
-如果你要解这个式子的话，你会发现解出来z跟我们前面看到的graph Laplacian L是有关系的，它其实graph Laplacian eigenvector
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-9.png)
-
-前面的那些问题是：它只假设相近的点应该要是接近的，但它没有假设说不相近的点没有要接近(不相近的点要分开)。比如说LLE在MNIST上你会遇到这样的情形：它确实会把同一个class聚集在一起，但它没有防止不同class的点不要叠成一团。
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-10.png)
-t-SNE也是在做降维，把原来的data point x变成low dimension vector z。在原来的space上面，我们会计算所有点的pair，$x^i,x^j$之间的similarity(S($x^i,x^j$))。我们会计算一个$x^jgiven $x^i$，分子是$x^i,x^j$的similarity，分母是summation over除了$x^i$以外所有其他的点之间的距离。假设我们今天找出了一个low dimension z，我们也可以计算$x^i,x^j$之间的similarity，$z^jgiven $z^i$，分子是$z^i,z^j$的similarity，分母是summation over除了$z^i$以外所有其他的点之间的距离。有做这个normlization是很有必要的，不知道他们的scale是否一样，那你有做这个normlization就可以把他们变为几率，值会介于0-1之间。
-
-我们现在还不知道$z^i,z^j$他么的值是多少(它是被我们找出来的)，我们希望找一组$z^i,z^j$，它可以让这两个distribution越接近越好。
-
-那咋样衡量两个distribution之间的相似度呢？就是KL距离。所以我们要做的事情就是找一组z，它可以做到，$x^i$对其他point的distribution跟$z^i$对其他point的distribution，这样的distribution之间的KL距离越小越好，然后summation over 所以的data point，你要使得这这个值(L)越小越好。
+# 总结
+我们的目标是要求计算$\frac{\partial z}{\partial w}$（Forward pass的部分）和计算$\frac{\partial l}{\partial z}$ ( Backward pass的部分 )，然后把$\frac{\partial z}{\partial w}$和$\frac{\partial l}{\partial z}$相乘，我们就可以得到$\frac{\partial l}{\partial w}$,所有我们就可以得到神经网络中所有的参数，然后用梯度下降就可以不断更新，得到损失最小的函数
+![](res/chapter14-16.png)
 
 
-
-
-你在t-SNE的时候，它会计算所有data point的similarity，所以它的运算有点大。在data point比较多的时候，t-SNE比较麻烦。第一个常见的做法是：你会先做降维，比如说：你原来的dimension很大，你不会直接从很高的dimension直接做t-SNE，因为你这样计算similarity时间会很长，你通常会先用PCA做将降维，降到50维，再用t-SNE降到2维，这个是比较常见的做法。
-
-如果你给t-SNE一个新的data point，它是没办法做的。它只能够你先给它一大群x，它帮你把每个x的z先找出来，但你找完这些z以后，你再给它一个新的x，你要重新跑一遍这一整套演算法，所以就很麻烦。你有一大堆的x是high dimension，你想要它在二维空间的分布是什么样子，你用t-SNE，t-SNE会给你往往不错的结果。
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-11.png)
-t-SNE这个similarity的选择是非常神妙的，我们在原来的data point space上面，evaluate similarity 是计算$x^i,x^j$之间的Euclidean distance，取一个负号，再取exponent。 在t-SNE之前，有一个方法叫做SNE，t-SNE神妙的地方在：dimension reduction以后的space，它选择measure跟原来的space是不一样的，它在dimension reduction之后选的space是t distribution的其中其中
-
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-12.png)
-为什么要这样做呢，假设横轴代表了在原来space上面的Euclidean distance或者是做dimension reduction以后的Euclidean distance。图中的两个点做dimension reduction以后，要咋样才能维持它原来人的space呢？变成图中这个样子。原来在高维空间里面，如果距离很近，那做完transform以后，它还是很近。原来就有一段距离，做完transform以后，会被拉的很远
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-13.png)
-所以，t-SNE画出来的图往往长的这样，它会把你的data point聚集成一群一群的，只要你的data point离的比较远，那做完t-SNE之后，就会强化，变得更远了。
-
-
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-14.png)
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-15.png)
-![image](http://ppryt2uuf.bkt.clouddn.com/chapter14-16.png)
-如图为t-SNE的动画。因为这是利用gradient descent 来train的，所以你会看到随着iteration process点会被分的越来越开。
