@@ -1,4 +1,4 @@
-# chapter8 Gradient Descent (Demo by Minecraft)
+# Gradient Descent (Demo by Minecraft)
 
 - 利用**梯度下降法**更新参数，损失函数loss function可能会不降反升(利用**Mincraft**解释该情况)；
 - 人物的前方是较低方向，右方也是较低方向，利用梯度下降法，往右前方移动一步，然后反复用梯度下降法，往右前方移动一步，周而复始；
