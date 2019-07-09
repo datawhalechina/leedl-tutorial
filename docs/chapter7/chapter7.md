@@ -1,4 +1,4 @@
-# chapter7 Gradient Descent (Demo by AOE)
+# Gradient Descent (Demo by AOE)
 
 - 利用**帝国时代**的方式模拟**梯度下降**；
 - 在地图上大多数位置我们是未知的，只有我们单位走过的地方是可知；
