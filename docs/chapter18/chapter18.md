@@ -104,7 +104,7 @@ Parametric ReLU在input小于0时，output等于\alpha zαz\alphaα为neural的�
  
 让network自动去学它的activation function，因为activation function是自动学出来的，所有ReLU就是一种特殊的Maxout case。
 
-input是x_1,x_2，x1,x2乘以weight得到5,7,-1,1。这些值本来是通过ReLU或者sigmoid function等得到其他的一些value。现在在Maxout里面，在这些value group起来(哪些value被group起来是事先决定的，如上图所示)，在组里选出一个最大的值当做output(选出7和1，这是一个vector 而不是一个value)，7和1再乘以不同的weight得到不同的value，然后group，再选出max value。
+input是x1,x2，x1,x2乘以weight得到5,7,-1,1。这些值本来是通过ReLU或者sigmoid function等得到其他的一些value。现在在Maxout里面，在这些value group起来(哪些value被group起来是事先决定的，如上图所示)，在组里选出一个最大的值当做output(选出7和1，这是一个vector 而不是一个value)，7和1再乘以不同的weight得到不同的value，然后group，再选出max value。
  
 ![chapter1-0.png](res/chapter18-13.png)
 Maxout network 是怎么样产生不同的activation function，Maxout有办法做到跟ReLU一样的事情。
@@ -113,7 +113,7 @@ Maxout network 是怎么样产生不同的activation function，Maxout有办法�
 
 ReLu：input乘以w,b，再经过ReLU得a。
 
-Maxout：input中x和1乘以w和b得到z_1，z1x和1乘以w和b得到z_2，z2(现在假设第二组的w和b等于0，那么z_2z2等于0)，在两个中选出max得到a(如上图所示)
+Maxout：input中x和1乘以w和b得到z1，z2，x和1乘以w和b得到z2，z2(现在假设第二组的w和b等于0，那么z2,z2等于0)，在两个中选出max得到a(如上图所示)
 现在只要第一组的w和b等于第二组的w和b，那么Maxout做的事就是和ReLU是一样的。
 
 当然在Maxout选择不同的w和b做的事也是不一样的(如上图所示)，每一个Neural根据它不同的wight和bias，就可以有不同的activation function。这些参数都是Maxout network自己学习出来的，根据数据的不同Maxout network可以自己学习出不同的activation function。
@@ -153,7 +153,7 @@ Maxout：input中x和1乘以w和b得到z_1，z1x和1乘以w和b得到z_2，z2(�
 在真实的世界中，在如图所示的山坡中，把一个小球从左上角丢下，滚到plateau的地方，不会去停下来(因为有惯性)，就到了山坡处，只要不是很陡，会因为惯性的作用去翻过这个山坡，就会走到比local minimize还要好的地方，所以我们要做的事情就是要把这个惯性加到GD里面(Mometum)。
 现在复习下一般的GD
  ![chapter1-0.png](res/chapter18-22.png)
- 选择一个初始的值，计算它的gradient，G负梯度方向乘以learning rate，得到\theta_1θ1，然后继续前面的操作，一直到gradinet等于0时或者趋近于0时。
+ 选择一个初始的值，计算它的gradient，G负梯度方向乘以learning rate，得到θ1，然后继续前面的操作，一直到gradinet等于0时或者趋近于0时。
 
 当我们加上Momentu时
  ![chapter1-0.png](res/chapter18-23.png)
@@ -234,7 +234,7 @@ training的时候，会丢掉一些neural，假如你在练习轻功的时候，
  
    ![chapter1-0.png](res/chapter18-36.png)
    
-假设dropout rate是50%，training的时候，你总是会期望丢掉一半的neural。假设选定一组weight(w_1,w_2,w_3,2_4w1,w2,w3,24)。testing时是没有dropout的，所以对同一组的weihgt来说testing的时候和training时候的z有一个很明显的差距，他的期望约等于training的两倍。现在怎么办，把所有的weight都乘以0.5，现在变为将差距变回来。
+假设dropout rate是50%，training的时候，你总是会期望丢掉一半的neural。假设选定一组weight(w1,w2,w3,w4)。testing时是没有dropout的，所以对同一组的weihgt来说testing的时候和training时候的z有一个很明显的差距，他的期望约等于training的两倍。现在怎么办，把所有的weight都乘以0.5，现在变为将差距变回来。
  
   ![chapter1-0.png](res/chapter18-37.png)
  
