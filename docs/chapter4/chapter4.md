@@ -54,7 +54,6 @@ plt.xlabel(r'$b$')
 plt.ylabel(r'$w$')
 plt.title("线性回归")
 
-
 plt.subplot(1, 2, 2)
 loss = np.asarray(loss_history[2:iteration])
 plt.plot(np.arange(2, iteration), loss)
@@ -65,11 +64,17 @@ plt.show()
 
 ```
 输出结果如图
+
 ![chapter1-0.png](res/chapter4-1.png)
+
 横坐标是b，纵坐标是w，标记×位最优解，显然，在图中我们并没有运行得到最优解，最优解十分的遥远。那么我们就调大learning rate，lr = 0.000001（调大10倍），得到结果如下图。
+
 ![chapter1-0.png](res/chapter4-2.png)
+
 我们再调大learning rate，lr = 0.00001（调大10倍），得到结果如下图。
+
 ![chapter1-0.png](res/chapter4-3.png)
+
 结果发现learning rate太大了，结果很不好。
 
 所以我们给b和w特制化两种learning rate
