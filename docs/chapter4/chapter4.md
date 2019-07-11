@@ -54,6 +54,7 @@ plt.xlabel(r'$b$')
 plt.ylabel(r'$w$')
 plt.title("线性回归")
 
+
 plt.subplot(1, 2, 2)
 loss = np.asarray(loss_history[2:iteration])
 plt.plot(np.arange(2, iteration), loss)
