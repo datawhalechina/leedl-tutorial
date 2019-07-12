@@ -1,26 +1,33 @@
-# Unsupervised learning
+![](res/chapter24-0.png)
 
-![](res\chapter24-0 .png)
+# Unsupervised Learning
 
-image![](res\chapter24-1.png)
+image![](res/chapter24-1.png)
 我把dimension reduction分为两种，一种做的事情叫做“化繁为简”，它可以分为两种：一种是cluster，一种是dimension reduction。所谓的“化繁为简”的意思：现在有很多种不同的input，比如说：你现在找一个function，它可以input看起来像树的东西，output都是抽象的树，把本来比较复杂的input变成比较简单的output。那在做unsupervised learning的时候，你只会有function的其中一边。比如说：我们要找一个function要把所有的树都变成抽象的树，但是你所拥有的train data就只有一大堆的image(各种不同的image)，你不知道它的output应该是要长什么样子。
 
 那另外一个unsupervised learning可以做Generation,也就是无中生有，我们要找一个function，你随机给这个function一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只有这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
 
-![](res\chapter24-2.png)
-那我们现在来说clustering，什么是clustering呢？clustering就是说：假设有一大堆的image，然后你就把它们分成一类一类的。之后你就可以说：这边所有的image都属于cluster1，这边都属于cluster2，这边都属于cluster3。有些不同的image用同一个cluster来表示，就可以做到“化繁为简”这件事。那这边的问题是：要到底有几个cluster，这个没有好的方法，就跟neural network要有几层一样。但是你不能太多，这张有9张image，就有9个cluster ，这样做跟没做是一样的。把全部的image放在一个cluster里，这跟没做是一样的。要怎样选择适当的cluster，这个你要empirical的来决定它                                                                         
+# Clutering
 
-那在cluster方法里面，最常用的叫做k-means。我们有一大堆的data，他们都是unlabel($x^1,...x^N$)，一个$x$就代表一张image ，我们要把它做成K个cluster。咋样做呢？我们要先找这些cluster的center。(假设这边$x$的用vector来表示的话，这边的center也都是一样长度的vector)有K个cluster就需要有K个center。那初始的center咋样来呢，你可以从你的train data里面随机找K个$x$出来，就是你的k个center。
+
+
+![](res/chapter24-2.png)
+
+那我们现在来说clustering，什么是clustering呢？clustering就是说：假设有一大堆的image，然后你就把它们分成一类一类的。之后你就可以说：这边所有的image都属于cluster1，这边都属于cluster2，这边都属于cluster3。有些不同的image用同一个cluster来表示，就可以做到“化繁为简”这件事。那这边的问题是：要到底有几个cluster，这个没有好的方法，就跟neural network要有几层一样。但是你不能太多，这张有9张image，就有9个cluster ，这样做跟没做是一样的。把全部的image放在一个cluster里，这跟没做是一样的。要怎样选择适当的cluster，这个你要empirical的来决定它      
+
+## K-means                                                                   
+
+那在cluster方法里面，最常用的叫做k-means。我们有一大堆的data，他们都是unlabel($x^1,...x^N$)，一个$x$就代表一张image ，我们要把它做成K个cluster。怎样做呢？我们要先找这些cluster的center。(假设这边$x$的用vector来表示的话，这边的center也都是一样长度的vector)有K个cluster就需要有K个center。那初始的center咋样来呢，你可以从你的train data里面随机找K个$x$出来，就是你的k个center。
 
 接下里，你要对所有在train data 中的$x$，都做以下的事情：你决定说，现在的每一个$x$属于1到K中的哪一个cluster。现在假设$x$跟第i个class center最接近的话，那$x$就属于$c^i$，那我们用一个binary value(上标n，下标i)$b^n_i$来代表说第n个$x$有没有属于第i个class，如果第n个x属于第i个class的话，它的value就是1，反之就是0.接下来，你要update你的cluster，方法也是很直觉的(假设你要update第i个cluster center，你就把所有属于第i个cluster的x通通拿出来做平均，你就得到第i个cluster的center，然后你要反复的做)
-
-
 
 只所以在initialize cluster的时候，你会想到直接从你的database里面去挑K个$x$做center，有一个很重要的原因是假设你是纯粹随机的（不是从database里面挑的），你很有可能在第一次assign这个$x$的时候，就没有任何一个x和某一个cluster很像，或者某个cluster没有一个$x$,
 
 然后你updata的时候纯粹就是==无用功==，所以最好从database里面选取K个$x$作为cluster center。
 
-![](res\chapter24-3.png)
+## Hierarchical Agglemerative Clustering(HAC)
+
+![](res/chapter24-3.png)
 
 
 
@@ -32,7 +39,9 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 
 
-![](res\chapter24-4.png)
+# Distributed Representation
+
+![](res/chapter24-4.png)
 
 
 
@@ -40,13 +49,15 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 如果原来你的$x$是一个非常high dimension的东西，比如说image，你现在用它的特值来描述，它就会从比较高维的空间变成比较低维的空间。那这件事情就被叫做：dimension reduction。这是一样的事情，只是不同的称呼而已。
 
-![](res\chapter24-5.png)
+# Dimension Reduction
 
+![](res/chapter24-5.png)
 
+## MNIST 降维例子
 
 那从另外一个角度来看：为什么dimension reduction可能是有用的。举例来说：假设你的data分布是这样的(在3D里面像螺旋的样子)，但是用3D空间来描述这些data其实是很浪费的，其实你从资源就可以说：你把这个类似地毯卷起来的东西把它摊开就变成这样(右边的图)。所以你只需要在2D的空间就可以描述这个3D的information，你根本不需要把这个问题放到这个3D来解，这是把问题复杂化，其实你可以在2D就可以做这个task
 
-![](res\chapter24-6.png)
+![](res/chapter24-6.png)
 
 
 
@@ -54,19 +65,23 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 我们举一个很极端的例子：比如说这里有一堆3，这堆3如果你是从pixel来看待的话，你要用28*28维来描述一个image，然后实际上这些3只需要一个维度就可以来表示了。为什么呢？因为这些3就只是说：把原来的3放在这就是中间这张image，右转10度就是这张，右转2度变它，左转10、20度。所以你唯一要记录的只有今天这张image它是左转多少度右转多少度，你就可以知道说它在维的空间里面应该长什么样子。你只需要抓重这个重点(角度的变化)，你就可以知道28维空间中的变化，所以你只需要一维就可以描述这些image
 
-![](res\chapter24-7.png)
+![](res/chapter24-7.png)
 
 
 
 那怎么做dimension reduction呢?在做dimension reduction的时候，我们要做的事情就是找一个function，这个function的input是一个vector x，output是另外一个vector z。但是因为是dimension reduction，所以你output这个vector z这个dimension要比input这个x还要小，这样才是在做dimension reduction。
 
+## Feature Selection
+
 在做dimension reduction里面最简单是feature selection，这个方法是：你把你的data分布拿出来看一下，本来在二维的平面上，但是你发现都集中在$x_2$dimension这里，这个$x_1$dimension没什么用，把它拿掉就只有$x_2$dimension，你就等于做到dimension reduction这件事了。这个方法不见得有用，因为有很多时候，你的case是：你任何一个dimension都不能拿掉。
+
+## PCA
 
 另外一个常见的方法叫做Principe component abalysis(PCA),PCA做的事情就是：这个function是一个很简单的linear function，这个input x跟这个output z之间的关系就是一个linear transform，你把这个x乘上一个matrix w，你就得到它的output z。现在要做的事情就是:根据一大堆的x(我们现在不知道z长什么样子)我们要把w找出来
 
 
 
-![](res\chapter24-8.png)
+![](res/chapter24-8.png)
 
 
 
@@ -74,9 +89,11 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 举例来说，这个x的分布(图中蓝色的点，每一个点代表宝可梦)，这个分布的横坐标是攻击力，纵坐标是防御力。那今天我要把二维投影到一维，我应该要选什么样的$w^1$呢？我可以选$w^1$指向这个方向(红色的箭头)，也可以选$w^1$指向那个方向(橙色的箭头)，我选不同的方向得到的结果会是不一样的。那你总得给我们一个目标，我们才能知道要选咋样的$w^1$。我们的目标是这样的：我们希望选一个$w^1$，它经过projection以后得到这些$z_1$的分布是越大越好，也就是我们不希望说通过这个projection以后所有的点通通挤在一起，把本来的data point跟data point之间的奇异度拿掉了。我们是希望说：经过projection以后，不同的data point他们之间的区别我们仍然是可以看的出来，所以找一个projection方向它可以让projection后的various是越大越好。如果我们看这个例子的话，你就会觉得说：如果是选这个方向的话(红色箭头)，经过projection以后，可能会分布在这个range(large variance)；如果选这个方向的话(橙色箭头)，那么你的点可以是这个range(small variance)。所以你要选择$w^1$的时候，你可能会选择$w^1$的方向是large variance这个方向。从这个图上，你可以看出$w^1$其实是代表宝可梦的强度，宝可梦可能有一个factor代表它的强度，这个隐藏的factor同时影响了它的防御力跟攻击力，所以防御力跟攻击力是会同时上升的。
 
+### PCA数学推导
+
 那我们要用equation来表示的话，你就会说：我们现在要去maximize的对象是$z_1$的variance，$z_1$的variance就是summation over所有的$z_1$，然后$z_1$减去$(\bar z_1)^2$。
 
-![](res\chapter24-9.png)
+![](res/chapter24-9.png)
 
 
 
@@ -84,11 +101,11 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 这个W是一个orthogonal matrix，这时候，你看它的row($w^1,w^2$)是orthogonal，$w^1,w^2$的长度都是1，所以它是一个orthogonal matrix。
 
-![](res\chapter24-10.png)
+![](res/chapter24-10.png)
 
 接下里的问题就是怎样来找$w^1,w^2$(咋样来解这个问题)，这个解法是蛮容易的。经典的方法:$z_1$等于$w^1x$,$z_1$的平均值summation over$z_1$（公式里面少除n）,也就是summation over$w^1x$,$w^1$跟data point无关，可以提出来变为先summation over x在$w^1 \sum x$得到$w^1$跟$\bar{x}$。接下来我们要maximize的对象是$z_1$的variance($\sum_{z_1} (z_1-\bar{z_1})^2$)公式整理为$\sum( w^1(x-\bar{x}))^2$。可以把这个式子做一个转化：$w^1$是一个vector，$x- \bar{x}$是一个vector。假设$w^1$是a，$x-\bar{x}$是b，可以写成a的transform乘 b的平方，可以写成a的transpose 乘以b再乘以a的transpose乘以b，可以写成a的transpose乘以b再乘以a的transpose乘以b的transpose(a的transpose乘以b是一个scale）：找一个$w^1$，它可以maximizeing$(w^1)^TSw^1$（$S=Cov(x)$）。但这个是要有constraint，如果没有constriant的话，这个问题会有无聊的solution，把每个值都变无穷大，这样就结束了，所以这个问题是要有constraint。这个问题constraint是：$w^2$的L-Norm等于1
 
-![image](res\chapter24-11.png)
+![image](res/chapter24-11.png)
 
 
 
@@ -98,7 +115,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 
 
-![image](res\chapter24-12.png)
+![image](res/chapter24-12.png)
 
 
 
@@ -106,7 +123,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
  
 
-![image](res\chapter24-13.png)
+![image](res/chapter24-13.png)
 
 
 
@@ -118,9 +135,9 @@ z =Wx，这里神奇的地方就是：z的covariance是diagonal matrix，也就�
 
 PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigenvector，然后找出的$w^2$就是对应到第二大的eigenvector,以此类推。有一个证明告诉你说：这么做的话，每次投影的时候都可以让variance最大。
 
+### PCA-Another Point of View
 
-
-![image](res\chapter24-14.png)
+![image](res/chapter24-14.png)
 
 
 
@@ -128,7 +145,7 @@ PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigen
 
 举例来说：7是这三个component加起来的结果，假设7就是x的话，$c_1=1,c_2=0,c_3=1,c_4=0,c_5=1$，你可以用$c_1,c_2,...c_k$来表示一张image。假设component比pixel的数目少的话，那么这个描述是比较有效的。7是1倍的$u^1$,1倍$u^2$,1倍的$u^5$所组成的，所以7是一个vector，它的第一维，第三维，第5维是1.
 
-![image](res\chapter24-15.png)
+![image](res/chapter24-15.png)
 
 
 
@@ -138,7 +155,7 @@ PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigen
 
 
 
-![image](res\chapter24-16.png)
+![image](res/chapter24-16.png)
 
 
 
@@ -156,9 +173,9 @@ c_2^1 & c_2^2 \\
  ...& ...
 \end{matrix}\right.$跟这个matrix越接近越好，所以你要minimize左边两个matrix跟右边这个matrix之间的差距是会被minimize的，也就是说：用SVD提供给我们的matrix拆解方法，拆成这是三个matrix相乘后，跟左边的matrix是最接近的。
 
+### SVD
 
-
-![image](res\chapter24-17.png)
+![image](res/chapter24-17.png)
 
 
 
@@ -176,7 +193,9 @@ c_2^1 & c_2^2 \\
 
 你会发现，这个$XX^T$就是covariance matrix，PCA之前找出的W就是covariance matrix的eigenvector。而我们这边说做SVD，解出来U的每个column就是covariance matrix的eigenvector，所以这个U得出的解就是PCA得到的解。所以我们说：PCA做的事情就是：你找出来的那些W其实就是component。
 
-![image](res\chapter24-18.png)
+### PCA and Neural Network
+
+![image](res/chapter24-18.png)
 
 
 
@@ -187,10 +206,11 @@ linear combinarion做的事情你可以想成用neural network来表示它，假
 
 接下来就是minimize error，我们要$\hat{x}$跟$x-\bar{x}$越接近越好(也就是这个output跟$x-\hat{x}$越接近越好)，那你可以发现说PCA可以表示成一个neural network，这个neural network只有一个hidden layer，这个hidden layer是linear activation function。那现在我们train 这个neural network,是要input一个东西得到output，这个input跟output越接近越好。这个东西就叫做Autoencode
 
-
 这边就有一个问题，假设我们现在这个weight，不是用PCA的方法去找出$w^1,w^2,...w^k$。而是兜一个neural network，我们要minimize error，然后用Gradient Descent去train得到的weight，那就觉得你得到的结果会跟PCA得到的结果一样吗？这其实是会一样的(neural network没有办法保证是垂直的,你会得到另外一组解)。所以在linear的情况下，或许你就想要用PCA来找这个$W$比较快的，你用neural network是比较麻烦的。但是用neural network的好处是：可以deep。
 
-![image](res\chapter24-19.png)
+### Weakness of PCA
+
+![image](res/chapter24-19.png)
 
 
 
@@ -200,9 +220,9 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 另外一个PCA的弱点是Linear，我们刚开始举得例子会说。我们刚开始举的例子说：这边有一堆点的分布是像S型的，我们期待说：做dimension reduction后可以把这个S型曲面可以把它拉直，这件事情对PCA来说是做不到的。如果这个S型曲面做PCA的话，它是这样子的(如图)，就像打扁一样，而不是把它拉开，拉开这件事情PCA是办不到的。等下我们会讲non-linear
 
+### PCA 应用实例
 
-
-![image](res\chapter24-20.png)
+![image](res/chapter24-20.png)
 
 
 
@@ -217,7 +237,7 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 可以从这个结果看出来说：第五个和第六个principle component的作用是比较小的，你用这两个dimension来做projection的时候project出来的variance是很小的，代表说：现在宝可梦的特性在第五个和第六个principle component上是没有太多的information。所以我们今天要分析宝可梦data的话，感觉只需要前面四个principle component就好了。
 
-![image](res\chapter24-21.png)
+![image](res/chapter24-21.png)
 
 
 
@@ -225,27 +245,27 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 我们实际来分析一下，你做PCA以后得到四个principle component就是这个样子，每一个principle component就是一个vector，每一个宝可梦是用6位的vector来描述。我们来看每一个principle component做的事情是什么：如果我们看第一个principle component，第一个principle component每一个dimension都是正的，这个东西其实就代表了宝可梦的强度(如果你要产生一只宝可梦的时候，每一个宝可梦都是由这四个vector做linear conformation ，每一个宝 可梦可以想成是，这六个vector做linear conformation的结果，在选第一个principle component的时候，你给它的weight比较大，那这个宝可梦的六维都是强的，所以这第一个principle component就代表了这一只宝可梦的强度)。第二个principle component它在防御力的地方是正值，在速度的地方是负值，也就是说这个防御力跟速度是成反比的，你给第二个principle component一个weight的时候，你会增加那只宝可梦的防御力但是会减低它的速度。
 
-我们把第一个和第二个principle component 画出来的话，你会发现是这个样子(图上有800个点，每一个点对应到一只宝可梦)，但这样我么很难知道每一只宝可梦是什么
+我们把第一个和第二个principle component 画出来的话，你会发现是这个样子(图上有800个点，每一个点对应到一只宝可梦)，但这样我么很难知道每一只宝可梦是什么。
 
-![image](res\chapter24-22.png)
+![image](res/chapter24-22.png)
 
 
 
 如果我们看第三个和第四个component的话，会发现第三个principle component的特殊防御力是正的，攻击力和生命值是负的，说明是用生命值和攻击力换取特殊防御力的宝可梦。最后一个是：它的HP是正的，攻击力和防御力是负的，也就是说：它是用攻击力和防御力来换取生命力的宝可梦。
 
-![image](res\chapter24-23.png)
+![image](res/chapter24-23.png)
 
 
 
 我们拿它来做手写数字辨识的话，我们可以把每一张数字都拆成component乘以weight，加上另外一个component乘以weight，每一张component是一张image(28* 28的vector)。我们现在来画前30component的话(PCA)，你得到的结果是这样子的(如图所示)，你用这些component做linear conformation，你就得到所有的digit(0-9)，所以这些component就叫做Eigen digits(这些component其实都是covariance matrix的eigenvector)
 
-![image](res\chapter24-24.png)
+![image](res/chapter24-24.png)
 
 
 
 如果我们做人脸辨识的话，得到的结果是这样子的。找它们前30的pixel component，叫做Eigen-face。你把这些脸做linear conformation以后就可以得到所有的脸。但是这边跟我们预期的有些是不一样的，这是不是有bug啊。因为我们PCA找出来的是component，我们把很多component 做linear combine以后它会变成face。但是现在我们找出来的不是component，我们找出来的每一个图都几乎是完整的脸。
 
-![image](res\chapter24-25.png)
+![image](res/chapter24-25.png)
 
 
 
@@ -255,19 +275,21 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 用NMF的话值都是正的，那些component自然会形成一张image。
 
-![image](res\chapter24-26.png)
+![image](res/chapter24-26.png)
 
 
 
 在MNIST用NMF的话，你找出来的那些piexl component它就会清楚很多，你会发现你找出来的每个东西都是笔画了。
 
-![image](res\chapter24-27.png)
+![image](res/chapter24-27.png)
 
 
 
 如果你要看脸的话，你就会发现说：它长的是这个样子，它比较像是脸的一些部分。
 
-![image](res\chapter24-28.png)
+## Matrix Factorzation
+
+![image](res/chapter24-28.png)
 
 
 
@@ -275,7 +297,7 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 
 
-![image](res\chapter24-29.png)
+![image](res/chapter24-29.png)
 
 
 
@@ -283,7 +305,7 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇的(没有A那么强)，C是萌天然呆的，每一个动漫人物角色后面也都有傲娇，天然呆这两种属性。如果它们背后属性是match的话，那这个人就会买这个公仔。世界操控的逻辑是这样子的，但是这些factors(萌傲娇还是萌天然呆)这些是没有办法直接被观察的。
 
-![image](res\chapter24-30.png)
+![image](res/chapter24-30.png)
 
 
 
@@ -291,7 +313,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 
 
-![image](res\chapter24-31.png)
+![image](res/chapter24-31.png)
 
 
 
@@ -303,7 +325,9 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 这个就可以用刚才的SVD来解，你可能说SVD不是有三个解吗？这时候你看你是要把$\sum$并到左边还是右边，把这个matrix X拆成两个matrix，然后minimize error。
 
-![image](res\chapter24-32.png)
+## FM推荐系统中的应用
+
+![image](res/chapter24-32.png)
 
 
 
@@ -311,7 +335,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 假设在table上有一些是问号的话，怎么办呢？你用刚才SVD的方法就会有点卡。那在这个matrix上有missing的value的话，我们还是可以做的，我们就用gradient descent的方法来做。我们来写一个loss function $L=\sum _{(i,j)}(r^i*r^j-n_{ij})^2$(你要i这个人乘以j这个角色的inner product跟它购买的数量$n_{ij}$是越接近越好)重点是说：我们在summation over这些element的时候，我可以避开这些missing data(我们在summation overi,j的时候，如果值没有，我就不算它，我们只算有定义值的部分)
 
-![image](res\chapter24-33.png)
+![image](res/chapter24-33.png)
 
 
 
@@ -321,7 +345,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 如果我们已经知道$r^3$,$r^A$，我们知道一个会购买公仔的数量其实是动漫角色背后的latent factor跟人背后的latent factor做inner product的结果。那我们把$r^3$跟$r^A$做inner product之后，你就可以预测说这个人会买多少公仔。
 
-![image](res\chapter24-34.png)
+![image](res/chapter24-34.png)
 
 
 
@@ -329,7 +353,9 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 所以改一下minimize的式子，改为$r^i$跟$r^j$的inner product加上$b_i$,$b_j$，然后你希望这个值跟$n_{ij}$越接近越好，用gradient descent来解。(你也可以在loss function后面加上regularization)
 
-![image](res\chapter24-35.png)
+## MF主题分析的应用
+
+![image](res/chapter24-35.png)
 
 、
 
@@ -340,10 +366,11 @@ matrix factorization有很多的应用，可以应用到topic analysis上面。�
 
 在这个task里面，如果你今天把这个matrix做分解的话，你就会找到每一个document背后那个latent factor，那这边的latent factor是什么呢？可能指的是topic(主题)，这个topic有多少是跟财经有关的，有多少是跟政治有关的。document1跟document2有比较多的“投资，股票”这样的词汇，那document1跟document2就有比较高的可能背后的latent factor是比较偏向“财经”的
 
-
 topic analysis的方法多如牛毛，基本的精神是差不多的(有很多各种各样的变化)。常见的是probability latent semantic analysis(PLSA)和latent Dirchlet allocation(LDA)。这跟之前在machine learning讲的LDA是完全不一样的东西
 
-![image](res\chapter24-36.png)
+## More Related Approaches Not Introduced
+
+![image](res/chapter24-36.png)
 
 
 
