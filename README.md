@@ -79,9 +79,14 @@ v1.2|内容|内容|内容
 
 - [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)
 - [@hahlw](https://github.com/hahlw)
+- [@huangmh11](https://github.com/huangmh11)
 - [@Heitao5200](https://github.com/Heitao5200)
+- [@Hirotransfer](https://github.com/Hirotransfer)
 - [@ImayKing](https://github.com/Imay-King)
+- [@LilRachel](https://github.com/LilRachel)
 - [@spareribs](https://github.com/spareribs)
+
+
 
 # 关注我们
 

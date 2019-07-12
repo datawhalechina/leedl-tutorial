@@ -1,190 +1,258 @@
-![](GenerativeModel2.png)
-http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D2329743D3A6666753E6CB79F5
+## Tips for deep learning
 
+当你的模型表现不好，应该怎么处理？
+![chapter1-0.png](res/chapter18-0.png)
+## 1、recipe of deep learning(流程)
+![chapter1-0.png](res/chapter18-1.png)
 
-![image](C21804F01F364420BC6C6E2464EE8B06)
-我们来看intuitive reason，为什么要用VAE？如果是原来的auto-encoder的话，做的事情是：把每一张image变成一个code，假设现在的code是一维(图中红色的线)。你把满月这个图变为code上的一个value，在做decoder变回原来的图，半月图也是一样的。假设我们在满月和半月code中间，sample一个点，然后把这个点做decoder变回image，他会变成什么样子呢？你可能会期待说：可能会变成满月和半月之间的样子，但这只是你的想象而已。因为我们今天用的encoder和decoder都是non-linear的，都是一个neural network，所以你很难预测在这个满月和半月中间到底会发生什么事情。
+如上图建立deep learning的三个步骤
 
-那如果用VAE会有什么好处呢？VAE做事情是：当你把这个满月的图变成一个code的时候，它会在这个code上面再加上noise，它会希望加上noise以后，这个code reconstruct以后还是一张满月。也就是说：原来的auto-encoder，只有中间这个点需要被reconstruct回满月的图，但是对VAE来说，你会加上noise，在这个范围之内reconstruct回来都要是满月的图，半月的图也是一样的。你会发现说：在这个位置，它同时希望被reconstruct回满月的图，又希望被reconstruct回半月的图，可是你只能reconstruct一张图。肿么办？VAE training的时候你要minimize mean square，所以这个位置最后产生的图会是一张介于满月和半月的图。所以你用VAE的话，你从你的code space上面去sample一个code再产生image的时候，你可能会得到一个比较好的image。如果是原来的auto-encoder的话，得到的都不像是真实的image。
+•	define a set function
 
+•	goodness of function
 
+•	pick the best function
 
+做完这些事情后，你会得到一个neural network。在得到neural network后。
+## 2、分析neural network在训练和测试上的表现
+（1）首先你要检查的是，这个neural network在你的training set有没有得到好的结果（是否陷入局部最优），没有的话，回头看，是哪个步骤出了什么问题，你可以做什么样的修改，在training set得到好的结果。
 
+（2）假如说你在training set得到了一个好的结果了，然后再把neural network放在你的testing data，testing set的performance才是我们关心的结果。
 
-![image](396AF0660A964F25B2A2550D0547EEB8)
-所以这个encoder output m代表是原来的code，这个c代表是加上noise以后的code。decoder要根据加上noise以后的code把它reconstruct回原来的image。`$\sigma$`代表了noise的variance，e是从normal distribution sample出来的值，所以variance是固定的，当你把`$\sigma$`乘上e再加上m的时候就等于你把原来的code加上noise，e是从normal distribution sample出来的值，所以variance是固定的，但是乘上一个`$\sigma$`以后，它的variance 大小就有所改变。这个variance决定了noise的大小，这个variance是从encoder产生的，也就是说：machine在training的时候，它会自动去learn这个variance会有多大。
+如果在testing data performance不好，才是overfitting（注：training set上结果就不好，不能说是overfitting的问题）。
 
-但是如果还是这样子还是不够的，假如你现在的training只考虑：现在input一张image，中间有加noise的机制，然后decoder reconstruct回原来的image，然后minimize 这个reconstruct error，你只有做这件事情是不够的，你training的出来的结果并不会如你所预期的样子。
+**小结：如果training set上的结果变现不好，那么就要去neural network在一些调整，如果在testing set表现的很好，就意味成功了。**
 
-因为这个variance是自己学的，假设你让machine自己决定说variance是多少，它一定会决定说 variance是0就好了(就像让自己决定自己的分数的话，得100分就好了)。所以variance只让machine自己决定的话，variance是0就ok了，那就等于原来的auto-encoder。所以你要这个variance上面去做一些限制，强迫它的variance不可以太小。所以我们另外加的这一项`$\sum_{i=1}^{3}(exp(\sigma_i)-(1+\sigma_i)+(m_i)^2)$`，这一项其实就是对variance做了一下限制
+（tips：很多人容易忽视查看在training set上结果，是因为在机器学习中例如是用SVM等模型，很容易使得training set得到一个很好的结果，但是在深度学习中并不是这样的。所以一定要记得查看training set 上的结果。不要看到所有不好的performance都是overfitting。）
 
+ ![chapter1-0.png](res/chapter18-2.png)
 
-![image](DC050997BDAD4628AC39A40DEEA9B607)
-这边有`$exp(\sigma_i)-(1+\sigma_i)$`，`$exp(\sigma_i)$`是图中蓝色的线，`$(1+\sigma_i)$`是图中红色的这条线。把蓝色线减去红色线得到的是绿色这条线，绿色这条线的最低点是落在`$\sigma=0$`的地方，`$\sigma=0$`的话，exp(`$\sigma$`)=1，意味着variance=1(`$\sigma=0$`的时候loss最后，意味着variance=1的时候loss最低)。所以machine就不会说：让variance=0，然后minimize reconstruct error，它还要考虑variance不能够太小。最后这一项`$m_i^2$`就相当于加了是L2-Norm。我们常常在training auto-encoder的时候，你就会在你的code上面加上regularization，让它的结果不会overfitting。
 
+例如：在testing data上看到一个56-layer和20-layer，显然20-layer的error较小，那么你就说是overfitting，那么这是错误的。首先你要检查你在training data上的结果。
 
-![image](C2A2874695E84D198524442EA96E2F30)
-刚才是比较直观的理由，正式的理由这样的，以下是paper上比较常见的说法。假设我们回归到我们要做的事情是什么，你要machine generate 这个pokemon的图，那每一张pokemon的图都可以想成是高维空间中的一个点。假设它是20*20的image，在高维空间中也就是400 *400维的点，在图上我们用一维描述它，但其实是一个高维的空间。那现在要做的事情就是Estimate高维空间上的几率分布，我们要做的事情就是estimate这个p(x)，只要我们estimate p(x)的样子，那我们就可以根据p(x)去sample出一张图，找出来的图就会是像宝可梦的样子(p(x)几率最高的比较容易被sample1出来)。这个p(x)理论上在有pokemon的地方，它的几率是最大的，若在怪怪的图上，几率是低的。如果我们今天能够estimate the probability distributon就结束了。
+在training data上56-layer的performance本来就比20-layer变现的要差很多，在做neural network时，有很多的问题使你的train不好，比如local mininmize等等，56-layer可能卡在一个local minimize上，得到一个不好的结果，这样看来，56-layer并不是overfitting，只是没有train的好。
+ ![chapter1-0.png](res/chapter18-3.png)
+ 在deep learning文件上，当你看到一个方式的时候，你首先要想一下说，它是要解什么样的问题，是解决在deep learning 中一个training data的performance不好，还是解决testing data performance不好。
 
+当一个方法要被approaches时，往往都是针对这两个其中一个做处理，比如，你可能会听到这个方法(dropout),dropout是在training data表现好，testing data上表现不好的时候才会去使用，当training data 结果就不好的时候用dropout 往往会越训练越差。
+## 3、neural network结果不好如何改进
+## 3.1、new  activation function
+ ![chapter1-0.png](res/chapter18-4.png)
+ 现在你的training data performance不好的时候，是不是你在做neural的架构时设计的不好，举例来说，你可能用的activation function不够好。
+![chapter1-0.png](res/chapter18-5.png)
+ 
+在2006年以前，如果将网络叠很多层，往往会得到上图的结果。上图，是手写数字识别的训练准确度的实验，使用的是sigmoid function。可以发现当层数越多，训练结果越差，特别是当网络层数到达9、10层时，训练集上准确度就下降很多。但是这个不是当层数多了以后就overfitting，因为这个是在training set上的结果。
 
-![image](99CC12025B924A81991B4808DB7D317E)
-咋样estimate the probability distributon呢？我们可以用gaussion mixture model。guassion mixture model：我们现在有一个distribution(黑色的线)，这个黑色的distribution其实是很多的gaussion(青蓝色)用不同的weight叠合起来的结果。如果你的gaussion数目够多，你就可以产生很复杂的distribution，公式为`$p(x)=\sum_{m}p(m)p(x|m)$`。
+（在之前可能常用的activation function是sigmoid function,今天我们如果用sigmoid function，那么deeper usually does not imply better,这个不是overfitting）
+## （1）vanishing Gradient problem
+ ![chapter1-0.png](res/chapter18-6.png)
+当网络比较深的时候会出现vanishing Gradient problem
 
-如果你要从p(x)sample出一个东西的时候，你先要决定你要从哪一个gaussion sample东西，假设现在有100gaussion(每一个gaussion都有自己的一个weight)，你根据每个gaussion的weight去决定你要从哪一个gaussion sample data。所以你要咋样从一个gaussion mixture model smaple data呢？首先你有一个multinomial distribution，你从multinomial distribution里面决定你要sample哪一个gaussion，m代表第几个gaussion，它是一个integer。你决定好你要从哪一个m sample gaussion以后，，你有了m以后就可以找到`$\mu ^m,Σ^m$`(每一个gaussion有自己的`$\mu ^m,Σ^m$`)，根据`$\mu ^m,Σ^m$`就可以sample一个x出来。所以p(x)写为summation over所有的gaussion，哪一个gaussion的weight乘以有一个gaussion sample出x的几率 
+比较靠近input 的几层Gradient值十分小，靠近output的几层Gradient会很大，当你设定相同的learning rate时，靠近input layer 的参数updata会很慢，靠近output layer的参数updata会很快。当前几层都还没有更动参数的时候（还是随机的时候），随后几层的参数就已经收敛了。
 
+ ![chapter1-0.png](res/chapter18-7.png)
 
-每一个x都是从某一个mixture被sample出来的，这件事情其实就很像是做classification一样。我们每一个所看到的x，它都是来自于某一个分类。但是我们之前有讲过说：把data做cluster是不够的，更好的表示方式是用distributed representation，也就是说每一个x它并不是属于某一个class，而是它有一个vector来描述它的各个不同面向的特性。所以VAE就是gaussion mixture model distributed representation的版本。
+为什么靠近前几层的参数会特别小呢？
 
+怎么样来算一个参数w对 total loss做偏微分，实际上就是对参数做一个小小的变化，对loss的影响，就可以说，这个参数gradient 的值有多大。
 
+给第一个layer的某个参数加上\triangle w△w时，对output与target之间的loss有什么样的变化。现在我们的\triangle w△w很大，通过sigmoid function时这个output会很小(一个large input，通过sigmoid function，得到small output)，每通过一次sogmoid function就会衰减一次（因为sogmoid function会将值压缩到0到1之间，将参数变化衰减），hidden layer很多的情况下，最后对loss 的影响非常小(对input 修改一个参数其实对output 是影响是非常小)。
 
+理论上我们可以设计dynamic的learning rate来解决这个问题，确实这样可以有机会解决这个问题，但是直接改activation function会更好，直接从根本上解决这个问题。
+## （2）怎么样去解决vanishing Gradient problem
+![chapter1-0.png](res/chapter18-8.png)
+ 
+ 修改activation function，ReLU input 大于0时，input 等于 output，input小于0时，output等于0
 
-![image](29D01A30B6B34AE3B2A302EE61A8550E)
-首先我们要sample一个z，这个z是从normal distribution sample出来的。这个vector z的每一个dimension就代表了某种attribute，假设是z是这样的(如图)，现在图上假设它是低维的，但是在实际上它是高维的，到底是几维你自己决定。接下来你Sample z以后，根据z你可以决定`$\mu(z),variance$`，你可以决定gaussion的`$\mu,\sigma$`。刚才在gaussion model里面，你有10个mixture，那你就有10个`$\mu,\sum $`，但是在这个地方，你的z有无穷多的可能，所以你的`$\mu,variance $`也有无穷多的可能。那咋样找到这个`$\mu,  variance $`呢？做法是：假设`$\mu,variance $`都来自于一个function，你把z带到产生`$\mu$`的这个function`$N(\mu(z),\sigma(z))$`，`$\mu(z)$`代表说：现在如果你的attribute是z的时候，你在x space上面的`$\mu$`是多少。同理`$\sigma(z)$`代表说：variance是多少
+选择这样的activation function有以下的好处：
 
-其实P(x)是这样产生的：在z这个space上面，每一个点都有可能被sample到，只不过是中间这些点被sample出来的几率比较大。当你sample出来点以后，这个point会对应到一个guassion。至于一个点对应到什么样的gaussion，它的`$\mu,\sum$`是多少，是由某一个function来决定的。所以当gaussion是从normal distribution所产生的时候，就等于你有无穷多个gaussion。
+•	比sigmoid function比较起来是比较快的
 
-另外一个问题就是：我们肿么知道每一个z应该对应到什么样的`$\mu,\sum$`(这个function如何去找)。我们知道neural network就是一个function，所以你就可以说：我就是在train一个neural network，这个neural network就是z，它的output就是两个vector(`$\mu(z),\sigma(z)$`)。第一个vector代表了input是z的时候你gaussion的`$\mu$`，`$\sigma$`代表了variance
+•	生物上的原因
 
-我们有一个neural network可以告诉我们说：在z这个space上面的每一个点对应到x的space时，你的`$\mu,variance$`分别是多少。
+•	无穷多的sigmoid function叠加在一起的结果(不同的bias)
 
+•	可以处理 vanishing gradient problem
+![chapter1-0.png](res/chapter18-9.png)
+ 
 
+ReLU activation function 作用于两个不同的range，一个range是当activation input大于0时，input等于output，另外一个是当activation function小于0是,output等于0。
 
+那么对那些output等于0的neural来说，对我们的network一点的影响都没。加入有个output等于0的话，你就可以把它从整个network拿掉。(下图所示)  剩下的input等于output是linear时，你整个network就是a thinner linear network。
 
-p(x)的distribution会这样的：P(z)的几率跟我们知道z的时候x的几率，在对所有可能的z做积分(因为z是continue的)。那你可能会困惑，为什么是gaussion呢？你可以假设任何形状的，这是你自己决定的。你可以说每一个attribute的分布就是gaussion，极端的case总是少的，比较没有特色的东西总是比较多的。你不用但心说：你如果假设gaussion会不会对p(x)带来很大的限制。其实不用担心这个问题，NN是非常powerful的，NN可以represent任何的function。所以就算你的z是normal distribution，最后的p(x)最后也可以是很复杂的distribution。
+![chapter1-0.png](res/chapter18-10.png)
 
+我们之前说，GD递减，是通过sigmoid function，sigmoid function会把较大的input变为小的output，如果是linear的话，input等于output,你就不会出现递减的问题。
 
-![image](6D369FD232174488B8E48ED3E171BB30)
-p(z) is a normal distribution，我们先知道z是什么，然后我们就可以决定x是从咋样的`$\mu,variance$`function里面被sample出来的，`$\mu,variance$`中间是关系是不知道的。咋样找呢？它的equation就是maximizing the likelihood，我们现在手上已经有一笔data x，你希望找到一组`$\mu$`的function和`$\sigma$`的function，它可以让你现在已经有的image(每一个x代表一个image)，它的p(x)取log之后相加是被maximizing。所以我们要做的事情就是，调整NN里面的参数(每个neural的weight bias)，使得likehood可以被maximizing。
+我们需要的不是linear network（就像我们之所以不使用逻辑回归，就是因为逻辑回归是线性的），所以我们才用deep learning ，就是不希望我们的function不是linear，我们需要它不是linear function，而是一个很复杂的function。对于ReLU activation function的神经网络，只是在小范围内是线性的，在总体上还是非线性的。
 
+如果你只对input做小小的改变，不改变neural的activation range,它是一个linear function，但是你要对input做比较大的改变，改变neural的activation range，它就不是linear function。
 
+![chapter1-0.png](res/chapter18-11.png)
+ 
+1、改进1 leaky ReLU
+ReLU在input小于0时，output为0，这时微分为0，你就没有办法updata你的参数，所有我们就希望在input小于0时，output有一点的值(input小于0时，output等于0.01乘以input)，这被叫做leaky ReLU。
 
-引入另外一个distribution，叫做`$q(z|x)$`。也就是我们有另外一个`$NN'$`，input一个x以后，它会告诉你说：对应z的`$\mu',\sigma'$`(给它x以后，它会决定这个z要从什么样的`$\mu,variance$`被sample出来)。上面这个NN就是VAE里的decoder，下面这个`$NN'$`里的encoder
+2、改进2 Parametric ReLU
 
+Parametric ReLU在input小于0时，output等于\alpha zαz\alphaα为neural的一个参数，可以通过training data学习出来，甚至每个neural都可以有不同的\alphaα值。
 
+那么除了ReLU就没有别的activation function了吗，所以我们用Maxout来根据training data自动生成activation function。
 
+3、改进3Exponential linear Unit (ELU)
+![chapter1-0.png](res/chapter18-12.png)
+ 
+让network自动去学它的activation function，因为activation function是自动学出来的，所有ReLU就是一种特殊的Maxout case。
 
-![image](3E2BE7BBB4FE4CB2A0C1127662C02F60)
-`$logP(x)=\int_{z}q(z|x)logP(x)dz$`，因为`$q(z|x)$`它是一个distribution，对任何distribution都成立。假设`$q(z|x)$`是路边捡来的distribution(可以是任何的distribution)，因为这个积分是跟P(x)无关的，然后就可以提出来，积分的部分就会变成1，所以左式就等于右式。
+input是x1,x2，x1,x2乘以weight得到5,7,-1,1。这些值本来是通过ReLU或者sigmoid function等得到其他的一些value。现在在Maxout里面，在这些value group起来(哪些value被group起来是事先决定的，如上图所示)，在组里选出一个最大的值当做output(选出7和1，这是一个vector 而不是一个value)，7和1再乘以不同的weight得到不同的value，然后group，再选出max value。
+ 
+![chapter1-0.png](res/chapter18-13.png)
+Maxout network 是怎么样产生不同的activation function，Maxout有办法做到跟ReLU一样的事情。
 
-最后得到式子如图所示，右边的式子中`$q(z|x)$`是一个distribution，`$logP(x)=\int_{z}q(z|x)logP(x)dz$`也是一个distribution，KL divergence代表这两个distribution相近的程度(KL divergence越大，代表这个distribution越不像，KL divergence衡量一个距离的概念)，右边这个式子是距离，所以一定是大于等于0，所以L一定会大于等于`$\int_{m}q(z|x)log(\frac{p(x|z)p(z)}{q(z|x)})$`这一项，这一项即是lower bounud，称为`$L_b$`。
+对比ReLu和Maxout
 
-![image](1EBD79E4E46B4F529718E177B1D1E2F0)
-我们要maximizing的对象是由这两项加起来的结果，在`$L_b$`这个式子中，p(z)是已知的，我们不知道的是`$p(x|z)$`。我们本来要做的事情是要找`$p(x|z)$`跟`$q(z|x)$`，让这个likehood越大越好，现在我们要做的事情变成要找找`$p(x|z)$`跟`$q(z|x)$`，让`$L_b$`越大越好。如果我们只找这一项的话(`$p(x|z)$`)，然后去maximizing `$L_b$` 的话，你增j加`$L_b$`的时候，你有可能会增加你的likehood，但是你不知道你的likehood跟lower bound之间到底有什么样的距离。你希望你做到的是：当你的lower bound上升的时候，你的likehood也跟着上升。但是有可能会遇到糟糕的事情是：你的lower bound上升的时候，likehood反而下降(因为不知道它们之间的差距是多少)。
+ReLu：input乘以w,b，再经过ReLU得a。
 
-所以引入这一项(`$L_b$`)可以解决刚才说的那个问题。因为：如图蓝色的是likehood，`$likehood=L_b+KL$`，如果你今天调`$q(z|x)$`maximizing `$L_b$`的话。你会发现说`$q(z|x)$`跟log p(x)是没有关系的(log p(x)。但是我们却maximizing `$L_b$`代表说你minimize这个KL divergence，也就是说你让lower bound跟likehood越来越接近(maximize `$q(z|x)$`)。加入你今天去固定住`$p(x|z)$`这一项，去调`$q(z|x)$`这一项的话，你会让`$L_b$`一直上升，这个KL divergence会完全不见。因为你的likehood一定要比lower bound大，所以你确定likehood一定会上升。
+Maxout：input中x和1乘以w和b得到z1，z2，x和1乘以w和b得到z2，z2(现在假设第二组的w和b等于0，那么z2,z2等于0)，在两个中选出max得到a(如上图所示)
+现在只要第一组的w和b等于第二组的w和b，那么Maxout做的事就是和ReLU是一样的。
 
+当然在Maxout选择不同的w和b做的事也是不一样的(如上图所示)，每一个Neural根据它不同的wight和bias，就可以有不同的activation function。这些参数都是Maxout network自己学习出来的，根据数据的不同Maxout network可以自己学习出不同的activation function。
 
-今天我们也会得到一个副产物，你当你maximize`$q(z|x)$`这一项的时候，你会让KL divergence越来越小，意味着说：你会让`$q(z|x)$`跟`$p(z|x)$`越来越接近。所以接下来做的事情就是找`$p(x|z)$`跟`$q(z|x)$`，可以让`$L_b$`越大越好，就等同于让likehood越来越大。在最后你顺便会找到`$q(z|x)$` approximation p(z|x)。
+上图是由于Maxout network中有两个pieces，如果Maxout network中有三个pieces，Maxout network会学习到不同的activation function如下图。
+![chapter1-0.png](res/chapter18-14.png)
 
+面对另外一个问题，怎么样去training，因为max函数无法微分。但是其实只要可以算出参数的变化，对loss的影响就可以用梯度下降来train网络。
+![chapter1-0.png](res/chapter18-15.png)
 
-![image](EA1AB2724C69426EA07A7937AE7A9997)
-`$p(z)$`是一个distribution，`$q(z|x)$`也是一个distribution，所以`$\int_{z}q(z|x)log\frac{p(z)}{q(z|x)}$`是KL divergence。复习一下，q是一个neural network，当你给x的时候，它会告诉你：`$q(z|x)$`是从什么样的`$\mu,variance$`gaussion sample出来的。
+ max operation用方框圈起来，当你知道在一组值里面哪一个比较大的时候，max operation其实在这边就是一个linear operation，只不过是在选取前一个group的element。把group中不是max value拿掉。
+ ![chapter1-0.png](res/chapter18-16.png)
+ 没有被training到的element，那么它连接的w就不会被training到了，在做BP时，只会training在图上颜色深的实线，不会training不是max value的weight。这表面上看是一个问题，但实际上不是一个问题。
 
+当你给到不同的input时，得到的z的值是不同的，max value是不一样的，因为我们有很多training data，而neural structure不断的变化，实际上每一个weight都会被training。
+## 3.2、Adaptive Learning Rate
 
+![chapter1-0.png](res/chapter18-17.png)
+ 每一个parameter 都要有不同的learning rate，这个 Adagrd learning rate 就是用固定的learnin rate除以这个参数过去所有GD值的平方和开根号，得到新的parameter。
 
+我们在做deep learnning时，这个loss function可以是任何形状。
+ ![chapter1-0.png](res/chapter18-18.png)
+考虑同一个参数假设为w1，参数在绿色箭头处，可能会需要learning rate小一些，参数在红色箭头处，可能会需要learning rate大一些。
 
+你的error surface是这个形状的时候，learning rate是要能够快速的变动.
 
+在deep learning 的问题上，Adagrad可能是不够的，这时就需要RMSProp（该方法是Hinton在上课的时候提出来的，找不到对应文献出处）。
+![chapter1-0.png](res/chapter18-19.png)
+ 一个固定的learning rate除以一个\sigmaσ(在第一个时间点，\sigmaσ就是第一个算出来GD的值)，在第二个时间点，你算出来一个g^1g1，\sigma^1σ1(你可以去手动调一个\alphaα值，把\alphaα值调整的小一点，说明你倾向于相信新的gradient 告诉你的这个error surface的平滑或者陡峭的程度。
+ ![chapter1-0.png](res/chapter18-20.png)
+除了learning rate的问题以外，我们在做deep learning的时候，有可能会卡在local minimize，也有可能会卡在 saddle point，甚至会卡在plateau的地方。
 
+其实在error surface上没有太多的local minimize，所以不用太担心。因为，你要是一个local minimize，你在一个dimension必须要是一个山谷的谷底，假设山谷的谷底出现的几率是P，因为我们的neural有非常多的参数(假设有1000个参数，每一个参数的dimension出现山谷的谷底就是各个P相乘)，你的Neural越大，参数越大，出现的几率越低。所以local minimize在一个很大的neural其实没有你想象的那么多。
+  ![chapter1-0.png](res/chapter18-21.png)
+有一个方法可以处理下上述所说的问题
 
+在真实的世界中，在如图所示的山坡中，把一个小球从左上角丢下，滚到plateau的地方，不会去停下来(因为有惯性)，就到了山坡处，只要不是很陡，会因为惯性的作用去翻过这个山坡，就会走到比local minimize还要好的地方，所以我们要做的事情就是要把这个惯性加到GD里面(Mometum)。
+现在复习下一般的GD
+ ![chapter1-0.png](res/chapter18-22.png)
+ 选择一个初始的值，计算它的gradient，G负梯度方向乘以learning rate，得到θ1，然后继续前面的操作，一直到gradinet等于0时或者趋近于0时。
 
-你要minimizing KL`$(q(z|x)||p(z))$`的话，你就是去调q对应的neural network产生的distribution可以跟normal distribution越接近越好。minimize这一项其实就是我们刚才在reconstruction error另外加的那一项，它要做的事情就是minimize KLdivergence，它要做的事情就是：希望`$q(z|x)$`的output跟normal distribution是接近的
-
-
-![image](37F6712CFE4342DFA9AE2DF7FF002489)
-还有另外一项`$\int_{z}q(z|x)log P(x|z)dz$`，可以写成`$logP(x|z)$`根据`$q(z|x)$`的期望值。从`$q(z|x)$`去sample data，然后让`$logP(x|z)$`的几率越大越好，其实这件事情就是auto-encoder在做的事情。咋样理解从`$q(z|x)$`去sample data：你把x丢进neural network里面去，产生一个`$\mu,variance$`。根据`$\mu,variance$`你就可以sample出来一个z。接下来maximize产生`$logP(x|z)$`的几率，其实就是把z丢到另外neural network，产生一个`$\mu,variance$`。咋样让这个几率越大越好呢？假设我们忽视variance(一般在实做里面不会把variance这件事考虑进去)，只考虑`$\mu$`这一项的话。你要做的就是让`$\mu$`跟x越接近越好。现在是gaussion distribution，在`$\mu$`的几率是最大的，所以你要NN output这个`$\mu$`等于x的话，那`$logP(x|z)$`这一项是最大的。
-
-所以整个case就变成说：input一个x，然后产生两个vector，产生一个z，再根据这个z，产生另外一个vector跟原来的x越接近越好。其实这件事情就是auto-encoder在做的事情，你要你的input跟output越接近越好。所以这两项合起来就是前面看到的VAE的loss function
-
-
-![image](719C6FBB038F421DB120307E6FD22825)
-
-还有一种conditional VAE，如果你让VAE可以产生手写的数字，就是给它一个digit，然后它把这个digit的特性抽取出来(笔画的粗细等等)，然后丢进encoder的时候一方面给它有关这个数字特性的distribution，另外一方面告诉decoder它是什么数字。那你就可以根据这一个digit，generate跟它style相近的digit。你会发现说conditional VAE可以根据某一个digit画出跟它style相近的数字。
-
-
-![image](A459CD8B672B4034A94BF6D216002A98)
-这是一些reference提供参考。
-
-
-
-
-![image](263A521201044064B7AA17AEDFD32EEA)
-VAE其实有一个很严重的问题就是：它从来没有真正学咋样产生一张看起来像真的image，它学到的东西是：它想要产生一张image，跟我们在database里面某张image越接近越好。但它不知道的是：我们evaluate它产生的image跟database里面的相似度的时候(MSE等等)，decoder output跟真正的image之间有一个pixel的差距，不同的pixel落在不同的位置会得到非常不一样的结果。假设这个不一样的pixel落在7的尾部(让7比较长一点)，跟落在另外一个地方(右边)。你一眼就看出说：右边这是怪怪的digit，左边这个搞不好是真的(只是长了一点而已)。但是对VAE来说都是一个pixel的差异，对它来说这两张image是一样的好或者是一样的不好。
-
-所以VAE学的只是咋样产生一张image跟database里面的一模一样，从来没有想过：要真的产生可以一张以假乱真的image。所以你用VAE来做training的时候，其实你产生出来的image往往都是database里面的image linear combination而已。因为它从来都没有想过要产生一张新的image，它唯一做的事情就是模仿而已
-
-
-![image](2A7E1F9FA06E40DFB8BCE34889FE5D24)
-所以接下来有了一个方法Generative Adversarial Network(GAN)，最早出现在2014年。
-
-
-
-
-
-
-![image](FE607212EB3140898D4C978478A3A9B9)
-这里引用了Yann LeCun's comment，有人问了：what are some recent and potentially upcoming breakthrough in unsupervised learning，Yann LeCun's 亲自来回答：adversarial training is the coolest thing since sliced bread(since sliced bread__有始以来)
-![image](57117F0427724BD2B4708A6309806959)
-
-![image](891889C73C0B4870B5579FF45DCA8F20)
-GAN的概念像是拟态的演化，如图是一个枯叶蝶(长的像枯叶一样)，枯叶蝶咋样变得像枯叶一样的呢？也许一开始它长是这个样子(如左图)。但是它有天敌(麻雀)，天敌会吃这个蝴蝶，天敌辨识是不是蝴蝶的方式：它知道蝴蝶不是棕色的，所以它吃不是棕色的东西。所以蝴蝶就演化了，它就变成了棕色的了。它的天敌会跟着演化，天敌知道蝴蝶是没有叶脉的，所以它会吃没有叶脉的东西。所以蝴蝶演化变成枯叶蝶(有叶脉)，它的天敌也会演化，蝴蝶和它的天敌会共同的演化，枯叶蝶会不断的演化，直到和枯叶无法分别为止。
-
-
-![image](6BBBC625B2FC4F2F854B93A43C46A47C)
-所以GAN的概念是非常类似的，首先有第一代的generator，generate一些奇怪的东西(看起来不是像是image)。接下来有第一代的Discriminator(它就是那个天敌)，Discriminator做的事情就是：它会根据real images跟generate产生的images去调整它里面的参数，去评断说：这是真正的image还是generate产生的 image。接下来generator根据discriminator调整了下它的参数，所以第二代generator产生的digit更像是真的image，接下来discri minator会根据第二代generator产生的digit跟真正的digit再update它的参数。接下来产生第三代generator，产生的digit更像真正的数字(第三代generator产生的digit可以骗过第二个discri minator)，但是discri minator也会演化，等。
-
-
-你要注意的一个地方就是：这个Generator它从来没有看过真正的image长什么样子，discri- minator有看过真正的digit长什么样子，它会比较正真正的image和generator的不同，它要做的就是骗过discri-minator。generator没有看过真正的image，所以generate它可以产生出来的image是database里面从来都没有见过的，这比较像是我们想要machine做的事情。
-
-
-![image](B7E5F53B072F40968C3DA5B3E970C697)
-我们来看discriminator是咋样train的：这个discriminator就是一个neural network，它的input就是一张image，它的output就是一个number(可以通过sigmoid function让值介于0-1之间，1代表input这一张image是真正的image，0代表是generator所产生的)。generator在这里的架构其实就跟VAE的decoder是一摸一样的，它也是neural network，它的input就是从一个distribution sample出来的vector，你把sample出来的vector丢到generator里面，它就会产生一个数字(image)，你给它不同的vector，它就会产生不同样子的image，先用generator产生一堆image(假的)。我们有真正的image，discriminator就是把generator所产生的image都label为0，把真正的image都label为1。
-
-
-
-
-
-
-
-
-
-现在有可第一代的discriminator，咋样根据discriminator update 第一代的。首先我们随便输入一个vector，它会随便产生一张image，这张image没有办法骗过discriminatior，把generator产生的image丢到discriminatior里面，它得出有0.87。接下来我们就得调这个generator的参数，让现在的discriminator会认为说：generator出来的image是真的，也就是说：generator出来的image丢到discriminator里面，discriminator output越接近1越好，所以你希望generator出来是这样的image，discriminator output是1.0觉得它是真正的image。
-
-
-![image](683AEC7957B64BA8943A07A58A89A4EC)
-generator就是一个neural network，discriminator也是一个neural network，你把generator output当做discriminator的 input，然后再让它产生一个值。这件事情就好像是：你有一个很大很大的neural network，你丢一个randomly vector，它的output就是一个值，所以generator和discriminator合起来就是一个很大的neural network，你要让这个network再丢进一个randomly vector，output 1这件事是很容易的，你做gradient descent就好了。你就gradient descent调整参数，希望丢进这个vector的时候，它的output是要接近1的。但是你要注意的事情是：你在调整这个参数的时候，你只能够调整generator的参数(只能算generator的参数对output的gradient)，必须fix the discriminator。如果你没有fix the discriminator的话会发生：对discriminator来说，要让它output 1很简单，在最后output的bias设为1，其他weight都设0，output就是1了。
-
-所以你要整个network input randomly vector，output是1的时候，你要fix the discriminator的参数，只调generator的参数，这样才会骗过。
-
-
-
-
-
-![image](769252F6FA46470FB01568DBC0868BA5)
-这是来自GAN paper的Toy example，Toy example是这样子的：z(z是one dimension)丢到generator里面，会产生另外一个one dimension的东西(这个z可以从任何的distribution sample出来，在这个例子是从uniform distribution sample出来的)，每一个不同的z会得到不同的x，x的分布就绿色这条个分布。现在要做的事情是：希望这个generator的output可以越像real data越好，real data就是黑色的这些点，也就绿色这条distribution可以跟黑色的点越接近越好。按照GAN的概念的话，你就把generator的output x跟real data丢到discriminator里面，然后让discriminator去判断来自真正data的几率跟generator output几率(如果是真正的data 几率就是1，反之就是0)
-
-
-
-假设generator还很弱，产生的green distribution是这样子(中间图)，discriminator根据real data跟generator distribution得出的是蓝色的线，这条蓝色的线告诉我们，如果是在右半区，比较有可能是假的(generator产生的)，如果是在左半区，比较有可能是real data。接下来generator根据discriminator的结果去调整它的参数(generator要做的事情就是要骗过discriminator)，既然discriminator认为在中间那个图左半区比较有可能是real data，那generator output就往左边移，也有可能移太多偏到左边去了，所以要小心的调整参数，generator会骗过它产生新的distribution。这个process会一直进行下去，直到最后generator output跟real data一模一样，discriminator没有办法分辨真正的data。
-
-问题：你不知道discriminator是不是对的，你说discriminator得到一个很好的结果，那有可能是generator太废，有时候discriminator得到一个很差的结果，它认为每个地方抖没法分辨是不是real value，这个时候并不能说：generator很像，有可能是discriminator太弱了，所以这是一个还没有solution的难题。
-
-
-
-所以在train GAN的时候，你会一直坐在电脑旁边看它产生的image，因为你从generator跟discriminat的loss你看不出generate是否好，所以你generator updata一次参数，你就去看看generate一些image看看有没有比较好，如果方向走错了，在重新调整一下参数，所以这是非常困难的。
-
-
-
-![image](36431413F1B94FFD99C6474880EAD356)
-最大的问题就是你没有一个很明确的signal，它可以告诉现在的generator现在做的什么样子。在standard NNS里面，你就看那个loss，loss越来越小就代表train越来越好。但是在GAN里面，你其实要做的事情是：keep generator跟discriminator是well-matched
-，不断处于一个竞争的状态。
-
-这就很麻烦，你要让generator跟discriminator一直处于竞争的状态，所以你就要一个不可思议的平衡感来调整参数。
-当discriminator fail的时候，我们train的终极目标是希望generator产生的output被discriminator无法分别的(正确率为0)，但是往往当你discriminator fail的时候，并不代表说：generator真正generate出很好的image，往往遇到的状况是generator是太弱了。
-
-
-
-
-
-
-
+当我们加上Momentu时
+ ![chapter1-0.png](res/chapter18-23.png)
+
+ 我们每次移动的方向，不再只有考虑gradient，而是现在的gradient加上前一个时间点移动的方向
+
+（1）步骤
+
+选择一个初始值\theta……0θ……0然后用v^0v0去记录在前一个时间点移动的方向(因为是初始值，所以第一次的前一个时间点是0)接下来去计算在\theta^0θ0上的gradient，移动的方向为v^1v1。在第二个时间点，计算gradient\theta^1θ1，gradient告诉我们要走红色虚线的方向(梯度的反方向)，由于惯性是绿色的方向(这个\lambdaλ和learning rare一样是要调节的参数，``$\lambda$`会告诉你惯性的影响是多大)，现在走了一个合成的方向。以此类推...
+
+（2）运作
+ ![chapter1-0.png](res/chapter18-24.png)
+ 
+ 加上Momentum之后，每一次移动的方向是 negative gardient加上Momentum的方向(现在这个Momentum就是上一个时间点的Moveing)。
+
+现在假设我们的参数是在这个位置(左上角)，gradient建议我们往右走，现在移动到第二个黑色小球的位置，gradient建议往红色箭头的方向走，而Monentum也是会建议我们往右走(绿的箭头)，所以真正的Movement是蓝色的箭头(两个方向合起来)。现在走到local minimize的地方，gradient等于0(gradient告诉你就停在这个地方)，而Momentum告诉你是往右边的方向走，所以你的updata的参数会继续向右。如果local minimize不深的话，可以借Momentum跳出这个local minimize
+
+Adam：RMSProp+Momentum
+ ![chapter1-0.png](res/chapter18-25.png)
+ 
+ 
+**如果你在training data已经得到了很好的结果了，但是你在testing data上得不到很好的结果，那么接下来会有三个方法帮助解决。**
+ 
+## 3.3、Early Stopping
+  ![chapter1-0.png](res/chapter18-26.png)
+   ![chapter1-0.png](res/chapter18-27.png)
+
+随着你的training，你的total loss会越来越小(learning rate没有设置好，total loss 变大也是有可能的)，training data和testing data的distribute是不一样的，在training data上loss逐渐减小，而在testing data上loss逐渐增大。理想上，假如你知道testing set 上的loss变化，你应该停在不是training set最小的地方，而是testing set最小的地方(如图所示)，可能training到这个地方就停下来。但是你不知道你的testing set(有label的testing set)上的error是什么。所以我们会用validation会 解决
+
+会validation set模拟 testing set，什么时候validation set最小，你的training 会停下来。
+
+## 3.4、Regularization
+类似与大脑的神经，刚刚从婴儿到6岁时，神经连接变多，但是到14岁一些没有用的连接消失，神经连接变少。
+  ![chapter1-0.png](res/chapter18-28.png)
+重新去定义要去minimize的那个loss function。
+
+在原来的loss function(minimize square error, cross entropy)的基础上加一个regularization term(L2-Norm)，在做regularization时是不会加bias这一项的，加regularization的目的是为了让线更加的平滑(bias跟平滑这件事情是没有任何关系的)。
+  
+  ![chapter1-0.png](res/chapter18-29.png)
+  
+在update参数的时候，其实是在update之前就已近把参数乘以一个小于1的值(\eta \lambdaηλ都是很小的值)，这样每次都会让weight小一点。最后会慢慢变小趋近于0，但是会与后一项梯度的值达到平衡，使得最后的值不等于0。L2的Regularization 又叫做Weight Decay，就像人脑将没有用的神经元去除。
+
+regularization term当然不只是平方，也可以用L1-Norm
+
+  ![chapter1-0.png](res/chapter18-30.png)
+  
+w是正的微分出来就是+1，w是负的微分出来就是-1，可以写为sgn(w)。
+
+每一次更新时参数时，我们一定要去减一个\eta \lambda sgn(w^t)ηλsgn(wt)值(w是正的，就是减去一个值；若w是负的，就是加上一个值，让参数变大)。
+
+L2、L1都可以让参数变小，但是有所不同的，若w是一个很大的值，L2下降的很快，很快就会变得很小，在接近0时，下降的很慢，会保留一些接近01的值；L1的话，减去一个固定的值(比较小的值)，所以下降的很慢。所以，通过L1-Norm training 出来的model，参数会有很大的值。
+## 3.4、Dropout
+
+在traning的时候，每一次update参数之前，对network里面的每个neural(包括input)，做sampling。 每个neural会有p%会被丢掉，跟着的weight也会被丢掉。
+   
+   ![chapter1-0.png](res/chapter18-31.png)
+
+做出这个sample，network structure就等于变瘦了(thinner)，然后，你在去training这个细长的network(每一次updata之前都要去做一次) 。所以每次update参数时，你拿来training network structure是不一样的。
+
+  ![chapter1-0.png](res/chapter18-32.png)
+ 
+  你在training 时，performance会变的有一点差(某些neural不见了)，加上dropout，你会看到在testing set会变得有点差，但是dropout真正做的事就是让你testing 越做越好
+  ![chapter1-0.png](res/chapter18-33.png)
+ 在testing上注意两件事情，第一件事情就是在testing上不做dropout。另外一个是在dropout时，假设dropout rate在training 是p%， all weight都要乘以(1-p%)(假设dropout rate是p%，若在training上算出w=1,那么在testing 时，把w设为0.5)
+
+**为什么Dropout会有用。**
+  ![chapter1-0.png](res/chapter18-34.png)
+ 
+为什么在训练的时候要dropout，但是测试的时候不dropout。
+
+training的时候，会丢掉一些neural，假如你在练习轻功的时候，你在脚上绑了一些重物(training)，实际上在战斗把重物拿下来(testing)，那么你就会变得很强。
+ 
+  ![chapter1-0.png](res/chapter18-35.png)
+  
+  每个neural就是一个学生，在一个团队中，总是会有被dropout。你的partner会做的差的，你就想着我要好好做。
+
+为什么在testing时，dropout要乘以0.5(1p%) 。
+ 
+   ![chapter1-0.png](res/chapter18-36.png)
+   
+假设dropout rate是50%，training的时候，你总是会期望丢掉一半的neural。假设选定一组weight(w1,w2,w3,w4)。testing时是没有dropout的，所以对同一组的weihgt来说testing的时候和training时候的z有一个很明显的差距，他的期望约等于training的两倍。现在怎么办，把所有的weight都乘以0.5，现在变为将差距变回来。
+ 
+  ![chapter1-0.png](res/chapter18-37.png)
+ 
+ensemble方法 我们有一个很大的training set，每次从training set里只sample一部分的data,然后training 很多的model(每个model可能structure不一样)，每个model可能variance很大，但是他们都是很复杂的model的话，平均起来，bias就会很小。 
+ 
+   ![chapter1-0.png](res/chapter18-38.png)
+   
+Dropout的类似于ensemble的终极版本，ensemble时，放入training data，通过不同network，得到一些结果在把这些结果平均起来，当做你最后的结果。
+ 
+   ![chapter1-0.png](res/chapter18-39.png)
+   
+当你做dropout是其实就是training了很多的network structure，就类似于刚刚的ensemble中将数据放进不同的模型中。但是会不会存在minibatch对结果的影响呢？其实时不会的，因为在网络中参数时共用的，所以在训练参数的时候是一大堆参数合起来去训练网络。
+
+   ![chapter1-0.png](res/chapter18-40.png)
+   
+ 在testing的时候，按照ensemble方法，把之前的network拿出来，然后把你的100笔data丢到network里面去，每一个network都会给你一个结果，这些结果的平均值就是最终的结果。但是实际上这些network太多了，没办法去给索引network丢一个input。
+
+所以，dropout最神奇的地方是，它告诉你，当一个完整的network不做dropout，而是把它的weight乘以(1-p%)，把你的training data丢进去，得到的output就是average的值。
+   ![chapter1-0.png](res/chapter18-41.png)
+在这个最简单的case里面，ensemble这件事情跟我们把weight乘以1/2得到一样的结果。但是这个结果只有是linear network才会有这样的结果。
 
