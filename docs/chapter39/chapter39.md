@@ -207,9 +207,9 @@ https://youtu.be/aUrX-rP_ss4
 	$$\nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}\left(R\left(\tau^{n}\right)-b\right) \nabla \log p\left(a_{t}^{n} | s_{t}^{n}, \theta\right)$$
 	这样$R(\tau^n)$超过b的时候就把几率增加，小于b的时候就把几率降低，从而解决了都是正的问题。
 
-## Value-based Approach
+### Value-based Approach
 
-### Critic
+#### Critic
 
 Critic就是Learn一个Neural Network，这个Neural Network不做事，然后Actor可以从这个Critic中获得，这就是Q-learning。
 Critic就是learn一个function，这个function可以告诉你说现在看到某一个observation的时候，这个observation有有多好这样。
@@ -232,7 +232,7 @@ Critic就是learn一个function，这个function可以告诉你说现在看到�
 
 	![39_16](./res/chapter39_16.png)
 
-## Actor-Critic
+### Actor-Critic
 
  这部分留着下学期再讲
 
