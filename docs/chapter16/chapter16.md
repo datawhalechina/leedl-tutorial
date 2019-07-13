@@ -1,10 +1,9 @@
 # Keras
-<div  align="center"><img src="./res/chapter16-0.png" width = "700" height = "360" align=center /></div>
-
+![16-0](./res/chapter16-0.png)
 ## 创建网络-Building Network
 
-假设我们要做的事情是手写数字辨识，那我们要建一个Network scratch，input 是28*28的dimension，28*28 dimension ，其实就是说这是一张image，image的解析度是28*28，我们把它拉成长度是28*28维的向量。output呢？现在做的是手写数字辨识，所以要决定它是0-9的哪个数字，output就是每一维对应的数字，所以output就是10维。中间假设你要两个layer，每个layer有500个hidden neuro，那么你会怎么做呢。
-<div  align="center"><img src="./res/chapter16-1.png" width = "500" height = "700" align=center /></div>
+假设我们要做的事情是手写数字辨识，那我们要建一个Network scratch，input是$28\ast 28$的dimension，其实就是说这是一张image，image的解析度是*$28\ast28$，我们把它拉成长度是$28\ast 28$维的向量。output呢？现在做的是手写数字辨识，所以要决定它是0-9的哪个数字，output就是每一维对应的数字，所以output就是10维。中间假设你要两个layer，每个layer有500个hidden neuro，那么你会怎么做呢。
+![16-1](./res/chapter16-1.png)
 
 如果用keras的话，你要先宣告一个Network，也就是首先你先宣告
 ```
@@ -15,11 +14,11 @@ model=Sequential()
 model.add(Dense(input_dim=28*28,units=500,activation='relu'))
 ```
 Dense意思就是说你加一个全连接网络，可以加其他的，比如加Con2d，就是加一个convolution layer，这些都很简单。input_dim是说输入的维度是多少，units表示hidden layer的neuro 数，activation就是激活函数，每个activation是一个简单的英文缩写，比如relu，softplus，softsign，sigmoid，tanh，hard_sigmoid，linear
-再加第二个layer，就不需再宣告input_dim，因为它的输入就是上一层的units，所以不需要再定义一次，在这，只需要生命units和activation
+再加第二个layer，就不需再宣告input_dim，因为它的输入就是上一层的units，所以不需要再定义一次，在这，只需要声明units和activation
 ```
 model.add(Dense(units=500,activation='relu'))
 ```
-最后一个layer，因为output是10维，所以units=10，activation一般选softmax，意味着输出买个dimension只会介于0-1之间，总和是1，就可以把它当做为一种几率的东西。
+最后一个layer，因为output是10维，所以units=10，activation一般选softmax，意味着输出每个dimension只会介于0-1之间，总和是1，就可以把它当做为一种几率的东西。
 ```
 model.add(Dense(units=10,activation='softmax'))
 ```
@@ -34,7 +33,7 @@ model.compile(loss='categorical crossentropy',optimizer='adam',metrics=['accurac
 model.fit(x_train,y_train,batch_size=100,epochs=20)
 ```
 call model.fit 方法，它就开始用Gradent Descent帮你去train你的Network，那么你要给它你的train_data input 和label，这里x_train代表image，y_train代表image的label，关于x_train和y_train的格式，你都要存成numpy array。那么x_train怎样表示呢，第一个轴表示example，第二个轴代表每个example用多长vecter来表示它。x_train就是一个matrix。y_train也存成一个二维matrix，第一个维度一样代表training examples，第二维度代表着现在有多少不同的case，只有一维是1，其他的都是0，每一维都对应一个数字，比如第0维对应数字0，如果第N维是1，对应的数字就是N。
-<div  align="center"><img src="./res/chapter16-2.png" width = "700" height = "360" align=center /></div>
+![16-2](./res/chapter16-2.png)
 
 ## 使用模型
 

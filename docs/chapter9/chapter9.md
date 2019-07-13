@@ -1,8 +1,4 @@
-# 课程简介
-> 本作业主要是使用Regression来预测丰原站下一个小时的PM2.5值
-
-<div  align="center"><img src="./res/chapter9-0.png" width = "700" height = "360" align=center /></div>
-
+![9_0](./res/chapter9-0.png)
 
 # PM2.5 Prediction
 ## 作业描述
@@ -22,7 +18,7 @@ $$f(前九个小时的所有数据)=A年B月C日N时的PM2.5 $$
 Data含有18项观测数据AMB_TEMP, CH4, CO, NHMC, NO, NO2, NOx, O3, PM10, PM2.5, RAINFALL, RH, SO2, THC, WD_HR, WIND_DIREC, WIND_SPEED, WS_HR。
 
 - train.csv: 每个月前20天的完整资料。
-<div  align="center">图2：<img src="./res/chapter9-1.png" width = "600" height = "200" align=center /></div>
+![9_1](./res/chapter9-1.png)
 	
 - test.csv : 从剩下的资料中取样出连续的10小时为一例，前九个小时的所有观测数据当做feature，第十个小时的PM2.5当做answer。一共取出240例不重复的test data,然后根据feature预测这240例的PM2.5。<div  align="center">图3：<img src="./res/chapter9-2.png" width = "600" height = "200" align=center /></div>
 第一个column是id,每个id代表一个时间点N，比如id_0代表一个时间点，id_1代表另一个时间点，第二个column代表各个不同的指标，接下来的这些数字是不同时间点观测到的不同值，最后一个column是N-1时观测到的值，倒数第二个是N-2，以此类推。你要做的事情就是让Machine用这些数字值去预测出id_0这个时间点的PM2.5
@@ -47,7 +43,6 @@ Data含有18项观测数据AMB_TEMP, CH4, CO, NHMC, NO, NO2, NOx, O3, PM10, PM2.
 
 - Step 2. 定义loss function
 
-
  	根据train数据定出loss function,可以第0-8小时的数据预测第9小时，第1-9小时预测第10小时的值，以此类推。线性回归采用均方误差即可
 
 
@@ -55,7 +50,7 @@ Data含有18项观测数据AMB_TEMP, CH4, CO, NHMC, NO, NO2, NOx, O3, PM10, PM2.
 
 	方法：梯度下降法
 	Tips:(1)不管采用什么特征，通过梯度下降法误差总会收敛
-		(2)可以通过closed-form solution（解析解）来验证梯度下降法的结果，如果两者偏差比较大，可以通过调节学习率、检查代码或者加上Adam小技巧来改善。
+		 (2)可以通过closed-form solution（解析解）来验证梯度下降法的结果，如果两者偏差比较大，可以通过调节学习率、检查代码或者加上Adam小技巧来改善。
 	
 	
 # 注意点
