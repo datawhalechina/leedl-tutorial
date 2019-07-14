@@ -1,6 +1,7 @@
 # Unsupervised learning Generation
 http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D2329743D3A6666753E6CB79F5
 
+![在这里插入图片描述](res/无监督学习生成（Il）.png) 
 
 ## Why VAE?
 
