@@ -1,18 +1,19 @@
-# Transfer Learning
+# 迁移学习
 http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A3986DA534B16BCF39C1B7E29ABC9
 
+![在这里插入图片描述](res/迁移学习.png)
 
-Transfer learning指的就是，假设你手上有一些跟你现在要进行的task没有直接相关的data，那你能不能用这些没有直接相关的data来帮助我们做一些什么事情。比如说：你现在做的是猫跟狗的classifer，那所谓没有什么直接相关的data是什么意思呢？没有什么直接相关其实是有很多不同的可能。比如说input distribution 是类似的(一样时动物的图片)，但是你的label是无关的(domain是类似的，task是不像的)。还有另外的一个可能是：input domain是不同的，但是task是相同的(猫跟狗的分类，一个招财猫图片，一个是高非狗的图片)
+迁移学习指的就是，假设你手上有一些跟你现在要进行的task没有直接相关的data，那你能不能用这些没有直接相关的data来帮助我们做一些什么事情。比如说：你现在做的是猫跟狗的classifer，那所谓没有什么直接相关的data是什么意思呢？没有什么直接相关其实是有很多不同的可能。比如说input distribution 是类似的(一样时动物的图片)，但是你的label是无关的(domain是类似的，task是不像的)。还有另外的一个可能是：input domain是不同的，但是task是相同的(猫跟狗的分类，一个招财猫图片，一个是高非狗的图片)
 
 ![在这里插入图片描述](res/chapter30-1.png)
 
-transfer learning问的问题是：我们能不能再有一些不想关data的情况下，然后帮助我们现在要做的task。
+迁移学习问的问题是：我们能不能再有一些不想关data的情况下，然后帮助我们现在要做的task。
 
 
 
 
 
-为什么我要考虑transfer learning这样的task呢？举例来说：在speech recognition里面(台语的语音辨识)，台语的data是很少的(但是语音的data是很好收集的，中文，英文等)。那我们能不能用其他语音的data来做台语这件事情。或许在image recongnition里面有一些是medical images，这种medical image其实是很少的，但是image data是很不缺的。
+为什么我要考虑迁移学习这样的task呢？举例来说：在speech recognition里面(台语的语音辨识)，台语的data是很少的(但是语音的data是很好收集的，中文，英文等)。那我们能不能用其他语音的data来做台语这件事情。或许在image recongnition里面有一些是medical images，这种medical image其实是很少的，但是image data是很不缺的。
 
 ![在这里插入图片描述](res/chapter30-2.png)
 
@@ -21,7 +22,7 @@ transfer learning问的问题是：我们能不能再有一些不想关data的�
 
 
 
-我们在现实生活中，我们在不断的做transfer learning。比如说：你可能是是一名研究生，你可能想知道研究生咋样过日子，你就可以参考爆漫王里面的例子。在保漫王里面漫画家就是研究生，责编就等同于指导教授。漫画家每周画分镜去给责编看，跟责编讨论(就跟指导教授每周去汇报报告一样)，画分镜就是跑实验。目标就是投稿就等于投稿期刊。
+我们在现实生活中，我们在不断的做迁移学习。比如说：你可能是是一名研究生，你可能想知道研究生咋样过日子，你就可以参考爆漫王里面的例子。在保漫王里面漫画家就是研究生，责编就等同于指导教授。漫画家每周画分镜去给责编看，跟责编讨论(就跟指导教授每周去汇报报告一样)，画分镜就是跑实验。目标就是投稿就等于投稿期刊。
 
 ![在这里插入图片描述](res/chapter30-3.png)
 
@@ -29,11 +30,11 @@ transfer learning问的问题是：我们能不能再有一些不想关data的�
 
 
 
-transfer learning有很多的方法，它是很多方法的集合。下面你有可能会看到我说的terminology可能跟其他的有点不一样，不同的文献用的词汇其实是不一样的，有些人说算是transfer learning，有些人说不算是transfer learning，所以这个地方比较混乱，你只需要知道那个方法是什么就好了。
+迁移学习有很多的方法，它是很多方法的集合。下面你有可能会看到我说的terminology可能跟其他的有点不一样，不同的文献用的词汇其实是不一样的，有些人说算是迁移学习，有些人说不算是迁移学习，所以这个地方比较混乱，你只需要知道那个方法是什么就好了。
 
 ![在这里插入图片描述](res/chapter30-4.png)
 
-我们现在有一个我们想要做的task，有一些跟这个task有关的data叫做target data，有一些跟这个task无关的data，这个data叫做source data。这个target data有可能是有label的，也有可能是没有label的，这个source data有可能是有label的，也有可能是没有label的，所以现在我们就有四种可能，所以之后我们会分这四种来讨论。
+我们现在有一个我们想要做的task，有一些跟这个task有关的数据叫做target data，有一些跟这个task无关的data，这个data叫做source data。这个target data有可能是有label的，也有可能是没有label的，这个source data有可能是有label的，也有可能是没有label的，所以现在我们就有四种可能，所以之后我们会分这四种来讨论。
 
 ## Model Fine-tuning
 
@@ -41,7 +42,7 @@ transfer learning有很多的方法，它是很多方法的集合。下面你有
 
 
 
-在现在的task里面，target data(`$x^t,y^t$`)和source data(`$x^s,y^s$`)都是有label的，但是我们通常是假设说：现在target data的数据量是非常少的(如果target data量是很多的话，你就当做一般的machine learning 来train你的model就好了，你也不需要做什么transfer learning)，source data是很多的。虽然source data跟我们现在考虑的task没有关系，但我们想知道说：在target data很少的情况下，有一大推不相关的source data到底有么有可能会有帮助。
+在现在的task里面，target data(`$x^t,y^t$`)和source data(`$x^s,y^s$`)都是有label的，但是我们通常是假设说：现在target data的数据量是非常少的(如果target data量是很多的话，你就当做一般的machine learning 来train你的model就好了，你也不需要做什么迁移学习)，source data是很多的。虽然source data跟我们现在考虑的task没有关系，但我们想知道说：在target data很少的情况下，有一大推不相关的source data到底有么有可能会有帮助。
 
 ![在这里插入图片描述](res/chapter30-5.png)
 
@@ -78,7 +79,7 @@ transfer learning有很多的方法，它是很多方法的集合。下面你有
 
 
 这是一个image在layer transfer上的实验，
-120多wimage分成source跟target，分法是按照class来分的(500 class归为source data，500classes归为target data)。横轴的意思是：我们在做transfer learning的时候copy了几个layer(copy 0个layer，就是说完全没有做transfer learning)，纵轴时候top-1 accuracy，越高越好。
+120多wimage分成source跟target，分法是按照class来分的(500 class归为source data，500classes归为target data)。横轴的意思是：我们在做迁移学习的时候copy了几个layer(copy 0个layer，就是说完全没有做迁移学习)，纵轴时候top-1 accuracy，越高越好。
 
 ![在这里插入图片描述](res/chapter30-9.png)
 
@@ -86,7 +87,7 @@ transfer learning有很多的方法，它是很多方法的集合。下面你有
 
 
 
-假设source跟target是没关系的，把这个Imagenet分为source data跟target data的时候，把自然界的东西通通当成source，target都是人造的东西，这样的transfer learning会有什么样的影响。如果source data跟target data是差很多的，那在做transfer learning的时候，你的performance会掉的非常多(如果只是copy前面几个layer的话，performance仍然跟没有跟copy是持平的)。这意味着说：即使source domain跟target domain是非常不一样的，在neural network的第一个layer，他们仍然做的事情仍然可能是一样的。绿色的这条线：假设我前面几个layer的参数random会坏掉了。
+假设source跟target是没关系的，把这个Imagenet分为source data跟target data的时候，把自然界的东西通通当成source，target都是人造的东西，这样的迁移学习会有什么样的影响。如果source data跟target data是差很多的，那在做迁移学习的时候，你的性能会掉的非常多(如果只是copy前面几个layer的话，性能仍然跟没有跟copy是持平的)。这意味着说：即使source domain跟target domain是非常不一样的，在neural network的第一个layer，他们仍然做的事情仍然可能是一样的。绿色的这条线：假设我前面几个layer的参数random会坏掉了。
 
 
 
@@ -96,11 +97,11 @@ transfer learning有很多的方法，它是很多方法的集合。下面你有
 
 
 
-其实我们今天用deep learning base方法的话，它特别适合拿来做这种multitask learning，因为你可以说：假设有两个不同的task用的同样的feature(都做影像辨识)，我learn一个neural network，中间会分叉出来一部分network去处理taskA，一部分network去处理taskB。这么做的好处是：你的taskA跟taskB他们在前面几个layer会是共用的(有比较多的data，会有比较好的performance)。这样做的前提是：这两个task有没有共通性，是不是可以共用前面几个layer。
+其实我们今天用deep learning base方法的话，它特别适合拿来做这种multitask learning，因为你可以说：假设有两个不同的task用的同样的feature(都做影像辨识)，我learn一个neural network，中间会分叉出来一部分network去处理taskA，一部分network去处理taskB。这么做的好处是：你的taskA跟taskB他们在前面几个layer会是共用的(有比较多的data，会有比较好的性能)。这样做的前提是：这两个task有没有共通性，是不是可以共用前面几个layer。
 
 ![在这里插入图片描述](res/chapter30-11.png)
 
-还有一种是input没有办法确定，两个不同task的input都用不同的neural network把它transfer到同一个domain上去，在同一个domain上你在apply不同的neural network，一条路去做taskA，一条路去做taskB。如果在这样的task下你也transfer learning，就算tasKA跟taskB的input完全不一样，如果你觉得中间几个layer有共同的地方，你还是可以用这样的model架构来处理。
+还有一种是input没有办法确定，两个不同task的input都用不同的neural network把它transfer到同一个domain上去，在同一个domain上你在apply不同的neural network，一条路去做taskA，一条路去做taskB。如果在这样的task下你也迁移学习，就算tasKA跟taskB的input完全不一样，如果你觉得中间几个layer有共同的地方，你还是可以用这样的model架构来处理。
 
 
 
@@ -119,16 +120,16 @@ multitask learning一个很成功的例子就是多语言的语音辨识，假�
 
 在过去收集了十几种语言，把它们两两之间互相做transfer，做了一个很大N*N的tabel，每一个task都有进步。所以目前发现大部分task，不同人类的语言就算你觉得它们不是非常像，但是它们之间都是可以transfer。
 
-这边举得例子是从欧洲语言去transfer中文，横轴是中文的data，纵轴是character error rate。假设你一开始用中文train一个model，data很少，error rate很大，随着data越来越多，error rate就可以压到30以下。但是今天如果你有一大堆的欧洲语言，你把这些欧洲语言跟中文一起去做multitask train，用这个欧洲语言的data来帮助中文model前面几层让它train更好。你会发现说：在中文data很少的情况下，你有做transfer learning，你就可以得到比较好的performance。随着中文data越多的时候，中文本身performance越好，就算是中文100小时借用一些从europen language对这个变化也是有微幅帮助的。所以这边的好处是说：假设你做multitask learning的时候，你会发现你有100多个小时跟有50小时以内，如果你有做transfer learning的话，你只需要1/2以下的data就可以跟有两倍的data做的一样好
+这边举得例子是从欧洲语言去transfer中文，横轴是中文的data，纵轴是character error rate。假设你一开始用中文train一个model，data很少，error rate很大，随着data越来越多，error rate就可以压到30以下。但是今天如果你有一大堆的欧洲语言，你把这些欧洲语言跟中文一起去做multitask train，用这个欧洲语言的data来帮助中文model前面几层让它train更好。你会发现说：在中文data很少的情况下，你有做迁移学习，你就可以得到比较好的性能。随着中文data越多的时候，中文本身性能越好，就算是中文100小时借用一些从欧洲语言对这个变化也是有微幅帮助的。所以这边的好处是说：假设你做multitask learning的时候，你会发现你有100多个小时跟有50小时以内，如果你有做迁移学习的话，你只需要1/2以下的data就可以跟有两倍的data做的一样好
 
 
-常常有人会担心说：transfer learning会不会有负面的效应，这是会有可能，如果两个task不像的话，你的transfer 就是negative的。但是有人说：总是思考两个task到底之间能不能transfer，这样很浪费时间。所以就会有progressive neural networks。
+常常有人会担心说：迁移学习会不会有负面的效应，这是会有可能，如果两个task不像的话，你的transfer 就是negative的。但是有人说：总是思考两个task到底之间能不能transfer，这样很浪费时间。所以就会有progressive neural networks。
 
 ![在这里插入图片描述](res/chapter30-14.png)
 
 ### progressive network neural
 
-progressive network neural其实是很新的做法(2016年的paper)。我先train一个task1，train好以后它的参数就fix住，那现在我们要做task2，但是task2它的每一个hidden layer都会去接前一个task1的某一个hidden layer的output。所以在train的时候好处就是：task1跟task2非常不像，首先task1的data不会去动到task2的model，所以task1一定不会比原来更差。task2去借用task1的参数，但是它可以把这些参数直接设为0，这样也不会影响task2的performance。task3也是做一样的事情，task3会同时从task1和task2的hidden layer得到information。
+progressive network neural其实是很新的做法(2016年的paper)。我先train一个task1，train好以后它的参数就fix住，那现在我们要做task2，但是task2它的每一个hidden layer都会去接前一个task1的某一个hidden layer的output。所以在train的时候好处就是：task1跟task2非常不像，首先task1的data不会去动到task2的model，所以task1一定不会比原来更差。task2去借用task1的参数，但是它可以把这些参数直接设为0，这样也不会影响task2的性能。task3也是做一样的事情，task3会同时从task1和task2的hidden layer得到information。
 
 
 
@@ -203,7 +204,7 @@ domain classifier因为看不到真正的image，所以它最后一定fail掉。
 
 ![在这里插入图片描述](res/chapter30-21.png)
 
-我们来看一些实验结果的话，纵轴代表用不同的方法，在这四个结果里面，你会发现说：如果只用source only的话，performance是比较差的。
+我们来看一些实验结果的话，纵轴代表用不同的方法，在这四个结果里面，你会发现说：如果只用source only的话，性能是比较差的。
 
 
 

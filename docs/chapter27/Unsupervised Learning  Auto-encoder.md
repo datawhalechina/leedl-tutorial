@@ -1,5 +1,5 @@
 # Unsupervised Learning:  Deep Auto-encoder
-
+![在这里插入图片描述](res/无监督学习：深度自动编码器.png)
 ## Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。
 
@@ -7,7 +7,7 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 这两个network，encoder decoder单独你是没有办法去train它。但是我们可以把它接起来，然后一起train。也就是说：建一个neural network ，input一张image，中间变成code，再把code变成原来的image。这样你就可以把encoder跟decoder一起学，那你就可以同时学出来了。
 
-![在这里插入图片描述](res/chapter27-1.png)
+
 
 那我们刚才在PCA里面看过非常类似的概念，从PCA开始讲起。我们刚才讲过说：PCA其实在做的事情是：input一张image x(在刚才的例子里面，我们会让x-`$\bar{x}$`当做input，这边我们把减掉`$\bar{x}$`省略掉，省略掉并不会太奇怪，因为通常在做NN的时候，你拿到的data其实会normlize，其实你的data mean是为0，所以就不用再去减掉mean)，把x乘以一个weight，通通NN一个layer得到c，c乘以matrix w的tranpose得到`$hat{x}$`。`$\hat{x}$`是根据这些component的reconstruction的结果
 
@@ -25,7 +25,9 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 
 中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的`$\hat{x}$`就是decode，这个deep的Auto-encoder最早出现2006年。
+
 ## Deep Auto-encoder
+
 那如果按照刚才在PCA里面看到的，从input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
  
 ![在这里插入图片描述](res/chapter27-3.png)
@@ -42,6 +44,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 
 ![在这里插入图片描述](res/chapter27-5.png)
+
 ## Auto-encoder-Text Retrieval
 这个Auto-encoder也可以用在文字处理上，比如说：我们把一篇文章压成一个code。举例来说：现在要做文字的搜寻，在文字搜寻里面有一招叫做：vector space model。vector space model是说：我们现在把一篇文章都表示成一个空间中的vector(图中蓝色的圈圈就是一篇文章，经过降维后)。假设使用者查询一个词汇，我们把查询的词汇也变成一个空间中的点。接下里你就是计算这个查询词汇跟每一篇document之间的inner product，选择较为接近，相似程度最高的。这个模型要work，现在把一个document变成一个vector表现的是好还是不好。咋样把一个document表示成一个vector，一个方法叫做“Bag-of-word”。这个“Bag-of-wor”的想法是说：我们现在开一个vector，这个vector的sentence就是let think sentence(假设世界上有10w词汇，这个vector的sentence就是10w维)
 
@@ -57,6 +60,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 
 ![在这里插入图片描述](res/chapter27-7.png)
+
 ## Auto-encoder-Similar Image Search
 Auto-encoder也用在image search上面，假设这张图是你要找的对象(image query)，计算这个image query跟其他database之间pixel的相似程度，然后你再看出最像的几张是要的结果。如果你只是这么做的话，其实得不到太好的结果。
 
@@ -77,8 +81,6 @@ input一张32*32的image，每一个pixel是RGB来表示(32 * 32 *3)，变成819
 ![在这里插入图片描述](res/chapter27-9.png)
 
 如果你不是在pixel上算相似度，是在code上算相似度的话，你就会得到比较好的结果。举例来说：你是用Wack Jackson当做image的话，你找到的都是人脸，可能这个image在pixel label上面看起来是不像的，但是你通过很多的hidden layer把它转成code的时候，在那个256维的空间上看起来是像的
-
-
 
 
 Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neural network的时候，你有时候很烦恼说：你要怎么做参数的initialization。有没有一些方法让你找到一组好的initialization，这种找比较好的initialization的方法就叫做“Pre-training”。你可以用Auto-encoder来做Ptr-training

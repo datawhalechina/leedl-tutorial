@@ -1,4 +1,6 @@
-﻿@[TOC]
+﻿## 脑图
+
+![在这里插入图片描述](res/支持向量机.png)
  ## Support Vector machine是什么呢？
  Support Vector machine他有两个特色：
 - 第一个是hingeloss,等一下我们会讲，hinge loss是什么
