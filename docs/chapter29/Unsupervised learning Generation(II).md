@@ -1,7 +1,7 @@
 # Unsupervised learning Generation
 http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D2329743D3A6666753E6CB79F5
 
-![在这里插入图片描述](res/无监督学习生成（Il）.png) 
+![在这里插入图片描述](res/chapter29-0.png) 
 
 ## Why VAE?
 
@@ -11,6 +11,7 @@ http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D
 那如果用VAE会有什么好处呢？VAE做事情是：当你把这个满月的图变成一个code的时候，它会在这个code上面再加上noise，它会希望加上noise以后，这个code reconstruct以后还是一张满月。也就是说：原来的auto-encoder，只有中间这个点需要被reconstruct回满月的图，但是对VAE来说，你会加上noise，在这个范围之内reconstruct回来都要是满月的图，半月的图也是一样的。你会发现说：在这个位置，它同时希望被reconstruct回满月的图，又希望被reconstruct回半月的图，可是你只能reconstruct一张图。肿么办？VAE training的时候你要minimize mean square，所以这个位置最后产生的图会是一张介于满月和半月的图。所以你用VAE的话，你从你的code space上面去sample一个code再产生image的时候，你可能会得到一个比较好的image。如果是原来的auto-encoder的话，得到的都不像是真实的image。
 
 ![在这里插入图片描述](res/chapter29-2.png) 
+
 
 
 

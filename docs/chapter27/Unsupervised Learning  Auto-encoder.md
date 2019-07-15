@@ -1,5 +1,5 @@
 # Unsupervised Learning:  Deep Auto-encoder
-![在这里插入图片描述](res/无监督学习：深度自动编码器.png)
+![在这里插入图片描述](res/chapter27-0.png)
 ## Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。
 
@@ -113,7 +113,7 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 还有另外一招叫做contractive auto-encoder，做的事情是：它会希望说，我们在learn这个code的时候加上一个contract，这个contract是：当input有变化的时候，对code的影响是被minimize的。其实这件事也很像De-noise auto-encoder，只是从不同的角度来看,De-noise auto-encoder是说：加上noise以后，你还要reconstruct没有noise的结果。Contractive auto-encoder是说：当input变化时，也就是加了noise以后，对code的影响是要小的，所以它们做的事还是蛮类似的。
 
 
-![image](120A19B877E845FD83C1E31439EEAC96)
+
 ## Auto-encoder for CNN
 接下来将CNN auto-encoder，那如果我们今天要处理的对象是image的话，我们都知道要用CNN。那在CNN里面处理image的时候，会有一些convolution layer，有pooling layer，用convolution 和pooling交替，让image越来越小。那今天是做auto-encoder的话，你不止要一个encoder，还要一decoder。如果encoder是做convolution pooling convolution pooling，那decoder就是在做deconvolution unpooling deconvolution unpooling(相反的事情)，让input跟output越接近越好。
 
