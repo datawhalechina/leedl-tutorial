@@ -86,8 +86,7 @@ $\sum_{n} l\left(f\left(x^{n}\right), \hat{y}^{n}\right)$ 为凸函数，$\lambd
 忽略正则项
 $L(f)=\sum_{n} l\left(f\left(x^{n}\right), \hat{y}^{n}\right) \quad l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)$
 
-$$\begin{aligned} \frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial w_{i}}=& \frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial f\left(x^{n}\right)} \frac{\partial f\left(x^{n}\right)}{\partial w_{i}} \\ =\frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial f\left(x^{n}\right)} x_i^n \end{aligned}$$
-
+$\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cc}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {0} & {\text { otherwise }}\end{array}\right.$
 $$
 \begin{aligned} & f\left(x^{n}\right) =& w^{T} \cdot x^{n} \end{aligned}
 $$
@@ -141,7 +140,7 @@ $\hat{y}^{n} f(x) \geq 1-\varepsilon^{n}$是常见的SVM的约束，$\varepsilon
 ![在这里插入图片描述](res/chapter31-13.png)
 
 根据前面得到的公式，每次更新权重都加上$x^{n}$ 的线性组合，那么如果$w$ 初始化为0向量的话，得到的$w$就是$\boldsymbol{x}^{n}$ 的线性组合。其中的权重$c^{n}(w)$是损失函数$l\left(f\left(x^{n}\right), \hat{y}^{n}\right)$对$f\left(x^{n}\right)$的偏导数。
-如果损失函数采用的是Hinge Loss，$c^{n}(w)$往往就是0，不是所有的$x_n$都会拿来加到$w$里面去的，从而$\alpha_{n}^{*}$可能是稀疏的，就是有的数据点对应的$\alpha_{n}^{*}$可能是0，  具有非零$\alpha_{n}^{*}$ 的数据点$x^{n}$是支持向量。这样的好处是模型比较鲁棒：不是支持向量的数据点，就算去掉也不会对结果有影响，异常点只要不是支持向量，就不会对结果有影响。反观logistic regression（用cross entropy作损失函数），它在更新参数时的权重就不是稀疏的，所以每笔data都对结果有影响。
+如果损失函数采用的是Hinge Loss，$c^{n}(w)$往往就是0，不是所有的$x_n$都会拿来加到$w$里面去的，从而$\alpha_{n}^{\*}$可能是稀疏的，就是有的数据点对应的$\alpha_{n}^{\*}$可能是0，  具有非零$\alpha_{n}^{\*}$ 的数据点$x^{n}$是支持向量。这样的好处是模型比较鲁棒：不是支持向量的数据点，就算去掉也不会对结果有影响，异常点只要不是支持向量，就不会对结果有影响。反观logistic regression（用cross entropy作损失函数），它在更新参数时的权重就不是稀疏的，所以每笔data都对结果有影响。
 
 ### Step1：Function set(Model)
 
