@@ -83,22 +83,28 @@ $\sum_{n} l\left(f\left(x^{n}\right), \hat{y}^{n}\right)$ 为凸函数，$\lambd
 
 
 -  Step3：gradient descent
-忽略正则项
-$L(f)=\sum_{n} l\left(f\left(x^{n}\right), \hat{y}^{n}\right) \quad l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)$
 
-$\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cc}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {0} & {\text { otherwise }}\end{array}\right.$
+忽略正则项
+
+$$L(f)=\sum_{n} l\left(f\left(x^{n}\right), \hat{y}^{n}\right) \quad l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)$$
+
+$$\begin{aligned} \frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial w_{i}}=& \frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial f\left(x^{n}\right)} \frac{\partial f\left(x^{n}\right)}{\partial w_{i}} \\ =\frac{\partial l\left(f\left(x^{n}\right), \hat{y}^{n}\right)}{\partial f\left(x^{n}\right)} x_i^n \end{aligned}$$
+
 $$
 \begin{aligned} & f\left(x^{n}\right) =& w^{T} \cdot x^{n} \end{aligned}
 $$
+
 $$
-\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cc}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {} & {1-\hat{y}^{n} f\left(x^{n}\right)>0} \\ {0} & {\text { otherwise }}\end{array}\right.
+\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cc}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {0} & {\text { otherwise }}\end{array}\right.
 $$
 
 $$
 \frac{\partial L(f)}{\partial w_{i}}=\sum_{n}-\delta\left(\hat{y}^{n} f\left(x^{n}\right)<1\right) \hat{y}^{n} x_{i}^n= \sum_{n}c^{n}(w)
 x_{i}^n
 $$
+
 $c^{n}(w)$依赖于现在的参数w
+
 $$
 w_{i} \leftarrow w_{i}-\eta \sum_{n} c^{n}(w) x_{i}^{n}
 $$
