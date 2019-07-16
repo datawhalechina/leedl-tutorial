@@ -1,5 +1,4 @@
 - 目录
-  - 目录
   - [P1 0-1:Introduction of Machine Learning](chapter1/chapter1.md)
   - [P2 0-2:Why we need to learn machine learning?](chapter2/chapter2.md)
   - [P3 1-1:Regression - Case Study](chapter3/chapter3.md)
