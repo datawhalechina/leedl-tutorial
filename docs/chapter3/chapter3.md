@@ -1,6 +1,3 @@
-# 课程简介
-> 本节课主要是使用【Pokemon精灵攻击力预测】的例子来讲述回归算法的应用
-
 ![](res/chapter3-0.png)
 <center>图0</center>
 
