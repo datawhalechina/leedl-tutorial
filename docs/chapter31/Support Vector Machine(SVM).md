@@ -93,11 +93,7 @@ $$
 \begin{aligned} & f\left(x^{n}\right) =& w^{T} \cdot x^{n} \end{aligned}
 $$
 
-$$
-\begin{equation}
-\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cl}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {} & {1-\hat{y}^{n} f\left(x^{n}\right)>0} \\ {0} & {\text { otherwise }}\end{array}\right.
-\end{equation}
-$$
+![在这里插入图片描述](res/chapter31-21.png)
 
 $$
 \frac{\partial L(f)}{\partial w_{i}}=\sum_{n}-\delta\left(\hat{y}^{n} f\left(x^{n}\right)<1\right) \hat{y}^{n} x_{i}^n= \sum_{n}c^{n}(w)
