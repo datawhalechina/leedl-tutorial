@@ -108,6 +108,7 @@ high density region这句话就是说：可以用high density path做connection�
 ## Cluster and then label
 
 ![](res/chapter23-18.png)
+
 如何实践这个smoothness assumption，最简单的方法是cluster and then label。现在distribution长这么样子，橙色是class1，绿色是class2，蓝色是unlabel data。接下来你就做一下cluster，你可能分成三个cluster，然后你看cluster1里面class1的label data最多，所以cluster1里面所有的data都算是class1，cluster2，cluster3都算是class2、class3，然后把这些data拿去learn就结束了，但是这个方法不一定有用。如果你今天要做cluster label，cluster要很强，因为这一招work的假设就是不同class cluster在一起。可是在image里面，把不同class cluster在一起是没有那么容易的。我们之前讲过说，为什么要用deep learning，不同class可能会长的很像，也有可能长的不像，你单纯只有pixel来做class，你结果是会坏掉的。如果你要让class and then label这个方法有用，你的class要很强。你要用很好的方法来描述image，我们自己试的时候我们会用deep autoendcoder，用这个来提取特征，然后再进行聚类。
 
 ## Graph-based Approach
@@ -115,15 +116,18 @@ high density region这句话就是说：可以用high density path做connection�
 刚才讲的是很直觉的方法，另外一个方法是Graph-based Approach，我们用Graph-based approach来表达这个通过高密度路径连接这件事情。就说我们现在把所有的data points都建成一个graph，每一笔data points都是这个graph上一个点，要想把他们之间的range建出来。有了这个graph以后，你就可以说：high density path的意思就是说，如果今天有两个点，他们在这个graph上面是相的(走的到)，那么他们这就是同一个class，如果没有相连，就算实际的距离也不是很远，那也不是同一个class。
 
 ![](res/chapter23-19.png)
+
 建一个graph：有些时候这个graph representation是很自然就得到了。举例来说：假设你现在要做的是网页的分类，而你有记录网页之间的Hyperlink，那Hyperlink就很自然的告诉你网页之间是如何连接的。假设现在做的是论文的分类，论文和论文之间有引用之间的关系，这个引用也是graph，可以很自然地把图画出来给你。
 
 ![](res/chapter23-20.png)
+
 但有时候你要想办法来建这个graph。通常是这样做的：你要定义$x^i,x^j$咋样来算它们的相似度。影像的话可以用pixel来算相似度，但是performance不太好。用auto-encoder算相似度可能表现就会比较好。算完相似度你就可以建graph，graph有很多种：比如说可以建K Nearest Neighbor，K Nearest Neighbor意思就是说，我现在有一大堆的data，data和data之间，我都可以算出它们的相似度，那我K=3(K Nearest Neighbor)，每一个point跟他最近的三个point做标记。或者也可以做e-Neighborhood:意思就是说，每个点只有跟它相似度超过某一个threshold,跟它相似度大于的1点才会连起来。所谓的edge也不是只有相连不相连这样boundary的选择而已，你可以给edge一些weight，你可以让你的edge跟你的要被连接起来的两个data points的相似度是成正比的。怎么定义这个相似度呢？我会建议比较好的选择就是Gaussian Radial Basis function来定义这个相似度。
 
 
 怎么算这个function呢？你可以先算说：$x^i,x^j$你都把它们用vector来描述的话，算他们的distance乘以一个参数，再取负号，然后再算exponentiation。其实exponential这件事在经验上还是会给你比较好的performance。为什么用这样的方式会给你比较好的performance呢？如果你现在看这个function(Gaussian Radial Basis function)它的下降速度是非常快的。你用这个Gaussian Radial Basis function的话，你能制造出像这个图(有两个橙色距离很近，绿色这个点离橙色也蛮近，如果你用exponential的话，每一个点只能与非常近的点离,它跟稍微远一点就不连了。你要有这样的机制，你才能避免跨海沟的link，所以你用exponential通常效果比较好。
 
 ![](res/chapter23-21.png)
+
 如果我们现在在graph上有一些label data，在这个graph上我们说这笔data1是属于class1，那跟它有相连的data points属于class1的几率也会上升，所以每笔data会影响它的邻居。光是会影响它的邻居是不够的，如果你只考虑光是影响它的邻居的话可能帮助是不会太大。为什么呢？如果说相连的本来就很像，你train一个model，input很像output马上就很像的话，帮助不会太大。那graph-based approach真正帮助的是：它的class是会传递的，本来这个点有跟class1相连所以它会变得比较像class1。但是这件事会像传染病一样传递过去，虽然这个点真正没有跟class1相连，因为像class1这件事情是会感染，所以这件事情会通过graph link传递过来。
 
 

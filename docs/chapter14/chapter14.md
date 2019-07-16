@@ -3,6 +3,7 @@
 # 背景
 ## 梯度下降（Gradient Descent）
 ![](res/chapter14-1.png)
+
 - 给到 $\theta$ (weight and bias)
 - 先选择一个初始的 $\theta^0$，计算 $\theta^0$ 的损失函数（Loss Function）设一个参数的偏微分
 - 计算完这个向量（vector）偏微分，然后就可以去更新的你 $\theta$ 
@@ -21,11 +22,12 @@
 2. **代价函数(Cost function)是定义在整个训练集上面的**，也就是所有样本的误差的总和的平均，也就是损失函数的总和的平均，有没有这个平均其实不会影响最后的参数的求解结果。
 3. **总体损失函数(Total loss function)是定义在整个训练集上面的**，也就是所有样本的误差的总和。也就是平时我们反向传播需要最小化的值。
 ![](res/chapter14-3.png)
+
 对于$L(\theta)$就是所有$l^n$的损失之和，所以如果要算每个$L(\theta)$的偏微分，我们只要算每个$l^n$的偏微分，再把所有$l^n$偏微分的结果加起来就是$L(\theta)$的偏微分，所以等下我们只计算每个$l^n​$的偏微分。
-我们先在整个神经网络（Neural network）中抽取出一小部分的神经（Neural）去看（也就是红色标注的地方）：
+我们先在整个神经网络（Neural network）中抽取出一小部分的神经（Neuron）去看（也就是红色标注的地方）：
 ![](res/chapter14-4.png)
 
-### 取出一个Neural进行分析
+### 取出一个Neuron进行分析
 ![](res/chapter14-5.png)
 从这一小部分中去看，把计算梯度分成两个部分
 
@@ -58,6 +60,7 @@ $\frac{\partial z}{\partial w_1} = x_1 \\ \frac{\partial z}{\partial w_2} = x_2$
 $\frac{\partial l}{\partial z} = \frac{\partial a}{\partial z}\frac{\partial l}{\partial a} \Rightarrow   {\sigma}'(z)​$
 $\frac{\partial l}{\partial a} = \frac{\partial z'}{\partial a}\frac{\partial l}{\partial z'} +\frac{\partial z''}{\partial a}\frac{\partial l}{\partial z''}​$
 ![](res/chapter14-9.png)
+
 最终的式子结果：
 
 ![](res/chapter14-10.png)
@@ -80,6 +83,7 @@ $\frac{\partial l}{\partial a} = \frac{\partial z'}{\partial a}\frac{\partial l}
 对上图，我们可以从最后一个$\frac{\partial l}{\partial z_5}$和$\frac{\partial l}{\partial z_6}$看，因为$\frac{\partial l}{\partial z_a}$和$\frac{\partial l}{\partial z_b}$比较容易通过output求出来，然后继续往前求$\frac{\partial l}{\partial z_3}$和$\frac{\partial l}{\partial z_4}$，再继续求$\frac{\partial l}{\partial z_1}$和$\frac{\partial l}{\partial z_2}$
 最后我们就得到下图的结果
 ![](res/chapter14-15.png)
+
 实际上进行backward pass时候和向前传播的计算量差不多。
 
 # 总结
