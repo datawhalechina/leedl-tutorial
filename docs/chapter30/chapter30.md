@@ -1,5 +1,5 @@
 # 迁移学习
-http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A3986DA534B16BCF39C1B7E29ABC9
+
 
 ![在这里插入图片描述](res/chapter30-0.png)
 
@@ -57,18 +57,21 @@ http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A398
 ### conservative training
 
 有一个技巧叫做：conservative training，你现在有大量的source data，(比如说：在语音辨识里面就是很多不同speaker的声音)，那你拿来做neural network。target data是某个speaker的声音，如果你直接拿这些去train的话就坏掉了。你可以在training的时候加一些constraint(regularization)，让新的model跟旧的model不要差太多。你会希望新的model的output跟旧的model的output在看同一笔data的时候越接近越好。或者说新的model跟旧的model L2-Norm差距越小越好(防止overfitting的情形)
+
 ![在这里插入图片描述](res/chapter30-6.png)
 
 ### layer transfer
 
 另外的一个方法是layer transfer，你现在用source data train好了一个model，把这个model的某几个layer拿出来copy到新的model里面
 。接下来用source data只去用没有copy的layer(可能你只保留一个layer没有copy)，这样的好处就是source data只需要考虑非常少的参数，这样就可以避免overfitting的情形。当然之后你的source data够多了，那之后可能还是要fine-tune整个model。
+
 ![在这里插入图片描述](res/chapter30-7.png)
 
 
 
 
 哪些layer应该被transfer，哪些layer不应该去transfer呢？有趣的是在不同的task上面需要被transfer的layer往往是不一样的。比如说在语音辨识上面，我们通常是copy the last few layers(最后几层)。同样的发音方式，因为口腔结果略有差异，得到的声音是不一样的。neural network前几层做的事情是从这个声音讯号里面得知现在说话人的发音方式，根据发音方式就可以得到说的词汇。所以从这个角度来看，从发音方式到辨识结果，也就是neural network后面几层是跟语者是每一关系的，所以它是可以被copy的。不一样的是从声音讯号到发音方式这一段可能每个人都是不一样的。
+
 ![在这里插入图片描述](res/chapter30-8.png)
 
 所以在做语音辨识的时候，常见的做法是把neural network的后几层是copy。但是在image的时候发现是不一样的，在image的时候是copy前面几层，只train最后几层。
@@ -116,7 +119,6 @@ multitask learning一个很成功的例子就是多语言的语音辨识，假�
 在translation你也可以拥同样的事情，假设你今天要做中翻英，也要做中翻日，你也把这两个model一起train。在一起train的时候无论是中翻英还是中翻日，你都要把中文的data先做process，那一部分neural network就可以是两种不同语言的data。
 
 
-![在这里插入图片描述](res/chapter30-13.png)
 
 在过去收集了十几种语言，把它们两两之间互相做transfer，做了一个很大N*N的tabel，每一个task都有进步。所以目前发现大部分task，不同人类的语言就算你觉得它们不是非常像，但是它们之间都是可以transfer。
 
