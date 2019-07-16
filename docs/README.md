@@ -97,11 +97,11 @@ leeML-book
 
 ```
 ### 修正记录：
-版本|时间|作者|文档信息
----|:--:|:--:|:--|---
-v1.0|2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)[@hahlw](https://github.com/hahlw)[@Heitao5200](https://github.com/Heitao5200)[@ImayKing](https://github.com/Imay-King)[@spareribs](https://github.com/spareribs)|建立初始仓库
-v1.1|内容|内容|内容
-v1.2|内容|内容|内容
+|版本|时间|作者|文档信息 |
+|---|:--:|:--:|:--|
+| v0.1 |2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@ImayKing](https://github.com/Imay-King)<br>[@spareribs](https://github.com/spareribs)|建立初始仓库 |
+| v1.0 |2019.07.20|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@Hirotransfer](https://github.com/Hirotransfer)<br>[@huangmh11](https://github.com/huangmh11)<br>[@ImayKing](https://github.com/Imay-King)<br>[@LilRache](https://github.com/LilRachel)<br>[@spareribs](https://github.com/spareribs)<br> |正式对外公开|
+| v1.2|-|-|- |
 
 
 
@@ -113,8 +113,12 @@ v1.2|内容|内容|内容
 - [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)
 - [@hahlw](https://github.com/hahlw)
 - [@Heitao5200](https://github.com/Heitao5200)
+- [@Hirotransfer](https://github.com/Hirotransfer)
+- [@huangmh11](https://github.com/huangmh11)
 - [@ImayKing](https://github.com/Imay-King)
+- [@LilRache](https://github.com/LilRachel)
 - [@spareribs](https://github.com/spareribs)
+
 
 # 关注我们
 
