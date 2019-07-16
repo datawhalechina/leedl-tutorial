@@ -94,7 +94,9 @@ $$
 $$
 
 $$
-\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cc}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {0} & {\text { otherwise }}\end{array}\right.
+\begin{equation}
+\frac{\partial \max \left(0,1-\hat{y}^{n} f\left(x^{n}\right)\right)}{\partial f\left(x^{n}\right)}=\left\{\begin{array}{cl}{-\hat{y}^{n}} & {\text { If } \hat{y}^{n} f\left(x^{n}\right)<1} \\ {} & {1-\hat{y}^{n} f\left(x^{n}\right)>0} \\ {0} & {\text { otherwise }}\end{array}\right.
+\end{equation}
 $$
 
 $$
