@@ -175,7 +175,7 @@ $\hat{y}^{n} f(x) \geq 1-\varepsilon^{n}$是常见的SVM的约束，$\varepsilon
 这样，整体损失函数可以改写为图中的式子，我们只需要知道核函数 $K(x, z)$即可，这就叫核技巧. 
 
 ### Step 2，3:Loss function + Train
-找到一组$[\alpha_{1}^{*}, \cdots, \alpha_{n}^{*},\cdots, \alpha_{N}^{*}]$，使得损失函数最小。
+找到一组$\[\alpha_{1}^{*}, \cdots, \alpha_{n}^{*},\cdots, \alpha_{N}^{*}\]$，使得损失函数最小。
 
 ![在这里插入图片描述](res/chapter31-16.png)
 
