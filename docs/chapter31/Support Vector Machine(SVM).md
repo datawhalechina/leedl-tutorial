@@ -51,6 +51,7 @@ $l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\left(\sigma\left(\hat{y}^{n} f(
 ![在这里插入图片描述](res/chapter31-7.png)
 
 
+
 $l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\ln \left(1+\exp \left(-\hat{y}^{n} f(x)\right)\right)$
 
 比较一下蓝绿两条线，如果我们横坐标，从-2移到-1，绿色这条线变化很大，蓝色反之，造成的效果就是，横坐标非常negative时，绿色调整参数可以取得较好的回报，所以它很乐意把negative的值变大，而蓝色反之，很懒惰。
@@ -66,8 +67,6 @@ $l\left(f\left(x^{n}\right), \hat{y}^{n}\right)=\max \left(0,1-\hat{y}^{n} f(x)\
 
 比较紫绿两条线，它们最大的不同就是对待做得好的example的态度，如果把横坐标从1挪到2，对绿色来说它的变化更大，而紫色对此的态度是及格就好，不会再努力变大。Hinge Loss可能会微胜Sigmoid + cross entropy。Hinge loss的好处是不害怕离群值, 学习出的结果比较鲁棒
 
-
- 
 
 
 ## Linear SVM

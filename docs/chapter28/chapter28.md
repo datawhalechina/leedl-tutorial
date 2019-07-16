@@ -1,5 +1,6 @@
 # Unsupervised learning Generation(l)
-http://note.youdao.com/noteshare?id=d4ed06cd35f3cca02ed45c8d372f52d4&sub=626D051130254D85A44BC331C659FC53
+
+
 ![在这里插入图片描述](res/chapter28-0.png)
  
 ## Creation-Image Processing
@@ -85,6 +86,7 @@ Generative Models: https://openai.com/blog/generative-models/
 
 
 但是我们今天只给它看只有25% percent的图，machine generate出来如图。generate出来跟原来的不一样并不代表它画的错的，说这种的task很难被evaluate的，这也是做generate的难点。
+
 ![在这里插入图片描述](res/chapter28-7.png)
 
 
@@ -102,9 +104,9 @@ Generative Models: https://openai.com/blog/generative-models/
 
 ![在这里插入图片描述](res/chapter28-9.png)
 
-但实际上这么做，你得到的performance通常不一定会很好。你要用你一个variational atuoencoder(VAE)，那你得到的结果会比较好。VAE的结构跟atuo-encoder非常像，它只是在中间加可一些神妙的小trick。encoder跟decoder的位置维持原状，但是在encoder的地方，我们不是直接output code，我们先output两个vector。假设你code是三维的话吗，你这output两个vector也是三维(`$m_1,m_2,m_3,\sigma_{1}\sigma_{2},\sigma_{3}$`)，接下来你用normal distribution去generate也是三维的vector，它的三维分别是`$e_1,e_2,e_3$`。接下来exp(`$\sigma_{1}\sigma_{2},\sigma_{3}$`)跟`$e_1,e_2,e_3$`相乘，然后把它跟`$m_1,m_2,m_3$`加起来，你得到`$c_1,c_2,c_3$`，`$c_i=exp(\sigma_i)*e_i+m_i$`，在丢到decoder里面，希望说decoder能够minimize reconstruction error。
+但实际上这么做，你得到的performance通常不一定会很好。你要用你一个variational atuoencoder(VAE)，那你得到的结果会比较好。VAE的结构跟atuo-encoder非常像，它只是在中间加可一些神妙的小trick。encoder跟decoder的位置维持原状，但是在encoder的地方，我们不是直接output code，我们先output两个vector。假设你code是三维的话吗，你这output两个vector也是三维($m_1,m_2,m_3,\sigma_{1}\sigma_{2},\sigma_{3}$)，接下来你用normal distribution去generate也是三维的vector，它的三维分别是$e_1,e_2,e_3$。接下来exp($\sigma_{1}\sigma_{2},\sigma_{3}$)跟$e_1,e_2,e_3$相乘，然后把它跟$m_1,m_2,m_3$加起来，你得到$c_1,c_2,c_3$，$c_i=exp(\sigma_i)*e_i+m_i$，在丢到decoder里面，希望说decoder能够minimize reconstruction error。
 
-但是光这么做是不够的，它还有第二项，这一项是：我把它三个dimension加起来，去minimize(`$1+\sigma_{i}-(m_i)^2-exp(\sigma_{i})$`)，你要minimize reconstruction error同时还要minimize这一项。
+但是光这么做是不够的，它还有第二项，这一项是：我把它三个dimension加起来，去minimize($1+\sigma_{i}-(m_i)^2-exp(\sigma_{i})$)，你要minimize reconstruction error同时还要minimize这一项。
 
 
 
