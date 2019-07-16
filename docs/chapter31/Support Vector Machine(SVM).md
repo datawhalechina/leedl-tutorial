@@ -93,7 +93,7 @@ $$
 \begin{aligned} & f\left(x^{n}\right) =& w^{T} \cdot x^{n} \end{aligned}
 $$
 
-![在这里插入图片描述](res/chapter31-21.png)
+![在这里插入图片描述](res/chapter31-21.PNG)
 
 $$
 \frac{\partial L(f)}{\partial w_{i}}=\sum_{n}-\delta\left(\hat{y}^{n} f\left(x^{n}\right)<1\right) \hat{y}^{n} x_{i}^n= \sum_{n}c^{n}(w)
