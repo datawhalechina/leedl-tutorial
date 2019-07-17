@@ -1,5 +1,7 @@
 # Unsupervised Learning:  Deep Auto-encoder
+
 ![在这里插入图片描述](res/chapter27-0.png)
+
 ## Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。
 
@@ -13,6 +15,7 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 ### Recap:PCA 
 在PCA里面，我们就是minimize input跟reconstruction的结果。我们要让x跟`$\hat{x}$`的Eculidean distance越接近越好，这是PCA做的是事情。如果把它当成neural network来看的话，input x就是input layer，output `$\hat{x}$`就是output layer，中间的component weight就是hidden layer(在PCA里面是，它是linear)。那这个hidden layer我们通常叫它Bottleneck later。
+
 ![在这里插入图片描述](res/chapter27-2.png)
 
 为什么叫Bottleneck later呢？所以你的component的数目通常会比你的input dimension还要小的多，如果你要当做layer看的话，是一个特别窄的layer，所以我们叫它Bottleneck later(因为你在dimension reduction)
@@ -108,6 +111,7 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 
 有一个方法可以让Auto-encoder做的更好，这个叫做De-noising Auto-encoder(可以参考reference)。你把原来的input x加上一些noise变成`$x^{'}$`，然后你把`$x^{'}$`encode以后变成c，再把c decode回来变成y。但是要注意一下，现在在De-noising Auto-encoder， 你是要output 跟原来的input(加noise之前的x)越接近越好。你learn出来的结果有biased，因为encode不止learn到了这件事，它还learn到了把杂序滤掉这件事。
+
 ![在这里插入图片描述](res/chapter27-11.png)
 
 还有另外一招叫做contractive auto-encoder，做的事情是：它会希望说，我们在learn这个code的时候加上一个contract，这个contract是：当input有变化的时候，对code的影响是被minimize的。其实这件事也很像De-noise auto-encoder，只是从不同的角度来看,De-noise auto-encoder是说：加上noise以后，你还要reconstruct没有noise的结果。Contractive auto-encoder是说：当input变化时，也就是加了noise以后，对code的影响是要小的，所以它们做的事还是蛮类似的。
@@ -115,11 +119,15 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 
 ## Auto-encoder for CNN
+
 接下来将CNN auto-encoder，那如果我们今天要处理的对象是image的话，我们都知道要用CNN。那在CNN里面处理image的时候，会有一些convolution layer，有pooling layer，用convolution 和pooling交替，让image越来越小。那今天是做auto-encoder的话，你不止要一个encoder，还要一decoder。如果encoder是做convolution pooling convolution pooling，那decoder就是在做deconvolution unpooling deconvolution unpooling(相反的事情)，让input跟output越接近越好。
 
 ![在这里插入图片描述](res/chapter27-13.png)
+
 ###  CNN-Unpooling
+
 在做pooling的时候，现在有4*4的matrix，接下里你把matrix里面这个pixel分组(4个一组)，接下来从每一组挑一个最大的，那image就变成原来的1/4。如果你是在做unpooling的话，你会做另外一件事，你会先记得说：我刚才在做pooling的时候是从哪里取值的(从哪取值，哪里就是白的)。你要做unpooling的话，你要把原来小的matrix扩大(pooling的时候，是把大的matrix变为原来的1/4，现在是把比较小的matrix变成原来的4倍)。那肿么做呢，这时候你之前记录的位置就可以派上用场，你之前记的说：我在pooling的时候是左上角，所以现在做unpooling时，就把这个值放到左上角，其他补0，此次类推。这个就是unpooling的一种方式，做完unpooling以后，比较小的image会变得比较大，比如说：原来是14 * 14的image会变成28 *28的image。你会发现说：它就是把原来的14 *14的image做一下扩散，有些补0
+
 ![在这里插入图片描述](res/chapter27-14.png)
 
 这不是unpooling唯一的做法，在keras里面它的做法是一样的，它是reapeat哪些value。
@@ -163,10 +171,12 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 
 train出来，你的code都会集中在接近0的地方。它就以0为核心，然后分在在接近0的地方。然后我就以0为中心，然后在这个红框等距的sample image ，sample出来就是如图。
+
 ![在这里插入图片描述](res/chapter27-17.png)
 
 
 这个是很有趣的，这两个dimension是有意义的。横轴(从左到右)代表的是有没有一个圈圈(本来是一个很圆的圈圈，慢慢的变为1)，纵轴代表是：本来是直的，然后慢慢就倒斜。
+
 ![在这里插入图片描述](res/chapter27-18.png)
 
 

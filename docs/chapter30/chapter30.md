@@ -1,5 +1,5 @@
 # 迁移学习
-http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A3986DA534B16BCF39C1B7E29ABC9
+
 
 ![在这里插入图片描述](res/chapter30-0.png)
 
@@ -42,7 +42,7 @@ http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A398
 
 
 
-在现在的task里面，target data(`$x^t,y^t$`)和source data(`$x^s,y^s$`)都是有label的，但是我们通常是假设说：现在target data的数据量是非常少的(如果target data量是很多的话，你就当做一般的machine learning 来train你的model就好了，你也不需要做什么迁移学习)，source data是很多的。虽然source data跟我们现在考虑的task没有关系，但我们想知道说：在target data很少的情况下，有一大推不相关的source data到底有么有可能会有帮助。
+在现在的task里面，target data($x^t,y^t$)和source data($x^s,y^s$)都是有label的，但是我们通常是假设说：现在target data的数据量是非常少的(如果target data量是很多的话，你就当做一般的machine learning 来train你的model就好了，你也不需要做什么迁移学习)，source data是很多的。虽然source data跟我们现在考虑的task没有关系，但我们想知道说：在target data很少的情况下，有一大推不相关的source data到底有么有可能会有帮助。
 
 ![在这里插入图片描述](res/chapter30-5.png)
 
@@ -57,18 +57,21 @@ http://note.youdao.com/noteshare?id=0e88eb08dcdd1aa4cb468b32e3989376&sub=BB3A398
 ### conservative training
 
 有一个技巧叫做：conservative training，你现在有大量的source data，(比如说：在语音辨识里面就是很多不同speaker的声音)，那你拿来做neural network。target data是某个speaker的声音，如果你直接拿这些去train的话就坏掉了。你可以在training的时候加一些constraint(regularization)，让新的model跟旧的model不要差太多。你会希望新的model的output跟旧的model的output在看同一笔data的时候越接近越好。或者说新的model跟旧的model L2-Norm差距越小越好(防止overfitting的情形)
+
 ![在这里插入图片描述](res/chapter30-6.png)
 
 ### layer transfer
 
 另外的一个方法是layer transfer，你现在用source data train好了一个model，把这个model的某几个layer拿出来copy到新的model里面
 。接下来用source data只去用没有copy的layer(可能你只保留一个layer没有copy)，这样的好处就是source data只需要考虑非常少的参数，这样就可以避免overfitting的情形。当然之后你的source data够多了，那之后可能还是要fine-tune整个model。
+
 ![在这里插入图片描述](res/chapter30-7.png)
 
 
 
 
 哪些layer应该被transfer，哪些layer不应该去transfer呢？有趣的是在不同的task上面需要被transfer的layer往往是不一样的。比如说在语音辨识上面，我们通常是copy the last few layers(最后几层)。同样的发音方式，因为口腔结果略有差异，得到的声音是不一样的。neural network前几层做的事情是从这个声音讯号里面得知现在说话人的发音方式，根据发音方式就可以得到说的词汇。所以从这个角度来看，从发音方式到辨识结果，也就是neural network后面几层是跟语者是每一关系的，所以它是可以被copy的。不一样的是从声音讯号到发音方式这一段可能每个人都是不一样的。
+
 ![在这里插入图片描述](res/chapter30-8.png)
 
 所以在做语音辨识的时候，常见的做法是把neural network的后几层是copy。但是在image的时候发现是不一样的，在image的时候是copy前面几层，只train最后几层。
@@ -116,7 +119,6 @@ multitask learning一个很成功的例子就是多语言的语音辨识，假�
 在translation你也可以拥同样的事情，假设你今天要做中翻英，也要做中翻日，你也把这两个model一起train。在一起train的时候无论是中翻英还是中翻日，你都要把中文的data先做process，那一部分neural network就可以是两种不同语言的data。
 
 
-![在这里插入图片描述](res/chapter30-13.png)
 
 在过去收集了十几种语言，把它们两两之间互相做transfer，做了一个很大N*N的tabel，每一个task都有进步。所以目前发现大部分task，不同人类的语言就算你觉得它们不是非常像，但是它们之间都是可以transfer。
 
@@ -250,7 +252,7 @@ domain classifier因为看不到真正的image，所以它最后一定fail掉。
 
 
 
-那有时候你的attribute可能非常的复杂(attribute dimension非常大)，你可以做attribute embedding。也就是说现在有一个embedding space，把training data每一个image都通过一个transform，变成一个embedding space上的一个点。然后把所有的attribute也都变成embedding space上的一个点，这个g(*)跟f( *)都可能是neural network，那training的时候希望f跟g越接近越好。那在testing的时候如果有一张没有看过的image，你就可以说这张image attribute embedding以后跟哪个attribute最像，那你就可以知道它是什么样的image。
+那有时候你的attribute可能非常的复杂(attribute dimension非常大)，你可以做attribute embedding。也就是说现在有一个embedding space，把training data每一个image都通过一个transform，变成一个embedding space上的一个点。然后把所有的attribute也都变成embedding space上的一个点，这个$g(*)$跟$f(*)$都可能是neural network，那training的时候希望f跟g越接近越好。那在testing的时候如果有一张没有看过的image，你就可以说这张image attribute embedding以后跟哪个attribute最像，那你就可以知道它是什么样的image。
 ![在这里插入图片描述](res/chapter30-26.png)
 
 
@@ -259,9 +261,9 @@ domain classifier因为看不到真正的image，所以它最后一定fail掉。
 
 image跟attribute都可以描述为vector，要做的事情就是把attribute跟image都投影到同一个空间里面。也就是说：你可以想象成是对image的vector，也就是图中的x，跟attribute的vector，也就是图中的y都做降维，然后都降到同一个dimension。所以你把x通过一个function f都变成embedding space上的vector，把y通过另外一个function g也都变成embedding space上的vector。
 
-但是咋样找这个f跟g呢？你可以说f跟g就是neural network。input一张image它变成一个vector，或者input attribute 变成一个vector。training target你希望说：假设我们已经知道`$y^1$`是`$x^1$`的attribute，`$y^2$`是`$x^2$`的attribute，那你就希望说找到一个f跟g，它可以让`$x^1$`跟`$y^1$`投影到embedding space以后越接近越好，`$x^2$`跟`$y^2$`投影到embedding space以后越接近越好。
+但是咋样找这个f跟g呢？你可以说f跟g就是neural network。input一张image它变成一个vector，或者input attribute 变成一个vector。training target你希望说：假设我们已经知道$y^1$是$x^1$的attribute，$y^2$是$x^2$的attribute，那你就希望说找到一个f跟g，它可以让$x^1$跟$y^1$投影到embedding space以后越接近越好，$x^2$跟$y^2$投影到embedding space以后越接近越好。
 
-那现在把f跟g找出来了，那现在假如有一张你从来没见过的image`$x^3$`在你的testing data里面，它也可以透过这个f变成embedding space上面的一个vector，接下来你就可以说这个embedding vector它跟`$y^3$`最接近，那`$y^3$`就是它的attribute
+那现在把f跟g找出来了，那现在假如有一张你从来没见过的image$x^3$在你的testing data里面，它也可以透过这个f变成embedding space上面的一个vector，接下来你就可以说这个embedding vector它跟$y^3$最接近，那$y^3$就是它的attribute
 
 
 又是你会遇到一个问题，如果我没有database呢？我根本不知道每一个动物的attribute是什么，肿么办呢？那你可以借用word vector。我们知道word vector的每一个dimension就代表了现在word某种attribute。所以你不一定需要一个datbase去告诉你说：每一个动物的attribute是什么。假设你有一组word vector，这组word vector里面你知道每一个动物对应的word vector，那你可以把你的attribute直接换成word vector，再做跟刚才一样的embedding就结束了。
@@ -270,17 +272,17 @@ image跟attribute都可以描述为vector，要做的事情就是把attribute跟
 
 
 
-假设我们的train的query是要让`$x^n$`通过f、跟`$y^n$`通过g之后的距离越接近越好。这样子的话是有问题的，这样你的model只会learn到说：它把所有不同的x跟所有不同的y都投影同一个点，这样子距离最好。所以你的loss function这样定其实是不行的，所以你要稍微重新设计一下你的loss function。前面这个loss function只有考虑到`$x^n$`跟`$y^n$`越接近越好，但没有考虑
-`$x^n$`跟另一个`$y^n$`，它的距离应该被拉大。 
+假设我们的train的query是要让$x^n$通过f、跟$y^n$通过g之后的距离越接近越好。这样子的话是有问题的，这样你的model只会learn到说：它把所有不同的x跟所有不同的y都投影同一个点，这样子距离最好。所以你的loss function这样定其实是不行的，所以你要稍微重新设计一下你的loss function。前面这个loss function只有考虑到$x^n$跟$y^n$越接近越好，但没有考虑
+$x^n$跟另一个$y^n$，它的距离应该被拉大。 
 
 
-max里面两个的element分别是0，k-f(`$x^n$`)跟g(`$y^n$`)的inner product，加上一个max(m不等于n)里面的f(`$x^n$`)跟g(`$y^m$`)的inner product。这个k是自己difine的margin(一个constant，在train的时候自己difine)
+max里面两个的element分别是0，k-f($x^n$)跟g($y^n$)的inner product，加上一个max(m不等于n)里面的f($x^n$)跟g($y^m$)的inner product。这个k是自己difine的margin(一个constant，在train的时候自己difine)
 
 
-这个max的两个element一个是0，一个是max`$f(x^n)*g(y^m)$`。它会从0跟这个式子中选一个最大的，所以这一项的最小值就是0。什么时候会等于0呢？当你另外一项小于0的时候，这个loss就会是0。所以今天`$k-f(x^n)*g(y^n)$`的inner product 加上`$max_{m\neq n}f(x^n)*g(y^m)$`的inner product小于0的时候，这一项会是zero loss，整理一下得到下面的这个式子`$f(x^n)g(y^n)-max_{m\neq n}f(x^n)*g(y^m)$`的inner product小于k的时候是zero loss。这一项也和解释为：当`$f(x^n)$`跟`$g(y^n)$`的inner product大于另外一项(y不是`$y^n$`里面找一个m，这个`$y^m$`跟`$x^n$`是最接近的)
+这个max的两个element一个是0，一个是max$f(x^n)*g(y^m)$。它会从0跟这个式子中选一个最大的，所以这一项的最小值就是0。什么时候会等于0呢？当你另外一项小于0的时候，这个loss就会是0。所以今天$k-f(x^n)*g(y^n)$的inner product 加上$max_{m\neq n}f(x^n)*g(y^m)$的inner product小于0的时候，这一项会是zero loss，整理一下得到下面的这个式子$f(x^n)g(y^n)-max_{m\neq n}f(x^n)*g(y^m)$的inner product小于k的时候是zero loss。这一项也和解释为：当$f(x^n)$跟$g(y^n)$的inner product大于另外一项(y不是$y^n$里面找一个m，这个$y^m$跟$x^n$是最接近的)
 
 
-如果`$x^n$`跟`$y^n$`之间的inner product大过所有其它的`$y^m$`跟`$x^n$`之间的inner product，而且要大过一个margin k。
+如果$x^n$跟$y^n$之间的inner product大过所有其它的$y^m$跟$x^n$之间的inner product，而且要大过一个margin k。
 
 ![在这里插入图片描述](res/chapter30-28.png)
 

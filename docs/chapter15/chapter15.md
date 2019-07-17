@@ -76,6 +76,7 @@ model.compile = (loss = 'categorical crossentropy', optimizer = 'adam')
 #### mini-batch 的原理详解
 keras model参数`batch_size`和`nb_epoch`
 ![](res/chapter15-5.png)
+
 我们在做梯度下降和深度学习时，我们并不是真的最小化总损失,我们会把训练数据随机分成几个mini-batch。
 具体步骤：
 - 随机初始化神经网络的参数 (跟梯度下降一样)
@@ -101,13 +102,14 @@ keras model参数`batch_size`和`nb_epoch`
 ![](res/chapter15-8.png)
 用随机梯度下降的时候两个矩阵x是分开计算的，当用mini batch的时候，直接是用两个x合并在一起，一起计算得到$Z^1$和$Z^2$，对GPU来说上面运算时间是下面运算时间的两倍，这就是为什么我们用上mini batch和GPU的时候速度会加快的原理。但是如果你用了GPU没用mini batch的话，那也达不到加速的效果。
 ## 模型保存和使用
+
 ```python
-# case1：测试集正确率
+#case1：测试集正确率
 score = model.evaluate(x_test,y_test)
 print("Total loss on Testing Set:", score[0])
 print("Accuracy of Testing Set:", score[1])
 
-# case2：模型预测
+#case2：模型预测
 result = model。predict(x_test)
 ```
 ![](res/chapter15-9.png)

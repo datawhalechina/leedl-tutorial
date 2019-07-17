@@ -1,5 +1,5 @@
 # Unsupervised learning Generation
-http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D2329743D3A6666753E6CB79F5
+
 
 ![在这里插入图片描述](res/chapter29-0.png) 
 
@@ -18,47 +18,49 @@ http://note.youdao.com/noteshare?id=e137cb92dbf6fba302d13e73f8ddcf5e&sub=1AC452D
 
 
 
-所以这个encoder output m代表是原来的code，这个c代表是加上noise以后的code。decoder要根据加上noise以后的code把它reconstruct回原来的image。`$\sigma$`代表了noise的variance，e是从normal distribution sample出来的值，所以variance是固定的，当你把`$\sigma$`乘上e再加上m的时候就等于你把原来的code加上noise，e是从normal distribution sample出来的值，所以variance是固定的，但是乘上一个`$\sigma$`以后，它的variance 大小就有所改变。这个variance决定了noise的大小，这个variance是从encoder产生的，也就是说：machine在training的时候，它会自动去learn这个variance会有多大。
+所以这个encoder output m代表是原来的code，这个c代表是加上noise以后的code。decoder要根据加上noise以后的code把它reconstruct回原来的image。 $\sigma$ 代表了noise的variance，e是从normal distribution sample出来的值，所以variance是固定的，当你把 $\sigma$ 乘上e再加上m的时候就等于你把原来的code加上noise，e是从normal distribution sample出来的值，所以variance是固定的，但是乘上一个 $\sigma$ 以后，它的variance 大小就有所改变。这个variance决定了noise的大小，这个variance是从encoder产生的，也就是说：machine在training的时候，它会自动去learn这个variance会有多大。
 
 ![在这里插入图片描述](res/chapter29-1.png) 
 
 但是如果还是这样子还是不够的，假如你现在的training只考虑：现在input一张image，中间有加noise的机制，然后dec oder reconstruct回原来的image，然后minimize 这个reconstruct error，你只有做这件事情是不够的，你training的出来的结果并不会如你所预期的样子。
 
-因为这个variance是自己学的，假设你让machine自己决定说variance是多少，它一定会决定说 variance是0就好了(就像让自己决定自己的分数的话，得100分就好了)。所以variance只让machine自己决定的话，variance是0就ok了，那就等于原来的auto-encoder。所以你要这个variance上面去做一些限制，强迫它的variance不可以太小。所以我们另外加的这一项`$\sum_{i=1}^{3}(exp(\sigma_i)-(1+\sigma_i)+(m_i)^2)$`，这一项其实就是对variance做了一下限制
+因为这个variance是自己学的，假设你让machine自己决定说variance是多少，它一定会决定说 variance是0就好了(就像让自己决定自己的分数的话，得100分就好了)。所以variance只让machine自己决定的话，variance是0就ok了，那就等于原来的auto-encoder。所以你要这个variance上面去做一些限制，强迫它的variance不可以太小。所以我们另外加的这一项 $\sum_{i=1}^{3}(exp(\sigma_i)-(1+\sigma_i)+(m_i)^2)$ ，这一项其实就是对variance做了一下限制
  
 
 
-这边有`$exp(\sigma_i)-(1+\sigma_i)$`，`$exp(\sigma_i)$`是图中蓝色的线，`$(1+\sigma_i)$`是图中红色的这条线。把蓝色线减去红色线得到的是绿色这条线，绿色这条线的最低点是落在`$\sigma=0$`的地方，`$\sigma=0$`的话，exp(`$\sigma$`)=1，意味着variance=1(`$\sigma=0$`的时候loss最后，意味着variance=1的时候loss最低)。所以machine就不会说：让variance=0，然后minimize reconstruct error，它还要考虑variance不能够太小。最后这一项`$m_i^2$`就相当于加了是L2-Norm。我们常常在training auto-encoder的时候，你就会在你的code上面加上regularization，让它的结果不会overfitting。
+这边有 $exp(\sigma_i)-(1+\sigma_i)$ ， $exp(\sigma_i)$ 是图中蓝色的线， $(1+\sigma_i)$ 是图中红色的这条线。把蓝色线减去红色线得到的是绿色这条线，绿色这条线的最低点是落在 $\sigma=0$ 的地方， $\sigma=0$ 的话，exp( $\sigma$ )=1，意味着variance=1( $\sigma=0$ 的时候loss最后，意味着variance=1的时候loss最低)。所以machine就不会说：让variance=0，然后minimize reconstruct error，它还要考虑variance不能够太小。最后这一项 $m_i^2$ 就相当于加了是L2-Norm。我们常常在training auto-encoder的时候，你就会在你的code上面加上regularization，让它的结果不会overfitting。
 
 ![在这里插入图片描述](res/chapter29-3.png) 
 
  
 刚才是比较直观的理由，正式的理由这样的，以下是paper上比较常见的说法。假设我们回归到我们要做的事情是什么，你要machine generate 这个pokemon的图，那每一张pokemon的图都可以想成是高维空间中的一个点。假设它是20*20的image，在高维空间中也就是400 *400维的点，在图上我们用一维描述它，但其实是一个高维的空间。那现在要做的事情就是Estimate高维空间上的几率分布，我们要做的事情就是estimate这个p(x)，只要我们estimate p(x)的样子，那我们就可以根据p(x)去sample出一张图，找出来的图就会是像宝可梦的样子(p(x)几率最高的比较容易被sample1出来)。这个p(x)理论上在有pokemon的地方，它的几率是最大的，若在怪怪的图上，几率是低的。如果我们今天能够estimate the probability distributon就结束了。
+
 ![在这里插入图片描述](res/chapter29-4.png) 
 
 
 
-咋样estimate the probability distributon呢？我们可以用gaussion mixture model。guassion mixture model：我们现在有一个distribution(黑色的线)，这个黑色的distribution其实是很多的gaussion(青蓝色)用不同的weight叠合起来的结果。如果你的gaussion数目够多，你就可以产生很复杂的distribution，公式为`$p(x)=\sum_{m}p(m)p(x|m)$`。
+咋样estimate the probability distributon呢？我们可以用gaussion mixture model。guassion mixture model：我们现在有一个distribution(黑色的线)，这个黑色的distribution其实是很多的gaussion(青蓝色)用不同的weight叠合起来的结果。如果你的gaussion数目够多，你就可以产生很复杂的distribution，公式为 $p(x)=\sum_{m}p(m)p(x|m)$ 。
 
 ## Gaussian Mixture Model
 
-如果你要从p(x)sample出一个东西的时候，你先要决定你要从哪一个gaussion sample东西，假设现在有100gaussion(每一个gaussion都有自己的一个weight)，你根据每个gaussion的weight去决定你要从哪一个gaussion sample data。所以你要咋样从一个gaussion mixture model smaple data呢？首先你有一个multinomial distribution，你从multinomial distribution里面决定你要sample哪一个gaussion，m代表第几个gaussion，它是一个integer。你决定好你要从哪一个m sample gaussion以后，，你有了m以后就可以找到`$\mu ^m,Σ^m$`(每一个gaussion有自己的`$\mu ^m,Σ^m$`)，根据`$\mu ^m,Σ^m$`就可以sample一个x出来。所以p(x)写为summation over所有的gaussion，哪一个gaussion的weight乘以有一个gaussion sample出x的几率 
+如果你要从p(x)sample出一个东西的时候，你先要决定你要从哪一个gaussion sample东西，假设现在有100gaussion(每一个gaussion都有自己的一个weight)，你根据每个gaussion的weight去决定你要从哪一个gaussion sample data。所以你要咋样从一个gaussion mixture model smaple data呢？首先你有一个multinomial distribution，你从multinomial distribution里面决定你要sample哪一个gaussion，m代表第几个gaussion，它是一个integer。你决定好你要从哪一个m sample gaussion以后，，你有了m以后就可以找到 $\mu ^m,Σ^m$ (每一个gaussion有自己的 $\mu ^m,Σ^m$ )，根据 $\mu ^m,Σ^m$ 就可以sample一个x出来。所以p(x)写为summation over所有的gaussion，哪一个gaussion的weight乘以有一个gaussion sample出x的几率 
 
 
 每一个x都是从某一个mixture被sample出来的，这件事情其实就很像是做classification一样。我们每一个所看到的x，它都是来自于某一个分类。但是我们之前有讲过说：把data做cluster是不够的，更好的表示方式是用distributed representation，也就是说每一个x它并不是属于某一个class，而是它有一个vector来描述它的各个不同面向的特性。所以VAE就是gaussion mixture model distributed representation的版本。
-![在这里插入图片描述](res/chapter29-5.png) 
+
+[在这里插入图片描述](res/chapter29-5.png) 
 
 
 
 
 
-首先我们要sample一个z，这个z是从normal distribution sample出来的。这个vector z的每一个dimension就代表了某种attribute，假设是z是这样的(如图)，现在图上假设它是低维的，但是在实际上它是高维的，到底是几维你自己决定。接下来你Sample z以后，根据z你可以决定`$\mu(z),variance$`，你可以决定gaussion的`$\mu,\sigma$`。刚才在gaussion model里面，你有10个mixture，那你就有10个`$\mu,\sum $`，但是在这个地方，你的z有无穷多的可能，所以你的`$\mu,variance $`也有无穷多的可能。那咋样找到这个`$\mu,  variance $`呢？做法是：假设`$\mu,variance $`都来自于一个function，你把z带到产生`$\mu$`的这个function`$N(\mu(z),\sigma(z))$`，`$\mu(z)$`代表说：现在如果你的attribute是z的时候，你在x space上面的`$\mu$`是多少。同理`$\sigma(z)$`代表说：variance是多少
+首先我们要sample一个z，这个z是从normal distribution sample出来的。这个vector z的每一个dimension就代表了某种attribute，假设是z是这样的(如图)，现在图上假设它是低维的，但是在实际上它是高维的，到底是几维你自己决定。接下来你Sample z以后，根据z你可以决定 $\mu(z),variance$ ，你可以决定gaussion的 $\mu,\sigma$ 。刚才在gaussion model里面，你有10个mixture，那你就有10个 $\mu,\sum $ ，但是在这个地方，你的z有无穷多的可能，所以你的 $\mu,variance $ 也有无穷多的可能。那咋样找到这个 $\mu,  variance $ 呢？做法是：假设 $\mu,variance $ 都来自于一个function，你把z带到产生 $\mu$ 的这个function $N(\mu(z),\sigma(z))$ ， $\mu(z)$ 代表说：现在如果你的attribute是z的时候，你在x space上面的 $\mu$ 是多少。同理 $\sigma(z)$ 代表说：variance是多少
 
-其实P(x)是这样产生的：在z这个space上面，每一个点都有可能被sample到，只不过是中间这些点被sample出来的几率比较大。当你sample出来点以后，这个point会对应到一个guassion。至于一个点对应到什么样的gaussion，它的`$\mu,\sum$`是多少，是由某一个function来决定的。所以当gaussion是从normal distribution所产生的时候，就等于你有无穷多个gaussion。
+其实P(x)是这样产生的：在z这个space上面，每一个点都有可能被sample到，只不过是中间这些点被sample出来的几率比较大。当你sample出来点以后，这个point会对应到一个guassion。至于一个点对应到什么样的gaussion，它的 $\mu,\sum$ 是多少，是由某一个function来决定的。所以当gaussion是从normal distribution所产生的时候，就等于你有无穷多个gaussion。
 
-另外一个问题就是：我们肿么知道每一个z应该对应到什么样的`$\mu,\sum$`(这个function如何去找)。我们知道neural network就是一个function，所以你就可以说：我就是在train一个neural network，这个neural network就是z，它的output就是两个vector(`$\mu(z),\sigma(z)$`)。第一个vector代表了input是z的时候你gaussion的`$\mu$`，`$\sigma$`代表了variance
+另外一个问题就是：我们肿么知道每一个z应该对应到什么样的 $\mu,\sum$ (这个function如何去找)。我们知道neural network就是一个function，所以你就可以说：我就是在train一个neural network，这个neural network就是z，它的output就是两个vector( $\mu(z),\sigma(z)$ )。第一个vector代表了input是z的时候你gaussion的 $\mu$ ， $\sigma$ 代表了variance
 
-我们有一个neural network可以告诉我们说：在z这个space上面的每一个点对应到x的space时，你的`$\mu,variance$`分别是多少。
+我们有一个neural network可以告诉我们说：在z这个space上面的每一个点对应到x的space时，你的 $\mu,variance$ 分别是多少。
 
 ![在这里插入图片描述](res/chapter29-6.png) 
 
@@ -68,37 +70,40 @@ p(x)的distribution会这样的：P(z)的几率跟我们知道z的时候x的几�
 
 
 ## Maximizing Likelihood
-p(z) is a normal distribution，我们先知道z是什么，然后我们就可以决定x是从咋样的`$\mu,variance$`function里面被sample出来的，`$\mu,variance$`中间是关系是不知道的。咋样找呢？它的equation就是maximizing the likelihood，我们现在手上已经有一笔data x，你希望找到一组`$\mu$`的function和`$\sigma$`的function，它可以让你现在已经有的image(每一个x代表一个image)，它的p(x)取log之后相加是被maximizing。所以我们要做的事情就是，调整NN里面的参数(每个neural的weight bias)，使得likehood可以被maximizing。
+p(z) is a normal distribution，我们先知道z是什么，然后我们就可以决定x是从咋样的 $\mu,variance$ function里面被sample出来的， $\mu,variance$ 中间是关系是不知道的。咋样找呢？它的equation就是maximizing the likelihood，我们现在手上已经有一笔data x，你希望找到一组 $\mu$ 的function和 $\sigma$ 的function，它可以让你现在已经有的image(每一个x代表一个image)，它的p(x)取log之后相加是被maximizing。所以我们要做的事情就是，调整NN里面的参数(每个neural的weight bias)，使得likehood可以被maximizing。
 
 
 
-引入另外一个distribution，叫做`$q(z|x)$`。也就是我们有另外一个`$NN'$`，input一个x以后，它会告诉你说：对应z的`$\mu',\sigma'$`(给它x以后，它会决定这个z要从什么样的`$\mu,variance$`被sample出来)。上面这个NN就是VAE里的decoder，下面这个`$NN'$`里的encoder
+引入另外一个distribution，叫做 $q(z|x)$ 。也就是我们有另外一个 $NN'$ ，input一个x以后，它会告诉你说：对应z的 $\mu',\sigma'$ (给它x以后，它会决定这个z要从什么样的 $\mu,variance$ 被sample出来)。上面这个NN就是VAE里的decoder，下面这个 $NN'$ 里的encoder
+
 ![在这里插入图片描述](res/chapter29-7.png)  
 
 
 
 
-`$logP(x)=\int_{z}q(z|x)logP(x)dz$`，因为`$q(z|x)$`它是一个distribution，对任何distribution都成立。假设`$q(z|x)$`是路边捡来的distribution(可以是任何的distribution)，因为这个积分是跟P(x)无关的，然后就可以提出来，积分的部分就会变成1，所以左式就等于右式。
+ $logP(x)=\int_{z}q(z|x)logP(x)dz$ ，因为 $q(z|x)$ 它是一个distribution，对任何distribution都成立。假设 $q(z|x)$ 是路边捡来的distribution(可以是任何的distribution)，因为这个积分是跟P(x)无关的，然后就可以提出来，积分的部分就会变成1，所以左式就等于右式。
 
-最后得到式子如图所示，右边的式子中`$q(z|x)$`是一个distribution，`$logP(x)=\int_{z}q(z|x)logP(x)dz$`也是一个distribution，KL divergence代表这两个distribution相近的程度(KL divergence越大，代表这个distribution越不像，KL divergence衡量一个距离的概念)，右边这个式子是距离，所以一定是大于等于0，所以L一定会大于等于`$\int_{m}q(z|x)log(\frac{p(x|z)p(z)}{q(z|x)})$`这一项，这一项即是lower bounud，称为`$L_b$`。
+最后得到式子如图所示，右边的式子中 $q(z|x)$ 是一个distribution， $logP(x)=\int_{z}q(z|x)logP(x)dz$ 也是一个distribution，KL divergence代表这两个distribution相近的程度(KL divergence越大，代表这个distribution越不像，KL divergence衡量一个距离的概念)，右边这个式子是距离，所以一定是大于等于0，所以L一定会大于等于 $\int_{m}q(z|x)log(\frac{p(x|z)p(z)}{q(z|x)})$ 这一项，这一项即是lower bounud，称为 $L_b$ 。
 
 ![在这里插入图片描述](res/chapter29-8.png) 
 
 
 
 
-我们要maximizing的对象是由这两项加起来的结果，在`$L_b$`这个式子中，p(z)是已知的，我们不知道的是`$p(x|z)$`。我们本来要做的事情是要找`$p(x|z)$`跟`$q(z|x)$`，让这个likehood越大越好，现在我们要做的事情变成要找找`$p(x|z)$`跟`$q(z|x)$`，让`$L_b$`越大越好。如果我们只找这一项的话(`$p(x|z)$`)，然后去maximizing `$L_b$` 的话，你增j加`$L_b$`的时候，你有可能会增加你的likehood，但是你不知道你的likehood跟lower bound之间到底有什么样的距离。你希望你做到的是：当你的lower bound上升的时候，你的likehood也跟着上升。但是有可能会遇到糟糕的事情是：你的lower bound上升的时候，likehood反而下降(因为不知道它们之间的差距是多少)。
+我们要maximizing的对象是由这两项加起来的结果，在 $L_b$ 这个式子中，p(z)是已知的，我们不知道的是 $p(x|z)$ 。我们本来要做的事情是要找 $p(x|z)$ 跟 $q(z|x)$ ，让这个likehood越大越好，现在我们要做的事情变成要找找 $p(x|z)$ 跟 $q(z|x)$ ，让 $L_b$ 越大越好。如果我们只找这一项的话( $p(x|z)$ )，然后去maximizing  $L_b$  的话，你增j加 $L_b$ 的时候，你有可能会增加你的likehood，但是你不知道你的likehood跟lower bound之间到底有什么样的距离。你希望你做到的是：当你的lower bound上升的时候，你的likehood也跟着上升。但是有可能会遇到糟糕的事情是：你的lower bound上升的时候，likehood反而下降(因为不知道它们之间的差距是多少)。
 
-所以引入这一项(`$L_b$`)可以解决刚才说的那个问题。因为：如图蓝色的是likehood，`$likehood=L_b+KL$`，如果你今天调`$q(z|x)$`maximizing `$L_b$`的话。你会发现说`$q(z|x)$`跟log p(x)是没有关系的(log p(x)。但是我们却maximizing `$L_b$`代表说你minimize这个KL divergence，也就是说你让lower bound跟likehood越来越接近(maximize `$q(z|x)$`)。加入你今天去固定住`$p(x|z)$`这一项，去调`$q(z|x)$`这一项的话，你会让`$L_b$`一直上升，这个KL divergence会完全不见。因为你的likehood一定要比lower bound大，所以你确定likehood一定会上升。
+所以引入这一项( $L_b$ )可以解决刚才说的那个问题。因为：如图蓝色的是likehood， $likehood=L_b+KL$ ，如果你今天调 $q(z|x)$ maximizing  $L_b$ 的话。你会发现说 $q(z|x)$ 跟log p(x)是没有关系的(log p(x)。但是我们却maximizing  $L_b$ 代表说你minimize这个KL divergence，也就是说你让lower bound跟likehood越来越接近(maximize  $q(z|x)$ )。加入你今天去固定住 $p(x|z)$ 这一项，去调 $q(z|x)$ 这一项的话，你会让 $L_b$ 一直上升，这个KL divergence会完全不见。因为你的likehood一定要比lower bound大，所以你确定likehood一定会上升。
 
 
-今天我们也会得到一个副产物，你当你maximize`$q(z|x)$`这一项的时候，你会让KL divergence越来越小，意味着说：你会让`$q(z|x)$`跟`$p(z|x)$`越来越接近。所以接下来做的事情就是找`$p(x|z)$`跟`$q(z|x)$`，可以让`$L_b$`越大越好，就等同于让likehood越来越大。在最后你顺便会找到`$q(z|x)$` approximation p(z|x)。
+今天我们也会得到一个副产物，你当你maximize $q(z|x)$ 这一项的时候，你会让KL divergence越来越小，意味着说：你会让 $q(z|x)$ 跟 $p(z|x)$ 越来越接近。所以接下来做的事情就是找 $p(x|z)$ 跟 $q(z|x)$ ，可以让 $L_b$ 越大越好，就等同于让likehood越来越大。在最后你顺便会找到 $q(z|x)$  approximation p(z|x)。
+
 ![在这里插入图片描述](res/chapter29-9.png) 
 
 
 
 
-`$p(z)$`是一个distribution，`$q(z|x)$`也是一个distribution，所以`$\int_{z}q(z|x)log\frac{p(z)}{q(z|x)}$`是KL divergence。复习一下，q是一个neural network，当你给x的时候，它会告诉你：`$q(z|x)$`是从什么样的`$\mu,variance$`gaussion sample出来的。
+ $p(z)$ 是一个distribution， $q(z|x)$ 也是一个distribution，所以 $\int_{z}q(z|x)log\frac{p(z)}{q(z|x)}$ 是KL divergence。复习一下，q是一个neural network，当你给x的时候，它会告诉你： $q(z|x)$ 是从什么样的 $\mu,variance$ gaussion sample出来的。
+
 ![在这里插入图片描述](res/chapter29-10.png) 
 
 
@@ -107,14 +112,15 @@ p(z) is a normal distribution，我们先知道z是什么，然后我们就可�
 
 
 ## Connection with Network
-你要minimizing KL`$(q(z|x)||p(z))$`的话，你就是去调q对应的neural network产生的distribution可以跟normal distribution越接近越好。minimize这一项其实就是我们刚才在reconstruction error另外加的那一项，它要做的事情就是minimize KLdivergence，它要做的事情就是：希望`$q(z|x)$`的output跟normal distribution是接近的
+你要minimizing KL $(q(z|x)||p(z))$ 的话，你就是去调q对应的neural network产生的distribution可以跟normal distribution越接近越好。minimize这一项其实就是我们刚才在reconstruction error另外加的那一项，它要做的事情就是minimize KLdivergence，它要做的事情就是：希望 $q(z|x)$ 的output跟normal distribution是接近的
 
 ![在这里插入图片描述](res/chapter29-11.png) 
 
 
-还有另外一项`$\int_{z}q(z|x)log P(x|z)dz$`，可以写成`$logP(x|z)$`根据`$q(z|x)$`的期望值。从`$q(z|x)$`去sample data，然后让`$logP(x|z)$`的几率越大越好，其实这件事情就是auto-encoder在做的事情。咋样理解从`$q(z|x)$`去sample data：你把x丢进neural network里面去，产生一个`$\mu,variance$`。根据`$\mu,variance$`你就可以sample出来一个z。接下来maximize产生`$logP(x|z)$`的几率，其实就是把z丢到另外neural network，产生一个`$\mu,variance$`。咋样让这个几率越大越好呢？假设我们忽视variance(一般在实做里面不会把variance这件事考虑进去)，只考虑`$\mu$`这一项的话。你要做的就是让`$\mu$`跟x越接近越好。现在是gaussion distribution，在`$\mu$`的几率是最大的，所以你要NN output这个`$\mu$`等于x的话，那`$logP(x|z)$`这一项是最大的。
+还有另外一项 $\int_{z}q(z|x)log P(x|z)dz$ ，可以写成 $logP(x|z)$ 根据 $q(z|x)$ 的期望值。从 $q(z|x)$ 去sample data，然后让 $logP(x|z)$ 的几率越大越好，其实这件事情就是auto-encoder在做的事情。咋样理解从 $q(z|x)$ 去sample data：你把x丢进neural network里面去，产生一个 $\mu,variance$ 。根据 $\mu,variance$ 你就可以sample出来一个z。接下来maximize产生 $logP(x|z)$ 的几率，其实就是把z丢到另外neural network，产生一个 $\mu,variance$ 。咋样让这个几率越大越好呢？假设我们忽视variance(一般在实做里面不会把variance这件事考虑进去)，只考虑 $\mu$ 这一项的话。你要做的就是让 $\mu$ 跟x越接近越好。现在是gaussion distribution，在 $\mu$ 的几率是最大的，所以你要NN output这个 $\mu$ 等于x的话，那 $logP(x|z)$ 这一项是最大的。
 
 所以整个case就变成说：input一个x，然后产生两个vector，产生一个z，再根据这个z，产生另外一个vector跟原来的x越接近越好。其实这件事情就是auto-encoder在做的事情，你要你的input跟output越接近越好。所以这两项合起来就是前面看到的VAE的loss function
+
 ![在这里插入图片描述](res/chapter29-12.png) 
 
 ## conditional VAE
