@@ -43,6 +43,9 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 ## Count based
 
 ![image](res/chapter25-5.png)
+
+
+
 怎样用这个精神来找出这word Embedding呢？有两个不同体系的做法，一个做法是：count based。count based：如果我们现在有两个词汇$w_i,w_j$，他们的word vector(用V($w_i$,)V($w_j$来表示)，如果$w_i,w_j$它们常常在同一个文章出现，那他们的V($w_i$,)V($w_j$)会比较接近。这个方法一个很代表性的例子叫做Glove vector。
 
 这个方法的原则是这样，假设我们知道$w_i$的word vector是$V(w_i)$,$w_j$的word vector是$V(w_j)$,我们可以计算V($w_i$,)V($w_j$)它的inner product，假设$N_{i,j}$是$w_i$,$w_i$他们在同一个document的次数，那我们就希望这两件事情（内积和同时出现的次数）越接近越好。你会发现说：这个概念跟我们之前将的matrix factorozation的概念其实是一样的
@@ -52,6 +55,8 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 另外一个方式是：prediction based方法，据我所知，好像没有人很认真的比较过prediction based方法跟counting based 方法有什么样非常不同的差异或者是谁优谁略。
 
 ![image](res/chapter25-6.png)
+
+
 
 ### 具体步骤
 
@@ -93,6 +98,9 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 我们强制$W^1=W^2=W$，所以我们今天实际在处理这个问题的时候，你可以把$x^{i-1}$跟$x^{i-2}$加起来($z= W(x_{i-1}+x_{i-2})$)。那你今天要得到一个word vector的时候，你就把1-of-N encoding乘上这个W，就得到了这个word embedding。
 
 ![image](res/chapter25-10.png)
+
+
+
 在实际上，你咋样让$W^1,W^2$一样呢。做法是这样子的：假设我现在有两个weight$w_i,w_j$，我们希望$w_i=w_j$。首先你要给$w_i,w_j$一样的initializati，然后update $w_i$。然后计算$w_j$对cost function的偏微分，然后update$w_j$。你可能会说，$w_i,w_j$对C的偏微分是不一样的，再做update以后，那它们的值就不一样了呀。如果你只是列这样的式子，$w_i,w_j$经过一次update以后就不一样了。
 
 那我们就把$w_i$对C的偏微分减去$w_j$对C的偏微分，$w_j$对C的偏微分减去$w_i$对C的偏微分，$w_i,w_j$的update就一样了

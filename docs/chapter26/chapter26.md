@@ -38,7 +38,7 @@ TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是�
 
 
 
-所以LLE做的事情，首先`$x^i,x^j$`在原来的space上面找完以后就fix住它，接下来为每一个$x^i,x^j$找另外一个vector$z^i,z^j$(因为我们在做dimension reduction，新找的dimension要比原来的要小)。我们找的$z^i,z^j$可以minimize这个function。也就是说原来的$x^i$它可以做linear combination产生x，原来的$x^j$做linear combination 产生$x^i$，这些$z^j$它也可以用同样的linear combination产生$z^i$，我们就是要找这一组z可以满足这个$w_{ij}$给我们的constraint，所以在这个式子里面$w_{ij}$变成是已知的，但是我们要找一组z，让$z^j$透过$w_{ij}$跟$在z^i$越接近越好，$z^j$用这组weight做linear combination以后跟$z^i$越接近越好，然后summation over所以的data point。
+所以LLE做的事情，首先$x^i,x^j$在原来的space上面找完以后就fix住它，接下来为每一个$x^i,x^j$找另外一个vector$z^i,z^j$(因为我们在做dimension reduction，新找的dimension要比原来的要小)。我们找的$z^i,z^j$可以minimize这个function。也就是说原来的$x^i$它可以做linear combination产生x，原来的$x^j$做linear combination 产生$x^i$，这些$z^j$它也可以用同样的linear combination产生$z^i$，我们就是要找这一组z可以满足这个$w_{ij}$给我们的constraint，所以在这个式子里面$w_{ij}$变成是已知的，但是我们要找一组z，让$z^j$透过$w_{ij}$跟$在z^i$越接近越好，$z^j$用这组weight做linear combination以后跟$z^i$越接近越好，然后summation over所以的data point。
 
 
 这个LLE你要注意一下，其实它并没有一个明确的function告诉你说我们咋样来做dimension reduction，不像我们在做auto encoding的时候，你learn出一个encoding的network，你input一个新的data point，然后你就得到结果。今天在LLE里面，你并没有找一个明确的function告诉我们，怎么样从一个x变到z，z完全就是另外凭空找出来的。
@@ -73,7 +73,7 @@ TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是�
 
 找一个$z^i,z^j$minimize S的值，这样做的话是有问题的。你不需要告诉我$w_{i,j}$是什么，要minimize S的时候，我选$z^i=z^j=0$，S=0，这样的话就结。所以光做这样的式子是不够的，你可能会说在supervised learning的时候，你咋不讲这句话呢？之前在semi-supervised learning的时候，我们还有supervised learning 给我们的那一项。如果你把所有的label都设成一样的，那你在supervised那一项，你得到的loss就会很大。那我们要同时supervised跟semi-supervised那一项，所以你不选择让所有的y通通一样的。这边少了supervised的东西，所以选择所以的z都是一样，反而是一个最好的solution。
 
-所以这件事是行不通的，你要给你的z一些constraints：如果z降维以后是M维空间，你不会希望说：你的z它还分布在比M还要小的dimension里面。我们现在要做的是希望把高维空间中塞进去的低维空间展开，我们不希望展开的结果是在更低维的空间里面。今天假设你的z的dimension是M，你会希望你找出来的那些点(假设现在总共有N个点，$z^1$`到`$z^N$)它们做span以后会等于$R^M$
+所以这件事是行不通的，你要给你的z一些constraints：如果z降维以后是M维空间，你不会希望说：你的z它还分布在比M还要小的dimension里面。我们现在要做的是希望把高维空间中塞进去的低维空间展开，我们不希望展开的结果是在更低维的空间里面。今天假设你的z的dimension是M，你会希望你找出来的那些点(假设现在总共有N个点，$z^1$到$z^N$)它们做span以后会等于$R^M$
 
 如果你要解这个式子的话，你会发现解出来z跟我们前面看到的graph Laplacian L是有关系的，它其实graph Laplacian eigenvector。
 
@@ -125,8 +125,17 @@ t-SNE这个similarity的选择是非常神妙的，我们在原来的data point 
 所以，t-SNE画出来的图往往长的这样，它会把你的data point 聚集成一群一群的，只要你的data point离的比较远，那做完t-SNE之后，就会强化，变得更远了。
 
 ![image](res/chapter26-14.png)
+
+
+
 ![image](res/chapter26-15.png)
+
+
+
 ![image](res/chapter26-16.png)
+
+
+
 如图为t-SNE的动画。因为这是利用gradient descent 来train的，所以你会看到随着iteration process点会被分的越来越开。
 
 
