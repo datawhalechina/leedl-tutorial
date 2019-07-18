@@ -11,10 +11,10 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 
 
-那我们刚才在PCA里面看过非常类似的概念，从PCA开始讲起。我们刚才讲过说：PCA其实在做的事情是：input一张image x(在刚才的例子里面，我们会让x-`$\bar{x}$`当做input，这边我们把减掉`$\bar{x}$`省略掉，省略掉并不会太奇怪，因为通常在做NN的时候，你拿到的data其实会normlize，其实你的data mean是为0，所以就不用再去减掉mean)，把x乘以一个weight，通通NN一个layer得到c，c乘以matrix w的tranpose得到`$hat{x}$`。`$\hat{x}$`是根据这些component的reconstruction的结果
+那我们刚才在PCA里面看过非常类似的概念，从PCA开始讲起。我们刚才讲过说：PCA其实在做的事情是：input一张image x(在刚才的例子里面，我们会让x-$\bar{x}$当做input，这边我们把减掉$\bar{x}$省略掉，省略掉并不会太奇怪，因为通常在做NN的时候，你拿到的data其实会normlize，其实你的data mean是为0，所以就不用再去减掉mean)，把x乘以一个weight，通通NN一个layer得到c，c乘以matrix w的tranpose得到$hat{x}$。$\hat{x}$是根据这些component的reconstruction的结果
 
 ## Recap:PCA 
-在PCA里面，我们就是minimize input跟reconstruction的结果。我们要让x跟`$\hat{x}$`的Eculidean distance越接近越好，这是PCA做的是事情。如果把它当成neural network来看的话，input x就是input layer，output `$\hat{x}$`就是output layer，中间的component weight就是hidden layer(在PCA里面是，它是linear)。那这个hidden layer我们通常叫它Bottleneck later。
+在PCA里面，我们就是minimize input跟reconstruction的结果。我们要让x跟$\hat{x}$的Eculidean distance越接近越好，这是PCA做的是事情。如果把它当成neural network来看的话，input x就是input layer，output $\hat{x}$就是output layer，中间的component weight就是hidden layer(在PCA里面是，它是linear)。那这个hidden layer我们通常叫它Bottleneck later。
 
 ![在这里插入图片描述](res/chapter27-2.png)
 
@@ -24,14 +24,14 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 
 
-可以变成更多的hidden layer，你就搞一个很深的neural network，它有很多很多层。然后在这个很多很多层的neural network里面，你input一个x，最后得到的output是`$\hat{x}$`，你会希望x跟`$\hat{x}$`越接近越好。
+可以变成更多的hidden layer，你就搞一个很深的neural network，它有很多很多层。然后在这个很多很多层的neural network里面，你input一个x，最后得到的output是$\hat{x}$，你会希望x跟$\hat{x}$越接近越好。
 
 
-中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的`$\hat{x}$`就是decode，这个deep的Auto-encoder最早出现2006年。
+中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的$\hat{x}$就是decode，这个deep的Auto-encoder最早出现2006年。
 
 ## Deep Auto-encoder
 
-那如果按照刚才在PCA里面看到的，从input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
+那如果按照刚才在PCA里面看到的，从input到hidden layer的$W_1$好像要跟最后一个layer的output的weight互为transpose($W_1^T$)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的$W_1$好像要跟最后一个layer的output的weight互为transpose($W_1^T$)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
  
 ![在这里插入图片描述](res/chapter27-3.png)
 
@@ -92,25 +92,25 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 肿么做呢，假如说：我要INIST initialization，你可以做一个neural network input784维，第一个hidden layer是1000，第二个hidden layer是1000，第三个hidden layer是500，然后到10维。那我做Pre-taining的时候，我先train一个Auto-encoder，这个Auto-encoder input784维，中间有1000维的vector，然后把它变回784维，我期望input 跟output越接近越好。你在做这件事的时候，你要稍微小心一点，我们一般做Auto-encoder的时候，你会希望你的coder要比dimension还要小。比dimension还要大的话，你会遇到的问题是：它突然就不learn了。所以你今天发现你的hidden layer比你的input还要大的时候，你要加一个很强的regularization在1000维上，你可以对这1000维的output做L1的regularization，你会希望说：这1000维的output里面，某几维是可以有值的，其他维要必须为0。这样你就可以避免Auto-encoder直接把input并起来再输出的问题。总之你今天的code比你input还要大，你要注意这种问题。
 
-现在我们先learn了一个Auto-encoder，从784维到1000维的`$w^1$`把它保留下来(把它fix住)。接下来把所有的database里面的digit通通变成1000维的vector，接下来你在learn另外一个Auto-encoder，它把1000维的vector变成1000维的code，再把1000维的code变成1000维的vector。你再learn这样的Auto-encoder，它是会让input跟output越接近越好。然后你再把`$w^2$`把它保存下来
+现在我们先learn了一个Auto-encoder，从784维到1000维的$w^1$把它保留下来(把它fix住)。接下来把所有的database里面的digit通通变成1000维的vector，接下来你在learn另外一个Auto-encoder，它把1000维的vector变成1000维的code，再把1000维的code变成1000维的vector。你再learn这样的Auto-encoder，它是会让input跟output越接近越好。然后你再把$w^2$把它保存下来
 
 ![在这里插入图片描述](res/chapter27-10.png)
 
 
-然后你再把`$w^2$`把它保存下来，fix住`$w^2$`的值。learn第三个Auto-encoder，input100维，code500维，output1000维，然后得到weight`$w^3$`
+然后你再把$w^2$把它保存下来，fix住$w^2$的值。learn第三个Auto-encoder，input100维，code500维，output1000维，然后得到weight$w^3$
 
 
 
 
 
-然后你再把`$w^3$`把它保存下来，这个`$w^1,w^2,w^3$`就等于是你再learn你的neural network时的initialization，然后你再random initialization500维到10维，然后再用backpropagation再去调一遍，称这个步骤为find-tune(`$w^1,w^2,w^3$`都是很好的weight，所以你只是微调它)
+然后你再把$w^3$把它保存下来，这个$w^1,w^2,w^3$就等于是你再learn你的neural network时的initialization，然后你再random initialization500维到10维，然后再用backpropagation再去调一遍，称这个步骤为find-tune($w^1,w^2,w^3$都是很好的weight，所以你只是微调它)
 
 
-这一招(pre-training)在过去learn一个deep的neural network还是很需要的，不过现在neural network不需要pre-training往往都能train的起来。如果你今天有很多的unlabel data，少量的label data，你可以用大量的unlabel data先去把`$w^1,w^2,w^3$`learn 好，你最后的label data只需要稍微调整你的weight就好了。所以pre-training在大量的unlabel data时还是有用的。
+这一招(pre-training)在过去learn一个deep的neural network还是很需要的，不过现在neural network不需要pre-training往往都能train的起来。如果你今天有很多的unlabel data，少量的label data，你可以用大量的unlabel data先去把$w^1,w^2,w^3$learn 好，你最后的label data只需要稍微调整你的weight就好了。所以pre-training在大量的unlabel data时还是有用的。
 
 
 
-有一个方法可以让Auto-encoder做的更好，这个叫做De-noising Auto-encoder(可以参考reference)。你把原来的input x加上一些noise变成`$x^{'}$`，然后你把`$x^{'}$`encode以后变成c，再把c decode回来变成y。但是要注意一下，现在在De-noising Auto-encoder， 你是要output 跟原来的input(加noise之前的x)越接近越好。你learn出来的结果有biased，因为encode不止learn到了这件事，它还learn到了把杂序滤掉这件事。
+有一个方法可以让Auto-encoder做的更好，这个叫做De-noising Auto-encoder(可以参考reference)。你把原来的input x加上一些noise变成$x^{'}$，然后你把$x^{'}$encode以后变成c，再把c decode回来变成y。但是要注意一下，现在在De-noising Auto-encoder， 你是要output 跟原来的input(加noise之前的x)越接近越好。你learn出来的结果有biased，因为encode不止learn到了这件事，它还learn到了把杂序滤掉这件事。
 
 ![在这里插入图片描述](res/chapter27-11.png)
 
