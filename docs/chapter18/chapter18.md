@@ -59,7 +59,7 @@
 给第一个layer的某个参数加上\triangle w△w时，对output与target之间的loss有什么样的变化。现在我们的\triangle w△w很大，通过sigmoid function时这个output会很小(一个large input，通过sigmoid function，得到small output)，每通过一次sogmoid function就会衰减一次（因为sogmoid function会将值压缩到0到1之间，将参数变化衰减），hidden layer很多的情况下，最后对loss 的影响非常小(对input 修改一个参数其实对output 是影响是非常小)。
 
 理论上我们可以设计dynamic的learning rate来解决这个问题，确实这样可以有机会解决这个问题，但是直接改activation function会更好，直接从根本上解决这个问题。
-###  怎么样去解决vanishing Gradient problem
+##  怎么样去解决vanishing Gradient problem
 ![chapter1-0.png](res/chapter18-8.png)
  
  修改activation function，ReLU input 大于0时，input 等于 output，input小于0时，output等于0
