@@ -1,7 +1,3 @@
-# Unspervised learning  Word Embedding
-
-![image](res/chapter25-0.png)
-
 # 1-of-N Encoding
 
 
@@ -174,7 +170,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 刚才讲的是word embedding，也可以做document embedding。也就不是把word变成一个vector，也可以把document变成一个vector
 
-## Semantic Embedding
+### Semantic Embedding
 
 ![image](res/chapter25-19.png)
 

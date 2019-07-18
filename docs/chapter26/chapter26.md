@@ -1,6 +1,4 @@
-![](res/chapter26-0.png)
-
-# Manifold Learning
+## Manifold Learning
 
 ![image](res/chapter26-1.png)
 
