@@ -1,7 +1,7 @@
 # Unsupervised learning Generation(l)
 
 
-![在这里插入图片描述](res/chapter28-0.png)
+![在这里插入图片描述](mindmap/Unsupervised learning Generation(l).png)
  
 ## Creation-Image Processing
 有关generation model，这里有一篇很好的reference。在这篇reference里开头引用Richard Feynman的话。这句话来自Richard Feynman办公室黑板上一句话："why i cannot creater, i do not understand"。所以一个东西，不知道咋样产生它的话就不是完全理解。

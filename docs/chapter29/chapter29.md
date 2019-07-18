@@ -1,7 +1,7 @@
 # Unsupervised learning Generation
 
 
-![在这里插入图片描述](res/chapter29-0.png) 
+![在这里插入图片描述](mindmap/Unsupervised learning Generation.png) 
 
 ## Why VAE?
 
@@ -41,7 +41,7 @@
 
 咋样estimate the probability distributon呢？我们可以用gaussion mixture model。guassion mixture model：我们现在有一个distribution(黑色的线)，这个黑色的distribution其实是很多的gaussion(青蓝色)用不同的weight叠合起来的结果。如果你的gaussion数目够多，你就可以产生很复杂的distribution，公式为 $p(x)=\sum_{m}p(m)p(x|m)$ 。
 
-## Gaussian Mixture Model
+### Gaussian Mixture Model
 
 如果你要从p(x)sample出一个东西的时候，你先要决定你要从哪一个gaussion sample东西，假设现在有100gaussion(每一个gaussion都有自己的一个weight)，你根据每个gaussion的weight去决定你要从哪一个gaussion sample data。所以你要咋样从一个gaussion mixture model smaple data呢？首先你有一个multinomial distribution，你从multinomial distribution里面决定你要sample哪一个gaussion，m代表第几个gaussion，它是一个integer。你决定好你要从哪一个m sample gaussion以后，，你有了m以后就可以找到 $\mu ^m,Σ^m$ (每一个gaussion有自己的 $\mu ^m,Σ^m$ )，根据 $\mu ^m,Σ^m$ 就可以sample一个x出来。所以p(x)写为summation over所有的gaussion，哪一个gaussion的weight乘以有一个gaussion sample出x的几率 
 
@@ -69,7 +69,7 @@ p(x)的distribution会这样的：P(z)的几率跟我们知道z的时候x的几�
 
 
 
-## Maximizing Likelihood
+### Maximizing Likelihood
 p(z) is a normal distribution，我们先知道z是什么，然后我们就可以决定x是从咋样的 $\mu,variance$ function里面被sample出来的， $\mu,variance$ 中间是关系是不知道的。咋样找呢？它的equation就是maximizing the likelihood，我们现在手上已经有一笔data x，你希望找到一组 $\mu$ 的function和 $\sigma$ 的function，它可以让你现在已经有的image(每一个x代表一个image)，它的p(x)取log之后相加是被maximizing。所以我们要做的事情就是，调整NN里面的参数(每个neural的weight bias)，使得likehood可以被maximizing。
 
 
@@ -111,7 +111,7 @@ p(z) is a normal distribution，我们先知道z是什么，然后我们就可�
 
 
 
-## Connection with Network
+### Connection with Network
 你要minimizing KL $(q(z|x)||p(z))$ 的话，你就是去调q对应的neural network产生的distribution可以跟normal distribution越接近越好。minimize这一项其实就是我们刚才在reconstruction error另外加的那一项，它要做的事情就是minimize KLdivergence，它要做的事情就是：希望 $q(z|x)$ 的output跟normal distribution是接近的
 
 ![在这里插入图片描述](res/chapter29-11.png) 
@@ -123,7 +123,7 @@ p(z) is a normal distribution，我们先知道z是什么，然后我们就可�
 
 ![在这里插入图片描述](res/chapter29-12.png) 
 
-## conditional VAE
+### conditional VAE
 
 还有一种conditional VAE，如果你让VAE可以产生手写的数字，就是给它一个digit，然后它把这个digit的特性抽取出来(笔画的粗细等等)，然后丢进encoder的时候一方面给它有关这个数字特性的distribution，另外一方面告诉decoder它是什么数字。那你就可以根据这一个digit，generate跟它style相近的digit。你会发现说conditional VAE可以根据某一个digit画出跟它style相近的数字。
 
@@ -145,7 +145,7 @@ Cool demo:
 
 
 
-## Problems of VAE
+### Problems of VAE
 
 VAE其实有一个很严重的问题就是：它从来没有真正学咋样产生一张看起来像真的image，它学到的东西是：它想要产生一张image，跟我们在database里面某张image越接近越好。但它不知道的是：我们evaluate它产生的image跟database里面的相似度的时候(MSE等等)，decoder output跟真正的image之间有一个pixel的差距，不同的pixel落在不同的位置会得到非常不一样的结果。假设这个不一样的pixel落在7的尾部(让7比较长一点)，跟落在另外一个地方(右边)。你一眼就看出说：右边这是怪怪的digit，左边这个搞不好是真的(只是长了一点而已)。但是对VAE来说都是一个pixel的差异，对它来说这两张image是一样的好或者是一样的不好。
 
@@ -175,7 +175,7 @@ GAN的概念像是拟态的演化，如图是一个枯叶蝶(长的像枯叶一�
  
 所以GAN的概念是非常类似的，首先有第一代的generator，generate一些奇怪的东西(看起来不是像是image)。接下来有第一代的Discriminator(它就是那个天敌)，Discriminator做的事情就是：它会根据real images跟generate产生的images去调整它里面的参数，去评断说：这是真正的image还是generate产生的 image。接下来generator根据discriminator调整了下它的参数，所以第二代generator产生的digit更像是真的image，接下来discri minator会根据第二代generator产生的digit跟真正的digit再update它的参数。接下来产生第三代generator，产生的digit更像真正的数字(第三代generator产生的digit可以骗过第二个discri minator)，但是discri minator也会演化，等。
 
-## The evolution of generation 　
+### The evolution of generation 　
 
 你要注意的一个地方就是：这个Generator它从来没有看过真正的image长什么样子，discri- minator有看过真正的digit长什么样子，它会比较正真正的image和generator的不同，它要做的就是骗过discri-minator。generator没有看过真正的image，所以generate它可以产生出来的image是database里面从来都没有见过的，这比较像是我们想要machine做的事情。
 
@@ -191,14 +191,14 @@ GAN的概念像是拟态的演化，如图是一个枯叶蝶(长的像枯叶一�
 
 
 
-## GAN-Discriminator
+### GAN-Discriminator
 
 现在有可第一代的discriminator，咋样根据discriminator update 第一代的。首先我们随便输入一个vector，它会随便产生一张image，这张image没有办法骗过discriminatior，把generator产生的image丢到discriminatior里面，它得出有0.87。接下来我们就得调这个generator的参数，让现在的discriminator会认为说：generator出来的image是真的，也就是说：generator出来的image丢到discriminator里面，discriminator output越接近1越好，所以你希望generator出来是这样的image，discriminator output是1.0觉得它是真正的image。
 
 
 ![在这里插入图片描述](res/chapter29-20.png) 
 
-## GAN-Generator
+### GAN-Generator
 
 generator就是一个neural network，discriminator也是一个neural network，你把generator output当做discriminator的 input，然后再让它产生一个值。这件事情就好像是：你有一个很大很大的neural network，你丢一个randomly vector，它的output就是一个值，所以generator和discriminator合起来就是一个很大的neural network，你要让这个network再丢进一个randomly vector，output 1这件事是很容易的，你做gradient descent就好了。你就gradient descent调整参数，希望丢进这个vector的时候，它的output是要接近1的。但是你要注意的事情是：你在调整这个参数的时候，你只能够调整generator的参数(只能算generator的参数对output的gradient)，必须fix the discriminator。如果你没有fix the discriminator的话会发生：对discriminator来说，要让它output 1很简单，在最后output的bias设为1，其他weight都设0，output就是1了。
 
@@ -206,7 +206,7 @@ generator就是一个neural network，discriminator也是一个neural network，
 
 ![在这里插入图片描述](res/chapter29-21.png) 
 
-## GAN-Toy Example
+### GAN-Toy Example
 
 这是来自GAN paper的Toy example，Toy example是这样子的：z(z是one dimension)丢到generator里面，会产生另外一个one dimension的东西(这个z可以从任何的distribution sample出来，在这个例子是从uniform distribution sample出来的)，每一个不同的z会得到不同的x，x的分布就绿色这条个分布。现在要做的事情是：希望这个generator的output可以越像real data越好，real data就是黑色的这些点，也就绿色这条distribution可以跟黑色的点越接近越好。按照GAN的概念的话，你就把generator的output x跟real data丢到discriminator里面，然后让discriminator去判断来自真正data的几率跟generator output几率(如果是真正的data 几率就是1，反之就是0)
 

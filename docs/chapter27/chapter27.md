@@ -1,6 +1,6 @@
 # Unsupervised Learning:  Deep Auto-encoder
 
-![在这里插入图片描述](res/chapter27-0.png)
+![在这里插入图片描述](mindmap/Deep Auto-encoder.png)
 
 ## Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。
@@ -29,7 +29,7 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的`$\hat{x}$`就是decode，这个deep的Auto-encoder最早出现2006年。
 
-## Deep Auto-encoder
+### Deep Auto-encoder
 
 那如果按照刚才在PCA里面看到的，从input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
  
@@ -48,7 +48,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 ![在这里插入图片描述](res/chapter27-5.png)
 
-## Auto-encoder-Text Retrieval
+### Auto-encoder-Text Retrieval
 这个Auto-encoder也可以用在文字处理上，比如说：我们把一篇文章压成一个code。举例来说：现在要做文字的搜寻，在文字搜寻里面有一招叫做：vector space model。vector space model是说：我们现在把一篇文章都表示成一个空间中的vector(图中蓝色的圈圈就是一篇文章，经过降维后)。假设使用者查询一个词汇，我们把查询的词汇也变成一个空间中的点。接下里你就是计算这个查询词汇跟每一篇document之间的inner product，选择较为接近，相似程度最高的。这个模型要work，现在把一个document变成一个vector表现的是好还是不好。咋样把一个document表示成一个vector，一个方法叫做“Bag-of-word”。这个“Bag-of-wor”的想法是说：我们现在开一个vector，这个vector的sentence就是let think sentence(假设世界上有10w词汇，这个vector的sentence就是10w维)
 
 假设现在有一篇document，有一个句子是："this is an apple"，那这个document如果把它表示成一个vector的话就是在this那一维是1，is那一维是1，an那一维是1，apple那一维是1，其它为0。有时候，你想要做的更好，你想要乘上weight，代表那一个词汇的重要性。这个重要性。但是用这个模型，它没有考虑Semantics相关的东西，它不知道台湾大学就是指的台大，它不知道apple，orange是水果。对它来说：is,an,apple之间是没有任何关系的。
@@ -64,7 +64,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 ![在这里插入图片描述](res/chapter27-7.png)
 
-## Auto-encoder-Similar Image Search
+### Auto-encoder-Similar Image Search
 Auto-encoder也用在image search上面，假设这张图是你要找的对象(image query)，计算这个image query跟其他database之间pixel的相似程度，然后你再看出最像的几张是要的结果。如果你只是这么做的话，其实得不到太好的结果。
 
 

@@ -1,5 +1,5 @@
 ﻿
-![在这里插入图片描述](res/chapter31-0.png)
+![在这里插入图片描述](mindmap/chapter31-0.png)
 
  ## Support Vector machine是什么呢？
  Support Vector machine他有两个特色：
