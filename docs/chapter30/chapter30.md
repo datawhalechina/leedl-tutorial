@@ -1,4 +1,4 @@
-# 迁移学习
+
 
 
 
@@ -36,7 +36,7 @@
 
 我们现在有一个我们想要做的task，有一些跟这个task有关的数据叫做target data，有一些跟这个task无关的data，这个data叫做source data。这个target data有可能是有label的，也有可能是没有label的，这个source data有可能是有label的，也有可能是没有label的，所以现在我们就有四种可能，所以之后我们会分这四种来讨论。
 
-## Model Fine-tuning
+# Model Fine-tuning
 
 那现在我们假设target data跟source data都同时有label的情况下，可以的做的事情是：最常见的事情就是：fine-tuning你的model
 
@@ -54,13 +54,13 @@
 
 
 
-### conservative training
+## conservative training
 
 有一个技巧叫做：conservative training，你现在有大量的source data，(比如说：在语音辨识里面就是很多不同speaker的声音)，那你拿来做neural network。target data是某个speaker的声音，如果你直接拿这些去train的话就坏掉了。你可以在training的时候加一些constraint(regularization)，让新的model跟旧的model不要差太多。你会希望新的model的output跟旧的model的output在看同一笔data的时候越接近越好。或者说新的model跟旧的model L2-Norm差距越小越好(防止overfitting的情形)
 
 ![在这里插入图片描述](res/chapter30-6.png)
 
-### layer transfer
+## layer transfer
 
 另外的一个方法是layer transfer，你现在用source data train好了一个model，把这个model的某几个layer拿出来copy到新的model里面
 。接下来用source data只去用没有copy的layer(可能你只保留一个layer没有copy)，这样的好处就是source data只需要考虑非常少的参数，这样就可以避免overfitting的情形。当然之后你的source data够多了，那之后可能还是要fine-tune整个model。
@@ -110,7 +110,7 @@
 
 
 
-## multitask learning
+# multitask learning
 
 multitask learning一个很成功的例子就是多语言的语音辨识，假设你现在手上有一大堆不同语言的data(法文，中文，英文等)，那你在train你的model的时候，同时可以辨识这五种不同的语言。这个model前面几个layer他们会共用参数，后面几个layer每一个语言可能会有自己的参数，这样做是合理的。虽然是不同的语言，但是都是人类所说的，所以前面几个layer它们可能是share同样的咨询，共用同样的参数。
 
@@ -129,7 +129,7 @@ multitask learning一个很成功的例子就是多语言的语音辨识，假�
 
 ![在这里插入图片描述](res/chapter30-14.png)
 
-### progressive network neural
+## progressive network neural
 
 progressive network neural其实是很新的做法(2016年的paper)。我先train一个task1，train好以后它的参数就fix住，那现在我们要做task2，但是task2它的每一个hidden layer都会去接前一个task1的某一个hidden layer的output。所以在train的时候好处就是：task1跟task2非常不像，首先task1的data不会去动到task2的model，所以task1一定不会比原来更差。task2去借用task1的参数，但是它可以把这些参数直接设为0，这样也不会影响task2的性能。task3也是做一样的事情，task3会同时从task1和task2的hidden layer得到information。
 
@@ -159,7 +159,7 @@ progressive network neural其实是很新的做法(2016年的paper)。我先trai
 
 
 
-## Domain-adversarial 
+# Domain-adversarial 
 
 所以该肿么办呢？这边希望做的事情是：前面的feature extract 它可以把domain的特性去除掉，这一招较做Domain-adversarial training。也就是feature extract output不应该是红色跟蓝色的点分成两群，而是不同的domain应该混在一起(不同domain的特性取消掉)。
 
@@ -216,7 +216,7 @@ domain classifier因为看不到真正的image，所以它最后一定fail掉。
 ![在这里插入图片描述](res/chapter30-22.png)
 
 
-## Zero-shot learning
+# Zero-shot learning
 
 在zero-shot-learning里面呢？跟刚才讲的task是一样的，source data有label，target data每天label。在刚才task里面可以把source data当做training data，把target data当做testing data，但是实际上在zero-shot learning里面，它的difine又更加严格一点。它的difine是：今天在source data和target data里面，它的task是不一样的。
 
@@ -330,7 +330,7 @@ max里面两个的element分别是0，k-f($x^n$)跟g($y^n$)的inner product，�
 
 
 
-## self-taught learning & Self-taught Clustering
+# self-taught learning & Self-taught Clustering
 
 
 target data有label,source data没有label的状况叫做self-taught learning。target label没有label，source data也没有label的状况叫做self-taught clustering。
