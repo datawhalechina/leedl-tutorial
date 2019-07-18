@@ -328,7 +328,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 这个就可以用刚才的SVD来解，你可能说SVD不是有三个解吗？这时候你看你是要把$\sum$并到左边还是右边，把这个matrix X拆成两个matrix，然后minimize error。
 
-## FM推荐系统中的应用
+### FM推荐系统中的应用
 
 ![image](res/chapter24-32.png)
 
@@ -356,7 +356,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 所以改一下minimize的式子，改为$r^i$跟$r^j$的inner product加上$b_i$,$b_j$，然后你希望这个值跟$n_{ij}$越接近越好，用gradient descent来解。(你也可以在loss function后面加上regularization)
 
-## MF主题分析的应用
+### MF主题分析的应用
 
 ![image](res/chapter24-35.png)
 
