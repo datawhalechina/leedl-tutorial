@@ -1,6 +1,6 @@
 # Unsupervised Learning:  Deep Auto-encoder
 
-![在这里插入图片描述](mindmap/Deep Auto-encoder.png)
+
 
 ## Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。

@@ -1,7 +1,7 @@
 # Unsupervised learning Generation
 
 
-![在这里插入图片描述](mindmap/Unsupervised learning Generation.png) 
+
 
 ## Why VAE?
 

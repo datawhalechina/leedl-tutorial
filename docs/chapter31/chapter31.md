@@ -1,7 +1,7 @@
 ﻿
-![在这里插入图片描述](mindmap/chapter31-0.png)
+# Support Vector machine
 
- ## Support Vector machine是什么呢？
+## Support Vector machine是什么呢？
  Support Vector machine他有两个特色：
 - 第一个是hingeloss,等一下我们会讲，hinge loss是什么
 - 另外一个是他最厉害的地方：kernel trick

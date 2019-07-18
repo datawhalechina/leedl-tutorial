@@ -1,7 +1,7 @@
 # Tips for deep learning
 
 当你的模型表现不好，应该怎么处理？
-![chapter1-0.png](mindmap/Tips for deep learning.png)
+
 ## 1、recipe of deep learning(流程)
 ![chapter1-0.png](res/chapter18-1.png)
 
