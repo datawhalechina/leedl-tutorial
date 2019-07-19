@@ -58,7 +58,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 
 
-那我们可以用Auto-encoder被考虑进来，举例来说，你learn一个Auto-encoder，它的input就是一个document 或者是一个query，通过encoder把它压成二维。每一个点代表一个document，不同颜色的类代表document属于哪一类。今天要做搜寻的时候，今天输入一个词汇，那你就把那个query也通过这个encoder把它变为一个二维的vector。假设query落在这一类，你就可以知道说：这个query是跟Energy markets有关的document retrieve出来，这个看起来结果是相当惊人的。如果你用LSA的话，你得不到类似的结果
+那我们可以用Auto-encoder被考虑进来 ，举例来说，你learn一个Auto-encoder，它的input就是一个document 或者是一个query，通过encoder把它压成二维。每一个点代表一个document，不同颜色的类代表document属于哪一类。今天要做搜寻的时候，今天输入一个词汇，那你就把那个query也通过这个encoder把它变为一个二维的vector。假设query落在这一类，你就可以知道说：这个query是跟Energy markets有关的document retrieve出来，这个看起来结果是相当惊人的。如果你用LSA的话，你得不到类似的结果
 
 
 
