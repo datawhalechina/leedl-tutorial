@@ -1,8 +1,7 @@
-![](res/chapter24-0.png)
 
-# Unsupervised Learning
+# 无监督学习
 
-image![](res/chapter24-1.png)
+![](res/chapter24-1.png)
 
 
 
@@ -10,7 +9,7 @@ image![](res/chapter24-1.png)
 
 那另外一个unsupervised learning可以做Generation,也就是无中生有，我们要找一个function，你随机给这个function一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只有这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
 
-# Clutering
+# 聚类（Clustering）
 
 
 
@@ -52,7 +51,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 如果原来你的$x$是一个非常high dimension的东西，比如说image，你现在用它的特值来描述，它就会从比较高维的空间变成比较低维的空间。那这件事情就被叫做：dimension reduction。这是一样的事情，只是不同的称呼而已。
 
-# Dimension Reduction
+# 降维（Dimension Reduction）
 
 ![](res/chapter24-5.png)
 
@@ -74,7 +73,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 那怎么做dimension reduction呢?在做dimension reduction的时候，我们要做的事情就是找一个function，这个function的input是一个vector x，output是另外一个vector z。但是因为是dimension reduction，所以你output这个vector z这个dimension要比input这个x还要小，这样才是在做dimension reduction。
 
-## Feature Selection
+## 特征选择（Feature Selection）
 
 在做dimension reduction里面最简单是feature selection，这个方法是：你把你的data分布拿出来看一下，本来在二维的平面上，但是你发现都集中在$x_2$dimension这里，这个$x_1$dimension没什么用，把它拿掉就只有$x_2$dimension，你就等于做到dimension reduction这件事了。这个方法不见得有用，因为有很多时候，你的case是：你任何一个dimension都不能拿掉。
 
@@ -196,7 +195,7 @@ c_2^1 & c_2^2 \\
 
 你会发现，这个$XX^T$就是covariance matrix，PCA之前找出的W就是covariance matrix的eigenvector。而我们这边说做SVD，解出来U的每个column就是covariance matrix的eigenvector，所以这个U得出的解就是PCA得到的解。所以我们说：PCA做的事情就是：你找出来的那些W其实就是component。
 
-### PCA and Neural Network
+### PCA 和 神经网络
 
 ![image](res/chapter24-18.png)
 
@@ -211,7 +210,7 @@ linear combinarion做的事情你可以想成用neural network来表示它，假
 
 这边就有一个问题，假设我们现在这个weight，不是用PCA的方法去找出$w^1,w^2,...w^k$。而是兜一个neural network，我们要minimize error，然后用Gradient Descent去train得到的weight，那就觉得你得到的结果会跟PCA得到的结果一样吗？这其实是会一样的(neural network没有办法保证是垂直的,你会得到另外一组解)。所以在linear的情况下，或许你就想要用PCA来找这个$W$比较快的，你用neural network是比较麻烦的。但是用neural network的好处是：可以deep。
 
-### Weakness of PCA
+### PCA的缺点
 
 ![image](res/chapter24-19.png)
 
