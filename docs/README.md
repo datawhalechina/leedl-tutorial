@@ -9,8 +9,8 @@
 在线阅读地址：https://datawhalechina.github.io/Leeml-Book/
 
 # 目录
-- [P1 机器学习介绍](1/1.md)
-- [P2 为什么要学习机器学习   ](2/2.md)
+- [P1 机器学习介绍](chapter1/chapter1.md)
+- [P2 为什么要学习机器学习](chapter2/chapter2.md)
 - [P3 回归](chapter3/chapter3.md)
 - [P4 回归-演示](chapter4/chapter4.md)
 - [P5 误差从哪来？](chapter5/chapter5.md)
@@ -52,8 +52,8 @@
 
 
 ## 视频观看地址
-bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
-网易云课堂：[李宏毅机器学习中文课程](https://study.163.com/course/courseMain.htm?courseId=1208946807
+- bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
+- 网易云课堂：[李宏毅机器学习中文课程](https://study.163.com/course/courseMain.htm?courseId=1208946807)
 
 #  协作规范
 
