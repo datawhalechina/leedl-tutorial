@@ -11,8 +11,8 @@ Regression 就是找到一个函数 $function$ ，通过输入特征 $x$，输�
 	- 输入：无人车上的各个sensor的数据，例如路况、测出的车距等
 	- 输出：方向盘的角度
 - 商品推荐（Recommendation）
-  	- 输入：商品A的特性，商品B的特性
-	- 输出：购买商品B的可能性
+    - 输入：商品A的特性，商品B的特性
+    - 输出：购买商品B的可能性
 - Pokemon精灵攻击力预测（Combat Power of a pokemon）：
 	- 输入：进化前的CP值、物种（Bulbasaur）、血量（HP）、重量（Weight）、高度（Height）
 	- 输出：进化后的CP值
