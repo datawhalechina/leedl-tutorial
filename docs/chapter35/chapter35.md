@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # 序列标记(Sequence Labeling)
 
 
@@ -115,12 +121,12 @@ $$
   - 我们如何知道P(V|PN), P(saw|V)......？
 
   - 从训练数据中得到
-
+    
     
     
     ![](res/chapter35-7.png)
     
-    
+
     
     $$
     P(x, y)=P\left(y_{1} | \text {start}\right) \prod_{l=1}^{L-1} P\left(y_{l+1} | y_{l}\right) P\left(e n d | y_{L}\right) \prod_{l=1}^{L} P\left(x_{l} | y_{l}\right)
@@ -279,7 +285,7 @@ $$
 $$
 
 $$
-其中\sum_{y^{\prime} \in \mathbb{Y}} \exp \left(w \cdot \phi\left(x, y^{\prime}\right)\right)仅与x有关，与y无关
+其中\sum_{y^{\prime} \in \mathbb{Y}} \exp \left(w \cdot \phi\left(x, y^{\prime}\right)\right)仅与x有关，与y无关！
 $$
 
 **P(x, y)**
