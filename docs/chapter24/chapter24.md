@@ -3,6 +3,9 @@
 # Unsupervised Learning
 
 image![](res/chapter24-1.png)
+
+
+
 我把dimension reduction分为两种，一种做的事情叫做“化繁为简”，它可以分为两种：一种是cluster，一种是dimension reduction。所谓的“化繁为简”的意思：现在有很多种不同的input，比如说：你现在找一个function，它可以input看起来像树的东西，output都是抽象的树，把本来比较复杂的input变成比较简单的output。那在做unsupervised learning的时候，你只会有function的其中一边。比如说：我们要找一个function要把所有的树都变成抽象的树，但是你所拥有的train data就只有一大堆的image(各种不同的image)，你不知道它的output应该是要长什么样子。
 
 那另外一个unsupervised learning可以做Generation,也就是无中生有，我们要找一个function，你随机给这个function一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只有这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
@@ -141,7 +144,7 @@ PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigen
 
 
 
-我们从更清楚的角度来看PCA，你就会知道PCA到底在做什么。假设我们考虑的是手写的数字，我们知道这些数字其实是一些basic component所组成的。这些basic component可能就代表笔画。举例来说：人类所手写的数字就是这些basic component所组成的，有斜的直线，横的直线，有比较长的直线，然后还有小圈，大圈等等，这些basic component加起来就可以得到一个数字。这些basic component写做$u^1,u^2,...u^5$，这些basic component其实就是一个一个的vector。假设我们现在考虑的是mnist，mnist一张image28*28piexl，也就是28 *28维的vector。这些component其实就是28 *28维的vector，把这些vector加起来以后，你所得到的vector就代表了一个diagit。如果把它写成formulation的话就是：$x\approx c_1u^1+c_2u^2+....c_ku^k+\bar{x}$，x代表一张image里面的pixel，x等于$c_1u^1$component乘以`$c_2u^2$`这个component，一直加到$c_ku^k$component，再加上$\bar{x}$,$\bar{x}$是所有image的平均。所以每一张image就是有一堆component的linear conformation再加上它平均所组成的。
+我们从更清楚的角度来看PCA，你就会知道PCA到底在做什么。假设我们考虑的是手写的数字，我们知道这些数字其实是一些basic component所组成的。这些basic component可能就代表笔画。举例来说：人类所手写的数字就是这些basic component所组成的，有斜的直线，横的直线，有比较长的直线，然后还有小圈，大圈等等，这些basic component加起来就可以得到一个数字。这些basic component写做$u^1,u^2,...u^5$，这些basic component其实就是一个一个的vector。假设我们现在考虑的是mnist，mnist一张image28*28piexl，也就是28 *28维的vector。这些component其实就是28 *28维的vector，把这些vector加起来以后，你所得到的vector就代表了一个diagit。如果把它写成formulation的话就是：$x\approx c_1u^1+c_2u^2+....c_ku^k+\bar{x}$，x代表一张image里面的pixel，x等于$c_1u^1$component乘以$c_2u^2$这个component，一直加到$c_ku^k$component，再加上$\bar{x}$,$\bar{x}$是所有image的平均。所以每一张image就是有一堆component的linear conformation再加上它平均所组成的。
 
 举例来说：7是这三个component加起来的结果，假设7就是x的话，$c_1=1,c_2=0,c_3=1,c_4=0,c_5=1$，你可以用$c_1,c_2,...c_k$来表示一张image。假设component比pixel的数目少的话，那么这个描述是比较有效的。7是1倍的$u^1$,1倍$u^2$,1倍的$u^5$所组成的，所以7是一个vector，它的第一维，第三维，第5维是1.
 
@@ -201,7 +204,7 @@ c_2^1 & c_2^2 \\
 
 我们现在已经知道从PCA找出的$w^1,...w^K$就是k个component$u^1,...u^K$。我们现在有一个根据component linear combination的结果叫做$\hat{x}$`(`$\sum_{k=1}^{K}c_kw^k$)。我们希望$\hat{x}$跟$x-\bar{x}$的差值越小越好，你要minimize reconstruction error。那我们现在已经根据SVD找出这个W了，那这个$c_k$的值是到底多少呢？这个$c_k$是每一个image都有自己的$c_k$，这个$c_k$就每个image各自找就好。如果现在要用$c_1,...c^k$对$w^k$做linear combination。这个$c_k=(x-\bar{x})w^k$，找一组$c_k$可以minimize$ \hat{x},(x-\bar{x})$
 
-linear combinarion做的事情你可以想成用neural network来表示它，假设我们的$x-\bar{x}$就是一个vector(这边写做三维的vector)，假设现在只有2个component(k=2)，那我们先算出$c_1,c_2$，$c_1=(x-\bar{x})$($x-\bar{x}$）的每一个component乘上`$w^1$`的每一个component，接下来你就得到了$c_1$。($x-\bar{x}$是neural network的input，$c_1$是一个neural(linear neural )，$w^1_1,w^1_2,w^1_3$是weight，)。$c_1$
+linear combinarion做的事情你可以想成用neural network来表示它，假设我们的$x-\bar{x}$就是一个vector(这边写做三维的vector)，假设现在只有2个component(k=2)，那我们先算出$c_1,c_2$，$c_1=(x-\bar{x})$($x-\bar{x}$）的每一个component乘上$w^1$的每一个component，接下来你就得到了$c_1$。($x-\bar{x}$是neural network的input，$c_1$是一个neural(linear neural )，$w^1_1,w^1_2,w^1_3$是weight，)。$c_1$
 乘以$w^1$($c_1$乘上$w_1$的第一维($w_1^1$)得到一个value，乘上$w_1$的第二维($w_2^1$)得到一个value，乘上$w_1$的第三维($w_3^1$)得到一个value)。接下来再算一下$c_2$，$c_2$乘以$w^2$的结果和之前的加起来就是最后的output，$\hat{x_1},\hat{x_2},\hat{x_3}$就是$\hat{x}$。
 
 接下来就是minimize error，我们要$\hat{x}$跟$x-\bar{x}$越接近越好(也就是这个output跟$x-\hat{x}$越接近越好)，那你可以发现说PCA可以表示成一个neural network，这个neural network只有一个hidden layer，这个hidden layer是linear activation function。那现在我们train 这个neural network,是要input一个东西得到output，这个input跟output越接近越好。这个东西就叫做Autoencode
@@ -325,7 +328,7 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 这个就可以用刚才的SVD来解，你可能说SVD不是有三个解吗？这时候你看你是要把$\sum$并到左边还是右边，把这个matrix X拆成两个matrix，然后minimize error。
 
-## FM推荐系统中的应用
+### FM推荐系统中的应用
 
 ![image](res/chapter24-32.png)
 
@@ -349,11 +352,11 @@ A,B,C它们的vector是左边这样子的，A是萌傲娇的，B也是萌傲娇�
 
 
 
-刚才那个model可以做的更精致一点，我们刚才说：A背后的latent factor $r^A$跟1背后的latent factor$r^1$得到的结果就是table上面的数值。但是事实上可能还会有别的因素会操控它的数值，所以更精确的写法是：$r^A$跟$r^1$的inner product加上某一个跟A有关的scale$b_A$，再加上跟1有关的scale`$b_1$`其实才等于5。$b_A$代表说：A本身有多喜欢买工仔，$b_1$代表说：这个角色它本身会有多想让别人购买(这件事情跟属性是无关的)
+刚才那个model可以做的更精致一点，我们刚才说：A背后的latent factor $r^A$跟1背后的latent factor$r^1$得到的结果就是table上面的数值。但是事实上可能还会有别的因素会操控它的数值，所以更精确的写法是：$r^A$跟$r^1$的inner product加上某一个跟A有关的scale$b_A$，再加上跟1有关的scale $b_1$其实才等于5。$b_A$代表说：A本身有多喜欢买工仔，$b_1$代表说：这个角色它本身会有多想让别人购买(这件事情跟属性是无关的)
 
 所以改一下minimize的式子，改为$r^i$跟$r^j$的inner product加上$b_i$,$b_j$，然后你希望这个值跟$n_{ij}$越接近越好，用gradient descent来解。(你也可以在loss function后面加上regularization)
 
-## MF主题分析的应用
+### MF主题分析的应用
 
 ![image](res/chapter24-35.png)
 

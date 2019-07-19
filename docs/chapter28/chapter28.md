@@ -1,9 +1,7 @@
-# Unsupervised learning Generation(l)
 
 
-![在这里插入图片描述](res/chapter28-0.png)
  
-## Creation-Image Processing
+# Creation-Image Processing
 有关generation model，这里有一篇很好的reference。在这篇reference里开头引用Richard Feynman的话。这句话来自Richard Feynman办公室黑板上一句话："why i cannot creater, i do not understand"。所以一个东西，不知道咋样产生它的话就不是完全理解。
 
 Generative Models: https://openai.com/blog/generative-models/
@@ -16,7 +14,7 @@ Generative Models: https://openai.com/blog/generative-models/
 在这些研究里，大概可以分为三个方法。分别是：PixelRNN, VAE, Generative Adversarial Network(GAN)，这些方法其实都非常新，其中最旧的是VAE(2013年提出来的)，GAN是2014年提出来的
 
 
-## PixelRNN 
+# PixelRNN 
 假设我们今天目的是：让machine自己画一张图出来，让machine画出一张3*3(9pixel)的image。肿么做呢？我们让machine每一次就画一个pixel，画完9个pixel，就画完一张图了。
 
 
@@ -45,7 +43,7 @@ Generative Models: https://openai.com/blog/generative-models/
 
 
 
-## Practicing Generation Models
+# Practicing Generation Models
 
 如果你要练习Generation的话，如果做NMIST的话是有点虚弱，但是你可以用这个task，这个task是 Pokemon Creation。这边有792张宝可梦的小图，那我们要让机器看过这些小图以后，它自己产生新的宝可梦出来。这个口号就是：“Don't catch them! Create them”(用创造代替补抓)(image source来自于图中的链接)
 
@@ -96,7 +94,7 @@ Generative Models: https://openai.com/blog/generative-models/
 
 ![在这里插入图片描述](res/chapter28-8.png)
 
-## Auto-encoder
+# Auto-encoder
 
 我们之前已经有讲过Auto-encoder，那我们在讲Auto-encoder的时候，input一张image通过encoder变成code，再通过decoder把这个image解回来，希望input跟output越接近越好。你learn完这个auto-encoder以后，你其实就可以把这个decoder拿出来，然后你再给它input一个randomly的vector，把这个random vector当做code,code是10维，那你就是generate 10维的vector，然后丢到decoder里面，它output就可以是一张完整的image
 
@@ -119,7 +117,7 @@ Generative Models: https://openai.com/blog/generative-models/
 
 ![在这里插入图片描述](res/chapter28-11.png)
 
-### pokemon creation
+## pokemon creation
 
 假设我们将这个VAE用在pokemon creation上面。那我们在train的时候，input一个pokemon，然后你output一个的pokemon，然后learn出来的这个code就设为10维。learn好这个pockmon的VAE以后，我么就把decoder的部分拿出来。因为我们现在有一个decoder，可以input一个vector。所以你在input的时候你可以这样做：我现在有10维的vector，我固定其中8维只选其中的二维出来，在这两维dimension上面散不同的点，然后把每个点丢到decoder里面，看它合出来的image长什么样子。那如果我们做这件事情的话，散不同的点，你就可以看到说：这个code的每一个dimension分别代表什么意思。如果我们可以解读code每一个dimension代表的意思，那以后我们就可以把code当做拉杆一样可以调整它，就可以产生不同的pokemon。
 

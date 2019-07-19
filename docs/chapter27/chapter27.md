@@ -1,8 +1,8 @@
-# Unsupervised Learning:  Deep Auto-encoder
 
-![在这里插入图片描述](res/chapter27-0.png)
 
-## Auto-encoder
+
+
+# Auto-encoder
 Auto-encoder的想法是这样子的：我们先去找一个encoder，这个encoder input一个东西(假如说，我们来做NMIST的话，就是input一张digit，它是784维的vector)，这个encoder可能就是一个neural network，它的output就是code(这个code远比784维要小的，类似压缩的效果)，这个coder代表了原来input一张image compact representation。
 
 但是现在问题是：我们现在做的是Unsupervised learning，你可以找到一大堆的image当做这个NN encoder的input，但是我们不知道任何的output。你要learn 一个network，只有一个input，你没有办法learn它。那没有关系，我们要做另外一件事情：想要learn 一个decoder，decoder做的事情就是：input一个vector，它就通过这个NN decoder，它的output就是一张image。但是你也没有办法train一个NN decoder，因为你只要output，没有input。
@@ -11,10 +11,10 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 
 
-那我们刚才在PCA里面看过非常类似的概念，从PCA开始讲起。我们刚才讲过说：PCA其实在做的事情是：input一张image x(在刚才的例子里面，我们会让x-`$\bar{x}$`当做input，这边我们把减掉`$\bar{x}$`省略掉，省略掉并不会太奇怪，因为通常在做NN的时候，你拿到的data其实会normlize，其实你的data mean是为0，所以就不用再去减掉mean)，把x乘以一个weight，通通NN一个layer得到c，c乘以matrix w的tranpose得到`$hat{x}$`。`$\hat{x}$`是根据这些component的reconstruction的结果
+那我们刚才在PCA里面看过非常类似的概念，从PCA开始讲起。我们刚才讲过说：PCA其实在做的事情是：input一张image x(在刚才的例子里面，我们会让x-$\bar{x}$当做input，这边我们把减掉$\bar{x}$省略掉，省略掉并不会太奇怪，因为通常在做NN的时候，你拿到的data其实会normlize，其实你的data mean是为0，所以就不用再去减掉mean)，把x乘以一个weight，通通NN一个layer得到c，c乘以matrix w的tranpose得到$hat{x}$。$\hat{x}$是根据这些component的reconstruction的结果
 
-### Recap:PCA 
-在PCA里面，我们就是minimize input跟reconstruction的结果。我们要让x跟`$\hat{x}$`的Eculidean distance越接近越好，这是PCA做的是事情。如果把它当成neural network来看的话，input x就是input layer，output `$\hat{x}$`就是output layer，中间的component weight就是hidden layer(在PCA里面是，它是linear)。那这个hidden layer我们通常叫它Bottleneck later。
+## Recap:PCA 
+在PCA里面，我们就是minimize input跟reconstruction的结果。我们要让x跟$\hat{x}$的Eculidean distance越接近越好，这是PCA做的是事情。如果把它当成neural network来看的话，input x就是input layer，output $\hat{x}$就是output layer，中间的component weight就是hidden layer(在PCA里面是，它是linear)。那这个hidden layer我们通常叫它Bottleneck later。
 
 ![在这里插入图片描述](res/chapter27-2.png)
 
@@ -24,14 +24,14 @@ Auto-encoder的想法是这样子的：我们先去找一个encoder，这个enco
 
 
 
-可以变成更多的hidden layer，你就搞一个很深的neural network，它有很多很多层。然后在这个很多很多层的neural network里面，你input一个x，最后得到的output是`$\hat{x}$`，你会希望x跟`$\hat{x}$`越接近越好。
+可以变成更多的hidden layer，你就搞一个很深的neural network，它有很多很多层。然后在这个很多很多层的neural network里面，你input一个x，最后得到的output是$\hat{x}$，你会希望x跟$\hat{x}$越接近越好。
 
 
-中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的`$\hat{x}$`就是decode，这个deep的Auto-encoder最早出现2006年。
+中间你会有一个特别窄的layer，这个特别窄的layer，有着特别少的neural ，这些layer的output就代表了一组code。从input layer到bottle layer，就是encode。从bottle layer到最后的$\hat{x}$就是decode，这个deep的Auto-encoder最早出现2006年。
 
 ## Deep Auto-encoder
 
-那如果按照刚才在PCA里面看到的，从input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的`$W_1$`好像要跟最后一个layer的output的weight互为transpose(`$W_1^T$`)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
+那如果按照刚才在PCA里面看到的，从input到hidden layer的$W_1$好像要跟最后一个layer的output的weight互为transpose($W_1^T$)。你在training的时候，你可以做到这件事情，可以把左边的weight跟右边的weight 乘起来，在他们在做training的时候，永远保持值是一样。做这件事情的好处就是，你现在的Auto-encode的参数就少一半，比较不会有overfitting的情形。但是这件事情不是必要的，没有什么理由说，input到hidden layer的$W_1$好像要跟最后一个layer的output的weight互为transpose($W_1^T$)。所以现在常见的做法是：兜一个neural network，一直train下去，不管它weight是什么，就是你的结果。
  
 ![在这里插入图片描述](res/chapter27-3.png)
 
@@ -58,7 +58,7 @@ original image你做PCA，从784维降到30维，然后从30维reconstruction回
 
 
 
-那我们可以用Auto-encoder被考虑进来，举例来说，你learn一个Auto-encoder，它的input就是一个document 或者是一个query，通过encoder把它压成二维。每一个点代表一个document，不同颜色的类代表document属于哪一类。今天要做搜寻的时候，今天输入一个词汇，那你就把那个query也通过这个encoder把它变为一个二维的vector。假设query落在这一类，你就可以知道说：这个query是跟Energy markets有关的document retrieve出来，这个看起来结果是相当惊人的。如果你用LSA的话，你得不到类似的结果
+那我们可以用Auto-encoder被考虑进来 ，举例来说，你learn一个Auto-encoder，它的input就是一个document 或者是一个query，通过encoder把它压成二维。每一个点代表一个document，不同颜色的类代表document属于哪一类。今天要做搜寻的时候，今天输入一个词汇，那你就把那个query也通过这个encoder把它变为一个二维的vector。假设query落在这一类，你就可以知道说：这个query是跟Energy markets有关的document retrieve出来，这个看起来结果是相当惊人的。如果你用LSA的话，你得不到类似的结果
 
 
 
@@ -92,25 +92,25 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 肿么做呢，假如说：我要INIST initialization，你可以做一个neural network input784维，第一个hidden layer是1000，第二个hidden layer是1000，第三个hidden layer是500，然后到10维。那我做Pre-taining的时候，我先train一个Auto-encoder，这个Auto-encoder input784维，中间有1000维的vector，然后把它变回784维，我期望input 跟output越接近越好。你在做这件事的时候，你要稍微小心一点，我们一般做Auto-encoder的时候，你会希望你的coder要比dimension还要小。比dimension还要大的话，你会遇到的问题是：它突然就不learn了。所以你今天发现你的hidden layer比你的input还要大的时候，你要加一个很强的regularization在1000维上，你可以对这1000维的output做L1的regularization，你会希望说：这1000维的output里面，某几维是可以有值的，其他维要必须为0。这样你就可以避免Auto-encoder直接把input并起来再输出的问题。总之你今天的code比你input还要大，你要注意这种问题。
 
-现在我们先learn了一个Auto-encoder，从784维到1000维的`$w^1$`把它保留下来(把它fix住)。接下来把所有的database里面的digit通通变成1000维的vector，接下来你在learn另外一个Auto-encoder，它把1000维的vector变成1000维的code，再把1000维的code变成1000维的vector。你再learn这样的Auto-encoder，它是会让input跟output越接近越好。然后你再把`$w^2$`把它保存下来
+现在我们先learn了一个Auto-encoder，从784维到1000维的$w^1$把它保留下来(把它fix住)。接下来把所有的database里面的digit通通变成1000维的vector，接下来你在learn另外一个Auto-encoder，它把1000维的vector变成1000维的code，再把1000维的code变成1000维的vector。你再learn这样的Auto-encoder，它是会让input跟output越接近越好。然后你再把$w^2$把它保存下来
 
 ![在这里插入图片描述](res/chapter27-10.png)
 
 
-然后你再把`$w^2$`把它保存下来，fix住`$w^2$`的值。learn第三个Auto-encoder，input100维，code500维，output1000维，然后得到weight`$w^3$`
+然后你再把$w^2$把它保存下来，fix住$w^2$的值。learn第三个Auto-encoder，input100维，code500维，output1000维，然后得到weight$w^3$
 
 
 
 
 
-然后你再把`$w^3$`把它保存下来，这个`$w^1,w^2,w^3$`就等于是你再learn你的neural network时的initialization，然后你再random initialization500维到10维，然后再用backpropagation再去调一遍，称这个步骤为find-tune(`$w^1,w^2,w^3$`都是很好的weight，所以你只是微调它)
+然后你再把$w^3$把它保存下来，这个$w^1,w^2,w^3$就等于是你再learn你的neural network时的initialization，然后你再random initialization500维到10维，然后再用backpropagation再去调一遍，称这个步骤为find-tune($w^1,w^2,w^3$都是很好的weight，所以你只是微调它)
 
 
-这一招(pre-training)在过去learn一个deep的neural network还是很需要的，不过现在neural network不需要pre-training往往都能train的起来。如果你今天有很多的unlabel data，少量的label data，你可以用大量的unlabel data先去把`$w^1,w^2,w^3$`learn 好，你最后的label data只需要稍微调整你的weight就好了。所以pre-training在大量的unlabel data时还是有用的。
+这一招(pre-training)在过去learn一个deep的neural network还是很需要的，不过现在neural network不需要pre-training往往都能train的起来。如果你今天有很多的unlabel data，少量的label data，你可以用大量的unlabel data先去把$w^1,w^2,w^3$learn 好，你最后的label data只需要稍微调整你的weight就好了。所以pre-training在大量的unlabel data时还是有用的。
 
 
 
-有一个方法可以让Auto-encoder做的更好，这个叫做De-noising Auto-encoder(可以参考reference)。你把原来的input x加上一些noise变成`$x^{'}$`，然后你把`$x^{'}$`encode以后变成c，再把c decode回来变成y。但是要注意一下，现在在De-noising Auto-encoder， 你是要output 跟原来的input(加noise之前的x)越接近越好。你learn出来的结果有biased，因为encode不止learn到了这件事，它还learn到了把杂序滤掉这件事。
+有一个方法可以让Auto-encoder做的更好，这个叫做De-noising Auto-encoder(可以参考reference)。你把原来的input x加上一些noise变成$x^{'}$，然后你把$x^{'}$encode以后变成c，再把c decode回来变成y。但是要注意一下，现在在De-noising Auto-encoder， 你是要output 跟原来的input(加noise之前的x)越接近越好。你learn出来的结果有biased，因为encode不止learn到了这件事，它还learn到了把杂序滤掉这件事。
 
 ![在这里插入图片描述](res/chapter27-11.png)
 
@@ -118,13 +118,13 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 
 
-## Auto-encoder for CNN
+# Auto-encoder for CNN
 
 接下来将CNN auto-encoder，那如果我们今天要处理的对象是image的话，我们都知道要用CNN。那在CNN里面处理image的时候，会有一些convolution layer，有pooling layer，用convolution 和pooling交替，让image越来越小。那今天是做auto-encoder的话，你不止要一个encoder，还要一decoder。如果encoder是做convolution pooling convolution pooling，那decoder就是在做deconvolution unpooling deconvolution unpooling(相反的事情)，让input跟output越接近越好。
 
 ![在这里插入图片描述](res/chapter27-13.png)
 
-###  CNN-Unpooling
+##  CNN-Unpooling
 
 在做pooling的时候，现在有4*4的matrix，接下里你把matrix里面这个pixel分组(4个一组)，接下来从每一组挑一个最大的，那image就变成原来的1/4。如果你是在做unpooling的话，你会做另外一件事，你会先记得说：我刚才在做pooling的时候是从哪里取值的(从哪取值，哪里就是白的)。你要做unpooling的话，你要把原来小的matrix扩大(pooling的时候，是把大的matrix变为原来的1/4，现在是把比较小的matrix变成原来的4倍)。那肿么做呢，这时候你之前记录的位置就可以派上用场，你之前记的说：我在pooling的时候是左上角，所以现在做unpooling时，就把这个值放到左上角，其他补0，此次类推。这个就是unpooling的一种方式，做完unpooling以后，比较小的image会变得比较大，比如说：原来是14 * 14的image会变成28 *28的image。你会发现说：它就是把原来的14 *14的image做一下扩散，有些补0
 
@@ -141,7 +141,7 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 你的想象可能是：deconvolution是convolution的相反，本来是三个值变成一个值，现在做deconvolution是1个值变成三个值(如图)，它已经贡献了一些值，第二个也贡献了一些值，那么就把这加起来(重叠的地方就加起来)。这件事就等同于做convolution，等同于input是三个value，我们会在旁边补0，接下里我们一样做convolution。做convolution的时候，三个input乘上红色、蓝色、绿色的weight等于一个值，以此类推。这两个框框做的事情是一样的(我们检查中间这个值，它是三个value加起来，这三个value是：第一个output乘以绿色，第二个output乘以蓝色，第三个output乘以红色，然后再加起来)
 
 
-### CNN-Deconvolution
+## CNN-Deconvolution
 你将最后框(deconvolution)跟convolution相比较的话，不同点是：它们的weight是相反的，但是它们都做的是convolution这件事
 
 
@@ -155,7 +155,7 @@ Auto-encoder可以用在Pre-training上面，我们都知道你在train一个neu
 
 
 我们刚才都是用encoder来把原来的image变成少的dimension，我们也用decoder，这个decoder来产生新的image。把这个learn好的decoder拿出来，然后你给它一个random input number，它的output希望就是一张图。
-## Auto-encoder-Pre-training DNN
+# Auto-encoder-Pre-training DNN
 我把每一张784维的image，通过hidden layer，把它project到二维，二维再通过hidden layer解回原来的image。在decoder的部分，那个二维的vector画出来如图。
 
 ![在这里插入图片描述](res/chapter27-16.png)

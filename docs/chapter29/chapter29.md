@@ -1,9 +1,5 @@
-# Unsupervised learning Generation
 
-
-![在这里插入图片描述](res/chapter29-0.png) 
-
-## Why VAE?
+# Why VAE?
 
 我们来看intuitive reason，为什么要用VAE？如果是原来的auto-encoder的话，做的事情是：把每一张image变成一个code，假设现在的code是一维(图中红色的线)。你把满月这个图变为code上的一个value，在做decoder变回原来的图，半月图也是一样的。假设我们在满月和半月code中间，sample一个点，然后把这个点做decoder变回image，他会变成什么样子呢？你可能会期待说：可能会变成满月和半月之间的样子，但这只是你的想象而已。因为我们今天用的encoder和decoder都是non-linear的，都是一个neural network，所以你很难预测在这个满月和半月中间到底会发生什么事情。
 
@@ -48,7 +44,8 @@
 
 每一个x都是从某一个mixture被sample出来的，这件事情其实就很像是做classification一样。我们每一个所看到的x，它都是来自于某一个分类。但是我们之前有讲过说：把data做cluster是不够的，更好的表示方式是用distributed representation，也就是说每一个x它并不是属于某一个class，而是它有一个vector来描述它的各个不同面向的特性。所以VAE就是gaussion mixture model distributed representation的版本。
 
-[在这里插入图片描述](res/chapter29-5.png) 
+![在这里插入图片描述](res/chapter29-5.png) 
+
 
 
 
@@ -166,7 +163,7 @@ VAE其实有一个很严重的问题就是：它从来没有真正学咋样产�
 
 ![在这里插入图片描述](res/chapter29-17.png)
  
-## GAN
+# GAN
 
 GAN的概念像是拟态的演化，如图是一个枯叶蝶(长的像枯叶一样)，枯叶蝶咋样变得像枯叶一样的呢？也许一开始它长是这个样子(如左图)。但是它有天敌(麻雀)，天敌会吃这个蝴蝶，天敌辨识是不是蝴蝶的方式：它知道蝴蝶不是棕色的，所以它吃不是棕色的东西。所以蝴蝶就演化了，它就变成了棕色的了。它的天敌会跟着演化，天敌知道蝴蝶是没有叶脉的，所以它会吃没有叶脉的东西。所以蝴蝶演化变成枯叶蝶(有叶脉)，它的天敌也会演化，蝴蝶和它的天敌会共同的演化，枯叶蝶会不断的演化，直到和枯叶无法分别为止。
 
