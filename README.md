@@ -9,18 +9,51 @@
 在线阅读地址：https://datawhalechina.github.io/Leeml-Book/
 
 # 目录
-- [学习大纲](index.md)
-- [第0课 简介](chapter0/chapter0.md)
-- [第1课 回归:案例研究](https://github.com/datawhalechina/Leeml-Book/blob/master/docs/chapter2)
-- [第2课 误差分析](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter4)
-- [第3课 梯度下降](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter5)
-- [第4课 概率生成模型](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter8)
-- [第5课 逻辑回归](https://github.com/datawhalechina/Leeml-Book/tree/master/docs/chapter9)
+- [P1 机器学习介绍](1/1.md)
+- [P2 为什么要学习机器学习   ](2/2.md)
+- [P3 回归](chapter3/chapter3.md)
+- [P4 回归-演示](chapter4/chapter4.md)
+- [P5 误差从哪来？](chapter5/chapter5.md)
+- [P6 梯度下降](chapter6/chapter6.md)
+- [P7 梯度下降（用AOE演示）](chapter7/chapter7.md)
+- [P8 梯度下降（用Minecraft演示）](chapter8/chapter8.md)
+- [P9 作业1-PM2.5预测](chapter9/chapter9.md)
+- [P10 概率分类模型](chapter10/chapter10.md)
+- [P11 logistic回归](chapter11/chapter11.md)
+- [P12 作业2-赢家还是输家](chapter12/chapter12.md)
+- [P13 深度学习简介](chapter13/chapter13.md)
+- [P14 反向传播](chapter14/chapter14.md)
+- [P15 深度学习初试](chapter15/chapter15.md)
+- [P16 Keras2.0](chapter16/chapter16.md)
+- [P17 Keras演示](chapter17/chapter17.md)
+- [P18 深度学习提示](chapter18/chapter18.md)
+- [P19 Keras演示2](chapter19/chapter19.md)
+- [P20 TensorFlow中的FizzBuzz面](chapter20/chapter20.md)
+- [P21 卷积神经网络](chapter21/chapter21.md)
+- [P22 为什么要“深度”学习？](chapter22/chapter22.md)
+- [P23 半监督学习](chapter23/chapter23.md)
+- [P24 无监督学习-线性降维](chapter24/chapter24.md)
+- [P25 无监督学习-词嵌入](chapter25/chapter25.md)
+- [P26 无监督学习-领域嵌入](chapter26/chapter26.md)
+- [P27 无监督学习-深度自编码器](chapter27/chapter27.md)
+- [P28 无监督学习-深度生成模型I](chapter28/chapter28.md)
+- [P29 无监督学习-深度生成模型II](chapter29/chapter29.md)
+- [P30 迁移学习](chapter30/chapter30.md)
+- [P31 支持向量机](chapter31/chapter31.md)
+- [P32 结构学习-介绍](chapter32/chapter32.md)
+- [P33 结构学习-线性模型](chapter33/chapter33.md)
+- [P34 结构学习-结构化支持向量机](chapter34/chapter34.md)
+- [P35 结构学习-序列标签](chapter35/chapter35.md)
+- [P36 循环神经网络I](chapter36/chapter36.md)
+- [P37 循环神经网络II](chapter37/chapter37.md)
+- [P38 集成学习](chapter38/chapter38.md)
+- [P39 深度增强学习-初步了解](chapter39/chapter39.md)
+- [P40 机器学习的下一步](chapter40/chapter40.md)
 
 
 ## 视频观看地址
-bilibili地址：[李宏毅机器学习(2017)](https://www.bilibili.com/video/av10590361/)
-网易云课堂地址：[台大李宏毅机器学习中文课程](https://study.163.com/course/introduction/1208946807.htm)
+bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
+网易云课堂：[李宏毅机器学习中文课程](https://study.163.com/course/courseMain.htm?courseId=1208946807)
 
 #  协作规范
 
@@ -64,11 +97,11 @@ leeML-book
 
 ```
 ### 修正记录：
-版本|时间|作者|文档信息
----|:--:|:--:|:--|---
-v1.0|2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)[@hahlw](https://github.com/hahlw)[@Heitao5200](https://github.com/Heitao5200)[@ImayKing](https://github.com/Imay-King)[@spareribs](https://github.com/spareribs)|建立初始仓库
-v1.1|内容|内容|内容
-v1.2|内容|内容|内容
+|版本|时间|作者|文档信息 |
+|---|:--:|:--:|:--|
+| v0.1 |2019.06.28|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@ImayKing](https://github.com/Imay-King)<br>[@spareribs](https://github.com/spareribs)|建立初始仓库 |
+| v1.0 |2019.07.20|[@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)<br>[@hahlw](https://github.com/hahlw)<br>[@Heitao5200](https://github.com/Heitao5200)<br>[@Hirotransfer](https://github.com/Hirotransfer)<br>[@huangmh11](https://github.com/huangmh11)<br>[@ImayKing](https://github.com/Imay-King)<br>[@LilRache](https://github.com/LilRachel)<br>[@spareribs](https://github.com/spareribs)<br> |正式对外公开|
+| v1.2|-|-|- |
 
 
 
@@ -79,13 +112,12 @@ v1.2|内容|内容|内容
 
 - [@DatawhaleXiuyuan](https://github.com/DatawhaleXiuyuan)
 - [@hahlw](https://github.com/hahlw)
-- [@huangmh11](https://github.com/huangmh11)
 - [@Heitao5200](https://github.com/Heitao5200)
 - [@Hirotransfer](https://github.com/Hirotransfer)
+- [@huangmh11](https://github.com/huangmh11)
 - [@ImayKing](https://github.com/Imay-King)
-- [@LilRachel](https://github.com/LilRachel)
+- [@LilRache](https://github.com/LilRachel)
 - [@spareribs](https://github.com/spareribs)
-
 
 
 # 关注我们
