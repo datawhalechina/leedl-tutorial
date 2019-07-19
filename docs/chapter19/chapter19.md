@@ -49,7 +49,7 @@ print('TEST ACC:',result[1])
 ```
 model.evaluate(x_train,y_train,batch_size=10000)
 ```
-![在这里插入图片描述](./res/chapter19_2.png)
+![image](EE586E0938104F10A45BF53BBF9E21E2)
 
 train data acc 也是差的，就说明train没有train好，并不是overfiting
 ## 调参过程
