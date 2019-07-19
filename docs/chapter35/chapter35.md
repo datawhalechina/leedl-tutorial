@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 # 序列标记(Sequence Labeling)
 
 
@@ -24,7 +16,7 @@ $$
 
 - 命名实体识别
 
-**示例任务(Example Task)**
+## 示例任务(Example Task)
 
 - 词性标记(POS tagging)
 
@@ -45,7 +37,7 @@ $$
     - 第一个"saw"更有可能是动词V，而不是名词N；
     - 然而，第二个"saw"是名词N，因为名词N更可能跟在限定词后面。
 
-## HMM(隐马尔科夫模型)
+# HMM(隐马尔科夫模型)
 
 - 我们如何生成一个句子呢?
 
@@ -94,7 +86,7 @@ $$
 
 其中，P(y) = P(PN|start) x P(V|PN) x P(D|V) x P(N|D)，P(x|y) = P(John|PN) x P(saw|V) x P(the|D) x P(saw|N)
 
-- HMM的一般性解释
+## HMM的一般性解释
   $$
     \begin{array}{l}{\mathrm{x} : \text { John saw the saw. }} \\ {\mathrm{Y} : \mathrm{PN} \quad \mathrm{V} \quad \mathrm{D} \quad \mathrm{N}}\end{array}
   $$
@@ -118,7 +110,7 @@ $$
     P(x | y)=\prod_{l=1}^{L} P\left(x_{l} | y_{l}\right)
     $$
 
-- 概率估计(How：如何计算几率)
+## 概率估计(How：如何计算几率)
 
   - 我们如何知道P(V|PN), P(saw|V)......？
 
@@ -141,7 +133,7 @@ $$
 $$
 计算某一个标记为s所产生的词为t的几率，就等价于s在整个词汇中出现的次数除去某个词标记为t的次数。
 
-**如何进行词性标记**
+## 如何进行词性标记
 
 - 任务计算P(x, y)
 
@@ -158,7 +150,7 @@ $$
     
     (1)式到(2)式是由条件概率得到，(2)式到(3)式的转换是由于P(x)是我们已知的几率，即只要**穷举**所有的P(x, y)，找出使得其几率最大的y即可。
 
-**Viterabi 算法**
+## Viterabi 算法
 $$
 \tilde{y}=\arg \max _{y \in \mathbb{Y}} P(x, y)
 $$
@@ -176,7 +168,7 @@ $$
   O\left(L|S|^{2}\right)
   $$
 
-**Summary—概要**
+## Summary
 
 - Q1：评估
   $$
@@ -196,7 +188,7 @@ $$
   
   该过程就是计算几率的问题 or 统计语料库中词频的问题。
 
-**缺点**
+## 缺点
 可以通过提高模型的复杂度弥补该缺点，但要尽量避免过拟合!
 
 - 在推理过程
@@ -211,7 +203,7 @@ $$
   $$
   但是HMM可能无法处理该类问题。
 
-**举例说明**
+## 举例说明
 
 
 
@@ -260,7 +252,7 @@ $$
 
 而CRF的模型和HMM是一样的，同时可以克服HMM的缺点！
 
-## CRF(条件随机场)
+# CRF(条件随机场)
 
 $$
 \mathrm{P}(x, y) \propto \exp (w \cdot \phi(x, y))
@@ -309,7 +301,7 @@ $$
 
   - $N_{s, t}(x, y)$表示为单词t被标记成s的事情，在(x, y)对中总共出现的次数。
 
-**举例说明**
+## 举例说明
 
 
 
@@ -389,7 +381,7 @@ $$
 
 logP(s|start)为对应维度上的权重，s(表示词性)放在句首的几率，可以归纳为每一个权重都对HMM模型中每一个几率取对数，因为几率值都是小于等于1的，因此需要对P(x, y)表达式做变化为**P(x,y)∝exp(w∙ϕ(x,y))**
 
-**特征向量**
+## 特征向量
 
 
 
@@ -423,7 +415,7 @@ logP(s|start)为对应维度上的权重，s(表示词性)放在句首的几率�
 
 定义$N_{S, S^{\prime}}(x, y) :$为标记s和s'在(x, y)对中连续出现的次数，$N_{D, D}(x, y)$表示D后面出现D在(x, y)对中出现的次数；如果有|S|个可能的标记，其维度为|S| X |S| + 2|S|(对所有的标记对，我们都需要一个维度，每一个标记跟start产生的对也是一个维度，每一个标记跟end所产生的对又是一个维度，因此所有标记的对为s的平方，start跟end的对为s)，ϕ(x,y)的形式我们可以自己定义权重向量w！
 
-**CRF—训练标准**
+## CRF—训练标准
 
 - 给定训练数据：
   $$
@@ -460,7 +452,7 @@ logP(s|start)为对应维度上的权重，s(表示词性)放在句首的几率�
   
   根据CRF的定义可知，可以分解为两项再分别取对数，即最大化观测到的几率，最小化未知的几率。
 
-**CRF—梯度上升**
+## CRF—梯度上升
 
 - 梯度下降(找到一组参数θ，最小化成本函数C(θ))，即梯度的反方向
   $$
@@ -472,13 +464,13 @@ logP(s|start)为对应维度上的权重，s(表示词性)放在句首的几率�
   \theta \rightarrow \theta+\eta \nabla O(\theta)
   $$
 
-**CRF—训练**
+## CRF—训练
 
-定义目标函数
+### 定义目标函数
 $$
 O(w)=\sum_{n=1}^{N} \log P\left(\hat{y}^{n} | x^{n}\right)=\sum_{n=1}^{N} O^{n}(w)
 $$
-计算梯度
+### 计算梯度
 $$
 \nabla O^{n}(w)=\left[\begin{array}{c}{\vdots} \\ {\partial O^{n}(w) / \partial w_{s, t}} \\ {\vdots} \\ {\partial O^{n}(w) / \partial w_{s, s^{\prime}}}\end{array}\right]
 $$
@@ -504,7 +496,7 @@ $$
 
 对所有的权值向量来说，正确的$\hat{y}^{n}$所形成的的向量减去任意一个y'乘上y‘的几率。
 
-**随机梯度上升法**
+## 随机梯度上升法
 
 - 随机选择一个数据$\left(x^{n}, \hat{y}^{n}\right)$
   $$
@@ -513,14 +505,14 @@ $$
 
 - 求解出w
 
-**CRF—推理**
+## CRF—推理
 $$
 \begin{aligned} y &=\arg \max _{y \in Y} P(y | x)=\arg \max _{y \in Y} P(x, y) \\ &=\arg \max _{y \in Y} w \cdot \phi(x, y) \text { 利用Viterbias算法可以很好地求解 } \end{aligned}
 $$
 
 等同于找一个y，使得其几率最大，因为由P(x,y)∝exp(w∙ϕ(x,y))可知。
 
-## CRF v.s. HMM
+# CRF v.s. HMM
 
 - CRF：增加$P(x, \hat{y})$，减少$P\left(x, y^{\prime}\right)$(HMM做不到这一点)
 
@@ -560,7 +552,7 @@ $$
     如果α取1时，变为一般的HMM模型。
 
 
-**比较HMM与CRF**
+## 比较HMM与CRF
 
 - 所有方法都只考虑1阶信息(即α取1的情况)
 
@@ -577,26 +569,26 @@ $$
 
 α从**左下方到右上方不断减小**，每一个圈圈表示不同的α所得到的结果，对每一个点都做一个HMM和CRF的实验，横轴代表HMM犯错的百分比，纵轴表示CRF犯错的百分比。
 
-**Summary—概要**
+## Summary
 
-- Q1：评估
+## Q1：评估
   $$
   F(x, y)=P(y | x)=\frac{\exp (w \cdot \phi(x, y))}{\sum_{y^{\prime} \in \mathbb{Y}} \exp \left(w \cdot \phi\left(x, y^{\prime}\right)\right)}
   $$
 
-- Q2：推理
+## Q2：推理
   $$
   \tilde{y}=\arg \max _{y \in \mathbb{Y}} P(y | x)=\arg \max _{y \in \mathbb{Y}} w \cdot \phi(x, y)
   $$
   等价于向量内积的形式
 
-- Q3：训练
+## Q3：训练
   $$
   \begin{array}{l}{w^{*}=\arg \max _{w} \prod_{n=1} P\left(\hat{y}^{n} | x^{n}\right)} \\ {\mathbf{w} \rightarrow w+\eta\left(\phi\left(x^{n}, \hat{y}^{n}\right)-\sum_{y^{\prime}} P\left(y^{\prime} | x^{n}\right) \phi\left(x^{n}, y^{\prime}\right)\right)}\end{array}
   $$
   对数相加即等价于几率相乘(交叉熵一般是采用对数相加的形式)！
 
-## 结构化感知机
+# 结构化感知机
 
 
 
@@ -604,15 +596,15 @@ $$
 
 
 
-- Q1评估：
+## Q1评估：
 
   x, y假设都为序列，用**CRF模型**来定义ϕ(x,y)
 
-- Q2推理：
+## Q2推理：
 
   利用**Viterbi算法**求解即可
 
-- Q3训练：
+### Q3训练：
 
   对所有的训练数据，以及对所有的$y \neq \hat{y}^{n}$，我们希望：
   $$
@@ -628,15 +620,15 @@ $$
   $$
   即正确的$\hat{\mathbf{y}}^{n}$减去其他的$\tilde{y}^{n}$所形成的向量
 
-**结构化感知机 v.s. CRF**
+# 结构化感知机 v.s. CRF
 
-- 结构化感知机(Hard范畴)
+## 结构化感知机(Hard范畴)
   $$
   \begin{array}{l}{\tilde{y}^{n}=\arg \max _{y} w \cdot \phi\left(x^{n}, y\right)} \\ {w \rightarrow w+\phi\left(x^{n}, \hat{y}^{n}\right)-\phi\left(x^{n}, \tilde{y}^{n}\right)}\end{array}
   $$
   只取几率最大的y来进行求解
 
-- CRF(Soft范范畴)
+## CRF(Soft范范畴)
   $$
   \mathrm{w} \rightarrow w+\eta\left(\underline{\phi\left(x^{n}, \hat{y}^{n}\right)}-\sum_{y^{\prime}} P\left(y^{\prime} | x^{n}\right) \phi\left(x^{n}, y^{\prime}\right)\right)
   $$
@@ -644,7 +636,7 @@ $$
 
 - 在一定条件下，结构化感知机和CRF可以相互转化。
 
-**结构化SVM**
+## 结构化SVM
 
 
 
@@ -657,7 +649,7 @@ $$
 - 采用梯度下降法；
 - QP二次规划问题，因为限制条件过多，所以采用Cutting Plane算法。
 
-**结构化SVM—误差函数**
+## 结构化SVM—误差函数
 
 - 误差函数
   $$
@@ -673,7 +665,7 @@ $$
     - 但是，我们必须要考虑到Q2.1，即需要穷举所有的y，使得∆加上w∙ϕ最大化。
 
 
-**举例说明**
+## 举例说明
 
 
 
@@ -683,7 +675,7 @@ $$
 
 在该示例情况下，Q2.1可以通过**Viterbi算法**求解。
 
-## 不同方法的性能比较
+# 不同方法的性能比较
 
 
 
@@ -698,7 +690,7 @@ $$
   - 结构化SVM模型表现最好；
   - HMM模型表现最差。
 
-## 为什么不用RNN？
+# 为什么不用RNN？
 
 
 
@@ -706,20 +698,20 @@ $$
 
 
 
-**RNN，LSTM**
+## RNN，LSTM
 
 - 单方向的RNN or LSTM并没有考虑到全部的序列，换言之，只考虑时间t1至当前时间tk的情形，对tk+1的情形没有考虑，即在时间tk时就已经有了输出结果；
 - 如果利用双向的RNN，结果如何？
 - 成本函数和误差函数并不总是相关的；
 - 可以叠加很多层(利用Deep的特性)。
 
-**HMM，CRF，结构化感知机 or SVM**
+## HMM，CRF，结构化感知机 or SVM
 
 - 在输出结果之前，做的都是利用**Viterbi算法**穷举所有的序列，观测最大的序列，在计算过程中考虑到的是整个序列；
 - 我们可以明确的考虑输出标签之间的依赖关系；
 - **结构化SVM**的成本函数就是误差的上界，当成本函数不断减小的时候，误差就会随之降低。
 
-## 整合一起
+# 整合一起
 
 
 
@@ -772,7 +764,7 @@ $$
     $$
     找一个y，使得w∙ϕ(x, y)的结果最大化，但此时的x来自于RNN的输出结果。
 
-## 模型总结
+# 模型总结
 
 
 
