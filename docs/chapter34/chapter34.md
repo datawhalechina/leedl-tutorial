@@ -53,58 +53,59 @@ $$
 
 - 示例任务：目标检测
 
-  - Q1: 评估
+- Q1: 评估
 
     - F(x, y)是线性的
 
-      
 
-      ![1561870794698](res/chapter34-1.png)
+
+![1561870794698](res/chapter34-1.png)
+
+
+
+其中，w是在Q3中利用训练数据来学习到的参数，ϕ是人为定义的规则。
+
+- 开放问题：如果F(x,y)不是线性，该如何处理?
+
+- Q2: 推理
+  $$
+  \tilde{y}=\arg \max _{y \in \mathbb{Y}} w \cdot \phi(x, y)
+  $$
+  即给定一张图片x，穷举出所有可能的标记框y，对每一个(x, y)对，用**w∙ϕ**计算出一个分数最大的(x, y)对，我们就把对应的y作为输出。
+
+
+
+![1561870636983](res/chapter34-2.png)
+
+
+
+- 目标检测(取决于ϕ(x, y))
+    - Branch & Bound algorithm(分支定界法)
+  - Selective Search(选择性搜索)
+  - **序列标记**(会在下一章着重复现，其取决于ϕ(x, y))
+- **Viterbi Algorithm**(维特比译码算法)
   
-      
+  - 遗传算法(基因演算)
+- 开放问题
   
-      其中，w是在Q3中利用训练数据来学习到的参数，ϕ是人为定义的规则。
+  - 如果推断不准确(non-exact)将会发生什么情况?
   
-    - 开放问题：如果F(x,y)不是线性，该如何处理?
-  
-  - Q2: 推理
+- Q3: 训练
+
+  - 原理
+
+    训练数据：
     $$
-    \tilde{y}=\arg \max _{y \in \mathbb{Y}} w \cdot \phi(x, y)
+    \left\{\left(x^{1}, \hat{y}^{1}\right),\left(x^{2}, \hat{y}^{2}\right) \ldots,\left(x^{\mathrm{N}}, \hat{y}^{\mathrm{N}}\right)\right\}
     $$
-    即给定一张图片x，穷举出所有可能的标记框y，对每一个(x, y)对，用**w∙ϕ**计算出一个分数最大的(x, y)对，我们就把对应的y作为输出。
-  
-  
-  
-  ![1561870636983](res/chapter34-2.png)
-  
-  
-  
-  - 目标检测(取决于ϕ(x, y))
-      - Branch & Bound algorithm(分支定界法)
-    - Selective Search(选择性搜索)
-    - **序列标记**(会在下一章着重复现，其取决于ϕ(x, y))
-  - **Viterbi Algorithm**(维特比译码算法)
-    
-    - 遗传算法(基因演算)
-  - 开放问题
-    
-    - 如果推断不准确(non-exact)将会发生什么情况?
-    
-  - Q3: 训练
-  
-    - 原理
-  
-      训练数据：
-      $$
-      \left\{\left(x^{1}, \hat{y}^{1}\right),\left(x^{2}, \hat{y}^{2}\right) \ldots,\left(x^{\mathrm{N}}, \hat{y}^{\mathrm{N}}\right)\right\}
-      $$
-      
-      
-      ![1561871590489](res/chapter34-3.png)
-      
-      
-      
-      假定只关注Q3的问题：比对所有的(x, y)，找到最佳的F(x, y)。
+
+
+
+![1561871590489](res/chapter34-3.png)
+
+
+
+假定只关注Q3的问题：比对所有的(x, y)，找到最佳的F(x, y)。
 
 ## 可分情形(Separable Case)
 
@@ -318,10 +319,14 @@ $$
     \tilde{y}^{n}=\arg \max _{y} w \cdot \phi\left(x^{n}, y\right)
     $$
     
-    
-    ![1561882454140](res/chapter34-14.png)
-    
-  
+
+
+
+![1561882454140](res/chapter34-14.png)
+
+
+
+
 - 更多的代价 or 成本函数，证明：
   $$
   \Delta\left(\hat{y}^{n}, \tilde{y}^{n}\right) \leq C^{n}
@@ -361,35 +366,30 @@ $$
 
 ## 结构化SVM
 
-- 求得w使得C最小化
-  $$
-  使得，C=\lambda \sum_{n=1}^{N} C^{n}+\frac{1}{2}\|w\|^{2}
-  $$
-
+- 求得w使得C最小化，使得$C=\lambda \sum_{n=1}^{N} C^{n}+\frac{1}{2}\|w\|^{2}$
   $$
   其中，C^{n}=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)\\转换1：\\C^{n}+w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]......(1) \\转换2：\\
   对任意的y：\begin{array}{l}{C^{n}+w \cdot \phi\left(x^{n}, \hat{y}^{n}\right) \geq \Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)}......(2)\end{array}
-  $$
+$$
   
-  $$
+$$
   对(2)式进行变换：{w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)-w \cdot \phi\left(x^{n}, y\right) \geq \Delta\left(\hat{y}^{n}, y\right)-C^{n}}
-  $$
+$$
   
   **注意：(1)式与(2)式并不完全等价哟，前提条件是最小化C时，(1)(2)等价！**
 $$
 求得\mathrm{w}, \varepsilon^{1}, \cdots, \varepsilon^{N}，使得C=\frac{1}{2}\|w\|^{2}+\lambda \sum_{n=1}^{N} C^{n}
 $$
+
 $$
 同时满足，对任意的n和任意的y：w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)-w \cdot \phi\left(x^{n}, y\right) \geq \Delta\left(\hat{y}^{n}, y\right)-C^{n}\\一般我们将C^n用ε^n代替之，表示松弛变量
 $$
 
 
-
 ![1561884888726](res/chapter34-15.png)
 
-
 $$
-当y=\hat{y}^{n}时， \varepsilon^{n} \geq 0\\所以有：\\
+当y=\hat{y}^{n}时， \varepsilon^{n} \geq 0\\可得
 对\forall y \neq \hat{y}^{n}：\\
 w \cdot\left(\phi\left(x^{n}, \hat{y}^{n}\right)-\phi\left(x^{n}, y\right)\right) \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0
 $$
@@ -463,11 +463,12 @@ $$
 - 有约束条件的问题求解
 
   - 在w和$ε^i$组成的参数空间中，颜色表示C的值，在没有限制的情况下，青色的点对应的是最小值，在有限制的情况下，只有内嵌的多边形区域内是符合约束条件的，因此需要在该区域内(How如何确定多边形的形状？)寻找最小值，即
-    $$
+$$
     C=\frac{1}{2}\|w\|^{2}+\lambda \sum_{n=1}^{N} \varepsilon^{n}
     $$
 
   
+
 
   ![1561887391769](res/chapter34-19.png)
 
@@ -478,30 +479,30 @@ $$
   - 红线表示确定问题的求解；
 
   - 绿线(冗元)表示移除此约束不会影响问题的求解，删除冗元线条，原本是穷举$y \neq \hat{y}^{n}$，而现在我们需要移除那些不起作用的线条，保留有用的线条，这些有影响的线条集可以理解为Working Set，用$\mathbb{A}^{n}$表示(利用迭代法寻找Working Set)。
-    
-    
-    
-    ![1561887540273](res/chapter34-20.png)
-  
-    
-    
+
+
+
+![1561887540273](res/chapter34-20.png)
+
+
+​    
   - 在有效集中(**Working Set**)进行迭代性地选择元素
-    
-    
-    
-    ![1561887645254](res/chapter34-21.png)
-    
-    
-    
+
+
+
+![1561887645254](res/chapter34-21.png)
+
+
+​    
   - 向有效集中添加元素的策略
   
     原本解决QP问题，需要考虑所有可能的标记y，但如果给定一组Working Set，我们仅需考虑作用集里的标记y即可；然后再解决QP问题就相对简单多了。假设，我们根据Working Set求出对应的w，再用w重新检查，以便找寻新的成员加入到Working Set之中，因此Working Set会发生改变；然后根据新的Working Set来解决QP问题，这样的话，又会得到新的w，新的w可以继续检查，新的成员又可以加入到Working Set中，就这样不断地迭代下去，直到w不再变化为止！
-    
-    
-    
-    ![1561887964404](res/chapter34-22.png)
-    
-  
+
+ 
+
+![1561887964404](res/chapter34-22.png)
+
+
 - 假设$\mathbb{A}^{n}$初始值为空集合null，即没有任何约束限制，求解QP的结果就是对应的蓝点，但是不能满足条件的线条有很多很多，我们现在只找出没有满足的最“严重的”那一个(Which具体是指哪一个？)即可。那么我们就把
   $$
   \mathbb{A}^{n}=\mathbb{A}^{n} \cup\left\{y^{\prime}\right\}
@@ -693,11 +694,12 @@ $$
       $$
       (3)式转换为：\\\left(w^{\hat{y}^{n}}-w^{y}\right) \cdot \vec{x} \quad \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0......(4)
       $$
-      
-  
-        ![1561890363710](res/chapter34-34.png)
-      
-      
+
+
+
+![1561890363710](res/chapter34-34.png)
+
+
 
 **Binary SVM**(设定K为2，y∈{1,2})
 $$
