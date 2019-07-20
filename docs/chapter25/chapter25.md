@@ -28,7 +28,7 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 
 那这个问题要怎么解呢？我们之前讲过一个deep learning base dimension reduction的方法叫做auto-encoder，这个问题是没有办法用auto-encoder来解。
 
-![image](res/chapter25-52.png)
+![image](res/chapter25-4.png)
 
 
 
@@ -72,7 +72,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 所以当我们learn一个prediction model的时候，考虑word context这件事情，就自动地考虑在这个prediction model里面。所以我们把prediction model的第一个hidden layer拿出来，我们就可以得到我们想要找的这种word embedding的特性。
 
-### Sharing Parameters
+### 共享参数
 
 ![image](res/chapter25-8.png)
 
@@ -139,7 +139,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 如果有人问你说：罗马来自于意大利，那柏林来自于什么呢。机器可以回答这样的问题，怎么做呢？(我们知道Germany vector会很接近于Berlin vector 减去Rome vector加上Italy vector vector)假设我们不知道答案是Germany的话，那你要做的事情就是：计算Berlin vector 减去Rome vector加上Italy vector，然后看看它跟哪一个vector最接近，你可能得到的答案是Germany
 
-## Multi-lingual Embedding
+## 多语言嵌入（Multi-lingual Embedding）
 
 ![image](res/chapter25-16.png)
 
@@ -149,7 +149,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 图上上面是绿色，然后下面是绿色英文，代表是已经知道对应关系中文和英文的词汇。然后你做这个transform以后，接下来有新的中文词汇跟新的英文词汇，你都通过projection把他们project到同一个space上面。你就可以知道中文的降低跟英文的reduce都应该落在差不多的位置，你就可以知道翻译这样的事情
 
-## Multi-domain Embedding
+## 多域嵌入（Multi-domain Embedding）
 
 
 
@@ -164,13 +164,13 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 如果你用这个方法的话，就算有一张image，在training的时候你没有看到过的class。比如说猫这个image，从来都没有看过，但是猫这个image project到cat附近的话，你就会说，这张image叫做cat。如果你可以做到这件事的话，就好像是machine阅读了大量的文章以后，它知道说：每一个词汇它是什么意思。先通过阅读大量的文章，先了解词汇之间的关系，接下来再看image的时候，会根据它阅读的知识去match每一个image所该对应的位置。这样就算它没有看过的东西，它也有可能把它的名字叫出来。
 
-## Document Embedding
+## 文档嵌入（Document Embedding）
 
 ![image](res/chapter25-18.png)
 
 刚才讲的是word embedding，也可以做document embedding。也就不是把word变成一个vector，也可以把document变成一个vector
 
-### Semantic Embedding
+### 语义嵌入（Semantic Embedding）
 
 ![image](res/chapter25-19.png)
 

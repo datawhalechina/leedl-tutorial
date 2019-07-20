@@ -1,6 +1,4 @@
-
-
-## 结构化学习(Structured Learning)
+# 结构化学习(Structured Learning)
 
 结构化学习要解决的问题，即需要找到一个强有力的函数 **f**
 $$
@@ -12,7 +10,7 @@ $$
 
 其中，**X**是一种对象的空间表示，**Y**是另一种对象的空间表示。
 
-- 统一框架(两步走，三问题)
+## 统一框架(两步走，三问题)
 
   - 第一步：训练
 
@@ -31,7 +29,7 @@ $$
       $$
       即给定任意一个x，穷举所有的y，将(x, y)带入F，找出最适当的y作为系统的输出。
 
-- 提出问题(3Qs)
+## 提出问题(3Qs)
 
   - Q1: 评估
 
@@ -49,60 +47,63 @@ $$
 
     - 给定训练数据，如何求解 F(x, y)？
 
-- 示例任务：目标检测
+## 示例任务：目标检测
 
-  - Q1: 评估
+- Q1: 评估
 
     - F(x, y)是线性的
 
-      
 
-      ![1561870794698](./res/chapter34-1.png)
 
-      
+![1561870794698](res/chapter34-1.png)
 
-      其中，w是在Q3中利用训练数据来学习到的参数，ϕ是人为定义的规则。
-  
-    - 开放问题：如果F(x,y)不是线性，该如何处理?
-  
-  - Q2: 推理
+
+
+其中，w是在Q3中利用训练数据来学习到的参数，ϕ是人为定义的规则。
+
+- 开放问题：如果F(x,y)不是线性，该如何处理?
+
+- Q2: 推理
   $$
-    \tilde{y}=\arg \max _{y \in \mathbb{Y}} w \cdot \phi(x, y)
+  \tilde{y}=\arg \max _{y \in \mathbb{Y}} w \cdot \phi(x, y)
   $$
-  
-  
-    ![1561870636983](./res/chapter34-2.png)
-  
-    
-  
-    即给定一张图片x，穷举出所有可能的标记框y，对每一个(x, y)对，用**w∙ϕ**计算出一个分数最大的(x, y)对，我们就把对应的y作为输出。
-  
-  - 目标检测(取决于ϕ(x, y))
-      - Branch & Bound algorithm(分支定界法)
-    - Selective Search(选择性搜索)
-    - **序列标记**(会在下一章着重复现，其取决于ϕ(x, y))
-  - **Viterbi Algorithm**(维特比译码算法)
-    - 遗传算法(基因演算)
-    - 开放问题
-      - 如果推断不准确(non-exact)将会发生什么情况?
-    
-  - Q3: 训练
+  即给定一张图片x，穷举出所有可能的标记框y，对每一个(x, y)对，用**w∙ϕ**计算出一个分数最大的(x, y)对，我们就把对应的y作为输出。
 
-    - 原理
-  
-      训练数据：
-      $$
-      \left\{\left(x^{1}, \hat{y}^{1}\right),\left(x^{2}, \hat{y}^{2}\right) \ldots,\left(x^{\mathrm{N}}, \hat{y}^{\mathrm{N}}\right)\right\}
-      $$
-      
-  
-      ![1561871590489](./res/chapter34-3.png)
-      
-      
-      
-      假定只关注Q3的问题：比对所有的(x, y)，找到最佳的F(x, y)。
 
-## 可分情形(Separable Case)
+
+![1561870636983](res/chapter34-2.png)
+
+
+
+- 目标检测(取决于ϕ(x, y))
+    - Branch & Bound algorithm(分支定界法)
+  - Selective Search(选择性搜索)
+  - **序列标记**(会在下一章着重复现，其取决于ϕ(x, y))
+- **Viterbi Algorithm**(维特比译码算法)
+  
+  - 遗传算法(基因演算)
+- 开放问题
+  
+  - 如果推断不准确(non-exact)将会发生什么情况?
+  
+- Q3: 训练
+
+  - 原理
+
+    训练数据：
+    $$
+    \left\{\left(x^{1}, \hat{y}^{1}\right),\left(x^{2}, \hat{y}^{2}\right) \ldots,\left(x^{\mathrm{N}}, \hat{y}^{\mathrm{N}}\right)\right\}
+    $$
+
+
+
+![1561871590489](res/chapter34-3.png)
+
+
+
+假定只关注Q3的问题：比对所有的(x, y)，找到最佳的F(x, y)。
+
+# 可分情形(Separable Case)
 
 存在一个权值向量$\hat{w}$，使得：
 $$
@@ -110,13 +111,13 @@ $$
 $$
 
 
-![1561872046106](./res/chapter34-4.png)
+![1561872046106](res/chapter34-4.png)
 
 
 
 其中，红色代表正确的特征点(feature point)，蓝色代表错误的特征点(feature point)，可分性可以理解为，我们需要找到一个权值向量，其作用是与 ϕ(x, y) 做内积(inner product) ，能够将正确的point比蓝色的point的值均大于一个δ。
 
-- 结构化感知机
+## 结构化感知机
 
   1. **输入**：训练数据集
   $$
@@ -125,7 +126,7 @@ $$
   
   2. **输出**：权值向量w
   
-  3. **算法**：![1561873306750](./res/chapter34-5.png)
+  3. **算法**：![1561873306750](res/chapter34-5.png)
   
         
   
@@ -212,81 +213,81 @@ $$
 
   
 
-  ![1561874957857](./res/chapter34-6.png)
+  ![1561874957857](res/chapter34-6.png)
   
   
   
   随着δ的增大，R也会增大！
 
-## 不可分情形(Non-separable Case)
+# 不可分情形(Non-separable Case)
 
-- 定义代价 or 成本函数
+## 定义代价 or 成本函数
 
   - 定义一个成本函数C来评估w的效果有多差，然后选择w，从而最小化成本函数C
 
     - What: $C^n$ 的值不可能为负数(最小值为0)，其最小值是多少？
     - 利用其他的备选方案可能会产生额外的负担
-
-    
-    
-    ![1561878818539](./res/chapter34-7.png)
-    
-    
-
-- (随机)梯度下降法
+  
+  
+  
+  ![1561878818539](res/chapter34-7.png)
+  
+  
+  
+## (随机)梯度下降法
 
   - 当w不同时，y也会发生改变(在w的二维空间下，被max切割后的效果)；
   - 求解C的梯度，只需要求解ϕ之间的差值即可；
   - 最后利用**SGD**(随机梯度下降法)更新参数w。
 
-  
 
-  ![1561879253755](./res/chapter34-8.png)
 
-  
+![1561879253755](res/chapter34-8.png)
 
-  保证在每个不同的region里面，但不包含边界的情况下，该问题可以利用随机梯度下降法来求解(即可以微分)
-  
-  
-  
-  ![1561878951809](./res/chapter34-9.png)
-  
-  
-  
-  - 当学习率设为1时，就转换为经典的**结构化感知机**；
-  - 当设置不同的学习率，将会产生不同的模型。
 
-## 考虑误差(Considering Errors)
+
+保证在每个不同的region里面，但不包含边界的情况下，该问题可以利用随机梯度下降法来求解(即可以微分)
+
+
+
+![1561878951809](res/chapter34-9.png)
+
+
+
+- 当学习率设为1时，就转换为经典的**结构化感知机**；
+- 当设置不同的学习率，将会产生不同的模型。
+
+# 考虑误差(Considering Errors)
 
 不同的误差之间是存在差异的(即误差可以分为不同的等级)，我们在训练数据时需要考虑进去，问题是如何衡量这种差异呢？
 
 
 
-![1561880758749](./res/chapter34-10.png)
+![1561880758749](res/chapter34-10.png)
 
 
 
-- 定义误差函数
+## 定义误差函数
 
   - $\Delta(\hat{y}, y)$: 定义$\hat{y}$(正确的标记)与y之间的差距(保证是大于0的): 
-
-    
-    
-    ![1561880976334](./res/chapter34-11.png)
-    
-    
-
-- 其它的代价 or 成本函数
+  
+  
+  
+  ![1561880976334](res/chapter34-11.png)
+  
+  
+  
+## 其它的代价 or 成本函数
   $$
   \begin{array}{l}{C^{n}=\max _{y}\left[w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)} \\变换为：\\ {C^{n}=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)}\end{array}
   $$
   
 
-  ![1561881699882](./res/chapter34-12.png)
+  ![1561881699882](res/chapter34-12.png)
   
   
   
-- 梯度下降
+## 梯度下降
 
   每次迭代，选择一个训练数据
   $$
@@ -294,11 +295,11 @@ $$
   $$
   
 
-  ![1561881945481](./res/chapter34-13.png)
+  ![1561881945481](res/chapter34-13.png)
 
   
 
-- 其他观点
+## 其他观点
 
   - 最小化新的代价函数，即最小化训练集上误差的上界：
     $$
@@ -314,12 +315,15 @@ $$
     \tilde{y}^{n}=\arg \max _{y} w \cdot \phi\left(x^{n}, y\right)
     $$
     
-    
-    ![1561882454140](./res/chapter34-14.png)
-    
-    
 
-- 更多的代价 or 成本函数，证明：
+
+
+![1561882454140](res/chapter34-14.png)
+
+
+
+
+## 更多的代价 or 成本函数，证明：
   $$
   \Delta\left(\hat{y}^{n}, \tilde{y}^{n}\right) \leq C^{n}
   $$
@@ -334,7 +338,7 @@ $$
     C^{n}=\max _{y} \Delta\left(\hat{y}^{n}, y\right)\left[1+w \cdot \phi\left(x^{n}, y\right)-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)\right]
     $$
 
-## 正则化(Regularization)
+# 正则化(Regularization)
 
 - 训练数据和测试数据可以有不同的分布；
 
@@ -356,37 +360,32 @@ $$
 
   类似于**DNN**的**weight decay**(权重衰减)！
 
-## 结构化SVM
+# 结构化SVM
 
-- 求得w使得C最小化
-  $$
-  使得，C=\lambda \sum_{n=1}^{N} C^{n}+\frac{1}{2}\|w\|^{2}
-  $$
-
+- 求得w使得C最小化，使得$C=\lambda \sum_{n=1}^{N} C^{n}+\frac{1}{2}\|w\|^{2}$
   $$
   其中，C^{n}=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)\\转换1：\\C^{n}+w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]......(1) \\转换2：\\
   对任意的y：\begin{array}{l}{C^{n}+w \cdot \phi\left(x^{n}, \hat{y}^{n}\right) \geq \Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)}......(2)\end{array}
-  $$
+$$
   
-  $$
+$$
   对(2)式进行变换：{w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)-w \cdot \phi\left(x^{n}, y\right) \geq \Delta\left(\hat{y}^{n}, y\right)-C^{n}}
-  $$
+$$
   
   **注意：(1)式与(2)式并不完全等价哟，前提条件是最小化C时，(1)(2)等价！**
 $$
 求得\mathrm{w}, \varepsilon^{1}, \cdots, \varepsilon^{N}，使得C=\frac{1}{2}\|w\|^{2}+\lambda \sum_{n=1}^{N} C^{n}
 $$
+
 $$
 同时满足，对任意的n和任意的y：w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)-w \cdot \phi\left(x^{n}, y\right) \geq \Delta\left(\hat{y}^{n}, y\right)-C^{n}\\一般我们将C^n用ε^n代替之，表示松弛变量
 $$
 
 
-
-![1561884888726](./res/chapter34-15.png)
-
+![1561884888726](res/chapter34-15.png)
 
 $$
-当y=\hat{y}^{n}时， \varepsilon^{n} \geq 0\\所以有：\\
+当y=\hat{y}^{n}时， \varepsilon^{n} \geq 0\\可得
 对\forall y \neq \hat{y}^{n}：\\
 w \cdot\left(\phi\left(x^{n}, \hat{y}^{n}\right)-\phi\left(x^{n}, y\right)\right) \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0
 $$
@@ -394,7 +393,7 @@ $$
 
 
 
-![1561885367640](./res/chapter34-16.png)
+![1561885367640](res/chapter34-16.png)
 
 
 
@@ -404,7 +403,7 @@ $$
 
 
 
-![1561885510566](./res/chapter34-17.png)
+![1561885510566](res/chapter34-17.png)
 
 
 
@@ -445,28 +444,29 @@ $$
 
 - 约束条件过多，需要通过切割平面算法(**Cutting Plane Algorithm**)解决受限的问题。
 
-## 结构化SVM：切割平面算法(Cutting Plane Algorithm)
+# 结构化SVM：切割平面算法(Cutting Plane Algorithm)
 
-- 无约束条件的问题求解
+## 无约束条件的问题求解
 
   
 
-  ![1561887228487](./res/chapter34-18.png)
+  ![1561887228487](res/chapter34-18.png)
 
   
 
   假设我们先不考虑限制的部分，只考虑最小化部分，同时假设w只有一维，即w和ε为0时，对应的值最小
 
-- 有约束条件的问题求解
+## 有约束条件的问题求解
 
   - 在w和$ε^i$组成的参数空间中，颜色表示C的值，在没有限制的情况下，青色的点对应的是最小值，在有限制的情况下，只有内嵌的多边形区域内是符合约束条件的，因此需要在该区域内(How如何确定多边形的形状？)寻找最小值，即
-    $$
+$$
     C=\frac{1}{2}\|w\|^{2}+\lambda \sum_{n=1}^{N} \varepsilon^{n}
     $$
 
   
 
-  ![1561887391769](./res/chapter34-19.png)
+
+  ![1561887391769](res/chapter34-19.png)
 
   
 
@@ -476,29 +476,28 @@ $$
 
   - 绿线(冗元)表示移除此约束不会影响问题的求解，删除冗元线条，原本是穷举$y \neq \hat{y}^{n}$，而现在我们需要移除那些不起作用的线条，保留有用的线条，这些有影响的线条集可以理解为Working Set，用$\mathbb{A}^{n}$表示(利用迭代法寻找Working Set)。
 
-    
 
-    ![1561887540273](./res/chapter34-20.png)
 
-    
+![1561887540273](res/chapter34-20.png)
 
+
+​    
   - 在有效集中(**Working Set**)进行迭代性地选择元素
 
-    
 
-    ![1561887645254](./res/chapter34-21.png)
 
-    
+![1561887645254](res/chapter34-21.png)
 
+
+​    
   - 向有效集中添加元素的策略
-
+  
     原本解决QP问题，需要考虑所有可能的标记y，但如果给定一组Working Set，我们仅需考虑作用集里的标记y即可；然后再解决QP问题就相对简单多了。假设，我们根据Working Set求出对应的w，再用w重新检查，以便找寻新的成员加入到Working Set之中，因此Working Set会发生改变；然后根据新的Working Set来解决QP问题，这样的话，又会得到新的w，新的w可以继续检查，新的成员又可以加入到Working Set中，就这样不断地迭代下去，直到w不再变化为止！
 
-    
-    
-    ![1561887964404](./res/chapter34-22.png)
-    
-    
+ 
+
+![1561887964404](res/chapter34-22.png)
+
 
 - 假设$\mathbb{A}^{n}$初始值为空集合null，即没有任何约束限制，求解QP的结果就是对应的蓝点，但是不能满足条件的线条有很多很多，我们现在只找出没有满足的最“严重的”那一个(Which具体是指哪一个？)即可。那么我们就把
   $$
@@ -506,7 +505,7 @@ $$
   $$
   
 
-  ![1561888014815](./res/chapter34-23.png)
+  ![1561888014815](res/chapter34-23.png)
   
   
   
@@ -516,7 +515,7 @@ $$
 
   
 
-  ![1561888056967](./res/chapter34-24.png)
+  ![1561888056967](res/chapter34-24.png)
   
   
   
@@ -537,7 +536,7 @@ $$
   \arg \max _{y}[\Delta(\hat{y}, y)+w \cdot \phi(x, y)]
 $$
 
-  ![1561888458297](./res/chapter34-25.png)
+  ![1561888458297](res/chapter34-25.png)
 
 - 具体步骤
   
@@ -551,10 +550,11 @@ $$
     $$
   
   - 重复以下过程
+    
     - 在初始的Working Set中求解一个QP问题的解，只需求解出w即可！
 
 
-![1561888551388](./res/chapter34-26.png)
+![1561888551388](res/chapter34-26.png)
 
 
 
@@ -568,20 +568,12 @@ $$
 $$
 直到Working Set中的元素不再发生变化，迭代终止，即得到要求解的y！
 
-![1561888612132](./res/chapter34-27.png)
+![1561888612132](res/chapter34-27.png)
 
 
 
-- 示例解释
-
+## 示例解释
   假设，我们现在有两个训练数据：
-
-​            ​    
-
-            - 示例解释
-
-              假设，我们现在有两个训练数据：
-
 $$
 \left(x^{1}, \hat{y}^{1}\right) 和 \left(x^{2}, \hat{y}^{2}\right)对应的Working Set
 $$
@@ -591,12 +583,12 @@ $$
               \begin{array}{l}{A^{1}=\{ \}} \\ {A^{2}=\{ \}}\end{array}\\同时还要保证\varepsilon^{1}>0, \varepsilon^{2}>0
 $$
 
-- 无约束的问题解决，求解的w为0
+## 无约束的问题解决，求解的w为0
 
 
-​              ![1561888809014](./res/chapter34-28.png)
+​              ![1561888809014](res/chapter34-28.png)
 
-- 有约束的问题解决
+## 有约束的问题解决
 
   此时：
 
@@ -611,7 +603,7 @@ $$
 
 
 
-![1561888876383](./res/chapter34-29.png)
+![1561888876383](res/chapter34-29.png)
 
 用同样的方式，求解出最严重的的constraint$A^{2}$加入到Working Set集中。
 
@@ -621,7 +613,7 @@ w=w^{1}
 $$
 
 
-![1561888937498](./res/chapter34-30.png)
+![1561888937498](res/chapter34-30.png)
 
 
 
@@ -629,7 +621,7 @@ $$
 
 
 
-![1561888994754](./res/chapter34-31.png)
+![1561888994754](res/chapter34-31.png)
 
 
 
@@ -637,14 +629,14 @@ $$
 
 
 
-![1561889034692](./res/chapter34-32.png)
+![1561889034692](res/chapter34-32.png)
 
 
 ​         
 
-## 多类别 & 二元SVM(Multi-class & Binary SVM)
+# 多类别 & 二元SVM(Multi-class & Binary SVM)
 
-**Multi-class SVM**
+## Multi-class SVM
 $$
 F(x, y)=w \cdot \phi(x, y)
 $$
@@ -666,7 +658,7 @@ $$
 
  
 
- ![1561889672872](./res/chapter34-33.png)
+ ![1561889672872](res/chapter34-33.png)
 
 
 
@@ -698,75 +690,73 @@ $$
       $$
       (3)式转换为：\\\left(w^{\hat{y}^{n}}-w^{y}\right) \cdot \vec{x} \quad \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0......(4)
       $$
-  
-      
-      
-      ![1561890363710](./res/chapter34-34.png)
-      
-      
-  
-  **Binary SVM**(设定K为2，y∈{1,2})
-  $$
-  {对}\forall y \neq \hat{y}^{n}:
-  $$
-  
-  $$
-  \left(w^{\hat{y}^{n}}-w^{y}\right) \cdot \vec{x} \quad \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0
-  $$
-  
-  - 如果y为1：
-    $$
-    \left(w^{1}-w^{2}\right) \cdot \vec{x} \geq 1-\varepsilon^{n}
-    $$
-  
-    $$
-    令w1-w2为w，可以转换为：\\w \cdot \vec{x} \geq 1-\varepsilon^{n}
-    $$
-  
-  - 如果y为2：
-    $$
-    \left(w^{2}-w^{1}\right) \cdot \vec{x} \geq 1-\varepsilon^{n}
-    $$
-  
-    $$
-    同理转换为：\\-w \cdot \vec{x} \geq 1-\varepsilon^{n}
-    $$
-  
-    用**结构化SVM**概念联想**二元SVM分类**问题！
-  
-    
-    
-    ![1561890975783](./res/chapter34-35.png)
-    
-    
-  
 
-## 下一步SVM(开放问题)
 
-- **DNN(深度神经网络)**
+
+![1561890363710](res/chapter34-34.png)
+
+
+## Binary SVM
+**Binary SVM**(设定K为2，y∈{1,2})
+$$
+{对}\forall y \neq \hat{y}^{n}:
+$$
+
+$$
+\left(w^{\hat{y}^{n}}-w^{y}\right) \cdot \vec{x} \quad \geq \Delta\left(\hat{y}^{n}, y\right)-\varepsilon^{n}, \varepsilon^{n} \geq 0
+$$
+
+- 如果y为1：
+  $$
+  \left(w^{1}-w^{2}\right) \cdot \vec{x} \geq 1-\varepsilon^{n}
+  $$
+
+  $$
+  令w1-w2为w，可以转换为：\\w \cdot \vec{x} \geq 1-\varepsilon^{n}
+  $$
+
+- 如果y为2：
+  $$
+  \left(w^{2}-w^{1}\right) \cdot \vec{x} \geq 1-\varepsilon^{n}
+  $$
+
+  $$
+  同理转换为：\\-w \cdot \vec{x} \geq 1-\varepsilon^{n}
+  $$
+
+  用**结构化SVM**概念联想**二元SVM分类**问题！
+  
+  
+  
+  ![1561890975783](res/chapter34-35.png)
+  
+   
+# 下一步SVM(开放问题)
+
+## DNN(深度神经网络)
 
   结构化SVM是线性结构的，如果想要结构化SVM的扩展性更好，我们需要定义一个较好的特征，但是人为设定的特征往往十分困难，一个较好的方法是利用DNN生成特征，先用一个DNN，最后训练的结果往往十分有效！
 
   
 
-  ![1561891108686](./res/chapter34-36.png)
+  ![1561891108686](res/chapter34-36.png)
 
   
 
-- **同时训练结构化SVM和DNN**
+## 同时训练结构化SVM和DNN
 
   与DNN不同的是，其将**DNN**与**结构化SVM**一起训练，同时**更新**DNN与结构化SVM中的**参数**！
 
   
 
-  ![1561891166091](./res/chapter34-37.png)
+  ![1561891166091](res/chapter34-37.png)
 
   
 
-- **用DNN代替结构化SVM**
+## 用DNN代替结构化SVM
 
   再用一个DNN代替结构化SVM，即将x和y作为输入，F(x, y)(为一个标量)作为输出！
   
   
   
-  ![1561891229847](./res/chapter34-38.png)
+  ![1561891229847](res/chapter34-38.png)

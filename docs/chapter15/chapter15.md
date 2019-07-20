@@ -1,8 +1,4 @@
 # “Hello world” of Deep Learning
-![](res/chapter15-0.png)
-
-
-
 
 # keras 是什么
 Keras 是一个用 Python 编写的高级神经网络 API，它能够以 TensorFlow, CNTK, 或者 Theano 作为后端运行。

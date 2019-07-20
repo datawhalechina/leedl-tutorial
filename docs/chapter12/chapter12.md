@@ -1,4 +1,3 @@
-![12-0](./res/chapter12-0.png)
 # Winner or Loser
 本作业主要是使用逻辑回归来判断一个人的年薪是否大于50k
 ## 数据集和任务描述
@@ -27,7 +26,8 @@ native-country, make over 50K a year or not
 
 
 # 参考代码
-https://github.com/maplezzz/ML2017S_Hung-yi-Lee_HW
+https://github.com/datawhalechina/Leeml-Book/tree/master/docs/Homework/HW-2
+
 
 
 

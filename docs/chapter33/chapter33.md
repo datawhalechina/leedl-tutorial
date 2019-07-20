@@ -1,4 +1,3 @@
-![33_0](./res/chapter33_00.png)
 # Structured Linear Model
 上一章讲了，Structured learning 需要求解三个问题
 ![33_0](./res/chapter33_0.png)
@@ -9,7 +8,7 @@
 $$
 F(x,y)=w_1\phi_1(x,y)+w_2\phi_2(x,y)+w_3\phi_3(x,y)+...\\
 $$
-向量形式可以写为$F(x,y)=\mathbf{w}^T\phi(x,y)
+向量形式可以写为$F(x,y)=\mathbf{w}^T\phi(x,y)$
 
 - Object detection
 
@@ -30,7 +29,7 @@ $$
 
 - Retrieval
 
-	那比如说是Retrieval，其实也是一样啦。x是keyword，y是搜寻的结果。比如$\phi_1(x,y)​$表示y第一笔搜寻结果跟x的相关度，或者$\phi_2(x,y)​$表示y的第一笔搜寻结果有没有比第二笔高等等，或者y的Diversity的程度是多少，看看我们的搜寻结果是否包含足够的信息。具体如下图
+那比如说是Retrieval，其实也是一样啦。x是keyword，y是搜寻的结果。比如$\phi_1(x,y)​$表示y第一笔搜寻结果跟x的相关度，或者$\phi_2(x,y)​$表示y的第一笔搜寻结果有没有比第二笔高等等，或者y的Diversity的程度是多少，看看我们的搜寻结果是否包含足够的信息。具体如下图
 	![33_4](./res/chapter33_4.png)
 
 ## Problem 2
@@ -48,6 +47,7 @@ $$
 	对所有的training data而言，希望正确的$w\cdot \phi(x^r,\hat{y}^r)$应该大过于其他的任何$w\cdot \phi(x^r,y)$。用比较具体的例子来说明，假设我现在要做的object detection，我们收集了一张image $x^1$，然后呢，知道$x^1$所对应的$\hat{y}^1$，我们又收集了另外一张图片，对应的框框也标出。两张如下图所示
 
 	![33_6](./res/chapter33_6.png)![33_7](./res/chapter33_7.png)
+
 	对于第一张图，我们假设$(x^1,\hat{y}^1)$所形成的feature是红色$\phi(x^1,\hat{y}^1)$这个点，其他的y跟x所形成的是蓝色的点。如下图所示
 	![33_8](./res/chapter33_8.png)
 

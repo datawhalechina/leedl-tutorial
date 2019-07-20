@@ -1,4 +1,3 @@
-![39_0](./res/chapter39_0.png)
 # Deep Reinforcement Learning—Scratching the surface
 
 2015年2月的时候，google在nature上发了一篇用reinforcement learning 的方法来玩akari的小游戏，然后痛鞭人类
@@ -138,11 +137,11 @@ https://youtu.be/aUrX-rP_ss4
 	怎么选择最好的function，其实就是用我们的Gradient Ascent。我们已经找到目标了，就是最大化这个$\bar{R}_\theta$
 	$$\theta^\ast = arg \max_\theta \bar{R}_\theta$$
 	其中$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$。就可以用Gradient Ascent进行最大化，过程为：
-		- 初始化$\theta^0$
-		- $\theta^1 \leftarrow \theta^0+\eta \triangledown \bar{R}_{\theta^0}$
-		- $\theta^2 \leftarrow \theta^1+\eta \triangledown \bar{R}_{\theta^1}$
-		- .......
-
+	(1) 初始化$\theta^0$ 
+	(2) $\theta^1 \leftarrow \theta^0+\eta \triangledown \bar{R}_{\theta^0}$ 
+	(3) $\theta^2 \leftarrow \theta^1+\eta \triangledown \bar{R}_{\theta^1}$ 
+	(4) .......
+	
 	参数$\theta = {w_1,w_2,...,b_1,...}$，那么$\triangledown \bar{R}_{\theta}$就是$\bar{R}_{\theta}$对每个参数的偏微分，如下
 	$$
 	\triangledown \bar{R}_{\theta} = \begin{bmatrix}
@@ -151,13 +150,9 @@ https://youtu.be/aUrX-rP_ss4
 	\\ \bar{R}_{\theta}/\partial b_1
 	\\ \vdots
 	\end{bmatrix} 
-    $$
-  	接下来就是实际的计算下，$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$中，只有$P(\tau|\theta)$跟$\theta$有关系，所以只需要对$P(\tau|\theta)$做Gradient ，即
-  	$$\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)$$
-  	所以$R(\tau)$就算不可微也没有关系，或者是不知道它的function也没有差，我们只要知道把$\tau$放进去得到值就可以。接下来，为了让$P(\tau|\theta)$出现，有
- 	 $$
-	\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)=\sum_{\tau} R(\tau) P(\tau | \theta) \frac{\nabla P(\tau | \theta)}{P(\tau | \theta)}
-	$$
+    $$接下来就是实际的计算下，$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$中，只有$P(\tau|\theta)$跟$\theta$有关系，所以只需要对$P(\tau|\theta)$做Gradient ，即$$\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)$$所以$R(\tau)$就算不可微也没有关系，或者是不知道它的function也没有差，我们只要知道把$\tau$放进去得到值就可以。
+	接下来，为了让$P(\tau|\theta)$出现，有$$\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)=\sum_{\tau} R(\tau) P(\tau | \theta) \frac{\nabla P(\tau | \theta)}{P(\tau | \theta)}$$
+
 	由于
 	$$
 	\frac{\operatorname{dlog}(f(x))}{d x}=\frac{1}{f(x)} \frac{d f(x)}{d x}

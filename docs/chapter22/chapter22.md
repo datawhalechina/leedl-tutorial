@@ -1,5 +1,4 @@
 # Why Deep?
-![](res/chapter22-0.png)
 
 ##  问题1：越深越好？
 

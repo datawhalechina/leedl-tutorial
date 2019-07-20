@@ -1,5 +1,5 @@
 # Semi-supervised learning
-![](res/chapter23-0.png)
+
 # Supervised learning和Semi-supervised learning
 ![](res/chapter23-1.png)
 在supervised里面，你就是有一大推的training data，这些training data的组成是一个function的input跟output，假设你有R笔train data，每一笔train data有$x^r$,$\hat{y}^r $。假设$x^r$是一张image，$\hat{y}$是class label。semi-supervised learning是在label上面，是有另外一组unlabel的data，这组data记做$x^u$,这组data只有input，没有output(U笔data)。在做semi-superised learning时，U远远大于R(unlabel的数量远远大于label data的数量)。semi-surprised learning可以分成两种，一种是transductive learning，一种是inductive learning。这两种最简单的分法是：在做transductive的时候，你的unlabel data就是你的testing data，inductive learning 就是说：不把unlabel data考虑进来。
@@ -8,7 +8,7 @@
 
 我们人类可能一直是在semi-supervised learning，比如说，小孩子会从父母那边得到一点点的supervised(小孩子在街上，问爸爸妈妈这是什么，爸爸妈妈说：这是狗。在以后的日子里，小孩子会看到很多奇奇怪怪的东西，也没有人在告诉这是什么动物，但小孩子依然还是会判别出狗)
 
-## semi-supervised learning的好处
+## 半监督学习的好处
 ![](res/chapter23-2.png)
 为什么semi-supervised learning有可能会带来帮助呢？假设我们现在要做分类的task，建一个猫跟狗的classifier，我们同时有一大堆猫跟狗的图片。这些图片是没有label的，并不知道哪些是猫哪些是狗。
 
@@ -19,7 +19,7 @@
 这边要讲四件事，第一个是在generative model的时候，怎么用semi-supervised learning。还要讲两个还蛮通用的假设，一个是Low-density Separation Assumption,另一个是Smoothness Assumption，最后还有Better Representation
 
 # Supervised generative model和Semi-supervised generative model
-## Supervised generative model
+## 监督生成模型
 ![](res/chapter23-5.png)
 我们都已经看过，supervised generative model，在supervised learning里面有一堆train example，你知道分别是属于class1，class2。你会去估测class1，class2的probability($P(X|C_i)$)
 
@@ -63,7 +63,7 @@ Low-density separation最简单的方法是self-training。self-training就是�
 假设我们用neural network，你从你的 label data得到一笔network parameter($\theta^\ast $)。现在有一笔unlabel data$x^u$，根据参数$\theta^\ast $分为两类(0.7的几率是class1,0.3的几率是class2)。如果是hard label的话，你就把它直接label成class1，所以$x^u$新的target第一维是1第二维是0(拿$x^u$train neural network)。如果去做soft的话。70 percent是属于class1,30percent是属于class2，那新的target是0.7跟0.3。在neural network中，这两个方法你觉得哪个是有用的呢，soft这个方法是没有用的，一定要用hard label。因为本来输出就是0.7和0.3，目标又设成0.7和0.3，相当于自己证明自己，所以没用。但我们用hard label 是什么意思呢？我们用hard label的时候，就是用low-density separation的概念。也就是说：今天我们看$x^u$它属于class1的几率只是比较高而已，我们没有很确定它一定是属于class1的，但这是一个非黑即白的世界，如果你看起来有点像class1，那就一定是class1。本来根据我的model说：0.7是class1 0.3是class2，那用hard label(low-density-separation)就改成它属于class1的几率是1(完全就不可能是class2)。soft是不会work的。
 
 
-## Entropy-based Regularization
+## 基于熵的正则化
 ![](res/chapter23-12.png)
 
 刚才那一招有进阶版是“Entropy-based Regularization”。如果你用neural network，你的output是一个distribution，那我们不要限制说这个output一定要是class1、class2，但是我们做的假设是这样的，这个output distribution一定要是很集中，因为这是一个非黑即白的世界。假设我们现在做五个class的分类，在class1的几率很大，在其他class的几率很小，这个是好的。在class5的几率很大，在其他class上几率很小，这也是好的。如果今天分布很平均的话，这样是不好的(因为这是一个非黑即白的世界)，这不是符合low-density separation的假设。
@@ -74,7 +74,7 @@ Low-density separation最简单的方法是self-training。self-training就是�
 
 在train的时候，用GD来一直minimize这件事情，没有什么问题的。unlabel data的角色就很像regularization，所以它被称之为 entropy-based regulariztion。之前我们说regularization是在原来的loss function后面加一个惩罚项(L2,L1)，让它不要overfitting；现在加上根据unlabel data得到的entropy 来让它不要overfitting。
 
-## Semi-supervised SVM
+## 半监督SVM
 ![](res/chapter23-13.png)
 
 那还有其他semi-supervised的方式，叫做semi-supervised SVM。SVM精神是这样的：SVM做的事情就是：给你两个class的data，找一个boundary，这个boundary一方面要做有最大的margin(最大margin就是让这两个class分的越开越好)同时也要有最小的分类的错误。现在假设有一些unlabel data，semi-supervised SVM会咋样处理这个问题呢？它会穷举所有可能的label，就是这边有4笔unlabel data，每一笔它都可以是属于class1，也可以是属于class2，穷举它所有可能的label(如右图所示)。对每一个可能的结果都去做一个SVM，然后再去说哪一个unlabel data的可能性能够让你的margin最大同时又minimize error。
