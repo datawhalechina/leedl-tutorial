@@ -47,6 +47,7 @@ $$
 	对所有的training data而言，希望正确的$w\cdot \phi(x^r,\hat{y}^r)$应该大过于其他的任何$w\cdot \phi(x^r,y)$。用比较具体的例子来说明，假设我现在要做的object detection，我们收集了一张image $x^1$，然后呢，知道$x^1$所对应的$\hat{y}^1$，我们又收集了另外一张图片，对应的框框也标出。两张如下图所示
 
 	![33_6](./res/chapter33_6.png)![33_7](./res/chapter33_7.png)
+
 	对于第一张图，我们假设$(x^1,\hat{y}^1)$所形成的feature是红色$\phi(x^1,\hat{y}^1)$这个点，其他的y跟x所形成的是蓝色的点。如下图所示
 	![33_8](./res/chapter33_8.png)
 
