@@ -137,11 +137,11 @@ https://youtu.be/aUrX-rP_ss4
 	怎么选择最好的function，其实就是用我们的Gradient Ascent。我们已经找到目标了，就是最大化这个$\bar{R}_\theta$
 	$$\theta^\ast = arg \max_\theta \bar{R}_\theta$$
 	其中$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$。就可以用Gradient Ascent进行最大化，过程为：
-    - 初始化$\theta^0$
-	- $\theta^1 \leftarrow \theta^0+\eta \triangledown \bar{R}_{\theta^0}$
-	- $\theta^2 \leftarrow \theta^1+\eta \triangledown \bar{R}_{\theta^1}$
-	- .......
-
+		- 初始化$\theta^0$
+		- $\theta^1 \leftarrow \theta^0+\eta \triangledown \bar{R}_{\theta^0}$
+		- $\theta^2 \leftarrow \theta^1+\eta \triangledown \bar{R}_{\theta^1}$
+		- .......
+	
 	参数$\theta = {w_1,w_2,...,b_1,...}$，那么$\triangledown \bar{R}_{\theta}$就是$\bar{R}_{\theta}$对每个参数的偏微分，如下
 	$$
 	\triangledown \bar{R}_{\theta} = \begin{bmatrix}
