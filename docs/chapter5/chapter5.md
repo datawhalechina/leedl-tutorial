@@ -1,5 +1,4 @@
 # 课程介绍
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-0.png)
 
 
 # Error的来源
