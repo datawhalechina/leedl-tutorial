@@ -150,11 +150,7 @@ https://youtu.be/aUrX-rP_ss4
 	\\ \bar{R}_{\theta}/\partial b_1
 	\\ \vdots
 	\end{bmatrix} 
-    $$
-  	接下来就是实际的计算下，$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$中，只有$P(\tau|\theta)$跟$\theta$有关系，所以只需要对$P(\tau|\theta)$做Gradient ，即
-  	$$\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)$$
-  	所以$R(\tau)$就算不可微也没有关系，或者是不知道它的function也没有差，我们只要知道把$\tau$放进去得到值就可以。接下来，为了让$P(\tau|\theta)$出现，有
- 	 $$
+    $$接下来就是实际的计算下，$\bar{R}_\theta = \sum_\tau R(\tau)P(\tau|\theta)$中，只有$P(\tau|\theta)$跟$\theta$有关系，所以只需要对$P(\tau|\theta)$做Gradient ，即$$\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)$$所以$R(\tau)$就算不可微也没有关系，或者是不知道它的function也没有差，我们只要知道把$\tau$放进去得到值就可以。接下来，为了让$P(\tau|\theta)$出现，有$$
 	\nabla \bar{R}_{\theta}=\sum_{\tau} R(\tau) \nabla P(\tau | \theta)=\sum_{\tau} R(\tau) P(\tau | \theta) \frac{\nabla P(\tau | \theta)}{P(\tau | \theta)}
 	$$
 	由于
