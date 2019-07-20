@@ -1,5 +1,4 @@
 # BackPropagation
-![](res/chapter14-0.png)
 # 背景
 ## 梯度下降（Gradient Descent）
 ![](res/chapter14-1.png)

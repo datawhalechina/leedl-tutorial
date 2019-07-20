@@ -1,5 +1,4 @@
 # Brief Introduction of Deep Learning
-![](res/chapter13-0.png)
 # 深度学习的发展趋势
 回顾一下deep learning的历史：
 - 1958: Perceptron (linear model)
