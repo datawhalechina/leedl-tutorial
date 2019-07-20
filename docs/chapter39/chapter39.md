@@ -1,4 +1,3 @@
-![39_0](./res/chapter39_0.png)
 # Deep Reinforcement Learning—Scratching the surface
 
 2015年2月的时候，google在nature上发了一篇用reinforcement learning 的方法来玩akari的小游戏，然后痛鞭人类

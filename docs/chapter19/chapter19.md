@@ -1,5 +1,4 @@
 # Keras Demo 2
-![在这里插入图片描述](./res/chapter19_0.png)
 ## 上一次失败的例子
 deep learning这么潮的东西，实现起来也很简单。首先是load_data进行数据载入处理。
 ```

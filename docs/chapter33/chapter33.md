@@ -1,4 +1,3 @@
-![33_0](./res/chapter33_00.png)
 # Structured Linear Model
 上一章讲了，Structured learning 需要求解三个问题
 ![33_0](./res/chapter33_0.png)
