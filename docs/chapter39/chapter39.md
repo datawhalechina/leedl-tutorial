@@ -141,7 +141,6 @@ https://youtu.be/aUrX-rP_ss4
 		- $\theta^1 \leftarrow \theta^0+\eta \triangledown \bar{R}_{\theta^0}$
 		- $\theta^2 \leftarrow \theta^1+\eta \triangledown \bar{R}_{\theta^1}$
 		- .......
-	
 	参数$\theta = {w_1,w_2,...,b_1,...}$，那么$\triangledown \bar{R}_{\theta}$就是$\bar{R}_{\theta}$对每个参数的偏微分，如下
 	$$
 	\triangledown \bar{R}_{\theta} = \begin{bmatrix}
