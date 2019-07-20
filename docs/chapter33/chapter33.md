@@ -8,7 +8,7 @@
 $$
 F(x,y)=w_1\phi_1(x,y)+w_2\phi_2(x,y)+w_3\phi_3(x,y)+...\\
 $$
-向量形式可以写为$F(x,y)=\mathbf{w}^T\phi(x,y)
+向量形式可以写为$F(x,y)=\mathbf{w}^T\phi(x,y)$
 
 - Object detection
 
