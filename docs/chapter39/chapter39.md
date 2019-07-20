@@ -7,7 +7,7 @@
 David Silver 说 AI 就是 Reinforcement Learning加Deep Learning
 Deep Reinforcement Learning : AI = RL + DL
 
-## Scenario of Reinforcement Learning
+# 增强学习的应用场景
 
 在Reinforcement Learning里面会有一个Agent跟一个Environment。这个Agent会有Observation看到世界种种变化，这个Observation又叫做State，这个State指的是环境的状态，也就是你的machine所看到的东西。所以在这个Reinforcement Learning领域才会有这个XXX做法，我们的state能够观察到一部分的情况，机器没有办法看到环境所有的状态，所以才会有这个partial of state 这个想法，这个state其实就是Observation。machine会做一些事情，它做的事情叫做Action，Action会影响环境，会跟环境产生一些互动。因为它对环境造成的一些影响，它会得到Reward，这个Reward告诉它，它的影响是好的还是不好的。如下图
 
@@ -19,13 +19,13 @@ Deep Reinforcement Learning : AI = RL + DL
 
 对于machine来说，它要怎么学习下围棋呢，就是找一某个对手一直下下，有时候输有时候赢，它就是调整Observation和action之间的关系，调整model让它得到的reward可以被maximize。
 
-## Supervised  v.s. Reinforcement 
+# 监督 v.s. 增强 
 
 我们可以比较下下围棋采用Supervised 和Reinforcement 有什么区别。如果是Supervised 你就是告诉机器说看到什么样的态势就落在指定的位置。Supervised不足的地方就是具体态势下落在哪个地方是最好的，其实人也不知道，因此不太容易做Supervised。用Supervised就是machine从老师那学，老师说下哪就下哪。如果是Reinforcement 呢，就是让机器找一个对手不断下下，赢了就获得正的reward，没有人告诉它之前哪几步下法是好的，它要自己去试，去学习。Reinforcement 是从过去的经验去学习，没有老师告诉它什么是好的，什么是不好的，machine要自己想办法，其实在做Reinforcement 这个task里面，machine需要大量的training，可以两个machine互相下。alpha Go 是先做Supervised Learning，做得不错再继续做Reinforcement Learning。
 
-## Application
+# 应用举例
 
-### Learning a chat-bot
+## Learning a chat-bot
 
  Reinforcement Learning 也可以被用在Learning a chat-bot。chat-bot 是seq2seq，input 就是一句话，output 就是机器的回答。
 
@@ -43,17 +43,17 @@ Deep Reinforcement Learning : AI = RL + DL
 两个chat-bot互相对话，对话之后有人要告诉它们它们讲得好还是不好。在围棋里比较简单，输赢是比较明确的，对话的话就比较麻烦，你可以让两个machine进行无数轮互相对话，问题是你不知道它们这聊天聊得好还是不好，这是一个待解决问题。现有的方式是制定几条规则，如果讲得好就给它positive reward ，讲得不好就给它negative reward，好不好由人主观决定，然后machine就从它的reward中去学说它要怎么讲才是好。后续可能会有人用GAN的方式去学chat-bot。通过discriminator判断是否像人对话，两个agent就会想骗过discriminator，即用discriminator自动认出给reward的方式。
 Reinforcement  Learning 有很多应用，尤其是人也不知道怎么做的场景非常适合。
 
-## Interactive retrieval
+# Interactive retrieval
 
 让machine学会做Interactive retrieval，意思就是说有一个搜寻系统，能够跟user进行信息确认的方式，从而搜寻到user所需要的信息。直接返回user所需信息，它会得到一个positive reward，然后每问一个问题，都会得到一个negative reward。
 
 ![39_4](./res/chapter39_4.png)
 
-### More applications
+## More applications
 
 Reinforcement  Learning 还有很多应用，比如开个直升机，开个无人车呀，也有通过deepmind帮助谷歌节电，也有文本生成等。现在Reinforcement  Learning最常用的场景是电玩。现在有现成的environment，比如Gym,Universe。让machine 用Reinforcement  Learning来玩游戏，跟人一样，它看到的东西就是一幅画面，就是pixel，然后看到画面，它要做什么事情它自己决定，并不是写程序告诉它说你看到这个东西要做什么。需要它自己去学出来。
 
-### Example:Playing Video Game
+## Example:Playing Video Game
 
 - Space invader
 
@@ -65,7 +65,7 @@ Reinforcement  Learning 还有很多应用，比如开个直升机，开个无�
 
 	![39_6](./res/chapter39_6.png)
 
-## Difficulties of Reinforcement  Learning
+# 增强学习的难点
 
 那么Reinforcement  Learning的难点在哪里呢？它有两个难点
 
@@ -77,7 +77,7 @@ Reinforcement  Learning 还有很多应用，比如开个直升机，开个无�
 
 	Agent采取行动后会影响之后它所看到的东西，所以Agent要学会去探索这个世界。比如说在这个space invader里面，Agent只知道往左往右移，它不知道开火会得到reward，也不会试着击杀最上面的外星人，就不会知道击杀这个东西可以得到很高的reward，所以要让machine去explore它没有做过的行为，这个行为可能会有好的结果也会有坏的结果。但是探索没有做过的行为在Reinforcement  Learning里面也是一种重要的行为。
 
-## Approach
+# 增强学习的方法
 
 Reinforcement  Learning 的方法分成两大块，一个是Policy-based的方法，另一个是Valued-based的方法。先有Valued-based的方法，再有Policy-based的方法。在Policy-based的方法里面，会learn一个负责做事的Actor，在Valued-based的方法会learn一个不做事的Critic，专门批评不做事的人。我们要把Actor和Critic加起来叫做Actor+Critic的方法。
 
@@ -93,7 +93,7 @@ http://videolectures.net/rldm2015_silver_reinforcement_learning/ (Deep Reinforce
 - Lectures of John Schulman
 https://youtu.be/aUrX-rP_ss4
 
-### Policy-based Approach
+## Policy-based Approach
 
 先来看看怎么学一个Actor，所谓的Actor是什么呢?我们之前讲过，Machine Learning 就是找一个Function，Reinforcement Learning也是Machine Learning 的一种，所以要做的事情也是找Function。这个Function就是所谓的魔术发现，Actor就是一个Function。这个Function的input就是Machine看到的observation，它的output就是Machine要采取的Action。我们要透过reward来帮我们找这个best Function。
 
@@ -202,9 +202,9 @@ https://youtu.be/aUrX-rP_ss4
 	$$\nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}\left(R\left(\tau^{n}\right)-b\right) \nabla \log p\left(a_{t}^{n} | s_{t}^{n}, \theta\right)$$
 	这样$R(\tau^n)$超过b的时候就把几率增加，小于b的时候就把几率降低，从而解决了都是正的问题。
 
-### Value-based Approach
+## Value-based Approach
 
-#### Critic
+### Critic
 
 Critic就是Learn一个Neural Network，这个Neural Network不做事，然后Actor可以从这个Critic中获得，这就是Q-learning。
 Critic就是learn一个function，这个function可以告诉你说现在看到某一个observation的时候，这个observation有有多好这样。
@@ -214,7 +214,7 @@ Critic就是learn一个function，这个function可以告诉你说现在看到�
 	这个function是用Neural Network表示 
 
 - state value function $V^\pi(s)$
- 
+
 	这个累加的reward是通过观察多个observation
 
 	![39_15](./res/chapter39_15.png)
@@ -227,7 +227,7 @@ Critic就是learn一个function，这个function可以告诉你说现在看到�
 
 	![39_16](./res/chapter39_16.png)
 
-### Actor-Critic
+## Actor-Critic
 
  这部分留着下学期再讲
 
