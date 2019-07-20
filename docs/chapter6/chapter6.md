@@ -1,5 +1,4 @@
-![](res/chapter6-0.png)
-[TOC]
+
 
 # 什么是Gradient Descent（梯度下降法）？
 

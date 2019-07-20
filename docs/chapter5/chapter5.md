@@ -1,8 +1,5 @@
-# 课程介绍
-
-
 # Error的来源
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-1.png)
+![](res/chapter5-1.png)
 从上节课测试集数据来看，$Average\ Error$ 随着模型复杂增加呈指数上升趋势。更复杂的模型并不能给测试集带来更好的效果，而这些 $Error$ 的主要有两个来源，分别是 $bias$ 和 $variance$ 。
 
 然而 $bias$ 和 $variance$ 是什么？可以查看 [机器学习中的Bias(偏差)，Error(误差)，和Variance(方差)有什么区别和联系？](https://www.zhihu.com/question/27068705)
@@ -10,11 +7,11 @@
 # 估测
 假设真实的模型为 $\hat f$ ， 如果我们知道 $\hat f$ 模型，那是最好不过了，但是 $\hat f$ 只有 Niamtic 公司才知道。
 
-![](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-2.png)
+![](res/chapter5-2.png)
 
 所以我们只能通过收集 Pokemon精灵 的数据，然后通过 step1~step3 训练得到我们的理想模型 $f^*$，$f^*$ 其实是  $\hat f$ 的一个预估。
 
-![](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-3.png)
+![](res/chapter5-3.png)
 
 这个过程就像打靶，$\hat f$ 就是我们的靶心，$f^*$ 就是我们投掷的结果。如上图所示，$\hat f$ 与  $f^*$ 之间蓝色部分的差距就是 $bias$ 和 $variance$ 导致的。
 
@@ -29,7 +26,7 @@
 - 首先拿到 $N$ 个样本点：$\{x^1,x^2,···,x^N\}$
 - 计算平均值 $m$, 得到 $m=\frac{1}{N}\sum_n x^n \neq \mu$
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-4.png)
+![](res/chapter5-4.png)
 
 但是如果计算很多组的 $m$ ，然后求 $m$ 的期望：
 
@@ -42,29 +39,29 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 这个取决于 $N$，下图看出 $N$ 越小越离散：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-5.png)
+![](res/chapter5-5.png)
 
 ### 估测变量 x 的方差（variance）
 如何估算 $variance$ 呢？
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-6.png)
+![](res/chapter5-6.png)
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-7.png)
+![](res/chapter5-7.png)
 
 ## 为什么会有很多的 $f^*$ ?
 讨论系列02中的案例：这里假设是在平行宇宙中，抓了不同的神奇宝贝
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-8.png)
+![](res/chapter5-8.png)
 
 
 用同一个model，在不同的训练集中找到的 $f^∗$ 就是不一样的
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-9.png)
+![](res/chapter5-9.png)
 
 
 这就像在靶心上射击，进行了很多组（一组多次）。现在需要知道它的散布是怎样的，将100个宇宙中的model画出来
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-10.png)
+![](res/chapter5-10.png)
 
 不同的数据集之前什么都有可能发生—||
 
@@ -79,7 +76,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 ### 考虑不同 model的 bias
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-11.png)
+![](res/chapter5-11.png)
 
 这里没办法知道真正的 $\hat{f}$，所以假设图中的那条黑色曲线为真正的 $\hat{f}$
 
@@ -94,14 +91,14 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 ### bias v.s. variance
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-12.png)
+![](res/chapter5-12.png)
 
 将系列02中的误差拆分为bias何variance。简单model（左边）是bias比较大造成的error，这种情况叫做 Underfitting（欠拟合），而复杂model（右边）是variance过大造成的error，这种情况叫做Overfitting（过拟合）。
 
 # 怎么判断？
 ## 分析
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-13.png)
+![](res/chapter5-13.png)
 
 如果model没有很好的fit训练集，就是bias过大，也就是Underfitting
 如果model很好的fit训练集，即再训练集上得到很小的error，但在测试集上得到大的error，这意味着model可能是variance比较大，就是Overfitting。
@@ -117,7 +114,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 ### variance大，Overfitting
 简单粗暴的方法：More data
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-14.png)
+![](res/chapter5-14.png)
 
 但是很多时候不一定能做到收集更多的data。可以针对对问题的理解对数据集做调整（Regularization）。比如识别手写数字的时候，偏转角度的数据集不够，那就将正常的数据集左转15度，右转15度，类似这样的处理。
 
@@ -129,13 +126,13 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 想选择的model，可以平衡bias和variance产生的error，使得总error最小
 但是下面这件事最好不要做：
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-15.png)
+![](res/chapter5-15.png)
 
 用训练集训练不同的model，然后在测试集上比较error，model3的error比较小，就认为model3好。但实际上这只是你手上的测试集，真正完整的测试集并没有。比如在已有的测试集上error是0.5，但有条件收集到更多的测试集后通常得到的error都是大于0.5的。
 
 ## Cross Validation（交叉验证）
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-16.png)
+![](res/chapter5-16.png)
 
 图中public的测试集是已有的，private是没有的，不知道的。Cross Validation 就是将训练集再分为两部分，一部分作为训练集，一部分作为验证集。用训练集训练model，然后再验证集上比较，确实出最好的model之后（比如model3），再用全部的训练集训练model3，然后再用public的测试集进行测试，此时一般得到的error都是大一些的。不过此时会比较想再回去调一下参数，调整model，让在public的测试集上更好，但不太推荐这样。（心里难受啊，大学数模的时候就回去调，来回痛苦折腾）
 
@@ -144,7 +141,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 ## N-fold Cross Validation（N-折交叉验证）
 将训练集分成N份，比如分成3份。
 
-![在这里插入图片描述](https://raw.githubusercontent.com/datawhalechina/Leeml-Book/master/docs/chapter5/res/chapter5-17.png)
+![](res/chapter5-17.png)
 
 比如在三份中训练结果Average Error是model1最好，再用全部训练集训练model1。（貌似数模也干过，当年都是莫名其妙的分，想想当年数模的时候都根本来不及看是为什么，就是一股脑上去做00oo00）
 
