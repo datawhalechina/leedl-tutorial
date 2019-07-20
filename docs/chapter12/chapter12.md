@@ -26,6 +26,7 @@ native-country, make over 50K a year or not
 
 
 # 参考代码
+https://github.com/datawhalechina/Leeml-Book/tree/master/docs/Homework/HW-2
 
 
 
