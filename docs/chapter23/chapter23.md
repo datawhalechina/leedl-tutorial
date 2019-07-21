@@ -1,6 +1,6 @@
-# Semi-supervised learning
+# 半监督学习
 
-# Supervised learning和Semi-supervised learning
+# 监督学习和半监督学习
 ![](res/chapter23-1.png)
 在supervised里面，你就是有一大推的training data，这些training data的组成是一个function的input跟output，假设你有R笔train data，每一笔train data有$x^r$,$\hat{y}^r $。假设$x^r$是一张image，$\hat{y}$是class label。semi-supervised learning是在label上面，是有另外一组unlabel的data，这组data记做$x^u$,这组data只有input，没有output(U笔data)。在做semi-superised learning时，U远远大于R(unlabel的数量远远大于label data的数量)。semi-surprised learning可以分成两种，一种是transductive learning，一种是inductive learning。这两种最简单的分法是：在做transductive的时候，你的unlabel data就是你的testing data，inductive learning 就是说：不把unlabel data考虑进来。
 
@@ -18,7 +18,7 @@
 ![](res/chapter23-4.png)
 这边要讲四件事，第一个是在generative model的时候，怎么用semi-supervised learning。还要讲两个还蛮通用的假设，一个是Low-density Separation Assumption,另一个是Smoothness Assumption，最后还有Better Representation
 
-# Supervised generative model和Semi-supervised generative model
+# 监督生成模型和半监督生成模型
 ## 监督生成模型
 ![](res/chapter23-5.png)
 我们都已经看过，supervised generative model，在supervised learning里面有一堆train example，你知道分别是属于class1，class2。你会去估测class1，class2的probability($P(X|C_i)$)
@@ -105,13 +105,13 @@ high density region这句话就是说：可以用high density path做connection�
 
 但是如果能收集到够多的unlabeled data的话，就能得到d1和d5比较像，d5和d6比较像，这个像就可以一直传播过去，得到d1和d3像，同样的d4可以和d2一类。
 
-## Cluster and then label
+## 聚类和标记
 
 ![](res/chapter23-18.png)
 
 如何实践这个smoothness assumption，最简单的方法是cluster and then label。现在distribution长这么样子，橙色是class1，绿色是class2，蓝色是unlabel data。接下来你就做一下cluster，你可能分成三个cluster，然后你看cluster1里面class1的label data最多，所以cluster1里面所有的data都算是class1，cluster2，cluster3都算是class2、class3，然后把这些data拿去learn就结束了，但是这个方法不一定有用。如果你今天要做cluster label，cluster要很强，因为这一招work的假设就是不同class cluster在一起。可是在image里面，把不同class cluster在一起是没有那么容易的。我们之前讲过说，为什么要用deep learning，不同class可能会长的很像，也有可能长的不像，你单纯只有pixel来做class，你结果是会坏掉的。如果你要让class and then label这个方法有用，你的class要很强。你要用很好的方法来描述image，我们自己试的时候我们会用deep autoendcoder，用这个来提取特征，然后再进行聚类。
 
-## Graph-based Approach
+## 基于图的方法
 
 刚才讲的是很直觉的方法，另外一个方法是Graph-based Approach，我们用Graph-based approach来表达这个通过高密度路径连接这件事情。就说我们现在把所有的data points都建成一个graph，每一笔data points都是这个graph上一个点，要想把他们之间的range建出来。有了这个graph以后，你就可以说：high density path的意思就是说，如果今天有两个点，他们在这个graph上面是相的(走的到)，那么他们这就是同一个class，如果没有相连，就算实际的距离也不是很远，那也不是同一个class。
 

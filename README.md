@@ -53,47 +53,6 @@
 
 ## 视频观看地址
 - bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
-- 网易云课堂：[李宏毅机器学习中文课程](https://study.163.com/course/courseMain.htm?courseId=1208946807)
-
-#  协作规范
-
-### 文档书写规范：
-文档采用Markdown语法编写，数学公式采用LaTeX语法编写，数学符号和视频里完全一致，文中所用到的图片均来自[李宏毅机器学习课程主页](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)
-，脑图则推荐使用[百度脑图](http://naotu.baidu.com)
-
-|          | 格式     | 参考资料                                                     |
-| :------: | :------- | :----------------------------------------------------------- |
-| 文档 | Markdown | 1. CSDN Markdown 使用教程 http://t.cn/E4699cO<br>2. 简书 Markdown 使用教程 https://www.jianshu.com/p/q81RER<br>3. 编辑软件推荐 Typora https://typora.io/ |
-| 数学公式 | LaTeX    | 1. CSDN Latex语法编写数学公式 http://t.cn/E469pdI<br>2.Latex 在线编辑工具 http://latex.codecogs.com/eqneditor/editor.php |
-
-
-### 目录结构规范：
-
-```
-leeML-book
-├─docs
-|  ├─chapter1  # 第1章(对应在线网站的 P1 Introduction of Machine Learning)
-|  |  ├─res  # 资源文件夹（图片、资料）
-|  |  |  └─chapter1-1.png
-|  |  ├─chapter1.md
-|  ├─chapter2
-...
-|  ├─AdditionalReferences（所有补充资料）
-|  |  ├─DecisionTree  
-|  |  |  └─Entropy.md 
-```
-
-
-### 公式全解文档规范：
-```
-## 复现笔记在原则上是记录李老师课堂的话，对于比较繁琐的公式推导或者概念理解可以自己总结写上去
-## 公式格式与PPT上保持一致
-## 总结每篇笔记的脑图作为大纲,并选择百度脑图外观中的鱼骨图
-## 每张图片下面都空一行(为了在电脑端显示格式不乱)
-## 笔记开头都先放上脑图作为笔记内容概要(脑图命名chapterX-0.png，如有多张可按chapterX-0_1.png等等来命名)
-## 每节笔记标题用一级标题，每节小标题用二级标题(目录只能识别一级和二级标题)
-## 文中所有图片均放在同级的res文件夹下并按照chapterX-X.png格式命名(第一个X指章节编号，第二个X是指图片编号(从1开始))
-## 保证文档语言的书面化和清晰的逻辑
 
 ```
 ### 修正记录：
@@ -125,3 +84,5 @@ leeML-book
 <div align=center><img src="https://raw.githubusercontent.com/datawhalechina/pumpkin-book/master/res/qrcode.jpeg" width = "250" height = "270" alt="Datawhale，一个专注于AI领域的学习圈子。初衷是for the learner，和学习者一起成长。目前加入学习社群的人数已经数千人，组织了机器学习，深度学习，数据分析，数据挖掘，爬虫，编程，统计学，Mysql，数据竞赛等多个领域的内容学习，微信搜索公众号Datawhale可以加入我们。"></div>
 
 
+
+```

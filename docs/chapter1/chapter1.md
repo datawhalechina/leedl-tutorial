@@ -44,7 +44,7 @@ Then 他就筑水坝直到他听不到流水声。
  ![chapter1-0.png](res/chapter1-6.png)
 
 那以下我们先很简短的跟大家说明，怎么样找出这个function，找出function的framework是什么呢？我们以影像辨识为例。我们找个function输入一张图片，他告诉我们，图片里面有什么样的东西。在做这件事，他的起手事是你要先准备一个function的set。这个function里面有成千上万的function举例来说，这个function在里面,有一个f1，你给他看一只猫，他就告诉你输出猫，看一只狗就输出狗。有一个function f2他很怪，你给他看猫他说是猴子，给他看狗，他说是蛇。那你要准备一个function set，这个function set里面有成千上万的function。那这件事情讲讲有点抽象啊，你可能很怀疑说有成千上万的function，我怎么把成千上万的function收集起来，变成一个function的池呢，这个我们之后会再讲。总之呢，我们先假设你手上有一个function set，这个function set就叫做model。有了这个function set，接下来第二步，继续要做的事情是他有一些训练的资料，这些训练资料告诉机器说一个好的function，它的输入输出应该长什么样子，有什么样关系。你告诉机器说呢，现在在这个影像辨识的问题里面，如果看到这个猴子，看到这个猴子图也要输出猴子，看到这个猫的图也要输出猴子猫，看到这个狗的图，就要输出猴子猫狗，这样才是对。只有增加训练资料，你拿出一个function，机器就可以判断说，这个function是好的，还是不好的。机器可以判断一个function，根据训练资料判断一个function是好的，还是不好的。举例来说，在这个例子里面，显然f1，他比较符合training data的叙述，比较符合我们的知识。所以f1看起来是比较好的。F2，就看起来是一个荒谬的function。我们今天讲的这个task叫做supervise learning。如果你告诉机器input和output这就叫做supervise learning，之后我们也会讲到其他不同的学习场景。现在机器有办法决定一个function的好坏。但光能够决定一个function的好坏是不够的，因为在你的function的set里面，他有成千上万的function，他又会无穷无尽的function，所以我们需要一个有效率的演算法，有效率的演算法可以从function的set里面挑出最好的function。一个一个衡量function的好坏太花时间，实际上做不到。所以我们需要有一个好的算法，从function set里面挑出一个最好的。
- 
+
  ![chapter1-0.png](res/chapter1-7.png)
 
 便是输入一张在机器没有看过的猫，然后希输出的也是猫，希望机器有举一反三的能力。左边这个部分叫training，就是学习的过程，右边这个部分叫做testing，学好以后，你就可以拿它做应用。所以在整个machine learning framework整个过程分成了三个。第一个步骤就是找一个function，定出一个function set，第二个步骤让machine可以衡量一个function是好还是不好，第三个步骤是让machine有一个自动的方法，有一个好演算法可以挑出最好的function。所以机器学习到这边，我们就说完了。
@@ -106,7 +106,7 @@ Then 他就筑水坝直到他听不到流水声。
 
 或者是我们举另外一个无监督学习的例子，假设我们今天带机器去动物园，让他看一大堆的动物，他能不能够在看了一大堆动物以后，他就学会自己创造一些动物。那这个都是真实例子。仔细看了大量的动物以后，他就可以自己的画一些狗出来。有眼睛长在身上的狗、还有乳牛狗。这个task也是一个无监督学习的问题。这个function的输入不知道是什么，只有输出但是没有输入，这问题在之后也会具体讲述。
 
-##  监督学习中的structured learning
+##  监督学习中的结构化学习
 接下来还有一类比较少提及的就是structured learning。structured learning 中机器输出的是有结构性的结构。举例来说，在语音辨识里面，机器输入是声音讯号，输出是一个句子，句子是要很多词汇拼凑完成。他是一个有结构性的object。或者是说在机器翻译里面你说一句话，你输入中文希望机器翻成英文，他的输出就也是有结构性的。或者是说你今天要做的，是人脸辨识，来给机器拍张图片还有知道说呢，最左边是长门，中间是凉宫春日，右边是另一个人。然后机器要把这些东西标出来，这也是一个structure learning问题。 
 
  ![chapter1-0.png](res/chapter1-18.png)
