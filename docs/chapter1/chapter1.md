@@ -124,7 +124,7 @@ Then 他就筑水坝直到他听不到流水声。
 
   ![chapter1-0.png](res/chapter1-20.png)
 
-##  小贴士 
+##  小贴士  
 
   ![chapter1-0.png](res/chapter1-21.png)
 
