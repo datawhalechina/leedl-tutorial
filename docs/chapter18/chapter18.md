@@ -2,7 +2,7 @@
 
 当你的模型表现不好，应该怎么处理？
 
-#  recipe of deep learning(流程)
+#  深度学习(流程)
 ![chapter1-0.png](res/chapter18-1.png)
 
 如上图建立deep learning的三个步骤
@@ -14,7 +14,7 @@
 •	pick the best function
 
 做完这些事情后，你会得到一个neural network。在得到neural network后。
-#  分析neural network在训练和测试上的表现
+#  分析神经网络在训练和测试上的表现
 （1）首先你要检查的是，这个neural network在你的training set有没有得到好的结果（是否陷入局部最优），没有的话，回头看，是哪个步骤出了什么问题，你可以做什么样的修改，在training set得到好的结果。
 
 （2）假如说你在training set得到了一个好的结果了，然后再把neural network放在你的testing data，testing set的performance才是我们关心的结果。
@@ -35,8 +35,8 @@
  在deep learning文件上，当你看到一个方式的时候，你首先要想一下说，它是要解什么样的问题，是解决在deep learning 中一个training data的performance不好，还是解决testing data performance不好。
 
 当一个方法要被approaches时，往往都是针对这两个其中一个做处理，比如，你可能会听到这个方法(dropout),dropout是在training data表现好，testing data上表现不好的时候才会去使用，当training data 结果就不好的时候用dropout 往往会越训练越差。
-#  neural network结果不好如何改进
-##  new  activation function
+#  神经网络结果不好如何改进
+##  新激活函数
  ![chapter1-0.png](res/chapter18-4.png)
  现在你的training data performance不好的时候，是不是你在做neural的架构时设计的不好，举例来说，你可能用的activation function不够好。
 ![chapter1-0.png](res/chapter18-5.png)
@@ -44,7 +44,7 @@
 在2006年以前，如果将网络叠很多层，往往会得到上图的结果。上图，是手写数字识别的训练准确度的实验，使用的是sigmoid function。可以发现当层数越多，训练结果越差，特别是当网络层数到达9、10层时，训练集上准确度就下降很多。但是这个不是当层数多了以后就overfitting，因为这个是在training set上的结果。
 
 （在之前可能常用的activation function是sigmoid function,今天我们如果用sigmoid function，那么deeper usually does not imply better,这个不是overfitting）
-###  vanishing Gradient problem
+###  梯度消失
  ![chapter1-0.png](res/chapter18-6.png)
 当网络比较深的时候会出现vanishing Gradient problem
 
@@ -59,7 +59,7 @@
 给第一个layer的某个参数加上\triangle w△w时，对output与target之间的loss有什么样的变化。现在我们的\triangle w△w很大，通过sigmoid function时这个output会很小(一个large input，通过sigmoid function，得到small output)，每通过一次sogmoid function就会衰减一次（因为sogmoid function会将值压缩到0到1之间，将参数变化衰减），hidden layer很多的情况下，最后对loss 的影响非常小(对input 修改一个参数其实对output 是影响是非常小)。
 
 理论上我们可以设计dynamic的learning rate来解决这个问题，确实这样可以有机会解决这个问题，但是直接改activation function会更好，直接从根本上解决这个问题。
-##  怎么样去解决vanishing Gradient problem
+##  怎么样去解决梯度消失
 ![chapter1-0.png](res/chapter18-8.png)
  
  修改activation function，ReLU input 大于0时，input 等于 output，input小于0时，output等于0

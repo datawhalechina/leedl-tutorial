@@ -56,7 +56,7 @@ Then 他就筑水坝直到他听不到流水声。
 
  ![chapter1-0.png](res/chapter1-9.png)
 
-#  machine learning相关的技术
+#  机器学习相关的技术
 
 ##  监督学习
 
@@ -124,7 +124,7 @@ Then 他就筑水坝直到他听不到流水声。
 
   ![chapter1-0.png](res/chapter1-20.png)
 
-##  tips
+##  小贴士
 
   ![chapter1-0.png](res/chapter1-21.png)
 
