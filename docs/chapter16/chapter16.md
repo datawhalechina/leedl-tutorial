@@ -1,7 +1,7 @@
 # Keras
-## 创建网络-Building Network
+## 创建网络
 
-假设我们要做的事情是手写数字辨识，那我们要建一个Network scratch，input是$28\ast 28$的dimension，其实就是说这是一张image，image的解析度是*$28\ast28$，我们把它拉成长度是$28\ast 28$维的向量。output呢？现在做的是手写数字辨识，所以要决定它是0-9的哪个数字，output就是每一维对应的数字，所以output就是10维。中间假设你要两个layer，每个layer有500个hidden neuro，那么你会怎么做呢。
+假设我们要做的事情是手写数字辨识，那我们要建一个Network scratch，input是$28\ast 28$的dimension，其实就是说这是一张image，image的解析度是$28\ast28$，我们把它拉成长度是$28\ast 28$维的向量。output呢？现在做的是手写数字辨识，所以要决定它是0-9的哪个数字，output就是每一维对应的数字，所以output就是10维。中间假设你要两个layer，每个layer有500个hidden neuro，那么你会怎么做呢。
 
 ![](res/chapter16-1.png))
 
@@ -22,13 +22,13 @@ model.add(Dense(units=500,activation='relu'))
 ```
 model.add(Dense(units=10,activation='softmax'))
 ```
-## 配置-Configuration
+## 配置
 第二过程你要做一下configuration，你要定义loss function，选一个optimizer，以及评估指标metrics，其实所有的optimizer都是Gradent descent based，只是有不同的方法来决定learning rate，比如Adam，SGD，RMSprop，Adagrad，Adalta，Adamax ，Nadam等，设完configuration之后你就可以开始train你的Network
 ```
 model.compile(loss='categorical crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
 
-## 选择最好的方程-Pick the best function
+## 选择最好的方程
 ```
 model.fit(x_train,y_train,batch_size=100,epochs=20)
 ```

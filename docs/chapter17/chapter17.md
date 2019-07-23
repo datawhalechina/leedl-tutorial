@@ -47,7 +47,7 @@ print('TEST ACC:',result[1])
 ![在这里插入图片描述](./res/chapter17_1.png)
 正确率只有11.35%，感觉不太行，这个时候就开始焦躁了，调一下参数~~~
 ## 调参过程
-### 隐层Neure个数
+### 隐层神经元个数
 ```
 model.add(Dense(input_dim=28*28,units=689,activation='sigmoid'))
 model.add(Dense(units=689,activation='sigmoid'))

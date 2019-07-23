@@ -1,4 +1,4 @@
-# Fizz Buzz in Tensorflow(sequel)
+# Tensorflow 实现 Fizz Buzz 
 ## 数据
 对数字101到1000做了labeling，即训练数据xtrain.shape=(900,10)，每一个数字都是用二进位来表示，第一个数字是101，用二进位来表示即为[1,0,1,0,0,1,1,0,0,0]，每一位表示$2^{n-1}$，$n$表示左数第几位。现在一共有四个case，[一般，Fizz，Buzz，Fizz Buzz]，所以y_train.shape=(900,10)，对应的维度用1表示，其他都为0
 

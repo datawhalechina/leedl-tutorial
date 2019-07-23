@@ -1,4 +1,4 @@
-# Deep Reinforcement Learning—Scratching the surface
+# 深度强化学习浅析
 
 2015年2月的时候，google在nature上发了一篇用reinforcement learning 的方法来玩akari的小游戏，然后痛鞭人类
 
@@ -25,7 +25,7 @@ Deep Reinforcement Learning : AI = RL + DL
 
 # 应用举例
 
-## Learning a chat-bot
+## 学习一个chat-bot
 
  Reinforcement Learning 也可以被用在Learning a chat-bot。chat-bot 是seq2seq，input 就是一句话，output 就是机器的回答。
 
@@ -43,17 +43,17 @@ Deep Reinforcement Learning : AI = RL + DL
 两个chat-bot互相对话，对话之后有人要告诉它们它们讲得好还是不好。在围棋里比较简单，输赢是比较明确的，对话的话就比较麻烦，你可以让两个machine进行无数轮互相对话，问题是你不知道它们这聊天聊得好还是不好，这是一个待解决问题。现有的方式是制定几条规则，如果讲得好就给它positive reward ，讲得不好就给它negative reward，好不好由人主观决定，然后machine就从它的reward中去学说它要怎么讲才是好。后续可能会有人用GAN的方式去学chat-bot。通过discriminator判断是否像人对话，两个agent就会想骗过discriminator，即用discriminator自动认出给reward的方式。
 Reinforcement  Learning 有很多应用，尤其是人也不知道怎么做的场景非常适合。
 
-# Interactive retrieval
+# 交互搜索
 
 让machine学会做Interactive retrieval，意思就是说有一个搜寻系统，能够跟user进行信息确认的方式，从而搜寻到user所需要的信息。直接返回user所需信息，它会得到一个positive reward，然后每问一个问题，都会得到一个negative reward。
 
 ![39_4](./res/chapter39_4.png)
 
-## More applications
+## 更多应用
 
 Reinforcement  Learning 还有很多应用，比如开个直升机，开个无人车呀，也有通过deepmind帮助谷歌节电，也有文本生成等。现在Reinforcement  Learning最常用的场景是电玩。现在有现成的environment，比如Gym,Universe。让machine 用Reinforcement  Learning来玩游戏，跟人一样，它看到的东西就是一幅画面，就是pixel，然后看到画面，它要做什么事情它自己决定，并不是写程序告诉它说你看到这个东西要做什么。需要它自己去学出来。
 
-## Example:Playing Video Game
+## 例子:玩视频游戏
 
 - Space invader
 
@@ -93,7 +93,7 @@ http://videolectures.net/rldm2015_silver_reinforcement_learning/ (Deep Reinforce
 - Lectures of John Schulman
 https://youtu.be/aUrX-rP_ss4
 
-## Policy-based Approach
+## Policy-based 方法
 
 先来看看怎么学一个Actor，所谓的Actor是什么呢?我们之前讲过，Machine Learning 就是找一个Function，Reinforcement Learning也是Machine Learning 的一种，所以要做的事情也是找Function。这个Function就是所谓的魔术发现，Actor就是一个Function。这个Function的input就是Machine看到的observation，它的output就是Machine要采取的Action。我们要透过reward来帮我们找这个best Function。
 
@@ -202,7 +202,7 @@ https://youtu.be/aUrX-rP_ss4
 	$$\nabla \bar{R}_{\theta} \approx \frac{1}{N} \sum_{n=1}^{N} \sum_{t=1}^{T_{n}}\left(R\left(\tau^{n}\right)-b\right) \nabla \log p\left(a_{t}^{n} | s_{t}^{n}, \theta\right)$$
 	这样$R(\tau^n)$超过b的时候就把几率增加，小于b的时候就把几率降低，从而解决了都是正的问题。
 
-## Value-based Approach
+## Value-based 方法
 
 ### Critic
 
