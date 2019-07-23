@@ -1,12 +1,15 @@
-# 李宏毅机器学习笔记(leeml-notes)
+# 李宏毅机器学习笔记(LeeML-Notes)
 李宏毅老师的[机器学习视频](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html)是机器学习领域经典的中文视频之一，也被称为中文世界中最好的机器学习视频。李老师以幽默风趣的上课风格让很多晦涩难懂的机器学习理论变得轻松易懂，并且老师会通过很多有趣的例子结合机器学习理论在课堂上展现出来，并且逐步推导深奥的理论知识。比如老师会经常用宝可梦来结合很多机器学习算法。对于想入门机器学习又想看中文讲解的人来说绝对是非常推荐的。学有余力的同学也可以看一下[李宏毅机器学习2019](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML19.html)(大部分是一样的，只有小部分更新)
 
 
 ## 使用说明
 这个笔记是根据李宏毅老师机器学习视频的一个辅助资料，本笔记基本上完全复刻李老师课堂上讲的所有内容，并加入了一些和相关的学习补充资料和参考资料，结合这些资料一起学习，相信你会对机器学习有更加深刻的理解。
 
-### 在线阅读地址
-在线阅读地址：https://datawhalechina.github.io/leeml-notes/
+## 笔记在线阅读地址
+在线阅读地址：https://datawhalechina.github.io/leeml-notes
+
+## 课程在线观看地址
+- bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
 
 # 目录
 - [P1 机器学习介绍](https://datawhalechina.github.io/leeml-notes/#/chapter1/chapter1)
@@ -49,10 +52,6 @@
 - [P38 集成学习](https://datawhalechina.github.io/leeml-notes/#/chapter38/chapter38)
 - [P39 深度增强学习-初步了解](https://datawhalechina.github.io/leeml-notes/#/chapter39/chapter39)
 - [P40 机器学习的下一步](https://datawhalechina.github.io/leeml-notes/#/chapter40/chapter40)
-
-
-## 视频观看地址
-- bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
 
 
 ### 修正记录：
