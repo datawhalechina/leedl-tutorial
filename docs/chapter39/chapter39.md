@@ -7,7 +7,7 @@
 David Silver 说 AI 就是 Reinforcement Learning加Deep Learning
 Deep Reinforcement Learning : AI = RL + DL
 
-# 增强学习的应用场景
+# 强化学习的应用场景
 
 在Reinforcement Learning里面会有一个Agent跟一个Environment。这个Agent会有Observation看到世界种种变化，这个Observation又叫做State，这个State指的是环境的状态，也就是你的machine所看到的东西。所以在这个Reinforcement Learning领域才会有这个XXX做法，我们的state能够观察到一部分的情况，机器没有办法看到环境所有的状态，所以才会有这个partial of state 这个想法，这个state其实就是Observation。machine会做一些事情，它做的事情叫做Action，Action会影响环境，会跟环境产生一些互动。因为它对环境造成的一些影响，它会得到Reward，这个Reward告诉它，它的影响是好的还是不好的。如下图
 
@@ -65,7 +65,7 @@ Reinforcement  Learning 还有很多应用，比如开个直升机，开个无�
 
 	![39_6](./res/chapter39_6.png)
 
-# 增强学习的难点
+# 强化学习的难点
 
 那么Reinforcement  Learning的难点在哪里呢？它有两个难点
 
@@ -77,7 +77,7 @@ Reinforcement  Learning 还有很多应用，比如开个直升机，开个无�
 
 	Agent采取行动后会影响之后它所看到的东西，所以Agent要学会去探索这个世界。比如说在这个space invader里面，Agent只知道往左往右移，它不知道开火会得到reward，也不会试着击杀最上面的外星人，就不会知道击杀这个东西可以得到很高的reward，所以要让machine去explore它没有做过的行为，这个行为可能会有好的结果也会有坏的结果。但是探索没有做过的行为在Reinforcement  Learning里面也是一种重要的行为。
 
-# 增强学习的方法
+# 强化学习的方法
 
 Reinforcement  Learning 的方法分成两大块，一个是Policy-based的方法，另一个是Valued-based的方法。先有Valued-based的方法，再有Policy-based的方法。在Policy-based的方法里面，会learn一个负责做事的Actor，在Valued-based的方法会learn一个不做事的Critic，专门批评不做事的人。我们要把Actor和Critic加起来叫做Actor+Critic的方法。
 

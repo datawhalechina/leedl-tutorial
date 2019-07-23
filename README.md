@@ -29,9 +29,9 @@
 - [P15 深度学习初试](https://datawhalechina.github.io/leeml-notes/#/chapter15/chapter15)
 - [P16 Keras2.0](https://datawhalechina.github.io/leeml-notes/#/chapter16/chapter16)
 - [P17 Keras演示](https://datawhalechina.github.io/leeml-notes/#/chapter17/chapter17)
-- [P18 深度学习提示](https://datawhalechina.github.io/leeml-notes/#/chapter18/chapter18)
+- [P18 深度学习技巧](https://datawhalechina.github.io/leeml-notes/#/chapter18/chapter18)
 - [P19 Keras演示2](https://datawhalechina.github.io/leeml-notes/#/chapter19/chapter19)
-- [P20 TensorFlow中的FizzBuzz面](https://datawhalechina.github.io/leeml-notes/#/chapter20/chapter20)
+- [P20 Tensorflow 实现 Fizz Buzz](https://datawhalechina.github.io/leeml-notes/#/chapter20/chapter20)
 - [P21 卷积神经网络](https://datawhalechina.github.io/leeml-notes/#/chapter21/chapter21)
 - [P22 为什么要“深度”学习？](https://datawhalechina.github.io/leeml-notes/#/chapter22/chapter22)
 - [P23 半监督学习](https://datawhalechina.github.io/leeml-notes/#/chapter23/chapter23)
@@ -50,7 +50,7 @@
 - [P36 循环神经网络I](https://datawhalechina.github.io/leeml-notes/#/chapter36/chapter36)
 - [P37 循环神经网络II](https://datawhalechina.github.io/leeml-notes/#/chapter37/chapter37)
 - [P38 集成学习](https://datawhalechina.github.io/leeml-notes/#/chapter38/chapter38)
-- [P39 深度增强学习-初步了解](https://datawhalechina.github.io/leeml-notes/#/chapter39/chapter39)
+- [P39 深度强化学习浅析](https://datawhalechina.github.io/leeml-notes/#/chapter39/chapter39)
 - [P40 机器学习的下一步](https://datawhalechina.github.io/leeml-notes/#/chapter40/chapter40)
 
 
