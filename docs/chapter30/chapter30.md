@@ -36,7 +36,7 @@
 
 我们现在有一个我们想要做的task，有一些跟这个task有关的数据叫做target data，有一些跟这个task无关的data，这个data叫做source data。这个target data有可能是有label的，也有可能是没有label的，这个source data有可能是有label的，也有可能是没有label的，所以现在我们就有四种可能，所以之后我们会分这四种来讨论。
 
-# Model Fine-tuning
+## 模型微调
 
 那现在我们假设target data跟source data都同时有label的情况下，可以的做的事情是：最常见的事情就是：fine-tuning你的model
 
@@ -54,13 +54,13 @@
 
 
 
-## conservative training
+## 保守训练
 
 有一个技巧叫做：conservative training，你现在有大量的source data，(比如说：在语音辨识里面就是很多不同speaker的声音)，那你拿来做neural network。target data是某个speaker的声音，如果你直接拿这些去train的话就坏掉了。你可以在training的时候加一些constraint(regularization)，让新的model跟旧的model不要差太多。你会希望新的model的output跟旧的model的output在看同一笔data的时候越接近越好。或者说新的model跟旧的model L2-Norm差距越小越好(防止overfitting的情形)
 
 ![在这里插入图片描述](res/chapter30-6.png)
 
-## layer transfer
+## 层迁移
 
 另外的一个方法是layer transfer，你现在用source data train好了一个model，把这个model的某几个layer拿出来copy到新的model里面
 。接下来用source data只去用没有copy的layer(可能你只保留一个layer没有copy)，这样的好处就是source data只需要考虑非常少的参数，这样就可以避免overfitting的情形。当然之后你的source data够多了，那之后可能还是要fine-tune整个model。
@@ -94,13 +94,13 @@
 
 
 
-接下来是multitask learning，multitask learning跟fine tuning不同是：在fine tuning里面我们care target domain做的好不好，那在multitask learning里面我们同时care target domain跟source domain做的好不好。
+接下来是多任务学习，多任务学习跟fine tuning不同是：在fine tuning里面我们care target domain做的好不好，那在多任务学习里面我们同时care target domain跟source domain做的好不好。
 
 ![在这里插入图片描述](res/chapter30-10.png)
 
 
 
-其实我们今天用deep learning base方法的话，它特别适合拿来做这种multitask learning，因为你可以说：假设有两个不同的task用的同样的feature(都做影像辨识)，我learn一个neural network，中间会分叉出来一部分network去处理taskA，一部分network去处理taskB。这么做的好处是：你的taskA跟taskB他们在前面几个layer会是共用的(有比较多的data，会有比较好的性能)。这样做的前提是：这两个task有没有共通性，是不是可以共用前面几个layer。
+其实我们今天用deep learning base方法的话，它特别适合拿来做这种多任务学习，因为你可以说：假设有两个不同的task用的同样的feature(都做影像辨识)，我learn一个neural network，中间会分叉出来一部分network去处理taskA，一部分network去处理taskB。这么做的好处是：你的taskA跟taskB他们在前面几个layer会是共用的(有比较多的data，会有比较好的性能)。这样做的前提是：这两个task有没有共通性，是不是可以共用前面几个layer。
 
 ![在这里插入图片描述](res/chapter30-11.png)
 
@@ -110,9 +110,9 @@
 
 
 
-# multitask learning
+## 多任务学习
 
-multitask learning一个很成功的例子就是多语言的语音辨识，假设你现在手上有一大堆不同语言的data(法文，中文，英文等)，那你在train你的model的时候，同时可以辨识这五种不同的语言。这个model前面几个layer他们会共用参数，后面几个layer每一个语言可能会有自己的参数，这样做是合理的。虽然是不同的语言，但是都是人类所说的，所以前面几个layer它们可能是share同样的咨询，共用同样的参数。
+多任务学习一个很成功的例子就是多语言的语音辨识，假设你现在手上有一大堆不同语言的data(法文，中文，英文等)，那你在train你的model的时候，同时可以辨识这五种不同的语言。这个model前面几个layer他们会共用参数，后面几个layer每一个语言可能会有自己的参数，这样做是合理的。虽然是不同的语言，但是都是人类所说的，所以前面几个layer它们可能是share同样的咨询，共用同样的参数。
 
 ![在这里插入图片描述](res/chapter30-12.png)
 
@@ -122,14 +122,14 @@ multitask learning一个很成功的例子就是多语言的语音辨识，假�
 
 在过去收集了十几种语言，把它们两两之间互相做transfer，做了一个很大N*N的tabel，每一个task都有进步。所以目前发现大部分task，不同人类的语言就算你觉得它们不是非常像，但是它们之间都是可以transfer。
 
-这边举得例子是从欧洲语言去transfer中文，横轴是中文的data，纵轴是character error rate。假设你一开始用中文train一个model，data很少，error rate很大，随着data越来越多，error rate就可以压到30以下。但是今天如果你有一大堆的欧洲语言，你把这些欧洲语言跟中文一起去做multitask train，用这个欧洲语言的data来帮助中文model前面几层让它train更好。你会发现说：在中文data很少的情况下，你有做迁移学习，你就可以得到比较好的性能。随着中文data越多的时候，中文本身性能越好，就算是中文100小时借用一些从欧洲语言对这个变化也是有微幅帮助的。所以这边的好处是说：假设你做multitask learning的时候，你会发现你有100多个小时跟有50小时以内，如果你有做迁移学习的话，你只需要1/2以下的data就可以跟有两倍的data做的一样好
+这边举得例子是从欧洲语言去transfer中文，横轴是中文的data，纵轴是character error rate。假设你一开始用中文train一个model，data很少，error rate很大，随着data越来越多，error rate就可以压到30以下。但是今天如果你有一大堆的欧洲语言，你把这些欧洲语言跟中文一起去做multitask train，用这个欧洲语言的data来帮助中文model前面几层让它train更好。你会发现说：在中文data很少的情况下，你有做迁移学习，你就可以得到比较好的性能。随着中文data越多的时候，中文本身性能越好，就算是中文100小时借用一些从欧洲语言对这个变化也是有微幅帮助的。所以这边的好处是说：假设你做多任务学习的时候，你会发现你有100多个小时跟有50小时以内，如果你有做迁移学习的话，你只需要1/2以下的data就可以跟有两倍的data做的一样好
 
 
 常常有人会担心说：迁移学习会不会有负面的效应，这是会有可能，如果两个task不像的话，你的transfer 就是negative的。但是有人说：总是思考两个task到底之间能不能transfer，这样很浪费时间。所以就会有progressive neural networks。
 
 ![在这里插入图片描述](res/chapter30-14.png)
 
-## progressive network neural
+###  渐进神经网络
 
 progressive network neural其实是很新的做法(2016年的paper)。我先train一个task1，train好以后它的参数就fix住，那现在我们要做task2，但是task2它的每一个hidden layer都会去接前一个task1的某一个hidden layer的output。所以在train的时候好处就是：task1跟task2非常不像，首先task1的data不会去动到task2的model，所以task1一定不会比原来更差。task2去借用task1的参数，但是它可以把这些参数直接设为0，这样也不会影响task2的性能。task3也是做一样的事情，task3会同时从task1和task2的hidden layer得到information。
 
@@ -159,7 +159,7 @@ progressive network neural其实是很新的做法(2016年的paper)。我先trai
 
 
 
-# Domain-adversarial 
+## 神经网络的领域对抗训练 
 
 所以该肿么办呢？这边希望做的事情是：前面的feature extract 它可以把domain的特性去除掉，这一招较做Domain-adversarial training。也就是feature extract output不应该是红色跟蓝色的点分成两群，而是不同的domain应该混在一起(不同domain的特性取消掉)。
 
