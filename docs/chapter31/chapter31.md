@@ -18,7 +18,7 @@
 
 ![在这里插入图片描述](res/chapter31-2.png)
 
-### 步骤1：Function set(Model)
+### 步骤1：函数集
 定义一个函数为$g(x)$，这个$g(x)$它里面有另外一个function。
 
 ![在这里插入图片描述](res/chapter31-3.png)
@@ -154,7 +154,7 @@ $\hat{y}^{n} f(x) \geq 1-\varepsilon^{n}$是常见的SVM的约束，$\varepsilon
 根据前面得到的公式，每次更新权重都加上$x^{n}$ 的线性组合，那么如果$w$ 初始化为0向量的话，得到的$w$就是$\boldsymbol{x}^{n}$ 的线性组合。其中的权重$c^{n}(w)$是损失函数$l\left(f\left(x^{n}\right), \hat{y}^{n}\right)$对$f\left(x^{n}\right)$的偏导数。
 如果损失函数采用的是Hinge Loss，$c^{n}(w)$往往就是0，不是所有的$x_n$都会拿来加到$w$里面去的，从而$\alpha_{n}^{\*}$可能是稀疏的，就是有的数据点对应的$\alpha_{n}^{\*}$可能是0，  具有非零$\alpha_{n}^{\*}$ 的数据点$x^{n}$是支持向量。这样的好处是模型比较鲁棒：不是支持向量的数据点，就算去掉也不会对结果有影响，异常点只要不是支持向量，就不会对结果有影响。反观logistic regression（用cross entropy作损失函数），它在更新参数时的权重就不是稀疏的，所以每笔data都对结果有影响。
 
-### 步骤1：Function set(Model)
+### 步骤1：函数集
 
 
 
@@ -190,7 +190,7 @@ $\hat{y}^{n} f(x) \geq 1-\varepsilon^{n}$是常见的SVM的约束，$\varepsilon
 假设x,z不是2维，而是高维，想要将它投影到更高的一个空间，就会考虑所有点 两两之间的关系，如果使用的是和方法的话，可以轻易的算出$K(x, z)$
 ![在这里插入图片描述](res/chapter31-18.png)
 
-### (径向基函数核)radial basis function kernel
+### RBF(径向基函数核)
 RBF Kernel, x与z越像，则$K(x, z)$越大。它是两个无穷维特征向量的内积。将核函数展开并使用泰勒级数，可见核函数是无穷项之和，每项都可写成内积形式，将与x,z有关的向量分别串起来，得到两个无穷维的向量，这两个向量的内积就是RBF核函数。由于使用了无穷维的特征，在用RBF核函数时要小心过拟合（可能在训练集上得到很好的performance, 而在testing data 上得到很糟的performance）。 
  
  ![在这里插入图片描述](res/chapter31-19.png)

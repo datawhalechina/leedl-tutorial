@@ -188,14 +188,14 @@ GAN的概念像是拟态的演化，如图是一个枯叶蝶(长的像枯叶一�
 
 
 
-## GAN-Discriminator
+### GAN-辨别器
 
 现在有可第一代的discriminator，咋样根据discriminator update 第一代的。首先我们随便输入一个vector，它会随便产生一张image，这张image没有办法骗过discriminatior，把generator产生的image丢到discriminatior里面，它得出有0.87。接下来我们就得调这个generator的参数，让现在的discriminator会认为说：generator出来的image是真的，也就是说：generator出来的image丢到discriminator里面，discriminator output越接近1越好，所以你希望generator出来是这样的image，discriminator output是1.0觉得它是真正的image。
 
 
 ![在这里插入图片描述](res/chapter29-20.png) 
 
-## GAN-Generator
+### GAN-生成器
 
 generator就是一个neural network，discriminator也是一个neural network，你把generator output当做discriminator的 input，然后再让它产生一个值。这件事情就好像是：你有一个很大很大的neural network，你丢一个randomly vector，它的output就是一个值，所以generator和discriminator合起来就是一个很大的neural network，你要让这个network再丢进一个randomly vector，output 1这件事是很容易的，你做gradient descent就好了。你就gradient descent调整参数，希望丢进这个vector的时候，它的output是要接近1的。但是你要注意的事情是：你在调整这个参数的时候，你只能够调整generator的参数(只能算generator的参数对output的gradient)，必须fix the discriminator。如果你没有fix the discriminator的话会发生：对discriminator来说，要让它output 1很简单，在最后output的bias设为1，其他weight都设0，output就是1了。
 
@@ -203,7 +203,7 @@ generator就是一个neural network，discriminator也是一个neural network，
 
 ![在这里插入图片描述](res/chapter29-21.png) 
 
-## GAN-Toy Example
+### GAN-Toy Example
 
 这是来自GAN paper的Toy example，Toy example是这样子的：z(z是one dimension)丢到generator里面，会产生另外一个one dimension的东西(这个z可以从任何的distribution sample出来，在这个例子是从uniform distribution sample出来的)，每一个不同的z会得到不同的x，x的分布就绿色这条个分布。现在要做的事情是：希望这个generator的output可以越像real data越好，real data就是黑色的这些点，也就绿色这条distribution可以跟黑色的点越接近越好。按照GAN的概念的话，你就把generator的output x跟real data丢到discriminator里面，然后让discriminator去判断来自真正data的几率跟generator output几率(如果是真正的data 几率就是1，反之就是0)
 
