@@ -44,7 +44,7 @@
 在2006年以前，如果将网络叠很多层，往往会得到上图的结果。上图，是手写数字识别的训练准确度的实验，使用的是sigmoid function。可以发现当层数越多，训练结果越差，特别是当网络层数到达9、10层时，训练集上准确度就下降很多。但是这个不是当层数多了以后就overfitting，因为这个是在training set上的结果。
 
 （在之前可能常用的activation function是sigmoid function,今天我们如果用sigmoid function，那么deeper usually does not imply better,这个不是overfitting）
-###  梯度消失
+##  梯度消失
  ![chapter1-0.png](res/chapter18-6.png)
 当网络比较深的时候会出现vanishing Gradient problem
 
