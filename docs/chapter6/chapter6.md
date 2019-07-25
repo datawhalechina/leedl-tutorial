@@ -1,10 +1,10 @@
 
 
-# 什么是Gradient Descent（梯度下降法）？
+## 什么是Gradient Descent（梯度下降法）？
 
 在第二篇文章中有介绍到梯度下降法的做法，传送门：机器学习入门系列02，Regression 回归：案例研究
 
-## Review: 梯度下降法
+### Review: 梯度下降法
 在回归问题的第三步中，需要解决下面的最优化问题：
 
 $$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
@@ -36,8 +36,8 @@ $$
 
 上图举例将梯度下降法的计算过程进行可视化。
 
-# Tip1：调整 learning rates（学习速率）
-## 小心翼翼地调整 learning rate
+## Tip1：调整 learning rates（学习速率）
+### 小心翼翼地调整 learning rate
 举例：
 
 ![](res/chapter6-3.png)
@@ -48,7 +48,7 @@ $$
 
 解决方法就是上图右边的方案，将参数改变对损失函数的影响进行可视化。比如 learning rate 太小（蓝色的线），损失函数下降的非常慢；$learning rate$ 太大（绿色的线），损失函数下降很快，但马上就卡住不下降了；$learning rate$ 特别大（黄色的线），损失函数就飞出去了；红色的就是差不多刚好，可以得到一个好的结果。
 
-## 自适应 learning rate
+### 自适应 learning rate
 举一个简单的思想：随着次数的增加，通过一些因子来减少 $learning rate$
 - 通常刚开始，初始点会距离最低点比较远，所以使用大一点的 $learning rate$
 - update好几次参数之后呢，比较靠近最低点了，此时减少 $learning rate$
@@ -56,8 +56,8 @@ $$
 
 但 $learning rate$ 不能是 one-size-fits-all ，不同的参数需要不同的 $learning rate$
 
-## Adagrad 算法
-### Adagrad 是什么？
+### Adagrad 算法
+#### Adagrad 是什么？
 每个参数的学习率都把它除上之前微分的均方根。解释：
 
 普通的梯度下降为：
@@ -71,7 +71,7 @@ $$w^{t+1} \leftarrow  w^t -\frac{η^t}{\sigma}g^t \tag5$$
 $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 - $\sigma^t$ :之前参数的所有微分的均方根，对于每个参数都是不一样的。
 
-### Adagrad举例
+#### Adagrad举例
 下图是一个参数的更新过程
 
 ![](res/chapter6-4.png)
@@ -80,7 +80,7 @@ $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 ![](res/chapter6-5.png)
 
 
-### Adagrad 存在的矛盾？
+#### Adagrad 存在的矛盾？
 ![](res/chapter6-6.png)
 
 在 Adagrad 中，当梯度越大的时候，步伐应该越大，但下面分母又导致当梯度越大的时候，步伐会越小。
@@ -101,7 +101,7 @@ $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 
 这个结论在多个参数的时候就不一定成立了。
 
-### 多参数下结论不一定成立
+#### 多参数下结论不一定成立
 对比不同的参数
 
 ![](res/chapter6-9.png)
@@ -118,14 +118,14 @@ $$\frac{一次微分}{二次微分}$$
 
 ![](res/chapter6-10.png)
 
-### Adagrad 进一步的解释
+#### Adagrad 进一步的解释
 再回到之前的 Adagrad
 
 ![](res/chapter6-11.png)
 
 对于 $\sqrt{\sum_{i=0}^t(g^i)^2}$ 就是希望再尽可能不增加过多运算的情况下模拟二次微分。（如果计算二次微分，在实际情况中可能会增加很多的时间消耗）
 
-# Tip2：Stochastic Gradient Descent（随机梯度下降法）
+## Tip2：Stochastic Gradient Descent（随机梯度下降法）
 之前的梯度下降：
 
 $$L=\sum_n(\hat y^n-(b+\sum w_ix_i^n))^2 \tag8$$
@@ -146,7 +146,7 @@ $$\theta^i =\theta^{i-1}- \eta\triangledown L^n(\theta^{i-1}) \tag{11}$$
 
 常规梯度下降法走一步要处理到所有二十个examples，但Stochastic 此时已经走了二十步（没处理一个example就更新）
 
-# Tip3：Feature Scaling（特征缩放）
+## Tip3：Feature Scaling（特征缩放）
 比如有个function：
 
 $$y=b+w_1x_1+w_2x_2 \tag{12}$$
@@ -154,7 +154,7 @@ $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 
 ![](res/chapter6-13.png)
 
-## 为什么要这样做？
+### 为什么要这样做？
 ![](res/chapter6-14.png)
 
 上图左边是 $x_1$ 的scale比 $x_2$ 要小很多，所以当 $w_1$ 和 $w_2$ 做同样的变化时，$w_1$ 对 $y$ 的变化影响是比较小的，$x_2$ 对 $y$ 的变化影响是比较大的。
@@ -165,7 +165,7 @@ $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 
 对于左边的情况，上面讲过这种狭长的情形不过不用Adagrad的话是比较难处理的，两个方向上需要不同的学习率，同一组学习率会搞不定它。而右边情形更新参数就会变得比较容易。左边的梯度下降并不是向着最低点方向走的，而是顺着等高线切线法线方向走的。但绿色就可以向着圆心（最低点）走，这样做参数更新也是比较有效率。
 
-## 怎么做 scaling？
+### 怎么做 scaling？
 方法非常多，这里举例一种常见的做法：
 
 ![](res/chapter6-15.png)
@@ -176,8 +176,8 @@ $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 
 然后用第 $r$ 个例子中的第 $i$ 个输入，减掉平均数 $m_i$，然后除以标准差 $\sigma _i$，得到的结果是所有的维数都是 $0$，所有的方差都是 $1$
 
-# 梯度下降的理论基础
-## 问题
+## 梯度下降的理论基础
+### 问题
 当用梯度下降解决问题：
 
 $$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
@@ -190,17 +190,17 @@ $$L(\theta^0) >L(\theta^1)>L(\theta^2)>···\tag{13}$$
 
 结论是不正确的。。。
 
-# 数学理论
+## 数学理论
 ![](res/chapter6-16.png)
 
 比如在 $\theta^0$ 处，可以在一个小范围的圆圈内找到损失函数细小的 $\theta^1$，不断的这样去寻找。
 
 接下来就是如果在小圆圈内快速的找到最小值？
 
-## Taylor Series（泰勒展开式）
+### Taylor Series（泰勒展开式）
 先介绍一下泰勒展开式
 
-### 定义
+#### 定义
 若 $h(x)$ 在 $x=x_0$ 点的某个领域内有无限阶导数（即无限可微分，infinitely differentiable），那么在此领域内有：
 
 $$
@@ -221,12 +221,12 @@ $$
 
 图中3条蓝色线是把前3项作图，橙色线是 $sin(x)$。
 
-### 多变量泰勒展开式
+#### 多变量泰勒展开式
 下面是两个变量的泰勒展开式
 
 ![](res/chapter6-18.png)
 
-## 利用泰勒展开式简化
+### 利用泰勒展开式简化
 回到之前如何快速在圆圈内找到最小值。基于泰勒展开式，在 $(a,b)$ 点的红色圆圈范围内，可以将损失函数用泰勒展开式进行简化：
 
 ![](res/chapter6-19.png)
@@ -250,7 +250,7 @@ $$L(\theta)\approx s+u(\theta_1 - a)+v(\theta_2 - b) \tag{14}$$
 
 式1-2只考虑了泰勒展开式的一次项，如果考虑到二次项（比如牛顿法），在实际中不是特别好，会涉及到二次微分等，多很多的运算，性价比不好。
 
-# 梯度下降的限制
+## 梯度下降的限制
 ![](res/chapter6-23.png)
 
 容易陷入局部极值

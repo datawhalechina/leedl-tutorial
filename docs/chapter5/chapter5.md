@@ -1,10 +1,10 @@
-# Error的来源
+## Error的来源
 ![](res/chapter5-1.png)
 从上节课测试集数据来看，$Average\ Error$ 随着模型复杂增加呈指数上升趋势。更复杂的模型并不能给测试集带来更好的效果，而这些 $Error$ 的主要有两个来源，分别是 $bias$ 和 $variance$ 。
 
 然而 $bias$ 和 $variance$ 是什么？可以查看 [机器学习中的Bias(偏差)，Error(误差)，和Variance(方差)有什么区别和联系？](https://www.zhihu.com/question/27068705)
 
-# 估测
+## 估测
 假设真实的模型为 $\hat f$ ， 如果我们知道 $\hat f$ 模型，那是最好不过了，但是 $\hat f$ 只有 Niamtic 公司才知道。
 
 ![](res/chapter5-2.png)
@@ -15,10 +15,10 @@
 
 这个过程就像打靶，$\hat f$ 就是我们的靶心，$f^*$ 就是我们投掷的结果。如上图所示，$\hat f$ 与  $f^*$ 之间蓝色部分的差距就是 $bias$ 和 $variance$ 导致的。
 
-## 估测变量x的偏差（bias）和方差（variance）
+### 估测变量x的偏差（bias）和方差（variance）
 我们先理解一下偏差和方差是怎样计算的呢？ [偏差(Bias)和方差(Variance)——机器学习中的模型选择](https://segmentfault.com/a/1190000016447144)
 
-### 评估 x 的偏差（bias）
+#### 评估 x 的偏差（bias）
 - 假设 $x$ 的平均值是  $\mu$，方差为 $\sigma^2$
 
 评估平均值要怎么做呢？
@@ -41,14 +41,14 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 ![](res/chapter5-5.png)
 
-### 估测变量 x 的方差（variance）
+#### 估测变量 x 的方差（variance）
 如何估算 $variance$ 呢？
 
 ![](res/chapter5-6.png)
 
 ![](res/chapter5-7.png)
 
-## 为什么会有很多的 $f^*$ ?
+### 为什么会有很多的 $f^*$ ?
 讨论系列02中的案例：这里假设是在平行宇宙中，抓了不同的神奇宝贝
 
 ![](res/chapter5-8.png)
@@ -65,7 +65,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 不同的数据集之前什么都有可能发生—||
 
-### 考虑不同 model 的 variance
+#### 考虑不同 model 的 variance
 
 
 一次model的variance就比较小的，也就是是比较集中，离散程度较小。而5次model 的 variance就比较大，同理散布比较广，离散程度较大。
@@ -74,7 +74,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 这也是因为简单的model受到不同训练集的影响是比较小的。
 
-### 考虑不同 model的 bias
+#### 考虑不同 model的 bias
 
 ![](res/chapter5-11.png)
 
@@ -89,14 +89,14 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 直观的解释：简单的model函数集的space比较小，所以可能space里面就没有包含靶心，肯定射不中。而复杂的model函数集的space比较大，可能就包含的靶心，只是没有办法找到确切的靶心在哪，但足够多的，就可能得到真正的 f¯f¯。
 
-### bias v.s. variance
+#### bias v.s. variance
 
 ![](res/chapter5-12.png)
 
 将系列02中的误差拆分为bias何variance。简单model（左边）是bias比较大造成的error，这种情况叫做 Underfitting（欠拟合），而复杂model（右边）是variance过大造成的error，这种情况叫做Overfitting（过拟合）。
 
-# 怎么判断？
-## 分析
+## 怎么判断？
+### 分析
 
 ![](res/chapter5-13.png)
 
@@ -104,21 +104,21 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 如果model很好的fit训练集，即再训练集上得到很小的error，但在测试集上得到大的error，这意味着model可能是variance比较大，就是Overfitting。
 对于Underfitting和Overfitting，是用不同的方式来处理的
 
-### bias大，Underfitting
+#### bias大，Underfitting
 此时应该重新设计model。因为之前的函数集里面可能根本没有包含f^f^。可以：
 
 将更多的feature加进去，比如考虑高度重量，或者HP值等等。
 或者考虑更多次幂、更复杂的model。
 如果此时强行再收集更多的data去训练，这是没有什么帮助的，因为设计的函数集本身就不好，再找更多的训练集也不会更好。
 
-### variance大，Overfitting
+#### variance大，Overfitting
 简单粗暴的方法：More data
 
 ![](res/chapter5-14.png)
 
 但是很多时候不一定能做到收集更多的data。可以针对对问题的理解对数据集做调整（Regularization）。比如识别手写数字的时候，偏转角度的数据集不够，那就将正常的数据集左转15度，右转15度，类似这样的处理。
 
-# 模型选择
+## 模型选择
 
 
 
@@ -130,7 +130,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 用训练集训练不同的model，然后在测试集上比较error，model3的error比较小，就认为model3好。但实际上这只是你手上的测试集，真正完整的测试集并没有。比如在已有的测试集上error是0.5，但有条件收集到更多的测试集后通常得到的error都是大于0.5的。
 
-## Cross Validation（交叉验证）
+### Cross Validation（交叉验证）
 
 ![](res/chapter5-16.png)
 
@@ -138,7 +138,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 上述方法可能会担心将训练集拆分的时候分的效果比较差怎么办，可以用下面的方法。
 
-## N-fold Cross Validation（N-折交叉验证）
+### N-fold Cross Validation（N-折交叉验证）
 将训练集分成N份，比如分成3份。
 
 ![](res/chapter5-17.png)
