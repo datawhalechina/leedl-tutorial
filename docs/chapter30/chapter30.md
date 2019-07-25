@@ -216,7 +216,7 @@ domain classifier因为看不到真正的image，所以它最后一定fail掉。
 ![在这里插入图片描述](res/chapter30-22.png)
 
 
-# 零样本学习
+# 零样本学习 
 
 在zero-shot-learning里面呢？跟刚才讲的task是一样的，source data有label，target data每天label。在刚才task里面可以把source data当做training data，把target data当做testing data，但是实际上在zero-shot learning里面，它的difine又更加严格一点。它的difine是：今天在source data和target data里面，它的task是不一样的。
 
