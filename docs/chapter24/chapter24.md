@@ -55,7 +55,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 ![](res/chapter24-5.png)
 
-## MNIST 降维例子
+## MNIST 降维样例
 
 那从另外一个角度来看：为什么dimension reduction可能是有用的。举例来说：假设你的data分布是这样的(在3D里面像螺旋的样子)，但是用3D空间来描述这些data其实是很浪费的，其实你从资源就可以说：你把这个类似地毯卷起来的东西把它摊开就变成这样(右边的图)。所以你只需要在2D的空间就可以描述这个3D的information，你根本不需要把这个问题放到这个3D来解，这是把问题复杂化，其实你可以在2D就可以做这个task
 
@@ -370,7 +370,7 @@ matrix factorization有很多的应用，可以应用到topic analysis上面。�
 
 topic analysis的方法多如牛毛，基本的精神是差不多的(有很多各种各样的变化)。常见的是probability latent semantic analysis(PLSA)和latent Dirchlet allocation(LDA)。这跟之前在machine learning讲的LDA是完全不一样的东西
 
-## More Related Approaches Not Introduced
+## 未引入的其他相关方法
 
 ![image](res/chapter24-36.png)
 
