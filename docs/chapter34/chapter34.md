@@ -1,4 +1,4 @@
-# 结构化学习(Structured Learning)
+# 结构化学习
 
 结构化学习要解决的问题，即需要找到一个强有力的函数 **f**
 $$
@@ -29,7 +29,7 @@ $$
       $$
       即给定任意一个x，穷举所有的y，将(x, y)带入F，找出最适当的y作为系统的输出。
 
-## 提出问题(3Qs)
+## 提出问题
 
   - Q1: 评估
 
@@ -103,7 +103,7 @@ $$
 
 假定只关注Q3的问题：比对所有的(x, y)，找到最佳的F(x, y)。
 
-# 可分情形(Separable Case)
+# 可分情形
 
 存在一个权值向量$\hat{w}$，使得：
 $$
@@ -219,9 +219,9 @@ $$
   
   随着δ的增大，R也会增大！
 
-# 不可分情形(Non-separable Case)
+# 不可分情形
 
-## 定义代价 or 成本函数
+## 定义成本函数
 
   - 定义一个成本函数C来评估w的效果有多差，然后选择w，从而最小化成本函数C
 
@@ -257,7 +257,7 @@ $$
 - 当学习率设为1时，就转换为经典的**结构化感知机**；
 - 当设置不同的学习率，将会产生不同的模型。
 
-# 考虑误差(Considering Errors)
+# 考虑误差
 
 不同的误差之间是存在差异的(即误差可以分为不同的等级)，我们在训练数据时需要考虑进去，问题是如何衡量这种差异呢？
 
@@ -277,7 +277,7 @@ $$
   
   
   
-## 其它的代价 or 成本函数
+## 其它的成本函数
   $$
   \begin{array}{l}{C^{n}=\max _{y}\left[w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)} \\变换为：\\ {C^{n}=\max _{y}\left[\Delta\left(\hat{y}^{n}, y\right)+w \cdot \phi\left(x^{n}, y\right)\right]-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)}\end{array}
   $$
@@ -323,7 +323,7 @@ $$
 
 
 
-## 更多的代价 or 成本函数，证明：
+## 更多的成本函数，证明
   $$
   \Delta\left(\hat{y}^{n}, \tilde{y}^{n}\right) \leq C^{n}
   $$
@@ -338,7 +338,7 @@ $$
     C^{n}=\max _{y} \Delta\left(\hat{y}^{n}, y\right)\left[1+w \cdot \phi\left(x^{n}, y\right)-w \cdot \phi\left(x^{n}, \hat{y}^{n}\right)\right]
     $$
 
-# 正则化(Regularization)
+# 正则化
 
 - 训练数据和测试数据可以有不同的分布；
 
@@ -444,7 +444,7 @@ $$
 
 - 约束条件过多，需要通过切割平面算法(**Cutting Plane Algorithm**)解决受限的问题。
 
-# 结构化SVM：切割平面算法(Cutting Plane Algorithm)
+# 结构化SVM：切割平面算法
 
 ## 无约束条件的问题求解
 
@@ -634,9 +634,9 @@ $$
 
 ​         
 
-# 多类别 & 二元SVM(Multi-class & Binary SVM)
+# 多类别与二元SVM
 
-## Multi-class SVM
+## 多类别SVM
 $$
 F(x, y)=w \cdot \phi(x, y)
 $$
@@ -696,7 +696,7 @@ $$
 ![1561890363710](res/chapter34-34.png)
 
 
-## Binary SVM
+## 二元SVM
 **Binary SVM**(设定K为2，y∈{1,2})
 $$
 {对}\forall y \neq \hat{y}^{n}:
