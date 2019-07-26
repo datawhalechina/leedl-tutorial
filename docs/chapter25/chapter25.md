@@ -12,7 +12,7 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 
 所以我们需要word Embedding：把每一个word都project到high dimension sapce上面(但是远比1-of-N Encoding的dimension要低，比如说有10w个word，那1-of-N Encoding就是10w维。但是project到high dimension，通常是100维左右)我们希望可以从这个word Embedding图上可以看到的结果是：类似同一个语义的词汇，在这个图上是比较接近的。而且在这个high dimension space里面，每一个dimension可能都有它特别的含义。假设我们做完word Embedding以后，每一个word Embedding的feature vector长这个样子，那你可能就知道说这个dimension代表了生物和其它东西之间的差别(横轴)，那个dimension就代表了跟动作有关的东西(纵轴)
 
-# Word Embedding
+# 词嵌入
 
 ![image](res/chapter25-2.png)
 
@@ -36,7 +36,7 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 
 举例来说：假设机器读了一段文字：“马英九520宣誓就职”，它又读了一段新文字：“蔡英文520宣誓就职”。对机器来说，它不知道马英九和蔡英文指的是什么，但是马英九和蔡英文后面有接520宣誓就职。对机器来说，它只要读了大量的文章，发现马英九和蔡英文后面有类似的context，机器就会推论说：蔡英文和马英九代表了某种有关系的物件(不知道他们是人，但机器知道说：蔡英文和马英九这两个词汇代表是同样地位的东西)
 
-## Count based
+## 基于计数的词嵌入
 
 ![image](res/chapter25-5.png)
 
@@ -46,7 +46,7 @@ word embedding是dimension reduction的一个广为人知的应用。如果今�
 
 这个方法的原则是这样，假设我们知道$w_i$的word vector是$V(w_i)$,$w_j$的word vector是$V(w_j)$,我们可以计算V($w_i$,)V($w_j$)它的inner product，假设$N_{i,j}$是$w_i$,$w_i$他们在同一个document的次数，那我们就希望这两件事情（内积和同时出现的次数）越接近越好。你会发现说：这个概念跟我们之前将的matrix factorozation的概念其实是一样的
 
-## Prediction-based
+## 基于预测的词嵌入
 
 另外一个方式是：prediction based方法，据我所知，好像没有人很认真的比较过prediction based方法跟counting based 方法有什么样非常不同的差异或者是谁优谁略。
 
@@ -101,7 +101,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 那我们就把$w_i$对C的偏微分减去$w_j$对C的偏微分，$w_j$对C的偏微分减去$w_i$对C的偏微分，$w_i,w_j$的update就一样了
 
-### Prediction-based - Training
+### 训练
 
 ![image](res/chapter25-11.png)
 
@@ -139,7 +139,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 如果有人问你说：罗马来自于意大利，那柏林来自于什么呢。机器可以回答这样的问题，怎么做呢？(我们知道Germany vector会很接近于Berlin vector 减去Rome vector加上Italy vector vector)假设我们不知道答案是Germany的话，那你要做的事情就是：计算Berlin vector 减去Rome vector加上Italy vector，然后看看它跟哪一个vector最接近，你可能得到的答案是Germany
 
-## 多语言嵌入（Multi-lingual Embedding）
+## 多语言嵌入
 
 ![image](res/chapter25-16.png)
 
@@ -149,7 +149,7 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 图上上面是绿色，然后下面是绿色英文，代表是已经知道对应关系中文和英文的词汇。然后你做这个transform以后，接下来有新的中文词汇跟新的英文词汇，你都通过projection把他们project到同一个space上面。你就可以知道中文的降低跟英文的reduce都应该落在差不多的位置，你就可以知道翻译这样的事情
 
-## 多域嵌入（Multi-domain Embedding）
+## 多域嵌入
 
 
 
@@ -164,13 +164,13 @@ prediction based的方法是怎么体现：根据一个词汇的上下文来了�
 
 如果你用这个方法的话，就算有一张image，在training的时候你没有看到过的class。比如说猫这个image，从来都没有看过，但是猫这个image project到cat附近的话，你就会说，这张image叫做cat。如果你可以做到这件事的话，就好像是machine阅读了大量的文章以后，它知道说：每一个词汇它是什么意思。先通过阅读大量的文章，先了解词汇之间的关系，接下来再看image的时候，会根据它阅读的知识去match每一个image所该对应的位置。这样就算它没有看过的东西，它也有可能把它的名字叫出来。
 
-## 文档嵌入（Document Embedding）
+## 文档嵌入
 
 ![image](res/chapter25-18.png)
 
 刚才讲的是word embedding，也可以做document embedding。也就不是把word变成一个vector，也可以把document变成一个vector
 
-### 语义嵌入（Semantic Embedding）
+### 语义嵌入
 
 ![image](res/chapter25-19.png)
 

@@ -1,5 +1,3 @@
-## Manifold Learning
-
 ![image](res/chapter26-1.png)
 
 
@@ -10,7 +8,7 @@ TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是�
 
 所以manifold learning要做的事情是把S型的这块东西展开，把塞到高维空间的低维空间摊平。摊平的好处就是：把这个塞到高维空间里的manifold摊平以后，那我们就可以在这个manifold上面用Euclidean distance(来算点和点之间的距离)，这会对接下来你要做supervised learning都是会有帮助的
 
-## Locally linear Embedding(LLE)
+## 局部线性嵌入
 
 
 
@@ -47,7 +45,7 @@ TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是�
 
 其实LLE你要好好的调以下你的neighbor，neighbor的数目要刚刚好，你才会得到好的结果。这个是从原始的paper里面截得图，它调了不同的k。如果k太小，得出来的结果会不太好，k太大，得出的结果的也不太好。为什么k太大，得出的结果也不好呢？因为我们之前的假设是Euclidean distance只是在很近的距离里面可以这样想，当k很大的时候，你会考虑很远的点，所以你不应该把它考虑进来，你的k要选一个适当的值。
 
-## Laplacian Eigenmaps
+## 拉普拉斯特征映射
 
 ![image](res/chapter26-6.png)
 
@@ -75,7 +73,7 @@ TSNE的NE就是Neighbor embedding的缩写。我们现在要做的事情就是�
 
 如果你要解这个式子的话，你会发现解出来z跟我们前面看到的graph Laplacian L是有关系的，它其实graph Laplacian eigenvector。
 
-## T-distributed Stochastic Neighbor
+## T-分布随机领域
 
 ![image](res/chapter26-9.png)
 

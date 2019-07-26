@@ -9,7 +9,7 @@
 
 那另外一个unsupervised learning可以做Generation,也就是无中生有，我们要找一个function，你随机给这个function一个input(输入一个数字1，然后output一棵树；输入数字2，然后output另外一棵树)。在这个task里面你要找一个可以画图的function，你只有这个function的output，但是你没有这个function的input。你这只有一大堆的image，但是你不知道要输入什么样的code才会得到这些image。这张投影片我们先focus在dimension reduction这件事上，而且我们只focus在linear dimension reduction上。
 
-# 聚类（Clustering）
+# 聚类
 
 
 
@@ -27,7 +27,7 @@
 
 然后你updata的时候纯粹就是==无用功==，所以最好从database里面选取K个$x$作为cluster center。
 
-## Hierarchical Agglemerative Clustering(HAC)
+## 层次聚类
 
 ![](res/chapter24-3.png)
 
@@ -51,11 +51,11 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 如果原来你的$x$是一个非常high dimension的东西，比如说image，你现在用它的特值来描述，它就会从比较高维的空间变成比较低维的空间。那这件事情就被叫做：dimension reduction。这是一样的事情，只是不同的称呼而已。
 
-# 降维（Dimension Reduction）
+# 降维
 
 ![](res/chapter24-5.png)
 
-## MNIST 降维样例
+## 降维样例
 
 那从另外一个角度来看：为什么dimension reduction可能是有用的。举例来说：假设你的data分布是这样的(在3D里面像螺旋的样子)，但是用3D空间来描述这些data其实是很浪费的，其实你从资源就可以说：你把这个类似地毯卷起来的东西把它摊开就变成这样(右边的图)。所以你只需要在2D的空间就可以描述这个3D的information，你根本不需要把这个问题放到这个3D来解，这是把问题复杂化，其实你可以在2D就可以做这个task
 
@@ -73,11 +73,11 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 那怎么做dimension reduction呢?在做dimension reduction的时候，我们要做的事情就是找一个function，这个function的input是一个vector x，output是另外一个vector z。但是因为是dimension reduction，所以你output这个vector z这个dimension要比input这个x还要小，这样才是在做dimension reduction。
 
-## 特征选择（Feature Selection）
+## 特征选择
 
 在做dimension reduction里面最简单是feature selection，这个方法是：你把你的data分布拿出来看一下，本来在二维的平面上，但是你发现都集中在$x_2$dimension这里，这个$x_1$dimension没什么用，把它拿掉就只有$x_2$dimension，你就等于做到dimension reduction这件事了。这个方法不见得有用，因为有很多时候，你的case是：你任何一个dimension都不能拿掉。
 
-## PCA
+## 主成分分析
 
 另外一个常见的方法叫做Principe component abalysis(PCA),PCA做的事情就是：这个function是一个很简单的linear function，这个input x跟这个output z之间的关系就是一个linear transform，你把这个x乘上一个matrix w，你就得到它的output z。现在要做的事情就是:根据一大堆的x(我们现在不知道z长什么样子)我们要把w找出来
 
@@ -91,7 +91,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 举例来说，这个x的分布(图中蓝色的点，每一个点代表宝可梦)，这个分布的横坐标是攻击力，纵坐标是防御力。那今天我要把二维投影到一维，我应该要选什么样的$w^1$呢？我可以选$w^1$指向这个方向(红色的箭头)，也可以选$w^1$指向那个方向(橙色的箭头)，我选不同的方向得到的结果会是不一样的。那你总得给我们一个目标，我们才能知道要选咋样的$w^1$。我们的目标是这样的：我们希望选一个$w^1$，它经过projection以后得到这些$z_1$的分布是越大越好，也就是我们不希望说通过这个projection以后所有的点通通挤在一起，把本来的data point跟data point之间的奇异度拿掉了。我们是希望说：经过projection以后，不同的data point他们之间的区别我们仍然是可以看的出来，所以找一个projection方向它可以让projection后的various是越大越好。如果我们看这个例子的话，你就会觉得说：如果是选这个方向的话(红色箭头)，经过projection以后，可能会分布在这个range(large variance)；如果选这个方向的话(橙色箭头)，那么你的点可以是这个range(small variance)。所以你要选择$w^1$的时候，你可能会选择$w^1$的方向是large variance这个方向。从这个图上，你可以看出$w^1$其实是代表宝可梦的强度，宝可梦可能有一个factor代表它的强度，这个隐藏的factor同时影响了它的防御力跟攻击力，所以防御力跟攻击力是会同时上升的。
 
-### PCA数学推导
+### 数学推导
 
 那我们要用equation来表示的话，你就会说：我们现在要去maximize的对象是$z_1$的variance，$z_1$的variance就是summation over所有的$z_1$，然后$z_1$减去$(\bar z_1)^2$。
 
@@ -137,7 +137,7 @@ z =Wx，这里神奇的地方就是：z的covariance是diagonal matrix，也就�
 
 PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigenvector，然后找出的$w^2$就是对应到第二大的eigenvector,以此类推。有一个证明告诉你说：这么做的话，每次投影的时候都可以让variance最大。
 
-### PCA-Another Point of View
+### 主成分分析的另一个角度
 
 ![image](res/chapter24-14.png)
 
@@ -175,7 +175,7 @@ c_2^1 & c_2^2 \\
  ...& ...
 \end{matrix}\right.$跟这个matrix越接近越好，所以你要minimize左边两个matrix跟右边这个matrix之间的差距是会被minimize的，也就是说：用SVD提供给我们的matrix拆解方法，拆成这是三个matrix相乘后，跟左边的matrix是最接近的。
 
-### SVD
+### 奇异值分解
 
 ![image](res/chapter24-17.png)
 
@@ -195,7 +195,7 @@ c_2^1 & c_2^2 \\
 
 你会发现，这个$XX^T$就是covariance matrix，PCA之前找出的W就是covariance matrix的eigenvector。而我们这边说做SVD，解出来U的每个column就是covariance matrix的eigenvector，所以这个U得出的解就是PCA得到的解。所以我们说：PCA做的事情就是：你找出来的那些W其实就是component。
 
-### PCA 和 神经网络
+### 主成分分析和神经网络
 
 ![image](res/chapter24-18.png)
 
@@ -210,7 +210,7 @@ linear combinarion做的事情你可以想成用neural network来表示它，假
 
 这边就有一个问题，假设我们现在这个weight，不是用PCA的方法去找出$w^1,w^2,...w^k$。而是兜一个neural network，我们要minimize error，然后用Gradient Descent去train得到的weight，那就觉得你得到的结果会跟PCA得到的结果一样吗？这其实是会一样的(neural network没有办法保证是垂直的,你会得到另外一组解)。所以在linear的情况下，或许你就想要用PCA来找这个$W$比较快的，你用neural network是比较麻烦的。但是用neural network的好处是：可以deep。
 
-### PCA的缺点
+### 缺点
 
 ![image](res/chapter24-19.png)
 
@@ -222,7 +222,7 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 另外一个PCA的弱点是Linear，我们刚开始举得例子会说。我们刚开始举的例子说：这边有一堆点的分布是像S型的，我们期待说：做dimension reduction后可以把这个S型曲面可以把它拉直，这件事情对PCA来说是做不到的。如果这个S型曲面做PCA的话，它是这样子的(如图)，就像打扁一样，而不是把它拉开，拉开这件事情PCA是办不到的。等下我们会讲non-linear
 
-### PCA 应用实例
+### 应用实例
 
 ![image](res/chapter24-20.png)
 
@@ -289,7 +289,7 @@ PCA有一些很明显的弱点，一个是：它是unsupervised，今天加入�
 
 如果你要看脸的话，你就会发现说：它长的是这个样子，它比较像是脸的一些部分。
 
-## Matrix Factorzation
+## 矩阵分解
 
 ![image](res/chapter24-28.png)
 
