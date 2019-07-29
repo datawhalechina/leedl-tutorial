@@ -15,10 +15,10 @@
 
 这个过程就像打靶，$\hat f$ 就是我们的靶心，$f^*$ 就是我们投掷的结果。如上图所示，$\hat f$ 与  $f^*$ 之间蓝色部分的差距就是 $bias$ 和 $variance$ 导致的。
 
-## 估测变量x的偏差（bias）和方差（variance）
+## 估测变量x的偏差和方差
 我们先理解一下偏差和方差是怎样计算的呢？ [偏差(Bias)和方差(Variance)——机器学习中的模型选择](https://segmentfault.com/a/1190000016447144)
 
-### 评估 x 的偏差（bias）
+### 评估 x 的偏差
 - 假设 $x$ 的平均值是  $\mu$，方差为 $\sigma^2$
 
 评估平均值要怎么做呢？
@@ -41,14 +41,14 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 ![](res/chapter5-5.png)
 
-### 估测变量 x 的方差（variance）
+### 估测变量 x 的方差
 如何估算 $variance$ 呢？
 
 ![](res/chapter5-6.png)
 
 ![](res/chapter5-7.png)
 
-## 为什么会有很多的 $f^*$ ?
+## 为什么会有很多的$f^*$?
 讨论系列02中的案例：这里假设是在平行宇宙中，抓了不同的神奇宝贝
 
 ![](res/chapter5-8.png)
@@ -65,7 +65,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 不同的数据集之前什么都有可能发生—||
 
-### 考虑不同 model 的 variance
+### 考虑不同模型的方差
 
 
 一次model的variance就比较小的，也就是是比较集中，离散程度较小。而5次model 的 variance就比较大，同理散布比较广，离散程度较大。
@@ -74,7 +74,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 这也是因为简单的model受到不同训练集的影响是比较小的。
 
-### 考虑不同 model的 bias
+### 考虑不同模型的偏差
 
 ![](res/chapter5-11.png)
 
@@ -89,7 +89,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 直观的解释：简单的model函数集的space比较小，所以可能space里面就没有包含靶心，肯定射不中。而复杂的model函数集的space比较大，可能就包含的靶心，只是没有办法找到确切的靶心在哪，但足够多的，就可能得到真正的 f¯f¯。
 
-### bias v.s. variance
+### 偏差 v.s. 方差
 
 ![](res/chapter5-12.png)
 
@@ -104,14 +104,14 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 如果model很好的fit训练集，即再训练集上得到很小的error，但在测试集上得到大的error，这意味着model可能是variance比较大，就是Overfitting。
 对于Underfitting和Overfitting，是用不同的方式来处理的
 
-### bias大，Underfitting
+### 偏差大，欠拟合
 此时应该重新设计model。因为之前的函数集里面可能根本没有包含f^f^。可以：
 
 将更多的feature加进去，比如考虑高度重量，或者HP值等等。
 或者考虑更多次幂、更复杂的model。
 如果此时强行再收集更多的data去训练，这是没有什么帮助的，因为设计的函数集本身就不好，再找更多的训练集也不会更好。
 
-### variance大，Overfitting
+### 方差大，过拟合
 简单粗暴的方法：More data
 
 ![](res/chapter5-14.png)
@@ -130,7 +130,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 用训练集训练不同的model，然后在测试集上比较error，model3的error比较小，就认为model3好。但实际上这只是你手上的测试集，真正完整的测试集并没有。比如在已有的测试集上error是0.5，但有条件收集到更多的测试集后通常得到的error都是大于0.5的。
 
-## Cross Validation（交叉验证）
+## 交叉验证
 
 ![](res/chapter5-16.png)
 
@@ -138,7 +138,7 @@ $$Var[m]=\frac{\sigma^2}{N}$$
 
 上述方法可能会担心将训练集拆分的时候分的效果比较差怎么办，可以用下面的方法。
 
-## N-fold Cross Validation（N-折交叉验证）
+## N-折交叉验证
 将训练集分成N份，比如分成3份。
 
 ![](res/chapter5-17.png)
