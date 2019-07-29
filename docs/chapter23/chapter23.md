@@ -26,7 +26,7 @@
 假设每一个class它的分布都是一个Gaussion distribution，那你会估测说class1是从μ是$μ^1$，covariance是$\Sigma$的Gaussion估测出来的，class2是从μ是$μ^2$，covariance是$\Sigma$的Gaussion估测出来的。
 
 那现在有了这些probability，有了这些$μ$、covariance，你就可以估测given一个新的data做classification，然后你就会决定boundary的位置在哪里。
-## Semi-supervised generative model
+## 半监督生成模型
 ![](res/chapter23-6.png)
 但是今天给了我们一些unlabel data，它就会影响你的决定。举例来说，我们看左边这笔data，我们假设绿色这些使unlabel data，那如果你的$\mu $跟variance是$\mu ^1$,$\mu ^2,\Sigma$显然是不合理的。今天这个$\Sigma$应该比较接近圆圈，或者说你在sample的时候有点问题，所以你sample出比较奇怪的distribution。比如说，这两个class label data是比较多的(可能class2是比较多的，所以这边probability是比较大的)，总之看这些unlabel data以后，会影响你对probability，$\mu$,$\Sigma$的估测，就影响你的probability的式子，就影响了你的decision boundary。
 
