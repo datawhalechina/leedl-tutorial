@@ -21,7 +21,7 @@ learning从一层到七层，error rate在不断的下降。能看出network越�
 
 
 
-# 引入模块化（Modularization）
+# 引入模块化
 
 问题1：为什么变高比变宽好呢？
 
@@ -47,7 +47,7 @@ learning从一层到七层，error rate在不断的下降。能看出network越�
 
 所以他们可以对后面的classifier来说就可以利用前面的classifier(中间)，所以它就可以用比较少的训练数据就可以把结果训练好。
 
-## 深度学习（Deep learning）
+## 深度学习
 
 问题2：深度学习和模组化有什么关系？
 
@@ -125,7 +125,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 在这个图上的颜色代表什么意思呢？这边颜色其实就是a,e,i,o,u这样，特别把这五个母音跟左边这个图用相同的颜色框起来。那你会神奇的发现，左边这五个母音的分布跟右边的图几乎是一样的。所以你可以发现DNN做的事情比较low layer的事情它其实是在它并不是真的要马上去侦测这个发音是属于哪个state。它的做事是它先观察说，当你听到这个发音的时候，人是用什么方式在发这个声音的，它的石头的位置在哪里(舌头的位置是高还是低呢，舌头位置是在前还是后呢等等)。然后lower layer比较靠近input layer先知道发音的方式以后，接下来的layer在根据这个结果去说现在的发音是属于哪个state/phone。所以所有的phone会用同一组detector。也就是这些lower layer是人类发音方式的detector，而所有phone的侦测都用是同一组detector完成的，所有phone的侦测都share(承担)同一组的参数，所以这边就做到模组化这件事情。当你做模组化的事情，你是要有效率的方式来使用你的参数。
 
-## 普遍性定理（Universality Theorem）
+## 普遍性定理
 
 ![](res/chapter22-16.png)
 
@@ -133,7 +133,7 @@ Tri-phone表达是这样的，你把这个-uw加上前面的phoneme和后面的p
 
 但是这个理论没有告诉我们的是，它只告诉我们可能性，但是它没有告诉我们说要做到这件事情到底有多有效率。没错，你只要有够多的参数，hidden layer够宽，你就可以描述任何的function。但是这个理论没有告诉我们的是，当我们用这一件事(我们只用一个hidde layer来描述function的时候)它其实是没有效率的。当你有more layer(high structure)你用这种方式来描述你的function的时候，它是比较有效率的。
 
-## 举例（Analogy）
+## 举例
 
 ### 使用逻辑电路举例
 
@@ -175,7 +175,7 @@ Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例
 
 
 
-# 端到端的学习（End-to-end Learning）
+# 端到端的学习
 
 ![](res/chapter22-22.png)
 
@@ -187,7 +187,7 @@ Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例
 
 
 
-## 语音识别（Speech Recognition）
+## 语音识别
 
 ![](res/chapter22-23.png)
 比如说，在语音辨识里面。还没有用deep learning的时候，我们怎么来做语音辨识呢，我们可能是这样做的。
@@ -201,7 +201,7 @@ Analogy(当你刚才模组化的事情没有听明白的话，这时候举个例
 
 Google 有一篇paper是这样子，它最后的结果是这样子的，它拼死去learn了一个很大neural network，input就是声音讯号，完全不做其它的任何事情，它最后可以做到跟有Fourier transform的事情打平，也仅次于打平而已。我目前还没看到input一个声音讯号，比Fourier transform结果比这要好的。
 
-## 图像识别（Image Recognition）
+## 图像识别
 
 ![](res/chapter22-25.png)
 刚刚都是讲语音的例子，影像也是差不多的。大家也都知道，我们就跳过去(过去影像也是叠很多很多的graph在最后一层用比较简单的classifier)
@@ -211,7 +211,7 @@ Google 有一篇paper是这样子，它最后的结果是这样子的，它拼�
 
 
 
-## 更复杂的任务（Complex Task）
+## 更复杂的任务
 
 ![](res/chapter22-27.png)
 那deep learning还有什么好处呢。通常我们在意的task是非常复杂的，在这非常复杂的task里面，有非常像的input，会有很不同的output。举例来说，在做影视辨识的时候，白色的狗跟北极熊看起来很像，但是你的machine左边要outp dog，右边要output bear。有时候很不一样的东西，其实是一样的，横着看火车和侧面看火车，他们其实是不一样，但是output告诉我说一样的。
