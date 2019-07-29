@@ -7,7 +7,7 @@ Keras 是一个用 Python 编写的高级神经网络 API，它能够以 TensorF
 # 示例
 
 以手写数字识别为例
-## 步骤1：定义模型（Define a set of function）
+## 步骤1：定义模型
 ![](res/chapter15-1.png)
 
 
@@ -31,7 +31,7 @@ model.add(activation('sigmoid'))
 
 
 
-## 步骤2：模型评估（Goodness of Function）
+## 步骤2：模型评估
 
 ![](res/chapter15-2.png)
 - 评估模型的好坏
@@ -52,7 +52,7 @@ optimizer #优化器
 metrics #指标
 ```
 
-## 步骤3：最佳模型（pick the best function）
+## 步骤3：最佳模型
 
 ### 3.1 Configuration
 ![](res/chapter15-3.png)
@@ -62,7 +62,8 @@ metrics #指标
 model.compile = (loss = 'categorical crossentropy', optimizer = 'adam')
 ```
 - optimizer后面可以跟不同的方式，这些方式都是GD，只是用的learning rate不同，有一些machine会自己决定learning rate
-### 3.2 Find the optimal network parameters
+### 3.2 寻找最优网络参数
+
 ![](res/chapter15-4.png)
 - 给定四个输入, x_train, y_train, batch_size, nb_epoch
 - 训练数据就是一张一张的图片, 每张图片对应的标签就是数字
