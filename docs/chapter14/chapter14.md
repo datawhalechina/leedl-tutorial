@@ -1,6 +1,6 @@
 # BackPropagation
 # 背景
-## 梯度下降（Gradient Descent）
+## 梯度下降
 ![](res/chapter14-1.png)
 
 - 给到 $\theta$ (weight and bias)
@@ -9,7 +9,7 @@
 - 百万级别的参数（millions of parameters）
 - 反向传播（Backpropagation）是一个比较有效率的算法，让你计算梯度（Gradient） 的向量（Vector）时，可以有效率的计算出来
 
-## 链式法则（Chain Rule）
+## 链式法则
 ![](res/chapter14-2.png)
 - 连锁影响(可以看出x会影响y，y会影响z)
 - BP主要用到了chain rule
