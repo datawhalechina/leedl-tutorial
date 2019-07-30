@@ -1,4 +1,4 @@
-# 结构化学习简介
+## 结构化学习简介
 什么是Structured Learning呢? 到目前为止，我们考虑的input都是一个vector，output也是一个vector，不管是SVM还是 Deep Learning的时候，有没有想过我们的input，output都是vector而已，但是实际上我们要真正面对的问题往往比这个更困难，我们可能需要input或者output是一个sequence，我们可能希望output是一个list，是一个tree，是一个bounding box等等。
 像你在final里面，比如recommendation的final里面你希望output直接是一个list，而不是一个个element。当然，大原则上我们知道怎么做，我们就是要找一个function，它的input就是我们要的object，它的output就是另外一种object，只是我们不知道要怎么做。比如说，我们目前学过的deep learning的Neural Network的架构，你可能不知道多个Network怎样input才是一个tree structure,output才会是一个另外一个tree structure。
 
