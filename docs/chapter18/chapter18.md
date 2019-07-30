@@ -1,6 +1,6 @@
 
 
-#  深度学习技巧
+
 ![chapter1-0.png](res/chapter18-1.png)
 
 当你的模型表现不好，应该怎么处理？
@@ -14,7 +14,7 @@
 •	pick the best function
 
 做完这些事情后，你会得到一个neural network。在得到neural network后。
-#  神经网络的表现
+##  神经网络的表现
 （1）首先你要检查的是，这个neural network在你的training set有没有得到好的结果（是否陷入局部最优），没有的话，回头看，是哪个步骤出了什么问题，你可以做什么样的修改，在training set得到好的结果。
 
 （2）假如说你在training set得到了一个好的结果了，然后再把neural network放在你的testing data，testing set的performance才是我们关心的结果。
@@ -35,8 +35,8 @@
  在deep learning文件上，当你看到一个方式的时候，你首先要想一下说，它是要解什么样的问题，是解决在deep learning 中一个training data的performance不好，还是解决testing data performance不好。
 
 当一个方法要被approaches时，往往都是针对这两个其中一个做处理，比如，你可能会听到这个方法(dropout),dropout是在training data表现好，testing data上表现不好的时候才会去使用，当training data 结果就不好的时候用dropout 往往会越训练越差。
-#  如何改进神经网络？
-##  新的激活函数
+##  如何改进神经网络？
+###  新的激活函数
  ![chapter1-0.png](res/chapter18-4.png)
  现在你的training data performance不好的时候，是不是你在做neural的架构时设计的不好，举例来说，你可能用的activation function不够好。
 ![chapter1-0.png](res/chapter18-5.png)
@@ -44,7 +44,7 @@
 在2006年以前，如果将网络叠很多层，往往会得到上图的结果。上图，是手写数字识别的训练准确度的实验，使用的是sigmoid function。可以发现当层数越多，训练结果越差，特别是当网络层数到达9、10层时，训练集上准确度就下降很多。但是这个不是当层数多了以后就overfitting，因为这个是在training set上的结果。
 
 （在之前可能常用的activation function是sigmoid function,今天我们如果用sigmoid function，那么deeper usually does not imply better,这个不是overfitting）
-##  梯度消失
+###  梯度消失
  ![chapter1-0.png](res/chapter18-6.png)
 当网络比较深的时候会出现vanishing Gradient problem
 
@@ -56,10 +56,10 @@
 
 怎么样来算一个参数w对 total loss做偏微分，实际上就是对参数做一个小小的变化，对loss的影响，就可以说，这个参数gradient 的值有多大。
 
-给第一个layer的某个参数加上\triangle w△w时，对output与target之间的loss有什么样的变化。现在我们的\triangle w△w很大，通过sigmoid function时这个output会很小(一个large input，通过sigmoid function，得到small output)，每通过一次sogmoid function就会衰减一次（因为sogmoid function会将值压缩到0到1之间，将参数变化衰减），hidden layer很多的情况下，最后对loss 的影响非常小(对input 修改一个参数其实对output 是影响是非常小)。
+给第一个layer的某个参数加上△w时，对output与target之间的loss有什么样的变化。现在我们的△w很大，通过sigmoid function时这个output会很小(一个large input，通过sigmoid function，得到small output)，每通过一次sogmoid function就会衰减一次（因为sogmoid function会将值压缩到0到1之间，将参数变化衰减），hidden layer很多的情况下，最后对loss 的影响非常小(对input 修改一个参数其实对output 是影响是非常小)。
 
 理论上我们可以设计dynamic的learning rate来解决这个问题，确实这样可以有机会解决这个问题，但是直接改activation function会更好，直接从根本上解决这个问题。
-##  怎么样去解决梯度消失？
+###  怎么样去解决梯度消失？
 ![chapter1-0.png](res/chapter18-8.png)
 
  修改activation function，ReLU input 大于0时，input 等于 output，input小于0时，output等于0
@@ -129,7 +129,7 @@ Maxout：input中x和1乘以w和b得到z1，z2，x和1乘以w和b得到z2，z2(�
  没有被training到的element，那么它连接的w就不会被training到了，在做BP时，只会training在图上颜色深的实线，不会training不是max value的weight。这表面上看是一个问题，但实际上不是一个问题。
 
 当你给到不同的input时，得到的z的值是不同的，max value是不一样的，因为我们有很多training data，而neural structure不断的变化，实际上每一个weight都会被training。
-##  Adaptive Learning Rate
+###  Adaptive Learning Rate
 
 ![chapter1-0.png](res/chapter18-17.png)
  每一个parameter 都要有不同的learning rate，这个 Adagrd learning rate 就是用固定的learnin rate除以这个参数过去所有GD值的平方和开根号，得到新的parameter。
@@ -177,7 +177,7 @@ Adam：RMSProp+Momentum
 
 **如果你在training data已经得到了很好的结果了，但是你在testing data上得不到很好的结果，那么接下来会有三个方法帮助解决。**
 
-##  Early Stopping
+###  Early Stopping
   ![chapter1-0.png](res/chapter18-26.png)
    ![chapter1-0.png](res/chapter18-27.png)
 
@@ -185,7 +185,7 @@ Adam：RMSProp+Momentum
 
 会validation set模拟 testing set，什么时候validation set最小，你的training 会停下来。
 
-##  Regularization
+###  Regularization
 类似与大脑的神经，刚刚从婴儿到6岁时，神经连接变多，但是到14岁一些没有用的连接消失，神经连接变少。
   ![chapter1-0.png](res/chapter18-28.png)
 重新去定义要去minimize的那个loss function。
@@ -205,7 +205,7 @@ w是正的微分出来就是+1，w是负的微分出来就是-1，可以写为sg
 每一次更新时参数时，我们一定要去减一个\eta \lambda sgn(w^t)ηλsgn(wt)值(w是正的，就是减去一个值；若w是负的，就是加上一个值，让参数变大)。
 
 L2、L1都可以让参数变小，但是有所不同的，若w是一个很大的值，L2下降的很快，很快就会变得很小，在接近0时，下降的很慢，会保留一些接近01的值；L1的话，减去一个固定的值(比较小的值)，所以下降的很慢。所以，通过L1-Norm training 出来的model，参数会有很大的值。
-##  Dropout
+###  Dropout
 
 在traning的时候，每一次update参数之前，对network里面的每个neural(包括input)，做sampling。 每个neural会有p%会被丢掉，跟着的weight也会被丢掉。
 
