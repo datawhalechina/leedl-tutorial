@@ -1,5 +1,5 @@
-![](res/chapter37-0.png)
-# RNN怎么学习？
+
+## RNN怎么学习？
 
 ![](res/chapter37-30.png)
 如果要做learning的话，你要定义一个cost function来evaluate你的model是好还是不好，选一个parameter要让你的loss 最小。那在Recurrent Neural 
@@ -66,14 +66,14 @@ RNN跟LSTM在面对memory的时候，它处理的操作其实是不一样的。�
 
 有一个蛮有趣的paper是这样的：一般的RNN用identity matrix（单位矩阵）来initialized transformation weight+ReLU activaton function它可以得到很好的performance。刚才不是说用ReLU的performance会比较呀，如果你说一般train的方法initiaed weight是(这个单词没懂)，那ReLU跟sigmoid function来比的话，sigmoid performance 会比较好。但是你今天用了identity matrix的话，这时候用ReLU performance会比较好。
 
-# RNN其他应用
+## RNN其他应用
 
 ![](res/chapter37-37.png)
 其实RNN有很多的application，前面举得那个solt filling的例子。我们假设input跟output的数目是一样的，也就是说input有几个word，我们就给每一个word slot label。那其实RNN可以做到更复杂的事情
 
-## 多对一序列
+### 多对一序列
 
-### 情感识别
+#### 情感识别
 
 
 
@@ -85,16 +85,16 @@ RNN跟LSTM在面对memory的时候，它处理的操作其实是不一样的。�
 ![](res/chapter37-39.png)
 用RNN来作key term extraction。key term extraction意思就是说给machine看一个文章，machine要预测出这篇文章有哪些关键词汇。那如果你今天能够收集到一些training data(一些document，这些document都有label，哪些词汇是对应的，那就可以直接train一个RNN)，那这个RNN把document当做input，通过Embedding layer，然后用RNN把这个document读过一次，然后把出现在最后一个时间点的output拿过来做attention，你可以把这样的information抽出来再丢到feedforward neural network得到最后的output
 
-## 多对多序列
+### 多对多序列
 
-### 语音识别
+#### 语音识别
 
 ![](res/chapter37-40.png)
 那它也可以是多对多的，比如说当你的input和output都是sequence，但是output sequence比input sequence短的时候，RNN可以处理这个问题。什么样的任务是input sequence长，output sequence短呢。比如说，语音辨识就是这样的任务。在语音辨识这个任务里面input是acoustic sequence(说一句话，这句话就是一段声音讯号)。我们一般处理声音讯号的方式，在这个声音讯号里面，每隔一小段时间，就把它用vector来表示。这个一小段时间是很短的(比如说，0.01秒)。那output sequence是character sequence。
 
 如果你是原来的RNN(slot filling的那个RNN)，你把这一串input丢进去，它充其量只能做到说，告诉你每一个vector对应到哪一个character。加入说中文的语音辨识的话，那你的output target理论上就是这个世界上所有可能中文的词汇，常用的可能是八千个，那你RNNclassifier的数目可能就是八千个。虽然很大，但也是没有办法做的。但是充其量只能做到说：每一个vector属于一个character。每一个input对应的时间间隔是很小的(0.01秒)，所以通常是好多个vector对应到同一个character。所以你的辨识结果为“好好好棒棒棒棒棒”。你会说：这不是语音辨识的结果呀，有一招叫做“trimming”(把重复的东西拿掉)，就变成“好棒”。这这样会有一个严重的问题，因为它没有辨识“好棒棒”。
 
-### CTC语音识别
+#### CTC语音识别
 
 ![](res/chapter37-41.png)
 需要把“好棒”跟“好棒棒”分开来，怎么办，我们有一招叫做“CTC”(这招很神妙)，它说：我们在output时候，我们不只是output所有中文的character，我们还有output一个符号，叫做"null""(没有任何东西)。所以我今天input一段acoustic feature sequence,它的output是“好 null null 棒 null null null null”，然后我就把“null”的部分拿掉，它就变成“好棒”。如果我们输入另外一个sequence，它的output是“好 null null 棒 null 棒 null null”，然后把“null”拿掉，所以它的output就是“好棒棒”。这样就可以解决叠字的问题了。
@@ -109,7 +109,7 @@ RNN跟LSTM在面对memory的时候，它处理的操作其实是不一样的。�
 
 假设有一个例子，第一个frame是output h，第二个frame是output null，第三个frame是output null，第四个frame是output I等等。如果你看到output是这样子话，那最后把“null”的地方拿掉，那这句话的辨识结果就是“HIS FRIEND'S”。你不需要告诉machine说："HIS"是一个词汇，“FRIEND's”是一个词汇,machine通过training data会自己学到这件事情。那传说，Google的语音辨识系统已经全面换成CTC来做语音辨识。如果你用CTC来做语音辨识的话，就算是有某一个词汇(比如是：英文中人名，地名)在training data中从来没有出现过，machine也是有机会把它辨识出来。
 
-## Sequence to sequence learning
+### Sequence to sequence learning
 
 ![](res/chapter37-44.png)
 另外一个神奇RNN的应用叫做sequence to sequence learning，在sequence to sequence learning里面,RNN的input跟output都是sequence(但是两者的长度是不一样的)。刚在在CTC时，input比较长，output比较短。在这边我们要考虑的是不确定input跟output谁比较长谁比较短。
@@ -132,23 +132,23 @@ RNN跟LSTM在面对memory的时候，它处理的操作其实是不一样的。�
 ![](res/chapter37-48.png)
 这篇的papre是这样做的，sequence to sequence learning我们原来是input 某种语言的文字翻译成另外一种语言的文字(假设做翻译的话)。那我们有没有可能直接input某种语言的声音讯号，output另外一种语言的文字呢？我们完全不做语音辨识。比如说你要把英文翻译成中文，你就收集一大堆英文的句子，看看它对应的中文翻译。你完全不要做语音辨识，直接把英文的声音讯号丢到这个model里面去，看它能不能output正确的中文。这一招居然是行得通的。假设你今天要把台语转成英文，但是台语的语音辨识系统不好做，因为台语根本就没有standard文字系统，所以这项技术可以成功的话，未来你在训练台语转英文语音辨识系统的时候，你只需要收集台语的声音讯号跟它的英文翻译就可以刻了。你就不需要台语语音辨识的结果，你也不需要知道台语的文字，也可以做这件事。
 
-### Beyond Sequence
+#### Beyond Sequence
 
 ![](res/chapter37-49.png)
 利用sequence to sequence的技术，甚至可以做到Beyond Sequence。这个技术也被用到syntactic parsing。synthetic parsing这个意思就是说，让machine看一个句子，它要得到这个句子的结构树，得到一个树状的结构。怎么让machine得到这样的结构呢？，过去你可能要用structured learning的技术能够解这个问题。但是现在有了 sequence to sequence learning的技术以后，你只要把这个树状图描述成一个sequence(具体看图中 john has a dog)。所以今天是sequence to sequence learning 的话，你就直接learn 一个sequence to sequence model。它的output直接就是syntactic parsing tree。这个是可以train的起来的，非常的surprised
 
 你可能想说machine它今天output的sequence不符合文法结构呢(记得加左括号，忘记加右括号)，神奇的地方就是LSTM不会忘记右括号。
 
-## Document转成Vector
+### Document转成Vector
 
 ![](res/chapter37-50.png)
 那我们要将一个document表示成一个vector的话，往往会用bag-of-word的方法，用这个方法的时候，往往会忽略掉 word order information。举例来说，有一个word sequence是“white blood cells destroying an infection”，另外一个word sequence是：“an infection destroying white blood cells”，这两句话的意思完全是相反的。但是我们用bag-of-word的方法来描述的话，他们的bag-of-word完全是一样的。它们里面有完全一摸一样的六个词汇，因为词汇的order是不一样的，所以他们的意思一个变成positive，一个变成negative，他们的意思是很不一样的。
 
 那我们可以用sequence to sequence Auto-encoder这种做法来考虑word sequence order的情况下，把一个document变成一个vector。
 
-# Sequence-to-sequence -Text
+## Sequence-to-sequence -Text
 
-### 
+ 
 
 ![](res/chapter37-51.png)
 input一个word sequence，通过Recurrent Neural  Network变成一个invalid vector，然后把这个invalid vector当做decoder的输入，然后让这个decoder，找回一模一样的句子。如果今天Recurrent Neural Network可以做到这件事情的话，那Encoding这个vector就代表这个input sequence里面重要的information。在trian Sequence-to-sequence Auto-encoder的时候，不需要label data，你只需要收集大量的文章，然后直接train下去就好了。
@@ -156,7 +156,7 @@ input一个word sequence，通过Recurrent Neural  Network变成一个invalid ve
 Sequence-to-sequence 还有另外一个版本叫skip thought，如果用Sequence-to-sequence的，输入输出都是同一个句子，如果用skip thought的话，输出的目标就会是下一个句子，用sequence-to-sequence得到的结果通常容易表达，如果要得到语义的意思的，那么skip thought会得到比较好的结果。![](res/chapter37-52.png)
 这个结构甚至可以是hierarchical,你可以每一个句子都先得到一个vector(Mary was hungry得到一个vector，she didn't find any food得到一个vector)，然后把这些vector加起来，然后变成一个整个 document high label vector，在让这整个vector去产生一串sentence vector，在根据每一个sentence vector再去解回word sequence。这是一个四层的LSTM(从word 变成sentence sequence ，变成document lable，再解回sentence sequence，再解回word sequence)
 
-# Sequence-to-sequence -Speech
+## Sequence-to-sequence -Speech
 
 ![](res/chapter37-53.png)
 这个也可以用到语音上，在语音上，它可以把一段audio segment变成一个fixed length vector。比如说，左边有一段声音讯号，长长短短都不一样，那你把他们变成vector的话，可能dog跟dogs比较接近，never和ever比较接近。我称之为audio auto vector。一般的auto vector它是把word变成vector，这个是把一段声音讯号变成一个vector。
@@ -175,7 +175,7 @@ Sequence-to-sequence 还有另外一个版本叫skip thought，如果用Sequence
 我们在实验上得到一些有趣的结果，图上的每个点其实都是一段声音讯号，你把声音讯号用刚才讲的
 Sequence-to-sequence Auto-encoder技术变成平面上一个vector。发现说：fear这个位置在左上角，near的位置在右下角，他们中间这样的关系(fame在左上角，name在右下角)。你会发现说：把fear的开头f换成n，跟fame的开头f换成n，它们的word vector的变化方向是一样的。现在这个技术还没有把语义加进去。
 
-# Demo：聊天机器人
+## Demo：聊天机器人
 
 ![](res/chapter37-57.png)
 现在有一个demo，这个demo是用Sequence-to-sequence Auto-encoder来训练一个chat-bot(聊天机器人)。怎么用sequence to sequence learning来train chat-bot呢？你就收集很多的对话，比如说电影的台词，在电影中有一个台词是“How are you”，另外一个人接“I am fine”。那就告诉machine说这个sequence to sequence learning当它input是“How are you”的时候，这个model的output就要是“I am fine”。你可以收集到这种data，然后就让machine去 train。这里我们就收集了四万句和美国总统辩论的句子，然后让machine去学这个sequence to sequence这个model。
@@ -187,7 +187,7 @@ Sequence-to-sequence Auto-encoder技术变成平面上一个vector。发现说�
 
 那我们知道说，人的大脑有非常强的记忆力，所以你可以记得非常非常多的东西。比如说，你现在同时记得早餐吃了什么，同时记得10年前夏天发生的事，同时记得在这几门课中学到的东西。那当然有人问你说什么是deep learning的时候，那你的脑中会去提取重要的information，然后再把这些information组织起来，产生答案。但是你的脑中会自动忽略那些无关的事情，比如说，10年前夏天发生的事情等等。
 
-# Attension-based Model
+## Attension-based Model
 
 
 
@@ -200,7 +200,7 @@ Controller，这个Reading Head Controller会去决定这个reading head放的�
 ![](res/chapter37-61.png)
 这个model还有一个2.0的版本，它会去操控writing head controller。这个writing head controller会去决定writing head 放的位置。然后machine会去把它的information通过这个writing head写进它的data base里面。所以，它不仅有读的功能，还可以discover出来的东西写入它的memory里面去。这个就是大名鼎鼎的Neural Turing Machine
 
-## 阅读理解
+### 阅读理解
 
 ![](res/chapter37-62.png)
 Attention-based Model 常常用在Reading Comprehension里面。所谓的Reading Comprehension就是让machine读一堆document，然后把这些document里面的内容(每一句话)变成一个vector。每一个vector就代表了每一句话的语义。比如你现在想问machine一个问题，然后这个问题被丢进中央处理器里面，那这个中央处理器去控制而来一个reading head controller，去决定说现在在这个data base里面哪些句子是跟中央处理器有关的。假设machine发现这个句子是跟现在的问题是有关的，就把reading head放到这个地方，把information 读到中央处理器中。读取information这个过程可以是重复数次,也就是说machine并不会从一个地方读取information，它先从这里读取information以后，它还可以换一个位置读取information。它把所有读到的information收集起来，最后给你一个最终的答案。
@@ -209,7 +209,7 @@ Attention-based Model 常常用在Reading Comprehension里面。所谓的Reading
 
 上图是在baby corpus上的结果，baby corpus是一个Q&A的一个简单的测试。我们需要做的事就是读过这五个句子，然后说：what color is Grey?，得到正确的答案，yes。那你可以从machine attention的位置(也就是reading head 的位置)看出machine的思路。图中蓝色代表了machine reading head 的位置，Hop1，Hop2，Hop3代表的是时间，在第一个时间点，machine先把它的reading head放在“greg is a frog”，把这个information提取出来。接下来提取“brian is a frog” information ，再提取“brian is yellow”information。最后它得到结论说：greg 的颜色是yellow。这些事情是machine自动learn出来的。也就是machine attention在哪个位置，这些通过neural network学到该怎么做，并不是去写程序，你要先看这个句子，在看这个句子。这是machine自动去决定的。
 
-## Visual Question Answering
+### Visual Question Answering
 
 ![](res/chapter37-64.png)
 也可以做Visual Question Answering，让machine看一张图，问它这是什么，如果它可以正确回答说：这是香蕉，这就非常厉害了。
@@ -217,7 +217,7 @@ Attention-based Model 常常用在Reading Comprehension里面。所谓的Reading
 ![](res/chapter37-65.png)
 这个Visual Question Answering该怎么做呢？先让machine看一张图，然后通过CNN你可以把这张图的一小块region用一小块的vector来表示。接下里，输入一个query，这个query被丢到中央处理器中，这个中央处理器去操控这个reading head controller，这个reading head controller决定读取的位置(是跟现在输入的问题是有关系的，这个读取的process可能要好几个步骤，machine会分好几次把information读到中央处理器，最后得到答案。
 
-## Speech Question Answering
+### Speech Question Answering
 
 ![](res/chapter37-66.png)
 那可以做语音的Question Answering 。比如说：在语音处理实验上我们让machine做TOEFL Listening Comprehension Test 。让machine听一段声音，然后问它问题，从四个选项里面，machine选择出正确的选项。那machine做的事情是跟人类考生做的事情是一模一样的。
@@ -234,7 +234,7 @@ Attention-based Model 常常用在Reading Comprehension里面。所谓的Reading
 
 另外还可以用memory network可以得到39.2 %正确率，如果用我们刚才讲的那个model的话，可以做到48.8%正确率。
 
-## RNN 和Structured learning关系
+### RNN 和Structured learning关系
 
 ![](res/chapter37-70.png)
 使用deep learning跟structure learning的技术有什么不同呢？首先假如我们用的是unidirectional RNN/LSTM，当你在  decision的时候，你只看了sentence的一半，而你是用structure learning的话，比如用Viterbi algrithm你考虑的是整个句子。从这个结果来看，也许HMM，SVM等还是占到一些优势的。但是这个优势并不是很明显，因为RNN和LSTM他们可以做Bidirectional ，所以他们也可以考虑一整个句子的information
@@ -245,7 +245,7 @@ Attention-based Model 常常用在Reading Comprehension里面。所谓的Reading
 
 最后总结来看，RNN/LSTM在deep这件事的表现其实会比较好，同时这件事也很重要，如果只是线性的模型，function space就这么大，可以直接最小化一个错误的上界，但是这样没什么，因为所有的结果都是坏的，所以相比之下，deep learning占到很大的优势。
 
-# Integerated Together
+## Integerated Together
 
 ![](res/chapter37-71.png)
 deep learning和structured learning结合起来。input features 先通过RNN/LSTM，然后RNN/LSTM的output再做为HMM/svm的input。用RNN/LSTM的output来定义HMM/structured SVM的evaluation function，如此就可以同时享有deep learning的好处，也可以有structure learning的好处。
@@ -268,7 +268,7 @@ $$P(x_l | y_l)=\frac{P(x_l,y_l)}{P(y_l)}=\frac{P(y_l|x_l)P(x_l)}{P(y_l)}$$
 
 先用Bi-directional LSTM做feature，然后把这些feature拿来在做CRF或者Structured SVM，然后学习一个权重w，这个$\phi(x,y)$的feature，要直接从Bidirectional LSTM的输出可以得到比较好的结果。
 
-## Structure learning practical？
+### Structure learning practical？
 
 ![](res/chapter37-74.png)
 
