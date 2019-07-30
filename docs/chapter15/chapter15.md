@@ -1,13 +1,12 @@
-# “Hello world” of Deep Learning
 
-# keras 是什么
+## keras 是什么
 Keras 是一个用 Python 编写的高级神经网络 API，它能够以 TensorFlow, CNTK, 或者 Theano 作为后端运行。
 
 
-# 示例
+## 示例
 
 以手写数字识别为例
-## 步骤1：定义模型
+### 步骤1：定义模型
 ![](res/chapter15-1.png)
 
 
@@ -31,7 +30,7 @@ model.add(activation('sigmoid'))
 
 
 
-## 步骤2：模型评估
+### 步骤2：模型评估
 
 ![](res/chapter15-2.png)
 - 评估模型的好坏
@@ -52,9 +51,9 @@ optimizer #优化器
 metrics #指标
 ```
 
-## 步骤3：最佳模型
+### 步骤3：最佳模型
 
-### 3.1 Configuration
+#### 3.1 Configuration
 ![](res/chapter15-3.png)
 
 
@@ -62,7 +61,7 @@ metrics #指标
 model.compile = (loss = 'categorical crossentropy', optimizer = 'adam')
 ```
 - optimizer后面可以跟不同的方式，这些方式都是GD，只是用的learning rate不同，有一些machine会自己决定learning rate
-### 3.2 寻找最优网络参数
+#### 3.2 寻找最优网络参数
 
 ![](res/chapter15-4.png)
 - 给定四个输入, x_train, y_train, batch_size, nb_epoch
@@ -70,7 +69,7 @@ model.compile = (loss = 'categorical crossentropy', optimizer = 'adam')
 - Two dimension matrix(X_train)，第一个dimension代表你有多少个example，第二个dimension代表你有多少个pixel
 - Two dimension matrix(y_train)，第一个dimension代表你有多少个training example，第二个dimension代表label(黑色的为数字，从0开始计数)
 
-#### mini-batch 的原理详解
+##### mini-batch 的原理详解
 keras model参数`batch_size`和`nb_epoch`
 ![](res/chapter15-5.png)
 
@@ -87,7 +86,7 @@ keras model参数`batch_size`和`nb_epoch`
 1. 这里的batch_size代表一个batch有多大(就是把100个example，放到一个batch里)
 2. nb_epoch等于20表示对每个batch重复20次
 
-#### 使用mini-batch的原因：Speed
+##### 使用mini-batch的原因：Speed
 ![](res/chapter15-6.png)
 ![](res/chapter15-7.png)
 
@@ -98,7 +97,8 @@ keras model参数`batch_size`和`nb_epoch`
 - 很大的batch size会导致很差的表现（不能设置太大也不能设置太小）
 ![](res/chapter15-8.png)
 用随机梯度下降的时候两个矩阵x是分开计算的，当用mini batch的时候，直接是用两个x合并在一起，一起计算得到$Z^1$和$Z^2$，对GPU来说上面运算时间是下面运算时间的两倍，这就是为什么我们用上mini batch和GPU的时候速度会加快的原理。但是如果你用了GPU没用mini batch的话，那也达不到加速的效果。
-## 模型保存和使用
+
+### 模型保存和使用
 
 ```python
 #case1：测试集正确率
