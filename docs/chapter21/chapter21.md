@@ -1,7 +1,7 @@
 
 ![](res/chapter21-1.png)
 
-# 为什么用CNN
+## 为什么用CNN
 ![](res/chapter21-2.png)
 
 我们都知道CNN常常被用在影像处理上，如果你今天用CNN来做影像处理，当然也可以用一般的neural network来做影像处理，不一定要用CNN。比如说你想要做影像的分类，那么你就是training一个neural network,input一张图片，那么你就把这张图片表示成里面的pixel，也就是很长很长的vector。output就是(假如你有1000个类别，output就是1000个dimension)dimension。那我相信根据刚才那堂课内容，若给你一组training data你都可以描作出来。
@@ -19,7 +19,7 @@
 
 等一下我们讲完会觉得发现说：你可能觉得CNN运作很复杂，但事实上它的模型是要比DNN还要更简单的。我们就是用power-knowledge 去把原来fully connect layer中一些参数拿掉就成了CNN。
 
-## Small region
+### Small region
 
 ![](res/chapter21-4.png)
 
@@ -29,7 +29,7 @@
 
 举例来说，假设我们现在有一张图片，第一个hidden layer的某一种neural的工作就是要侦测有没有鸟嘴的存在(有一些neural侦测有没有爪子的存在，有没有一些neural侦测有没有翅膀的存在，有没有尾巴的存在，合起来就可以侦测图片中某一只鸟)。假设有一个neural的工作是要侦测有没有鸟嘴的存在，那并不需要看整张图，其实我们只需要给neural看着一小红色方框的区域(鸟嘴)，它其实就可以知道说，它是不是一个鸟嘴。对人来说也是一样，看这一小块区域这是鸟嘴，不需要去看整张图才知道这件事情。所以，每一个neural连接到每一个小块的区域就好了，不需要连接到整张完整的图。
 
-## Same Patterns
+### Same Patterns
 
 ![](res/chapter21-5.png)
 
@@ -37,12 +37,12 @@
 
 比如说，这张图里面有一张在左上角的鸟嘴，在这张图里面有一个在中央的鸟嘴，但是你并不需要说：我们不需要去训练两个不同的detector，一个专门去侦测左上角的鸟嘴，一个去侦测中央有没有鸟嘴。如果这样做的话，这样就太冗了。我们不需要太多的冗源，这个nerual侦测左上角的鸟嘴跟侦测中央有没有鸟嘴做的事情是一样的。我们并不需要两个neural去做两组参数，我们就要求这两个neural用同一组参数，就样就可以减少你需要参数的量
 
-## Subsampling
+### Subsampling
 ![](res/chapter21-6.png)
 
 第三个是：我们知道一个image你可以做subsampling，你把一个image的奇数行，偶数列的pixel拿掉，变成原来十分之一的大小，它其实不会影响人对这张image的理解。对你来说：这张image跟这张image看起来可能没有太大的差别。是没有太大的影响的，所以我们就可以用这样的概念把image变小，这样就可以减少你需要的参数。
 
-# CNN架构
+## CNN架构
 
 ![](res/chapter21-7.png)
 
@@ -56,9 +56,9 @@
 
 前面的两个property可以用convolution来处理掉，最后的property可以用Max Pooling这件事来处理。等一下我们要介绍每一个layer再做的事情，我们就先从convolution开始看起。
 
-# Convolution
+## Convolution
 
-## Propetry1
+### Propetry1
 
 ![](res/chapter21-9.png)
 
@@ -67,7 +67,7 @@
 每个filter如果是3* 3的detects意味着它就是再侦测一个3 *3的pattern(看3 *3的一个范围)。在侦测pattern的时候不看整张image，只看一个3 *3的范围内就可以决定有没有某一个pattern的出现。这个就是我们考虑的第一个Property
 
 
-## Propetry2
+### Propetry2
 
 ![](res/chapter21-10.png)
 
@@ -98,7 +98,7 @@
 
 
 
-#  convolution和fully connected之间的关系
+##  convolution和fully connected之间的关系
 
 ![](res/chapter21-14.png)
 
@@ -120,7 +120,7 @@ convolution就是fully connected layer把一些weight拿掉了。经过convoluti
 
 
 
-# Max pooling
+## Max pooling
 
 ![](res/chapter21-17.png)
 
@@ -151,7 +151,7 @@ convolution就是fully connected layer把一些weight拿掉了。经过convoluti
 假设第一层filter有2个，第二层的filter在考虑这个imput时是会考虑深度的，并不是每个channel分开考虑，而是一次考虑所有的channel。所以convolution有多少个filter，output就有多少个filter(convolution有25个filter，output就有25个filter。只不过，这25个filter都是一个立方体)
 
 
-# Flatten
+## Flatten
 
 ![](res/chapter21-22.png)
 
@@ -160,7 +160,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 
 
 
-# CNN in Keras
+## CNN in Keras
 
 ![](res/chapter21-23.png)
 
@@ -199,7 +199,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 通过两次convolution，两次Max Pooling，原来是1 *28 *28变为50 *5 *5。flatten的目的就是把50 *5 *5拉直，拉直之后就成了1250维的vector，然后把1250维的vector丢到fully connected。
 
 
-# CNN学到了什么?
+## CNN学到了什么?
 ![](res/chapter21-26.png)
 
 很多人常会说：deep learning就是一个黑盒子，然后你learn以后你不知道它得到了什么，所以有很多人不喜欢用这种方法。但还有很多的方法分析的，比如说我们今天来示范一下咋样分析CNN，它到底学到了什么。
@@ -231,7 +231,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 所以你就会发现：每一个filter的工作就是detain某一张pattern。比如说：第三图detain斜的线条，第四图是detain短的直线条，等等。每一个filter所做的事情就是detain不同角度的线条，如果今天input有不同角度的线条，你就会让某一个activation function，某一个filter的output值最大
 
 
-## 分析全连接层
+### 分析全连接层
 
 ![](res/chapter21-28.png)
 
@@ -261,7 +261,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 [相关的paper](https://www.youtube.com/watch?v=M2IebCN9H)
 
 
-## 让图更像数字
+### 让图更像数字
 
 ![](res/chapter21-30.png)
 
@@ -274,7 +274,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 你如果加上一些额外的constraint，比如说：你希望相邻的pixel
 是同样的颜色等等，你应该可以得到更好的结果。不过其实有更多很好的方法可以让machine generate数字
 
-# Deep Dream
+## Deep Dream
 
 ![](res/chapter21-31.png)
 
@@ -289,7 +289,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 
 如果你把这张image拿去做Deep Dream的话，你看到的结果是这样子的。右边有一只熊，这个熊原来是一个石头(对机器来说，这个石头有点像熊，它就会强化这件事情，所以它就真的变成了一只熊)。Deep Dream还有一个进阶的版本，叫做Deep Style
 
-# Deep style
+## Deep style
 
 ![](res/chapter21-33.png)
 
@@ -310,9 +310,9 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 接下来你用同一个CNN找一张image，这张image它的content像左边这张相片，但同时这张image的style像右边这张相片。你找一张image同时可以maximize左边的图，也可以maximize右边的图。那你得到的结果就是像最底下的这张图。用的就是刚才讲的gradient ascent的方法找一张image，然后maximize这两张图，得到就是底下的这张图。
 
 
-# CNN的应用
+## CNN的应用
 
-## 围棋
+### 围棋
 ![](res/chapter21-36.png)
 
 我们现在CNN已经在很多不同的应用上，而不是只有影像处理上。比如：CNN现在有一个很知名的应用，就用用在下围棋上面。为什么CNN可以用来下围棋上面呢？
@@ -345,7 +345,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 接下来我们说image还有一个特性：同样的pattern会出现在不同的regions，而他们代表的是同样的意义，在围棋上可能也会有同样的现象。像如图这个pattern可以出现在左上角，也可以出现在右下角，它们都代表了同样的意义。所以你可以用同一个pattern来处理在不同位置的同样的pattern。所以对围棋来说，是有这两个特性的。
 
 
-## AlphaGo
+### AlphaGo
 
 ![](res/chapter21-39.png)
 
@@ -369,7 +369,7 @@ flatten就是feature map拉直，拉直之后就可以丢到fully connected feed
 
 
 
-## 语音
+### 语音
 
 ![](res/chapter21-40.png)
 
@@ -387,7 +387,7 @@ CNN也可以用在其它的task里面，比如说：CNN也用在影像处理上�
 所以今天我们把filter在frequency direction移动是有效的。当我们把CNN用在application时，你永远要想一想，这个application的特性是什么，根据那个application的特性来design network的structure
 
 
-## 文本
+### 文本
 ![](res/chapter21-41.png)
 
 [相关的paper](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.703.6858&rep=rep1&type=pdf)
