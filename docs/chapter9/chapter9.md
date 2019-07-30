@@ -495,7 +495,7 @@ plt.show()
 
   ![Group2](res/chapter9-3.png)
 
-  ![Group3](res/chapter9-4.png0)
+
 
 ![Group4](res/chapter9-4.png)
 
