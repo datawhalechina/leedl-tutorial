@@ -1,4 +1,4 @@
-# Keras Demo
+
 ## 初始代码
 deep learning这么潮的东西，实现起来也很简单。首先是load_data进行数据载入处理。
 ```
