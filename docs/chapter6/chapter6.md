@@ -6,7 +6,7 @@
 ### Review: 梯度下降法
 在回归问题的第三步中，需要解决下面的最优化问题：
 
-$$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
+$$\theta^∗= \underset{ \theta }{\operatorname{arg\ min}}  L(\theta) \tag1$$
 - $L$ :lossfunction（损失函数）
 - $\theta$ :parameters（参数）
 
