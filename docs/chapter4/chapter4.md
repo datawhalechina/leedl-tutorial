@@ -10,6 +10,25 @@ x_d = np.asarray(x_data)
 y_d = np.asarray(y_data)
 ```
 
+```
+x = np.arange(-200, -100, 1)
+y = np.arange(-5, 5, 0.1)
+Z = np.zeros((len(x), len(y)))
+X, Y = np.meshgrid(x, y)
+```
+
+```
+# loss
+for i in range(len(x)):
+    for j in range(len(y)):
+        b = x[i]
+        w = y[j]
+        Z[j][i] = 0  # meshgrid吐出结果：y为行，x为列
+        for n in range(len(x_data)):
+            Z[j][i] += (y_data[n] - b - w * x_data[n]) ** 2
+        Z[j][i] /= len(x_data)
+```
+
 
 
 先给b和w一个初始值，计算出b和w的偏微分
@@ -30,7 +49,7 @@ for i in range(iteration):
     w_grad=0.0
     for n in range(len(x_data))
         b_grad=b_grad-2.0*(y_data[n]-n-w*x_data[n])*1.0
-         w_grad= w_grad-2.0*(y_data[n]-n-w*x_data[n])*x_data[n]
+        w_grad= w_grad-2.0*(y_data[n]-n-w*x_data[n])*x_data[n]
     
     # update param
     b -= lr * b_grad
@@ -102,7 +121,7 @@ for i in range(iteration):
     lr_w=lr_w+w_grad**2
     # update param
     b -= lr/np.sqrt(lr_b) * b_grad
-    w -= lr np.sqrt(lr_w) * w_grad
+    w -= lr /np.sqrt(lr_w) * w_grad
 
     b_history.append(b)
     w_history.append(w)
