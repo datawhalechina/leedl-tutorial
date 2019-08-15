@@ -24,9 +24,8 @@
   **train.csv**:每個月前20天每個小時的氣象資料(每小時有18種測資)。共12個月。
   **test**.csv:從剩下的資料當中取樣出連續的10小時為一筆，前九小時的所有觀測數據當作feature，第十小時的PM2.5當作answer。一共取出240筆不重複的 test data，請根據feauure預測這240筆的PM2.5。
 - 请完成之后参考以下资料：
-  - Sample_code:https://ntumlta.github.io/2017fall-ml-hw1/code.html
-  - Supplementary_Slide:https://docs.google.com/presentation/d/1WwIQAVI0RRA6tpcieynPVoYDuMmuVKGvVNF_DSKIiDI/edit#slide=id.g1ef6d808f1_2_0
-  - 答案参考**answer.csv**
+  - Sample_code:https://github.com/datawhalechina/leeml-notes/tree/master/docs/Homework/HW_1
+
 
 ## 任务实现
 ### 方案1
