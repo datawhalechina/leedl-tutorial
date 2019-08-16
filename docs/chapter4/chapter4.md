@@ -57,7 +57,7 @@ for i in range(iteration):
 
     b_history.append(b)
     w_history.append(w)
-    
+    loss_history.append(loss)
 ```
 ```python
 # plot the figure
@@ -113,7 +113,7 @@ start = time.time()
 for i in range(iteration):
     b_grad=0.0
     w_grad=0.0
-    for n in range(len(x_data))
+    for n in range(len(x_data)):
         b_grad=b_grad-2.0*(y_data[n]-n-w*x_data[n])*1.0
         w_grad= w_grad-2.0*(y_data[n]-n-w*x_data[n])*x_data[n]
     
@@ -125,7 +125,7 @@ for i in range(iteration):
 
     b_history.append(b)
     w_history.append(w)
-    
+    loss_history.append(loss)
 ```
 ```python
 # plot the figure
