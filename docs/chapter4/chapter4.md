@@ -17,7 +17,7 @@ y = np.arange(-5, 5, 0.1)
 Z = np.zeros((len(x), len(y)))
 X, Y = np.meshgrid(x, y)
 ```
-
+  
 ```
 # loss
 for i in range(len(x)):
