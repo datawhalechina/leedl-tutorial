@@ -4,10 +4,11 @@
 
 现在假设有10个x_data和y_data，x和y之间的关系是y_data=b+w*x_data。b，w都是参数，是需要学习出来的。现在我们来练习用梯度下降找到b和w。
 ```python
+import numpy as np
+import matplotlib.pyplot as plt
+
 x_data = [338., 333., 328., 207., 226., 25., 179., 60., 208., 606.]
 y_data = [640., 633., 619., 393., 428., 27., 193., 66., 226., 1591.]
-x_d = np.asarray(x_data)
-y_d = np.asarray(y_data)
 ```
 
 ```
@@ -57,13 +58,10 @@ for i in range(iteration):
 
     b_history.append(b)
     w_history.append(w)
-    loss_history.append(loss)
 ```
 ```python
 # plot the figure
-plt.subplot(1, 2, 1)
-C = plt.contourf(x, y, Z, 50, alpha=0.5, cmap=plt.get_cmap('jet'))  # 填充等高线
-# plt.clabel(C, inline=True, fontsize=5)
+plt.contourf(x, y, Z, 50, alpha=0.5, cmap=plt.get_cmap('jet'))  # 填充等高线
 plt.plot([-188.4], [2.67], 'x', ms=12, mew=3, color="orange")
 plt.plot(b_history, w_history, 'o-', ms=3, lw=1.5, color='black')
 plt.xlim(-200, -100)
@@ -71,13 +69,6 @@ plt.ylim(-5, 5)
 plt.xlabel(r'$b$')
 plt.ylabel(r'$w$')
 plt.title("线性回归")
-
-plt.subplot(1, 2, 2)
-loss = np.asarray(loss_history[2:iteration])
-plt.plot(np.arange(2, iteration), loss)
-plt.title("损失")
-plt.xlabel('step')
-plt.ylabel('loss')
 plt.show()
 
 ```
@@ -125,13 +116,10 @@ for i in range(iteration):
 
     b_history.append(b)
     w_history.append(w)
-    loss_history.append(loss)
 ```
 ```python
 # plot the figure
-plt.subplot(1, 2, 1)
-C = plt.contourf(x, y, Z, 50, alpha=0.5, cmap=plt.get_cmap('jet'))  # 填充等高线
-# plt.clabel(C, inline=True, fontsize=5)
+plt.contourf(x, y, Z, 50, alpha=0.5, cmap=plt.get_cmap('jet'))  # 填充等高线
 plt.plot([-188.4], [2.67], 'x', ms=12, mew=3, color="orange")
 plt.plot(b_history, w_history, 'o-', ms=3, lw=1.5, color='black')
 plt.xlim(-200, -100)
@@ -139,13 +127,6 @@ plt.ylim(-5, 5)
 plt.xlabel(r'$b$')
 plt.ylabel(r'$w$')
 plt.title("线性回归")
-
-plt.subplot(1, 2, 2)
-loss = np.asarray(loss_history[2:iteration])
-plt.plot(np.arange(2, iteration), loss)
-plt.title("损失")
-plt.xlabel('step')
-plt.ylabel('loss')
 plt.show()
 
 ```
