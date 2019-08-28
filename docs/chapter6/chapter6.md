@@ -71,7 +71,7 @@ $$\eta^t =\frac{\eta^t}{\sqrt{t+1}} \tag4$$
 - $w$ 是一个参数
 
 Adagrad 可以做的更好：
-$$w^{t+1} \leftarrow  w^t -\frac{η^t}{\sigma}g^t \tag5$$
+$$w^{t+1} \leftarrow  w^t -\frac{η^t}{\sigma^t}g^t \tag5$$
 $$g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6$$
 - $\sigma^t$ :之前参数的所有微分的均方根，对于每个参数都是不一样的。
 
