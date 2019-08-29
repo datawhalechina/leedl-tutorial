@@ -536,4 +536,5 @@ plt.show()
 - learning rate 采用递减的方式选取的，根据经验的选择也很重要，说起来挺轻松的一件事，但实际操作起来，却四处碰壁，希望大家在实验中，多积累、多总结，机器学习不就是坑起坑落，挖坑、填坑、再挖坑、再填坑的反复训练过程么~v_v~
 
 ## 参考代码
-https://github.com/datawhalechina/Leeml-Book/tree/master/docs/Homework/HW-1
+
+https://github.com/datawhalechina/leeml-notes/tree/master/docs/Homework/HW_1
