@@ -1,4 +1,4 @@
-#  回归演示
+##  回归演示
 代码到放在Regression-Demo.md中，自取哦！
 
 
@@ -35,29 +35,35 @@ for i in range(len(x)):
 先给b和w一个初始值，计算出b和w的偏微分
 ```python
 # linear regression
-b = -120
-w = -4
-lr = 0.0000001
-iteration = 100000
+#b = -120
+#w = -4
+b=-2
+w=0.01
+lr = 0.000005
+iteration = 1400000
 
 b_history = [b]
 w_history = [w]
-
+loss_history = []
 import time
 start = time.time()
 for i in range(iteration):
-    b_grad=0.0
-    w_grad=0.0
-    for n in range(len(x_data))
-        b_grad=b_grad-2.0*(y_data[n]-n-w*x_data[n])*1.0
-        w_grad= w_grad-2.0*(y_data[n]-n-w*x_data[n])*x_data[n]
-    
+    m = float(len(x_d))
+    y_hat = w * x_d  +b
+    loss = np.dot(y_d - y_hat, y_d - y_hat) / m
+    grad_b = -2.0 * np.sum(y_d - y_hat) / m
+    grad_w = -2.0 * np.dot(y_d - y_hat, x_d) / m
     # update param
-    b -= lr * b_grad
-    w -= lr * w_grad
+    b -= lr * grad_b
+    w -= lr * grad_w
 
     b_history.append(b)
     w_history.append(w)
+    loss_history.append(loss)
+    if i % 10000 == 0:
+        print("Step %i, w: %0.4f, b: %.4f, Loss: %.4f" % (i, w, b, loss))
+end = time.time()
+print("大约需要时间：",end-start)
 ```
 ```python
 # plot the figure
