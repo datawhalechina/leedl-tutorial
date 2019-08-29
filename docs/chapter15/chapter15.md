@@ -77,7 +77,7 @@ keras model参数`batch_size`和`nb_epoch`
 具体步骤：
 - 随机初始化神经网络的参数 (跟梯度下降一样)
 - 先随机选择第一个batch出来,对选择出来的batch里面total loss, 计算偏微分，根据${L}'$去更新参数
-- 然后随机选择第二个batch ，对第一个选择出来的batch里面total loss, 计算偏微分，根据${L}''$更新参数
+- 然后随机选择第二个batch ，对第二个选择出来的batch里面total loss 计算偏微分，根据${L}''$更新参数
 - 反复上述过程，直到把所有的batch都统统过一次，一个epoch才算结束。
 注意：假设今天有100个batch的话，就把这个参数更新100次，把所有的batch都遍历过叫做一个epoch。
 ```
@@ -95,6 +95,7 @@ keras model参数`batch_size`和`nb_epoch`
 - Speed-- why minni batch is faster than stochastic GD(为什么批量梯度下降比随机梯度下降要快)
   因为利用计算机的平行运算，之前也提到过矩阵运算会使计算速度快很多。
 - 很大的batch size会导致很差的表现（不能设置太大也不能设置太小）
+
 ![](res/chapter15-8.png)
 用随机梯度下降的时候两个矩阵x是分开计算的，当用mini batch的时候，直接是用两个x合并在一起，一起计算得到$Z^1$和$Z^2$，对GPU来说上面运算时间是下面运算时间的两倍，这就是为什么我们用上mini batch和GPU的时候速度会加快的原理。但是如果你用了GPU没用mini batch的话，那也达不到加速的效果。
 
