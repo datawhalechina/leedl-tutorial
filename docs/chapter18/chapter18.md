@@ -205,54 +205,91 @@ w是正的微分出来就是+1，w是负的微分出来就是-1，可以写为sg
 每一次更新时参数时，我们一定要去减一个\eta \lambda sgn(w^t)ηλsgn(wt)值(w是正的，就是减去一个值；若w是负的，就是加上一个值，让参数变大)。
 
 L2、L1都可以让参数变小，但是有所不同的，若w是一个很大的值，L2下降的很快，很快就会变得很小，在接近0时，下降的很慢，会保留一些接近01的值；L1的话，减去一个固定的值(比较小的值)，所以下降的很慢。所以，通过L1-Norm training 出来的model，参数会有很大的值。
-###  Dropout
+##  Dropout
 
-在traning的时候，每一次update参数之前，对network里面的每个neural(包括input)，做sampling。 每个neural会有p%会被丢掉，跟着的weight也会被丢掉。
+### How to train?
 
-   ![chapter1-0.png](res/chapter18-31.png)
+![chapter1-0.png](res/chapter18-31.png)
 
-做出这个sample，network structure就等于变瘦了(thinner)，然后，你在去training这个细长的network(每一次updata之前都要去做一次) 。所以每次update参数时，你拿来training network structure是不一样的。
+在train的时候，每一次update参数之前，对network里面的每个neural(包括input)，做sampling（抽样）。 每个neural会有p%会被丢掉，跟着的weight也会被丢掉。
 
-  ![chapter1-0.png](res/chapter18-32.png)
+![chapter1-0.png](res/chapter18-32.png)
 
-  你在training 时，performance会变的有一点差(某些neural不见了)，加上dropout，你会看到在testing set会变得有点差，但是dropout真正做的事就是让你testing 越做越好
-  ![chapter1-0.png](res/chapter18-33.png)
- 在testing上注意两件事情，第一件事情就是在testing上不做dropout。另外一个是在dropout时，假设dropout rate在training 是p%， all weight都要乘以(1-p%)(假设dropout rate是p%，若在training上算出w=1,那么在testing 时，把w设为0.5)
+你在training 时，performance会变的有一点差(某些neural不见了)，加上dropout，你会看到在testing set会变得有点差，但是dropout真正做的事就是让你testing 越做越好
 
-**为什么Dropout会有用。**
-  ![chapter1-0.png](res/chapter18-34.png)
+  
+ ![chapter1-0.png](res/chapter18-33.png)
+  
+在testing上注意两件事情：
+- 第一件事情就是在testing上不做dropout。
+- 在dropout的时候，假设dropout rate在training是p%，all weights都要乘以（1-p%）
+
+假设training时dropout rate是p%，在testing rate时weights都要乘以（1-p）%。（假定dropout rate是50%，在training的时候计算出来的weights等于1，那么testing时的rate设为0.5
+
+
+### 为什么Dropout会有用
+
+![chapter1-0.png](res/chapter18-34.png)
 
 为什么在训练的时候要dropout，但是测试的时候不dropout。
 
-training的时候，会丢掉一些neural，假如你在练习轻功的时候，你在脚上绑了一些重物(training)，实际上在战斗把重物拿下来(testing)，那么你就会变得很强。
+training的时候会丢掉一些neural，就好像使在练习轻功一样在脚上绑上一些重物，然后实际上战斗的时候把重物拿下来就是testing时（没有进行dropout），那时候你就会变得很强
 
   ![chapter1-0.png](res/chapter18-35.png)
 
-  每个neural就是一个学生，在一个团队中，总是会有被dropout。你的partner会做的差的，你就想着我要好好做。
+另外一个很直觉的理由是：在一个团队里面，总是会有人摆烂（摆烂，指事情已经无法向好的方向发展,于是就干脆不再采取措施加以控制而是任由其往坏的方向继续发展下去），这是会dropout的。
 
-为什么在testing时，dropout要乘以0.5(1p%) 。
+假设你觉得你的队友会摆烂，所以这个时候你就想要好好做，你想要去carry他。但实际上在testing的时候，大家都是有在好好做，没有需要被carry，因为每个人做的很努力，所以结果会更好。
+
+### testing时为什么要乘以（1-p）%
 
    ![chapter1-0.png](res/chapter18-36.png)
 
-假设dropout rate是50%，training的时候，你总是会期望丢掉一半的neural。假设选定一组weight(w1,w2,w3,w4)。testing时是没有dropout的，所以对同一组的weihgt来说testing的时候和training时候的z有一个很明显的差距，他的期望约等于training的两倍。现在怎么办，把所有的weight都乘以0.5，现在变为将差距变回来。
+还有一个要解释的是：在做dropout任务时候要乘以（1-p）%，为什么和training时使用的training不相同呢？很直觉的理由是这样的：
 
-  ![chapter1-0.png](res/chapter18-37.png)
+假设dropout rate是50 percent，那在training的时候总是会丢掉一般的neural。假设在training时learning好一组weight($w1,w2,w3,w4$)，但是在testing时没有dropout，对同一组weights来说：在training时得到z，在testing是得到$z'$。但是training和testing得到的值是会差两倍的，所以在做testing时都乘以0.5，这样得到的结果是比较match：$z=z'$。
 
-ensemble方法 我们有一个很大的training set，每次从training set里只sample一部分的data,然后training 很多的model(每个model可能structure不一样)，每个model可能variance很大，但是他们都是很复杂的model的话，平均起来，bias就会很小。 
+上述的描述是很直觉的解释
 
-   ![chapter1-0.png](res/chapter18-38.png)
+![chapter1-0.png](res/chapter18-37.png)
 
-Dropout的类似于ensemble的终极版本，ensemble时，放入training data，通过不同network，得到一些结果在把这些结果平均起来，当做你最后的结果。
+其实dropout还是有很多的理由，这个问题还是可以探讨的问题，你可以在文献上找到很多不同的观点来解释dropout。我觉得我比较能接受的是：dropout是一个终极的ensemble方法
 
-   ![chapter1-0.png](res/chapter18-39.png)
+ensemble的意思是：我们有一个很大的training set，每次从training set里面只sample一部分的data。我们之前在讲bias和variance时，打靶有两种状况：一种是bias很大，所以你打准了；一种是variance很大，所以你打准了。如果今天有一个很复杂的model，往往是bias准，但variance很大。若很复杂的model有很多，虽然variance很大，但最后平均下来结果就很准。所以ensemble做的事情就是利用这个特性。
 
-当你做dropout是其实就是training了很多的network structure，就类似于刚刚的ensemble中将数据放进不同的模型中。但是会不会存在minibatch对结果的影响呢？其实时不会的，因为在网络中参数时共用的，所以在训练参数的时候是一大堆参数合起来去训练网络。
 
-   ![chapter1-0.png](res/chapter18-40.png)
+我们可以training很多的model（将原来的training data可以sample很多的set，每个model的structures不一样）。虽然每个model可能variance很大，但是如果它们都是很复杂的model时，平均起来时bias就很小。
 
- 在testing的时候，按照ensemble方法，把之前的network拿出来，然后把你的100笔data丢到network里面去，每一个network都会给你一个结果，这些结果的平均值就是最终的结果。但是实际上这些network太多了，没办法去给索引network丢一个input。
+![chapter1-0.png](res/chapter18-38.png)
 
-所以，dropout最神奇的地方是，它告诉你，当一个完整的network不做dropout，而是把它的weight乘以(1-p%)，把你的training data丢进去，得到的output就是average的值。
-   ![chapter1-0.png](res/chapter18-41.png)
-在这个最简单的case里面，ensemble这件事情跟我们把weight乘以1/2得到一样的结果。但是这个结果只有是linear network才会有这样的结果。
+在training时train了很多的model，在testing时输入data x进去通过所有的model（$Network1, Network2, Network3, Network4$），得到结果（$y_1, y_2, y_3, y_4$），再将这些结果做平均当做最后的结果。
+
+如果model很复杂时，这一招是往往有用的
+
+###  为什么说dropout是终极的ensemble方法
+
+![chapter1-0.png](res/chapter18-39.png)
+
+为什么说dropout是终极的ensemble方法？在进行dropout时，每次sample一个minibatch update参数时，都会进行dropout。
+
+第一个、第二个、第三个、第四个minibatch如图所示，所以在进行dropout时，是一个终极ensemble的方式。假设有M个neurons，每个neuron可以dropout或者不dropout，所以可能neurons的数目为$2^M$，但是在做dropout时，你在train$2^M$neurons。
+
+每次只用one mini-batch去train一个neuron，总共有$2^M$可能的neuron。最后可能update的次数是有限的，你可能没有办法把$2^M$的neuron都train一遍，但是你可能已经train好多的neurons。
+
+每个neuron都用one mini-batch来train，每个neuron用一个batch来train可能会让人觉得很不安（一个batch只有100笔data，怎么可能train整个neuron呢）。这是没有关系的，因为这些不同neuron的参数是共享的。
+
+ ![chapter1-0.png](res/chapter18-40.png)
+
+在testing的时候，按照ensemble方法，把之前的network拿出来，然后把train data丢到network里面去，每一个network都会给你一个结果，这些结果的平均值就是最终的结果。但是实际上没有办法这样做，因为network太多了。所以dropout最神奇的是：当你把一个完整的network不进行dropout，但是将它的weights乘以（1-p）percent，然后将train data输入，得到的output y。神奇的是：之前做average的结果跟output y是approximated
+
+
+![chapter1-0.png](res/chapter18-41.png)
+
+你可能想说何以见得？接下来我们将来举一个示例：若我们train一个很简单的network（只有一个neuron并且不考虑bis），这个network的activation是linear的。
+
+这个neuron的输入是$x_1, x_2$，经过dropout以后得到的weights是$w_1, w_2$，所以它的output是$z=w_1x_2+w_2x_2$。如果我们要做ensemble时，每个input可能被dropout或者不被dropout，所以总共有四种structure，它们所对应的结果分别为$z=w_1x_1, z=w_2x_2, z=w_1x_1, z=0$。因为我们要进行ensemble，所以要把这四个neuron的output要average，得到的结果是$z=\frac{1}{2}w_1x_1+\frac{1}{2}w_2x_2$。
+
+如果我们现在将这两个weights都乘以$\frac{1}{2}$（$\frac{1}{2}w_1x_1+\frac{1}{2}w_2x_2$）,得到的output为$z=\frac{1}{2}w_1x_1+\frac{1}{2}w_2x_2$。在这个最简单的case里面，不同的neuron structure做ensemble这件事情跟我们将weights multiply一个值，而不做ensemble所得到的output其实是一样的。
+
+只有是linear network，ensemble才会等于weights multiply一个值。 
 
