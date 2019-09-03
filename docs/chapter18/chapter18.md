@@ -291,5 +291,6 @@ ensemble的意思是：我们有一个很大的training set，每次从training 
 
 如果我们现在将这两个weights都乘以$\frac{1}{2}$（$\frac{1}{2}w_1x_1+\frac{1}{2}w_2x_2$）,得到的output为$z=\frac{1}{2}w_1x_1+\frac{1}{2}w_2x_2$。在这个最简单的case里面，不同的neuron structure做ensemble这件事情跟我们将weights multiply一个值，而不做ensemble所得到的output其实是一样的。
 
+
 只有是linear network，ensemble才会等于weights multiply一个值。 
 
