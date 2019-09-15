@@ -39,3 +39,77 @@
  - [P38 集成学习](chapter38/chapter38.md)
  - [P39 深度强化学习浅析](chapter39/chapter39.md)
  - [P40 机器学习的下一步](chapter40/chapter40.md)
+ - [P41 异常检测(1)](chapter41/chapter41.md)
+ - [P42 异常检测(2)](chapter42/chapter42.md)
+ - [P43 异常检测(3)](chapter43/chapter43.md)
+ - [P44 异常检测(4)](chapter44/chapter44.md)
+ - [P45 异常检测(5)](chapter45/chapter45.md)
+ - [P46 异常检测(6)](chapter46/chapter46.md)
+ - [P47 异常检测(7)](chapter47/chapter47.md)
+ - [P48 对抗机器学习模型(1)](chapter48/chapter48.md)
+ - [P49 对抗机器学习模型(2)](chapter49/chapter49.md)
+ - [P50 对抗机器学习模型(3)](chapter50/chapter50.md)
+ - [P51 对抗机器学习模型(4)](chapter51/chapter51.md)
+ - [P52 对抗机器学习模型(5)](chapter52/chapter52.md)
+ - [P53 对抗机器学习模型(6)](chapter53/chapter53.md)
+ - [P54 对抗机器学习模型(7)](chapter54/chapter54.md)
+ - [P55 对抗机器学习模型(8)](chapter55/chapter55.md)
+ - [P56 可解释机器学习(1)](chapter56/chapter56.md)
+ - [P57 可解释机器学习(2)](chapter57/chapter57.md)
+ - [P58 可解释机器学习(3)](chapter58/chapter58.md)
+ - [P59 可解释机器学习(4)](chapter59/chapter59.md)
+ - [P60 可解释机器学习(5)](chapter60/chapter60.md)
+ - [P61 可解释机器学习(6)](chapter61/chapter61.md)
+ - [P62 可解释机器学习(7)](chapter62/chapter62.md)
+ - [P63可解释机器学习(8)](chapter63/chapter63.md)
+ - [P64 终生学习(1)](chapter64/chapter64.md)
+ - [P65 终生学习(2)](chapter65/chapter65.md)
+ - [P66 终生学习(3)](chapter66/chapter66.md)
+ - [P67 终生学习(4)](chapter67/chapter67.md)
+ - [P68 终生学习(5)](chapter68/chapter68.md)
+ - [P69 终生学习(6)](chapter69/chapter69.md)
+ - [P70 终生学习(7)](chapter70/chapter70.md)
+ - [P71 学会学习(1)](chapter71/chapter71.md)
+ - [P72 学会学习(2)](chapter72/chapter72.md)
+ - [P73 终生学习(3)](chapter73/chapter73.md)
+ - [P74 终生学习(4)](chapter74/chapter74.md)
+ - [P75 终生学习(5)](chapter75/chapter75.md)
+ - [P76 终生学习(6)](chapter76/chapter76.md)
+ - [P77 终生学习(7)](chapter77/chapter77.md)
+ - [P78 终生学习(8)](chapter78/chapter78.md)
+ - [P79 终生学习(9)](chapter79/chapter79.md)
+ - [P80 梯度下降当做LSTM(1)](chapter80/chapter80.md)
+ - [P81 梯度下降当做LSTM(2)](chapter81/chapter81.md)
+ - [P82 梯度下降当做LSTM(3)](chapter82/chapter82.md)
+ - [P83 基于度量的方法(1)](chapter83/chapter83.md)
+ - [P84 基于度量的方法(2)](chapter84/chapter84.md)
+ - [P85 基于度量的方法(3)](chapter85/chapter85.md)
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
