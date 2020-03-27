@@ -151,7 +151,7 @@ PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigen
 
 
 
-现在把$\bar{x}$移到左边，x减掉所以image的平均等于一堆component linear conformation，这些linear comformation写作$\hat{x}$，那现在假设我们不知道这些component 是什么，不知道$u^1$到$u^k$的vector长什么样子。那我们咋样找K vector出来呢？我们要做的事情就是：我们要去找K vector使得$\hat{x}$跟$x-\bar{x}$越接近越好，他们的差用reconstruction error来描述。接下来我们要做事情就是：找K 个vector可以minimize这个reconstruction error。
+所以现在把$\bar{x}$移到左边，x减掉所以image的平均等于一堆component linear conformation，这些linear comformation写作$\hat{x}$，那现在假设我们不知道这些component 是什么，不知道$u^1$到$u^k$的vector长什么样子。那我们咋样找K vector出来呢？我们要做的事情就是：我们要去找K vector使得$\hat{x}$跟$x-\bar{x}$越接近越好，他们的差用reconstruction error来描述。接下来我们要做事情就是：找K 个vector可以minimize这个reconstruction error。
 
 在PCA中我们想说：我们要找一个matrix W，x乘以matrix W就得到了z，把W的每一个row写出来就是$[w_1,w_2,...,w_k]$，x乘上一个$[(w_1)^T,(w_2)^T,...(w_k)^T]$,以此类推。那么说：是$[w_1,w_2,...,w_k]$是covariance matrix的eigenvector，事实上你要解这个式子$L=mi_n(u^1,...u^k)\sum \left \| (x-\bar{x}) -(\sum_{k=1}^{k}c_ku^k)\right \|$，找出$u^1,...u^k$。由PCA找出的这个解$w^1,...w^k$就是可以让L最小化
 
