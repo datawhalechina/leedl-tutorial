@@ -52,6 +52,14 @@
 - [P38 集成学习](https://datawhalechina.github.io/leeml-notes/#/chapter38/chapter38)
 - [P39 深度强化学习浅析](https://datawhalechina.github.io/leeml-notes/#/chapter39/chapter39)
 - [P40 机器学习的下一步](https://datawhalechina.github.io/leeml-notes/#/chapter40/chapter40)
+- [P41 异常检测(1)](https://datawhalechina.github.io/leeml-notes/#/chapter41/chapter41)
+- [P42 异常检测(2)](https://datawhalechina.github.io/leeml-notes/#/chapter42/chapter42)
+- [P43 异常检测(3)](https://datawhalechina.github.io/leeml-notes/#/chapter43/chapter43)
+- [P44 异常检测(4)](https://datawhalechina.github.io/leeml-notes/#/chapter44/chapter44)
+- [P45 异常检测(5)](https://datawhalechina.github.io/leeml-notes/#/chapter45/chapter45)
+- [P46 异常检测(6)](https://datawhalechina.github.io/leeml-notes/#/chapter46/chapter46)
+- [P47 异常检测(7)](https://datawhalechina.github.io/leeml-notes/#/chapter47/chapter47)
+- [P48 对抗机器学习模型(1)](https://datawhalechina.github.io/leeml-notes/#/chapter48/chapter48)
 
 
 # 修订记录：
