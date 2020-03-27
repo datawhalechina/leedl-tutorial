@@ -121,7 +121,7 @@ HAC跟刚才K-means最大的差别就是：你如果决定你的cluster的数目
 
 
 
-那我要找$w^2$的话，我们要解是这样的equation：$(w^2)^TSw^2$  $(w^2)^Tw^2=1  $ $(w^2)^Ts^1=0$。我们要maximizing根据$w^2$投影以后的variance。结论是：$w^2$也是covariance matrix S的一个eigenvector，然后它对应到$2^{nd}$ largest eigenvector $\lambda _2$。那我们现在来解它：你先写一个function g，function里包括了你要maximzing的对象，还包括了两个constraint，分别乘以$\alpha,\beta $。接下来你对所有的参数做偏微分($w^2$所有的element)。做完以后你得到这个式子($Sw^2-\alpha w^2-\beta w^1=0$)，然后坐左同时乘以$w^1$的transpose(乘以$w^1$的transpose以后，会出现$(w^1)^Tw^1$会等于1,$(w^1)^TW^2$等于0)，整理一下等于$((w^1)^TSw^2)^T$(scale)，在整理一下得到$(w^{2})^TSw^1$。我们已经知道$w^1$是S的eigenvector，而且它对应到最大的eigenvalue $\lambda_1 $($Sw^1=\lambda w^1$)。从这边我们得到$\beta $等于0，所以剩下的$Sw^2- \alpha w^2=0$，然后得出$Sw^2=\alpha w^2$。$w^2$是一个eigenvector，但是它是哪一个eigenvector呢？它是第二大eigenvector。
+那我要找$w^2$的话，我们要解是这样的equation：$max((w^2)^TSw^2)$ 其中 $(w^2)^Tw^2=1  $ $(w^2)^Ts^1=0$。我们要maximizing根据$w^2$投影以后的variance。结论是：$w^2$也是covariance matrix S的一个eigenvector，然后它对应到$2^{nd}$ largest eigenvector $\lambda _2$。那我们现在来解它：你先写一个function g，function里包括了你要maximzing的对象，还包括了两个constraint，分别乘以$\alpha,\beta $。接下来你对所有的参数做偏微分($w^2$所有的element)。做完以后你得到这个式子($Sw^2-\alpha w^2-\beta w^1=0$)，然后坐左同时乘以$w^1$的transpose(乘以$w^1$的transpose以后，会出现$(w^1)^Tw^1$会等于1,$(w^1)^TW^2$等于0)，整理一下等于$((w^1)^TSw^2)^T$(scale)，在整理一下得到$(w^{2})^TSw^1$。我们已经知道$w^1$是S的eigenvector，而且它对应到最大的eigenvalue $\lambda_1 $($Sw^1=\lambda w^1$)。从这边我们得到$\beta $等于0，所以剩下的$Sw^2- \alpha w^2=0$，然后得出$Sw^2=\alpha w^2$。$w^2$是一个eigenvector，但是它是哪一个eigenvector呢？它是第二大eigenvector。
 
  
 
@@ -143,7 +143,7 @@ PCA,第一个找出的$w^1$是covariance matrix对应到最大eigenvalue的eigen
 
 
 
-我们从更清楚的角度来看PCA，你就会知道PCA到底在做什么。假设我们考虑的是手写的数字，我们知道这些数字其实是一些basic component所组成的。这些basic component可能就代表笔画。举例来说：人类所手写的数字就是这些basic component所组成的，有斜的直线，横的直线，有比较长的直线，然后还有小圈，大圈等等，这些basic component加起来就可以得到一个数字。这些basic component写做$u^1,u^2,...u^5$，这些basic component其实就是一个一个的vector。假设我们现在考虑的是mnist，mnist一张image28*28piexl，也就是28 *28维的vector。这些component其实就是28 *28维的vector，把这些vector加起来以后，你所得到的vector就代表了一个diagit。如果把它写成formulation的话就是：$x\approx c_1u^1+c_2u^2+....c_ku^k+\bar{x}$，x代表一张image里面的pixel，x等于$c_1u^1$component乘以$c_2u^2$这个component，一直加到$c_ku^k$component，再加上$\bar{x}$,$\bar{x}$是所有image的平均。所以每一张image就是有一堆component的linear conformation再加上它平均所组成的。
+我们从更清楚的角度来看PCA，你就会知道PCA到底在做什么。假设我们考虑的是手写的数字，我们知道这些数字其实是一些basic component所组成的。这些basic component可能就代表笔画。举例来说：人类所手写的数字就是这些basic component所组成的，有斜的直线，横的直线，有比较长的直线，然后还有小圈，大圈等等，这些basic component加起来就可以得到一个数字。这些basic component写做$u^1,u^2,...u^5$，这些basic component其实就是一个一个的vector。假设我们现在考虑的是mnist，mnist一张image28*28piexl，也就是28 *28维的vector。这些component其实就是28 *28维的vector，把这些vector加起来以后，你所得到的vector就代表了一个diagit。如果把它写成formulation的话就是：$x\approx c_1u^1+c_2u^2+....c_ku^k+\bar{x}$，x代表一张image里面的pixel，x等于$c_1u^1$component加上$c_2u^2$这个component，一直加到$c_ku^k$component，再加上$\bar{x}$,$\bar{x}$是所有image的平均。所以每一张image就是有一堆component的linear conformation再加上它平均所组成的。
 
 举例来说：7是这三个component加起来的结果，假设7就是x的话，$c_1=1,c_2=0,c_3=1,c_4=0,c_5=1$，你可以用$c_1,c_2,...c_k$来表示一张image。假设component比pixel的数目少的话，那么这个描述是比较有效的。7是1倍的$u^1$,1倍$u^2$,1倍的$u^5$所组成的，所以7是一个vector，它的第一维，第三维，第5维是1.
 
