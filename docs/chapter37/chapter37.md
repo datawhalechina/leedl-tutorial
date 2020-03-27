@@ -64,7 +64,7 @@ RNN跟LSTM在面对memory的时候，它处理的操作其实是不一样的。�
 ![](res/chapter37-36.png)
 其实还有其他的technique是来handle gradient vanishing的问题。比如说clockwise RNN或者说是Structurally Constrained Recurrent Network (SCRN)等等。
 
-有一个蛮有趣的paper是这样的：一般的RNN用identity matrix（单位矩阵）来initialized transformation weight+ReLU activaton function它可以得到很好的performance。刚才不是说用ReLU的performance会比较呀，如果你说一般train的方法initiaed weight是(这个单词没懂)，那ReLU跟sigmoid function来比的话，sigmoid performance 会比较好。但是你今天用了identity matrix的话，这时候用ReLU performance会比较好。
+有一个蛮有趣的paper是这样的：一般的RNN用identity matrix（单位矩阵）来initialized transformation weight+ReLU activaton function它可以得到很好的performance。刚才不是说用ReLU的performance会比较呀，如果你说一般train的方法initiaed weight是random，那ReLU跟sigmoid function来比的话，sigmoid performance 会比较好。但是你今天用了identity matrix的话，这时候用ReLU performance会比较好。
 
 ## RNN其他应用
 
