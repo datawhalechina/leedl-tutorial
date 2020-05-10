@@ -188,7 +188,7 @@ $$y=b+w_1x_1+w_2x_2 \tag{12}$$
 ### 问题
 当用梯度下降解决问题：
 
-$$\theta^∗= \underset{ \theta }{\operatorname{arg\ max}}  L(\theta) \tag1$$
+$$\theta^∗= \underset{ \theta }{\operatorname{arg\ min}}  L(\theta) \tag1$$
 
 每次更新参数 $\theta$，都得到一个新的 $\theta$，它都使得损失函数更小。即：
 
