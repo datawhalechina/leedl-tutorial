@@ -42,9 +42,9 @@ word embedding 是 dimension reduction 的一个广为人知的应用。如果�
 
 
 
-怎样用这个精神来找出这 word Embedding 呢？有两个不同体系的做法，一个做法是：count based。count based：如果我们现在有两个词汇$w_i,w_j$，他们的 word vector(用 V($w_i$,)V($w_j$来表示)，如果$w_i,w_j$它们常常在同一个文章出现，那他们的 V($w_i$,)V($w_j$)会比较接近。这个方法一个很代表性的例子叫做 Glove vector。
+怎样用这个精神来找出这 word Embedding 呢？有两个不同体系的做法，一个做法是：count based。count based：如果我们现在有两个词汇$w_i,w_j$，他们的 word vector(用 V($w_i$),V($w_j$)来表示)，如果$w_i,w_j$它们常常在同一个文章出现，那他们的 V($w_i$),V($w_j$)会比较接近。这个方法一个很代表性的例子叫做 Glove vector。
 
-这个方法的原则是这样，假设我们知道$w_i$的 word vector 是$V(w_i)$,$w_j$的 word vector 是$V(w_j)$,我们可以计算 V($w_i$,)V($w_j$)它的 inner product，假设$N_{i,j}$是$w_i$,$w_i$他们在同一个 document 的次数，那我们就希望这两件事情（内积和同时出现的次数）越接近越好。你会发现说：这个概念跟我们之前将的 matrix factorozation 的概念其实是一样的
+这个方法的原则是这样，假设我们知道$w_i$的 word vector 是$V(w_i)$,$w_j$的 word vector 是$V(w_j)$,我们可以计算 V($w_i$),V($w_j$)它的 inner product，假设$N_{i,j}$是$w_i$,$w_i$他们在同一个 document 的次数，那我们就希望这两件事情（内积和同时出现的次数）越接近越好。你会发现说：这个概念跟我们之前将的 matrix factorozation 的概念其实是一样的
 
 ### 基于预测的词嵌入
 
@@ -107,7 +107,7 @@ prediction based 的方法是怎么体现：根据一个词汇的上下文来了
 
 
 
-那咋样训练这个 network 呢？这个训练是 Unsupe(rvised 的，所以你只需要 collect 一大堆的文字 data(爬虫)，然后就可以 train 你的 model 了。
+那咋样训练这个 network 呢？这个训练是 Unsupervised 的，所以你只需要 collect 一大堆的文字 data(爬虫)，然后就可以 train 你的 model 了。
 
 比如说有一个句子是：“潮水退了就只知道谁没穿裤”。那你让你的 neural network input “潮水”跟“退了”，希望 output 就是“就”。所以你就希望你的 output 跟“就”的 1-of-N encoding 是 minimize cross entropy(“就”也是 1-of-N encoding 来表示的)。然后 input“退了”跟“就”，希望它的 output 跟“知道”越接近越好。然后 input“就”跟“知道”，希望它的 output 跟“谁”越接近越好。刚才讲的只是最基本的形态。
 
