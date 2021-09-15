@@ -1,0 +1,170 @@
+
+![chapter50-1.png](res/chapter50-1.png)
+
+
+我们要train一个输入文字，然后产生对应的二次元人物的头像。那这个技术，你就要用到 conditional GAN。所谓conditional GAN的意思是说：我们之前的GAN是随机输入一个vector，然后产生一张图片给你。那你其实根本不能控制说你要output什么样的东西。那我们这边要讲conditional GAN的意思是说，你可以输入一个文字，然后产生对应那个文字的图片，也就是你可以操控你要输出的结果。
+
+![chapter50-2.png](res/chapter50-2.png)
+
+要做到输入文字产生对应的图片，它其实可以被当作是一个单纯的supervised learning problem来看，那怎么用一个supervised learning problem的方式来learn一个Text-to-Image的moedl呢？你需要的就是一大堆的图片，每一张图片都需要对应的文字描述，然后套用一个传统的supervised learning的方法。你可以说我就learn一个network，它的输入就是一段文字，输出就是对应的图片，那你希望输出的图片跟你的目标越接近越好。
+
+
+
+
+
+但是光是这么做会有什么样的问题呢？你可以想象说，在你的training data里面火车它的对应图片其实是有很多张的（这些是正面的火车，这些是侧面的火车）。如果你用传统方法learn一个network的话，它会觉得说输入火车的时候，它要长得像这三种，同时也要长得像这三张，所以到时候你network的output就会变成是这些一大堆image的平均。如果你要产生这种正面的火车是好的结果，产生这个侧面的火车也是好的结果，但是同时产生正面的火车跟侧面的火车合起来就是错误的结果。
+
+
+今天假设你用traditional的方法来learn一个conditional的generation，你用一般的方法来learn一个text to image的generator，你会发现说你产生出来的image都是特别模糊的。为什么？因为你产生出来的image会是多张image的平均，你的model在学习的时候，它想要产生的结果是多张image的平均。所以这就需要用到GAN的技术
+
+
+![chapter50-3.png](res/chapter50-3.png)
+
+
+
+在原来的GAN里面你的generator就是吃一个从normal distribution sample出来的z，根据这个z产生一张image x。那在conditional generator里面呢？你的generator不是只有吃z，同时也吃了另外一个东西（吃了另外一个conditional的text c）。所以你的conditional GAN呢，就是同时吃一个normal distribution的sample出来的vector跟一段文字，然后根据这段文字，还有sample出来的vector产生generator的结果。
+
+
+那接下来呢，你要train一个discriminator，在我们原来的GAN里面呢，discriminator只吃一张image x，然后它告诉你说这个x的quality好不好，这个discriminator它吃一个x，它output一个scalar。这个scalar代表input的x到底有多好或者有多不好。那你在train这个discriminator的时候，它就会告诉这个discriminator说，如果是real image就给它1分，如果是generator image就给它0分。但是光这么做是不够的，假设你是用我们之前看到的那种方式来train discriminator的话会发生什么问题呢？你会发现说，今天generator在产生image的时候，它会完全无视input的condition。因为discriminator它只检查说你现在input的image是不是一张high quality的image。所以今天对generator来说，它要骗过discriminator，它只要产生high quality的image就好了（清晰的图），它可完全无视你的input condition，不管你输入是猫，狗，火车，它可能都输出猫。反正只要这个discriminator觉得它产生出来的猫是一只高品质的猫，看起来很像真的猫就结束了。
+
+
+这显然不是我们要的，我们希望机器是按照我们输入的condition产生不同的图片。
+
+
+
+![chapter50-4.png](res/chapter50-4.png)
+
+
+所以今天你要注意，当你在做condition GAN的时候，你的discriminator不可以只看generator的输出，它要同时看generator的输入跟输出，这时候你的discriminator有两个任务。我们说discriminator它吃一个condition跟吃一个object，然后产生一个scalar。这个scalar它对应到两件事情，第一件事情是x是不是真实的，第二件事情是你的x跟它的condition c，它们合起来是不是应该凑成一对，也就是x是真的还是不是真的，x跟c是不是应该凑成一对，这两个东西加起来就是discriminator的output。所以今天在train这种discriminatr的时候，对这种discriminator来说（现在discriminator不是只吃image，它是吃一个pair，吃一个image跟一段文字），什么样的文字跟image的组合要给它高分呢？当然是一段文字和它对应的image，它们合起来要给它1分。但是什么样的状况应该给它0分呢？如果今天是正确的文字跟generator的输出，正确的文字跟generator的image，要给它低分的。当然还有另外一个case应该要给它低分，因为这个discriminator它不是只要看你产生出来的image好不好，它还要看你产生出来的image跟它的input的text有没有被match在一起。所以今天不是只有一个case给它低分，还有另外一个case要给它低分。
+
+
+什么样的case应该要给它低分呢？拿一张真实的image，随机给它加上随机的文字。比如说这个是火车，你就说它是一只猫，这个case也要给discriminator低分，你要告诉discriminator说，就算是产生好的图，但是给它一个随机的文字，它们没有办法match在一起，它们是不匹配的。这个时候，也应该要给它低分。所以跟一般的generator、GAN不一样，当你做conditional GAN的时候，你的discriminator它是吃一个pair当作input，在train这个discriminator的时候，它有两种negative的examples。有两种case是应该给它低分的，一个case是输入一段文字给generator，generator产生一张模糊的图，所以就要给低分。给一张清晰的图，但是随便给它加上一个随机的文字，这个应该也要给它低分。
+
+
+
+
+![chapter50-5.png](res/chapter50-5.png)
+
+
+
+如果你比较喜欢看演算法的话，这边我就把演算法列一下，然后照着这个call。怎么call呢？我就一行一行讲给你听。
+
+
+
+我们从database里面sample出m个example，注意一下，因为今天是conditional的generation，所以你的每一个example都是image跟文字的pair（假设是text to image），文字是c，image是x。这个是要给高分的，是positive examples，对discriminator来说是要给高分的。前半段是在训练discriminator。接下来sample出m个vector，然后把m个vector每一个都去加上一个condition（这边有m个condition c1到cm），产生x titde，产生m张generated的image。
+
+
+
+接下来你再去database里面sample出m个objects，我们这边写作x1 hat到xm hat，这m张image，这个x hat它也是好的image，可是x tilde是generated的image，这个x hat也是real的image（从database sample出来的image）。
+
+
+接下来再train你的discriminator的时候，如果是正确的c跟x的pair，就给它高分。如果今天是c配上x tilde，一段文字叙述，配上generated出来模糊的结果，那应该要给它低分。如果今天是一段文字叙述配上x hat，从training date里面sample出来清楚的real image，但是跟这个c它是没有办法配在一起的，这个也要给它低分。所以今天这个case给它高分，这两个case要给它低分。这个实作跟之前将的GAN其实没有太大的差别，唯一的差别就是你要多加这一项。之前只有一种negative example，现在变成有两种negative example。
+
+
+
+接下来train generator，sample出m个vector和condition，然后把每一个vector z跟每一个condition加起来一起丢到generator里面，再通过discriminator，那你希望这个分数越大越好。
+
+
+
+
+![chapter50-6.png](res/chapter50-6.png)
+
+
+那在discriminator的network的架构上应该要怎么样设计呢？我发现我最看到的设计师这样的：input一个object（一张image），然后通过一个network把它变成一个embedding。你的condition现在是一串文字，文字可能也通过一个network，把它也变成embedding。把这两种embedding组合起来丢到network里面，然后network output一个scalar，这个scalar代表了两件事，一件事是input的x有多好，同时又代表了x跟x凑成一个pair有多合适。但是我发现有另外一种discriminator的架构，而这种discriminator的架构，在文献上看起来它的performance是不错的，然后我发现有三篇paper都是做这样的事情，那我个人认为这个架构，其实好像是比较有道理的。
+
+
+这个架构是这样的：我们有一个object进来，object先通过一个network，然后就output一个分数。接下来这个绿色的network也吐出一个embedding，这个invalid也跟你的condition结合起来丢到另外一个蓝色network里面，蓝色network也吐出一个分数。所以现在你吐出两个分数，一个是绿色network吐出来的分数，绿色network只看那你的object，它不管这个condition，它只看你的object。它去看这个object决定说现在output的结果是realistic还是不是realistic。那这个蓝色的network呢？蓝色的network它同时看了x也看了c，两个凑起来之后会告诉你说，它应该是被match在一起的还是不应该match一起的。所以今天这个蓝色的network它同时看了x也同时看了c，它决定说这两个东西它到底应该是match的还是不是match的。但我觉得把这种evaluation的结果把它拆开，其实可能是比较合理的。因为今天在上面这个case中，如果你给network一组data，告诉它说这是一个坏的example，你应该给它低分，但是你没有告诉它为什么是低分。
+
+
+我们都说有两种native example，一种native example是，你的image跟文字还是match的，只是image的quality不好，因为它是generator产生的。另外一个case是，你的image的quality是好的，但是它是不match的。这两种都要给它低分，但是对这个network来说，它就会confused。它就不知道为什么这个东西是给它低分，举例来说你可能是说给它一个很清晰的图片，给它一个很清晰的火车，但是搭配狗，告诉它说这个要给低分。也许它会觉得会不会是因为这个火车不够清晰，应该要产生的更清晰一点，所以今天对这种network来说，两种不同的错误就是你的x不够realistic，还有x跟c不够match。对它来说它不知道到底是哪一种错误，你就把两种data都给它，希望它自己可以分辨。可是我觉得就下面这个case而言，你就可以把这两个case分开。假设你今天的case是你的x产生出来不够清晰，那只需要这个值变小就好。如果你今天是x很清晰，只是跟c不match，那你只需要让这个值变小，那这个值就不用变小。我觉得这可能是一个比较合理的设计给大家参考，不过我现在看到比较多的network是用上面这个方式设计的，不过也有些paper用下面这个方式来设计它的discriminator，我觉得下面其实是比较合理的。
+
+
+
+
+![chapter50-7.png](res/chapter50-7.png)
+
+
+
+
+我们会给你image和对应特征的描述，你要做的事情就是输入一段文字，比如这个角色是怎么样的眼睛、什么样的头发，然后得到一个结果。这个结果到底可以做成什么样的呢？这个是去年吴宗翰、谢濬丞、陈延昊、钱伯钧同学做的。
+
+
+
+
+![chapter50-8.png](res/chapter50-8.png)
+
+
+
+还有一个技术你可以用在作业里面叫做stack GAN，你不用stack GAN你就可以过 base line，那如果你想要登峰造极，你就可以用一下stack GAN。stack GAN是怎么样呢？
+
+
+
+先产生小张的图，根据小张的图再产生大张的图。在原始的stack GAN的paper里面，它想要产生的图大小是256x256，不过太大了。你直接产生256x256的图会坏掉，所以stack GAN在train的时候，它把整个training process拆成两阶，有一个第一阶的generator。第一阶的generator的工作是说，吃一段文字叙述进来，在吃一个noise进来，把它通通都concatenate在一起，然后产生一张image。然后这个image比较小，只有64x64。而另一个discriminator check说，这个image搭配这段文字的叙述是不是match的。
+
+
+
+接下来你有第二个generator，第二个generator就是吃一段文字的叙述，配一张64x64的image，然后产生一张256x256的图。第二个discriminator是说，这个256x256的图是不是realistic的。总之你在做的时候就是分成两阶，先产生小的，再产生大的，那你的直觉就会知道，这样performance应该会比较好的。
+
+像之前不是Nvidia有report说，它们可以产生1024x1024的超级大图，它产生出来的人脸是连毛细孔都看到的那一种，它们做的就是类似stack GAN的概念。你就产生小张的图，先产生4x4，再根据4x4产生8x8，再产生16x16，最后一直到产生1024x1024。不过他们实际上在train的时候，这些所有叠在一起的generator都是jointly合在一起train的，它是先train第一个小的，再叠第二个比较大的，然后大的跟小的一起train，再叠更大的，然后再一起train这样子。
+
+
+![chapter50-9.png](res/chapter50-9.png)
+
+
+
+刚才讲的那个conditional  GAN是产生文字再产生对应的图片，那我们现在也可以产生图片，然后产生另外一张对应的图片，那这个东西是只怎么做的呢？
+
+
+文献上可以看到很多的例子，比如把黑白的图转成彩色的图，把白天转成夜晚，这是怎么做的呢？
+
+
+![chapter50-10.png](res/chapter50-10.png)
+
+
+你要train这种network，首先当然你要有training data。假设你今天是要把简单的几何图形变成真实的房屋样子，那么你需要收集很多简单的几何图形跟真实房屋的pair
+，这种data收集好几万张然后去train一个network。
+
+当然你可以用supervised的方法来解这个问题，但是用supervised的方法，问题就是你产生出来的图片会是比较模糊的。如果用supervised的方法，你的做法是说，你有一个network，然后你input一张图片，它output一张对应的图片。但你希望这张对应的图片跟它的目标越接近越好。你通常会算比如说L1 loss或L2 loss，当年i发现如果你只有这么做的话，你会遇到的问题是：你产生出来的output会是特别模糊的，这跟我们之前讲text to image一样，你同一张image它可能可以对应到很多不同的房子。
+
+今天network在学的时候，它就是产生一个平均的结果，所以它产生的图片会是比较模糊的。
+
+
+![chapter50-11.png](res/chapter50-11.png)
+
+
+
+这个时候，你就可以引入GAN的概念。在GAN里面，你的generator吃一个简单的图，它吃这个condition跟一个noise z，产生一张对应的图片。那你的discriminator做的事情是什么呢？你的discriminator会检查合格generator的input跟output凑起来是不是一个pair。
+
+我们之前有讲过说：你今天在conditional GAN中train discriminator的时候，你应该给它吃一个pair，而不只是generator的output。你应该给它generator的input跟output的pair，然后它会给一个分数。如果你用GAN来做的话，你会发现产生的图就清晰很多。但它的问题是：GAN会产生一些奇奇怪怪的东西，举例来说这边有一个像是烟囱，又像是窗户的东西，这本来input里面是没有的，对这个discriminator来说，产生这个东西好像也没有什么特别不对。但如果今天要给它额外的constraint的话，你希望generator的output跟training data中目标的那个image，同时也要越接近越好。也就是对你的generator有两个目标，一个目标是：要产生够清晰的图去骗过discriminator，另外一方面，你又希望generator产生出来的output不要跟原来的目标相差太多。如果你把这两个东西同时一起考虑的话，那你产生出来的结果就会比较好（不只是产生清晰的图，而且这上面也不会产生奇怪的东西）。
+
+
+![chapter50-12.png](res/chapter50-12.png)
+
+
+
+这个是image to image，这个image to image的paper里面，它的discriminator有稍微经过设计，因为如果你今天要产生出来的image非常大，那你的discriminator如果是吃整张image当做input的话，你的结果很容易坏掉，这是为什么呢？因为你的image很大，所以discriminator参数也要很多。那你很容易train——train就很容易over fitting或train的时间就非常的长。所以其实在前面那个image to image的那个paper里面，它做的事情是：它的discriminator每次只检查图片里面的一小块而已，它不是让discriminator去检查整张图片，因为这样你的discriminator的参数量会太多，它只让discriminator检查一小块图片，然后再说这一小块图片它到底是好的还是不好的。当然一个discriminator要检查多大的区域就变成一个你需要调整的参数。
+
+
+在paper里面当然有说：如果看整张image会怎么样，如果小到只看一个pixel会怎么样。如果只看一小块就叫做patch GAN，如果只看一个pixel就叫做pixel GAN。你可以想象说只看一个pixel，当然是一点用都没有。如果只看一个pixel，它不就只考虑那一点事情吗？所以它产生出来的image，就会整个都糊掉，就会看不出来在产生什么东西，所以只用一个pixel是不行的。但是只看整张image，performance也不是最好的，你要调整一下这个patch的size。看看怎样的patch size可以给你最好的结果。
+
+
+![chapter50-13.png](res/chapter50-13.png)
+
+
+
+
+但是同样的技术不能只用在影像上，但是到目前为止，我们讲GAN的时候都是apply在影像上，其实它的技术也可以用在语音上。举例来说，你可以用GAN这个技术做speech enhancement，什么是speech enhancement呢？speech enhancement的意思是说：你有一段声音讯号，但它被杂讯干扰了，它加了很多背景的噪音，你希望机器可以自动把背景噪音去掉。那通常有两个作用，一个是把背景噪音去掉以后再丢到语音辨识系统里面，也许正确率会比较高。另外一方面，把背景噪音去掉以后，再播给人听，也许人听的比较清楚。
+
+
+那如果今天是一般的speech enhancement该怎么train呢？你要找很多声音，然后把这些声音都加上一些杂讯。接下来你就train一个generator，input一段有杂讯的声音，希望output是没有杂讯的声音。input一段有杂讯的声音，把没有杂讯的声音当作你的目标去训练generator。这是一段声音讯号，但它是用spectrum来表示，它看起来就像是一个image一样，所以这个generator常常也就会直接套用在产生的image上。其实那些image上常用的架构，其实也可以直接套用到speech enhancement上面也是没有什么问题的。但是我们刚才有讲过说，直接train generator产生出来的结果就会比较模糊，所以你要加上GAN的概念。不只要直接train generator，你还要train一个discriminator，discriminator的工作就是看generator的input加output，然后给它一个分数。这个分数决定说：现在output的这一段声音讯号是不是clean的，同时output跟input是不是match的。
+
+
+![chapter50-14.png](res/chapter50-14.png)
+
+
+
+同样的技术也可以做video的generation，那怎么做video的generation呢？就是给generator看一段影片，然后让它预测接下来会发生什么事情。那要怎么做到这件事情呢？你就需要一个discriminator，discriminator不够只看generator的output，它要同时看generator的input跟output，你把generator的input跟output接在一起变成一段完整的影片，然后让discriminator去检查这一段影片到底是不是一个合理的影片。
+
+
+![chapter50-15.png](res/chapter50-15.png)
+
