@@ -6,7 +6,7 @@
 这个笔记是根据李宏毅老师机器学习视频的一个辅助资料，本笔记基本上完全复刻李老师课堂上讲的所有内容，并加入了一些和相关的学习补充资料和参考资料，结合这些资料一起学习，相信你会对机器学习有更加深刻的理解。
 
 ### 笔记在线阅读地址
-在线阅读地址：https://datawhalechina.github.io/leeml-notes
+在线阅读地址：https://datawhalechina.github.io/leedl-tutorial/#/
 
 ### 课程在线观看地址
 - bilibili：[李宏毅《机器学习》](https://www.bilibili.com/video/av59538266)
