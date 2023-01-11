@@ -14,6 +14,8 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
+国内地址(推荐国内读者使用)：https://pan.baidu.com/s/14vaVeAVZrWsqQcMYIgN9Nw 提取码: ynuf 
+
 ## 内容介绍
 
 * **引言** @王琦
