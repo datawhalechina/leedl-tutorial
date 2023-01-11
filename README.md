@@ -78,21 +78,22 @@
       <td>
          <a href="https://github.com/qiwang067"><img width="70" height="70" src="https://github.com/qiwang067.png?s=40" alt="pic"></a><br>
          <a href="https://github.com/qiwang067">Qi Wang</a> 
-        <p>教程设计(第1~12章)<br> 中国科学院大学硕士</p>
+        <p> 中国科学院大学硕士</p>
       </td>
       <td>
          <a href="https://github.com/yyysjz1997"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
          <a href="https://github.com/yyysjz1997">Yiyuan Yang</a> 
-        <p>习题设计&第13章 <br> 清华大学硕士</p>
+        <p> 清华大学硕士</p>
       </td>
       <td>
          <a href="https://github.com/JohnJim0816"><img width="70" height="70" src="https://github.com/JohnJim0816.png?s=40" alt="pic"></a><br>
          <a href="https://github.com/JohnJim0816">John Jim</a>
-         <p>算法实战<br> 北京大学硕士</p>
+         <p>北京大学硕士</p>
       </td>
     </tr>
   </tbody>
 </table>
+
 
 
 ## 引用信息
