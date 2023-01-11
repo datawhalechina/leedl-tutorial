@@ -8,7 +8,7 @@
 
 - 基于《机器学习》（2017年春）的李宏毅机器学习笔记在线阅读地址：https://datawhalechina.github.io/leedl-tutorial/#/
 
-- 基于《机器学习》（2017年春）的李宏毅机器学习笔记源码：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master
+- 基于《机器学习》（2017年春）的李宏毅机器学习笔记源文件：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master
 
 ## 最新版PDF下载
 
