@@ -8,7 +8,7 @@
 
 ## 最新版PDF下载
 
-地址：https://github.com/qiwang067/leedl-tutorial/releases
+地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
 ## 内容介绍
 
@@ -59,7 +59,7 @@
 
 ## 配套代码
 
-[点击](https://github.com/qiwang067/leedl-tutorial/tree/main/Homework)或者网页点击```Homework```文件夹进入配套代码
+[点击](https://github.com/datawhalechina/leedl-tutorial/tree/master/Homework)或者网页点击```Homework```文件夹进入配套代码
 
 ## 贡献者
 
@@ -93,14 +93,14 @@
 title = {李宏毅深度学习教程},
 year = {2023},
 author = {王琦，杨毅远，江季},
-url = {https://github.com/qiwang067/leedl-tutorial}
+url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 
 @misc{wang2023leedltutorialen,
 title = {Deep Learning Tutorial by Hung-yi Lee},
 year = {2023},
 author = {Qi Wang，Yiyuan Yang，Ji Jiang},
-url = {https://github.com/qiwang067/leedl-tutorial}
+url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
 
