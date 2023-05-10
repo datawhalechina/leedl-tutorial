@@ -30,7 +30,7 @@
   
   - [x] HW9 : Explainable AI [[Code]](https://github.com/qiwang067/easy_ml_book/blob/master/Homework/HW9_ExplainableAI/HW09-ExplainableAI.ipynb) [[Slide]](https://github.com/qiwang067/easy_ml_book/blob/master/Homework/HW9_ExplainableAI/HW09.pdf)
   
-  - [x] HW10 : Adversarial Attack [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10-AdversarialAttack.ipynb) [[Slide]]([https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW10/HW10.pdf](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10.pdf))
+  - [x] HW10 : Adversarial Attack [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10-AdversarialAttack.ipynb) [[Slide]]([https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW10/HW10.pdf](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10.pdf)
   
   - [ ] HW11 : Adaptation [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW11/HW11.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW11/HW11.pdf)
   
