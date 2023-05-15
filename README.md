@@ -16,7 +16,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：https://pan.baidu.com/s/1LT0OqLRR8vsOceOZjyNIfA 提取码: m5xv 
+国内地址(推荐国内读者使用)：https://pan.baidu.com/s/1OgQUcU3pJvsLoQ_nVTTIWw 提取码: h3ga
 
 ## 内容介绍
 
@@ -25,7 +25,7 @@
     *  [x] 局部最小值与鞍点
     *  [x] 训练技巧
     *  [x] 自适应学习率
-    *  [ ] 分类问题损失函数
+    *  [x] 分类问题损失函数
     *  [ ] 归一化
 * **卷积神经网络和自注意力机制** @王琦
   *  [x] 卷积神经网络
