@@ -32,7 +32,7 @@
   
   - [x] HW10 : Adversarial Attack [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10-AdversarialAttack.ipynb) [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW10_AdversarialAttack/HW10.pdf)
   
-  - [ ] HW11 : Adaptation [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW11/HW11.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW11/HW11.pdf)
+  - [x] HW11 : Adaptation [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW11_Adaptation/HW11-Adaptation.ipynb) [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW11_Adaptation/HW11-Adaptation.pdf)
   
   - [ ] HW12 : Reinforcement Learning [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW12/HW12.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW12/HW12.pdf)
   
