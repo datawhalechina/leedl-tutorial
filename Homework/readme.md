@@ -22,8 +22,7 @@
   - [x] HW6 : GAN [[Code]](https://github.com/qiwang067/easy_ml_book/blob/master/Homework/HW6_GAN/HW06.pdf)
 [[Slide]](https://github.com/qiwang067/easy_ml_book/blob/master/Homework/HW6_GAN/HW06_GAN.ipynb)
 
-  - [ ] HW7 : BERT [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW07/HW07.ipynb)
-[[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW07/HW07.pdf)
+  - [ ] HW7 : BERT
 
   - [x] HW8 : Anomaly Detection [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW08/HW08.ipynb) 
 [[Slide]](https://github.com/qiwang067/easy_ml_book/blob/master/Homework/HW8_AbnormalDetect/HW08.pdf)
@@ -34,10 +33,10 @@
   
   - [x] HW11 : Adaptation [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW11_Adaptation/HW11-Adaptation.ipynb) [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW11_Adaptation/HW11-Adaptation.pdf)
   
-  - [ ] HW12 : Reinforcement Learning [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW12/HW12.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW12/HW12.pdf)
+  - [x] HW12 : Reinforcement Learning [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW12_RL/HW12-RL.ipynb) [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW12_RL/HW12-RL.pdf)
   
-  - [ ] HW13 : Network Compression [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW13/HW13.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW13/HW13.pdf)
+  - [ ] HW13 : Network Compression 
+ 
+  - [ ] HW14 : Life-Long Learning
   
-  - [ ] HW14 : Life-Long Learning [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW14/HW14.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW14/HW14.pdf)
-  
-  - [ ] HW15 : Meta Learning [[Code]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW15/HW15.ipynb) [[Slide]](https://github.com/virginiakm1988/ML2022-Spring/blob/main/HW15/HW15.pdf)
+  - [ ] HW15 : Meta Learning
