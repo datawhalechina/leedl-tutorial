@@ -39,7 +39,7 @@
   - [x] HW12 : Reinforcement Learning [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW12_RL/HW12-RL.ipynb)
 [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW12_RL/HW12-RL.pdf)
   
-  - [ ] HW13 : Network Compression 
+  - [x] HW13 : Network Compression [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW13_NetworkCompress/HW13-networkCompress.ipynb)[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW13_NetworkCompress/HW13.pdf)
  
   - [ ] HW14 : Life-Long Learning
   
