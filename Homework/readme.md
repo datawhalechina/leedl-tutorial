@@ -41,6 +41,6 @@
   
   - [x] HW13 : Network Compression [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW13_NetworkCompress/HW13-networkCompress.ipynb)[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW13_NetworkCompress/HW13.pdf)
  
-  - [ ] HW14 : Life-Long Learning
+  - [x] HW14 : Life-Long Learning [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW14_LifeLongML/HW14-LifeLongMachineLearning.ipynb)[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW14_LifeLongML/HW14.pdf)
   
   - [ ] HW15 : Meta Learning
