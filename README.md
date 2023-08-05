@@ -54,8 +54,8 @@
   *  [x] 领域对抗训练
 * [x] **深度强化学习** @王琦
 * **终身学习** @杨毅远
-  *  [ ] 灾难性遗忘
-  *  [ ] 缓解灾难性遗忘 
+  *  [x] 灾难性遗忘
+  *  [x] 缓解灾难性遗忘 
 * **网络压缩** @王琦
   *  [x] 剪枝与彩票假设
   *  [x] 知识蒸馏
@@ -77,8 +77,8 @@
         <p> 上海交通大学博士生<br>中国科学院大学硕士</p>
       </td>
       <td>
-         <a href="https://github.com/yyysjz1997"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
-         <a href="https://github.com/yyysjz1997">Yiyuan Yang</a> 
+         <a href="https://yyysjz1997.github.io/"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
+         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a> 
         <p> 牛津大学博士生<br>清华大学硕士</p>
       </td>
       <td>
