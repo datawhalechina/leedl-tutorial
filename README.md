@@ -124,7 +124,7 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 
 特别感谢 [@Sm1les](https://github.com/Sm1les)、[@LSGOMYP](https://github.com/LSGOMYP) 对本项目的帮助与支持。
 
-另外，十分感谢大家对于Easy-RL的关注。
+另外，十分感谢大家对于LeeDL-tutorial的关注。
 [![Stargazers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/stars/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/stargazers)
 [![Forkers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/forks/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/network/members)
 
