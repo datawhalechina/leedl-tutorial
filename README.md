@@ -119,9 +119,19 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
 
+
 ## 致谢
 
 特别感谢 [@Sm1les](https://github.com/Sm1les)、[@LSGOMYP](https://github.com/LSGOMYP) 对本项目的帮助与支持。
+
+另外，十分感谢大家对于Easy-RL的关注。
+[![Stargazers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/stars/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/stargazers)
+[![Forkers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/forks/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/network/members)
+
+## 关注我们
+扫描下方二维码关注公众号：Datawhale，回复关键词“深度学习”，即可加入“LeeDL-Tutorial读者交流群”
+<div align=center><img src="https://raw.githubusercontent.com/datawhalechina/easy-rl/master/docs/res/qrcode.jpeg" width = "250" height = "270" alt="Datawhale是一个专注AI领域的开源组织，以“for the learner，和学习者一起成长”为愿景，构建对学习者最有价值的开源学习社区。关注我们，一起学习成长。"></div>
+
 
 ## LICENSE
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
