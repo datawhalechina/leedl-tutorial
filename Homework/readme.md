@@ -43,4 +43,4 @@
  
   - [x] HW14 : Life-Long Learning [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW14_LifeLongML/HW14-LifeLongMachineLearning.ipynb)[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW14_LifeLongML/HW14.pdf)
   
-  - [ ] HW15 : Meta Learning
+  - [x] HW15 : Meta Learning [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW15_MetaLearning/HW15-MetaLearning.ipynb)[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW15_MetaLearning/HW15.pdf)
