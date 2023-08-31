@@ -16,7 +16,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1pU3yg9-_7IhUCVSuokZ9-w 提取码: 35c4 
+国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1CiQh4oNEdO5qO9fDmBILIQ 提取码: zapt 
 
 ## 内容介绍
 
@@ -45,22 +45,31 @@
 * [x] **自动编码器概念及其应用** @江季
 * [x] 扩散模型@王琦
 * **对抗攻击** @杨毅远
-    * [ ] 对抗攻击基本概念
-    * [ ] 对抗攻击的攻击与防守
-
+    * [x] 对抗攻击基本概念
+    * [x] 白盒攻击vs黑盒攻击
+    * [x] 被动防守vs主动防守 
 * **可解释人工智能** @杨毅远
+    * [x] 可解释人工智能概念与案例
+    * [x] 可解释人工智能中的局部可解释性
+    * [x] 可解释人工智能中的全局可解释性
 * **迁移学习** @王琦
   *  [x] 领域自适应
   *  [x] 领域对抗训练
 * [x] **深度强化学习** @王琦
 * **终身学习** @杨毅远
-  *  [ ] 灾难性遗忘
-  *  [ ] 缓解灾难性遗忘 
+  *  [x] 灾难性遗忘
+  *  [x] 缓解灾难性遗忘 
 * **网络压缩** @王琦
   *  [x] 剪枝与彩票假设
   *  [x] 知识蒸馏
-* **元学习** @杨毅远 
-* [x] **ChatGPT** @杨毅远 
+* **元学习** @杨毅远
+  *  [x] 元学习的概念
+  *  [x] 元学习的实例算法
+  *  [x] 元学习的应用
+* **ChatGPT** @杨毅远
+  *  [x] 对于ChatGPT的误解
+  *  [x] ChatGPT背后的关键技术——预训练
+  *  [x] ChatGPT带来的研究问题
 
 ## 配套代码
 
@@ -77,8 +86,8 @@
         <p> 上海交通大学博士生<br>中国科学院大学硕士</p>
       </td>
       <td>
-         <a href="https://github.com/yyysjz1997"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
-         <a href="https://github.com/yyysjz1997">Yiyuan Yang</a> 
+         <a href="https://yyysjz1997.github.io/"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
+         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a> 
         <p> 牛津大学博士生<br>清华大学硕士</p>
       </td>
       <td>
@@ -110,9 +119,19 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
 
+
 ## 致谢
 
 特别感谢 [@Sm1les](https://github.com/Sm1les)、[@LSGOMYP](https://github.com/LSGOMYP) 对本项目的帮助与支持。
+
+另外，十分感谢大家对于LeeDL-tutorial的关注。
+[![Stargazers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/stars/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/stargazers)
+[![Forkers repo roster for @datawhalechina/leedl-tutorial](https://reporoster.com/forks/datawhalechina/leedl-tutorial)](https://github.com/datawhalechina/leedl-tutorial/network/members)
+
+## 关注我们
+扫描下方二维码关注公众号：Datawhale，回复关键词“李宏毅深度学习”，即可加入“LeeDL-Tutorial读者交流群”
+<div align=center><img src="https://raw.githubusercontent.com/datawhalechina/easy-rl/master/docs/res/qrcode.jpeg" width = "250" height = "270" alt="Datawhale是一个专注AI领域的开源组织，以“for the learner，和学习者一起成长”为愿景，构建对学习者最有价值的开源学习社区。关注我们，一起学习成长。"></div>
+
 
 ## LICENSE
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
