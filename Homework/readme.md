@@ -22,7 +22,8 @@
   - [x] HW6 : GAN [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW6_GAN/HW06_GAN.ipynb)
 [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW6_GAN/HW06.pdf)
 
-  - [ ] HW7 : BERT
+  - [x] HW7 : BERT[[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW7_Bert/HW07-Bert.ipynb)
+[[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW7_Bert/HW07.pdf)
 
   - [x] HW8 : Anomaly Detection [[Code]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW8_AbnormalDetect/HW08_AbnormalDetect.ipynb) 
 [[Slide]](https://github.com/datawhalechina/leedl-tutorial/blob/master/Homework/HW8_AbnormalDetect/HW08.pdf)
