@@ -16,7 +16,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/19TtuvpGYcO5wx4P3afC-Bw 提取码: ub7q 
+国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1nhxvIOVPdJQWRbpEgmIqSw 提取码: djwv 
 
 ## 内容介绍
 
