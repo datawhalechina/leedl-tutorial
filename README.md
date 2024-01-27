@@ -75,6 +75,9 @@
 
 [点击](https://github.com/datawhalechina/leedl-tutorial/tree/master/Homework)或者网页点击```Homework```文件夹进入配套代码
 
+## 扩展资源
+对**强化学习**感兴趣的读者，可阅读[蘑菇书EasyRL](https://github.com/datawhalechina/easy-rl)
+
 ## 贡献者
 
 <table border="0">
