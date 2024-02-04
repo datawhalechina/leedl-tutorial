@@ -12,6 +12,10 @@
 
 - 基于《机器学习》（2017年春）的李宏毅机器学习笔记源文件：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master
 
+ℹ️ **[李宏毅老师推荐](https://twitter.com/HungyiLee2/status/1754042391211004235)：**
+
+<div align=center><img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/prof._lee_twitter.jpg?raw=true" height = "350" alt="李宏毅老师推荐。"></div>
+
 ## 最新版PDF下载
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
