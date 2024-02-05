@@ -125,7 +125,7 @@ author = {Qi Wang，Yiyuan Yang，Ji Jiang},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
-如果您需要转载该教程的内容，请注明出处：https://github.com/datawhalechina/leedl-tutorial。
+如果您需要转载该教程的内容，请注明出处：[https://github.com/datawhalechina/leedl-tutorial](https://github.com/datawhalechina/leedl-tutorial)。
 
 ## 致谢
 
