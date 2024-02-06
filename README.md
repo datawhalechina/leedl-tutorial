@@ -133,7 +133,7 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 
 另外，十分感谢大家对于LeeDL-tutorial的关注。
 ![Stargazers repo roster for @datawhalechina/leedl-tutorial](https://github.com/datawhalechina/leedl-tutorial/stargazers)
-![![Forkers repo roster for @datawhalechina/leedl-tutorial](https://github.com/datawhalechina/leedl-tutorial/network/members)
+![Forkers repo roster for @datawhalechina/leedl-tutorial](https://github.com/datawhalechina/leedl-tutorial/network/members)
 
 ## 关注我们
 扫描下方二维码关注公众号：Datawhale，回复关键词“李宏毅深度学习”，即可加入“LeeDL-Tutorial读者交流群”
