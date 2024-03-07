@@ -117,7 +117,8 @@ year = {2023},
 author = {王琦，杨毅远，江季},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
-
+```
+```bibtex
 @misc{wang2023leedltutorialen,
 title = {Deep Learning Tutorial by Hung-yi Lee},
 year = {2023},
@@ -125,6 +126,7 @@ author = {Qi Wang，Yiyuan Yang，Ji Jiang},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
+
 如果您需要转载该教程的内容，请注明出处：[https://github.com/datawhalechina/leedl-tutorial](https://github.com/datawhalechina/leedl-tutorial)。
 
 ## 致谢
