@@ -75,6 +75,11 @@
   *  [x] ChatGPT背后的关键技术——预训练
   *  [x] ChatGPT带来的研究问题
 
+* **生成式AI** 
+  *  [] 生成式AI基础
+  *  [] 提示工程 & AI 代理人
+  *  [] 生成策略 & 从专才到通才
+
 ## 配套代码
 
 [点击](https://github.com/datawhalechina/leedl-tutorial/tree/master/Homework)或者网页点击```Homework```文件夹进入配套代码
