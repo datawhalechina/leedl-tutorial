@@ -16,7 +16,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1G24Y_k_SGJuL_Uz2EO8xpg 提取码: iaix
+国内地址(推荐国内读者使用)：https://pan.baidu.com/s/1DlG17PgvSuwT_wd5YW5WBg 提取码: xxer 
 
 >ℹ️ **[李宏毅老师推荐](https://twitter.com/HungyiLee2/status/1754042391211004235)：**
 
