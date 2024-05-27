@@ -6,11 +6,12 @@
 
 本教程主要内容源于[《机器学习》（2021年春）](https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html)，并在其基础上进行了一定的原创。比如，为了尽可能地降低阅读门槛，笔者对这门公开课的精华内容进行选取并优化，对所涉及的公式都给出详细的推导过程，对较难理解的知识点进行了重点讲解和强化，以方便读者较为轻松地入门。此外，为了丰富内容，笔者在教程中选取了[《机器学习》（2017年春）](https://speech.ee.ntu.edu.tw/~hylee/ml/2017-spring.php) 的部分内容，并补充了不少除这门公开课之外的深度学习相关知识。
 
+<!--
 注：
 
 - 基于《机器学习》（2017年春）的李宏毅机器学习笔记在线阅读地址：https://datawhalechina.github.io/leedl-tutorial/#/
 
-- 基于《机器学习》（2017年春）的李宏毅机器学习笔记源文件：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master
+- 基于《机器学习》（2017年春）的李宏毅机器学习笔记源文件：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master -->
 
 ## 最新版PDF下载
 
