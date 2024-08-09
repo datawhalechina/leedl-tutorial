@@ -22,7 +22,7 @@
 
 <img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple.png?raw=true" width="300">
 
-购买链接：[京东](https://item.jd.com/14245179.html) | [当当](https://product.dangdang.com/29766946.html)
+购买链接：[京东](https://u.jd.com/muCV8tI) | [当当](https://product.dangdang.com/29766946.html)
 
 <table border="0">
   <tbody>
