@@ -30,20 +30,20 @@
 
 ## 纸质版
 
-<img src="" width="300">
+<img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple.png?raw=true" width="300">
 
-购买链接：[京东](https://item.jd.com/13075567.html) | [当当](http://product.dangdang.com/29374163.html)
+购买链接：[京东](https://item.jd.com/14245179.html) | [当当](https://product.dangdang.com/29766946.html)
 
 <table border="0">
   <tbody>
     <tr align="center" >
       <td>
-         <img width="120" height="120" src="" alt="pic">
+         <img width="120" height="120" src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple_jingdong.jpg" alt="pic">
         <br>
         <p>京东扫码购买</p>
       </td>
       <td>
-    <img width="120" height="120" src="" alt="pic"><br>
+    <img width="120" height="120" src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple_dangdang.jpg" alt="pic"><br>
         <p>当当扫码购买</p>
       </td>
     </tr>
