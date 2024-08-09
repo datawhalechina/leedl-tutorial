@@ -43,7 +43,7 @@
         <p>京东扫码购买</p>
       </td>
       <td>
-    <img width="120" height="120" src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple_dangdang.jpg" alt="pic"><br>
+    <img width="120" height="120" src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple_dangdang_QR.jpg" alt="pic"><br>
         <p>当当扫码购买</p>
       </td>
     </tr>
