@@ -26,6 +26,35 @@
 
 <div align=center><img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/prof._lee_twitter.jpg?raw=true" height = "450" alt="李宏毅老师推荐。"></div>
 
+
+
+## 纸质版
+
+<img src="" width="300">
+
+购买链接：[京东](https://item.jd.com/13075567.html) | [当当](http://product.dangdang.com/29374163.html)
+
+<table border="0">
+  <tbody>
+    <tr align="center" >
+      <td>
+         <img width="120" height="120" src="" alt="pic">
+        <br>
+        <p>京东扫码购买</p>
+      </td>
+      <td>
+    <img width="120" height="120" src="" alt="pic"><br>
+        <p>当当扫码购买</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+豆瓣评分：https://book.douban.com/subject/36997460/
+
+
+
 ## 内容介绍
 
 *  **引言** @王琦
