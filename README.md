@@ -14,19 +14,9 @@
 
 - 基于《机器学习》（2017年春）的李宏毅机器学习笔记源文件：https://github.com/datawhalechina/leedl-tutorial/tree/pre_master -->
 
-## 最新版PDF下载
-
-地址：https://github.com/datawhalechina/leedl-tutorial/releases
-
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1KUOlEMlPi5I4b5ys7aJVjw 提取码: fmuk
-
-
-
 >ℹ️ **[李宏毅老师推荐](https://twitter.com/HungyiLee2/status/1754042391211004235)：**
 
 <div align=center><img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/prof._lee_twitter.jpg?raw=true" height = "450" alt="李宏毅老师推荐。"></div>
-
-
 
 ## 纸质版
 
@@ -53,6 +43,12 @@
 
 豆瓣评分：https://book.douban.com/subject/36997460/
 
+
+## 最新版PDF下载
+
+地址：https://github.com/datawhalechina/leedl-tutorial/releases
+
+国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1KUOlEMlPi5I4b5ys7aJVjw 提取码: fmuk
 
 
 ## 内容介绍
