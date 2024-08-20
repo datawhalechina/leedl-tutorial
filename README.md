@@ -50,6 +50,11 @@
 
 国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1KUOlEMlPi5I4b5ys7aJVjw 提取码: fmuk
 
+## 纸质版和PDF版的区别
+
+PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进行了反复修缮，最终诞生了纸质书籍，在此向人民邮电出版社的编辑老师的认真严谨表示衷心的感谢！（附：校对样稿）
+
+<center class="half"><img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/yanggao.png" width="680"></center>
 
 ## 内容介绍
 
