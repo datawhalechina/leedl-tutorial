@@ -142,8 +142,12 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 </table>
 
 
-
 ## 引用信息
+
+```
+王琦，杨毅远，江季，深度学习详解，人民邮电出版社，https://github.com/datawhalechina/leedl-tutorial, 2024.
+Qi Wang, Yiyuan Yang, Ji Jiang，Essence of Deep Learning，Posts & Telecom Press，https://github.com/datawhalechina/leedl-tutorial, 2024.
+```
 
 ```bibtex
 @book{wang2024leedltutorial,
@@ -158,10 +162,13 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 
 ```
 ```bibtex
-@misc{wang2024leedltutorialen,
+@book{wang2024leedltutorialen,
 title = {Essence of Deep Learning},
+publisher = {Posts & Telecom Press},
 year = {2024},
 author = {Qi Wang，Yiyuan Yang，Ji Jiang},
+address = {Beijing},
+isbn = {9787115642110},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
 ```
