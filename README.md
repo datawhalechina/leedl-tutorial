@@ -146,17 +146,21 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 ## 引用信息
 
 ```bibtex
-@misc{wang2023leedltutorial,
-title = {李宏毅深度学习教程},
-year = {2023},
+@book{wang2024leedltutorial,
+title = {深度学习详解},
+publisher = {人民邮电出版社},
+year = {2024},
 author = {王琦，杨毅远，江季},
+address = {北京},
+isbn = {9787115642110},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
+
 ```
 ```bibtex
-@misc{wang2023leedltutorialen,
-title = {Deep Learning Tutorial by Hung-yi Lee},
-year = {2023},
+@misc{wang2024leedltutorialen,
+title = {Essence of Deep Learning},
+year = {2024},
 author = {Qi Wang，Yiyuan Yang，Ji Jiang},
 url = {https://github.com/datawhalechina/leedl-tutorial}
 }
