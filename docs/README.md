@@ -43,7 +43,7 @@
 
 豆瓣评分：https://book.douban.com/subject/36997460/
 
-ℹ️ **勘误修订表**：
+ℹ️ **勘误修订表**：https://datawhalechina.github.io/leedl-tutorial/#/errata
 
 
 ## 最新版PDF下载
