@@ -2,55 +2,121 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LeeML-Notes</title>
+  <title>李宏毅深度学习教程LeeDL-Tutorial</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script> -->
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify@4.7.0/lib/themes/vue.css"> -->
+  <style>
+    .katex-display > .katex {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: 'LeeDL-Tutorial',
+      name: '李宏毅深度学习教程LeeDL-Tutorial',
+      repo:'https://github.com/datawhalechina/leedl-tutorial',
       loadSidebar: true,
       subMaxLevel: 3,
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'
-      }
+      pagination:{
+        previousText:'上一篇',
+        nextText:'下一篇',
+      },
+      // markdown: {
+      //   latexRender: katex.renderToString.bind(katex)
+      // },
+      search:{
+        placeholder:'搜索',
+        noData:'找不到结果',
+        paths:'auto',
+        depth:6
+      },
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function(content) {
+            // 每次开始解析 Markdown 内容时调用
+            // 将所有../img替换成img
+            // https://github.com/docsifyjs/docsify/issues/936
+            return content.replace(/..\/img/g, "img");
+          })
+
+          // hook.doneEach(function () {
+          //   window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')]);
+          // }) 
+        }
+      ],
     }
   </script>
+  <!-- 公式 -->
+  <!-- <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"]
+      },
+      "HTML-CSS": { fonts: ["TeX"] }
+    });
+  </script> -->
+  
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script> -->
+
+  <!-- or <script src="//cdn.jsdelivr.net/gh/upupming/docsify-katex/dist/docsify-katex.js"></script> -->
+
   <!-- CDN files for docsify-katex -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script> -->
+
   <script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/marked@3"></script>
 
-  <!-- CDN files for docsify-katex -->
   <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
-  <!-- Put them above docsify.min.js -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@latest/lib/docsify.min.js"></script>
   
-  <!-- 评论插件的应用 -->
-  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
-  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <script>
-    const gitalk = new Gitalk({
-      clientID: '02724a2355f93ed58315',
-      clientSecret: '014380e0fb7bfa7beea3385328d29e7dc9c46f99',
-      repo: 'LeeML-Notes',
-      owner: 'datawhalechina',
-      admin: ['datawhalechina','Spareribs'],
-      title: location.hash.match(/#(.*?)([?]|$)/)[1],
-      id: location.hash.match(/#(.*?)([?]|$)/)[1],
-      distractionFreeMode: false // facebook-like distraction free mode
-    })
-	// 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
-    window.onhashchange = function(event){
+  <!-- Put them above docsify.min.js -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+
+  <!-- gitalk for comments -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: '1a90828b637703f6c3d4',
+    clientSecret: '88d1ea6457d8e9554b33e94bb38d61ba9a2070ea',
+    repo: 'easy-rl',
+    owner: 'datawhalechina',
+    admin: ['datawhalechina','qiwang067','yyysjz1997','JohnJim0816'],
+    title: location.hash.match(/#(.*?)([?]|$)/)[1], // 这个是设置 issue 对应的标题
+    id: location.hash.match(/#(.*?)([?]|$)/)[1],
+    // facebook-like distraction free mode
+    distractionFreeMode: false
+  })
+  // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
+  window.onhashchange = function(event){
       if(event.newURL.split('?')[0] !== event.oldURL .split('?')[0]) {
         location.reload()
       }
     }
-  </script>
+</script> -->
+
+<!-- <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <!-- <script src="//unpkg.com/docsify@4.7.0/lib/docsify.min.js"></script> -->
 </body>
 </html>
