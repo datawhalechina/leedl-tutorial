@@ -50,7 +50,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1KUOlEMlPi5I4b5ys7aJVjw 提取码: fmuk
+国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1ZKuXfkXHoyyvPR1-CP-Ffw 提取码: 2t6m 
 
 ## 纸质版和PDF版的区别
 
