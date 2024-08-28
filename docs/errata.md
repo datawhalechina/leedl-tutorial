@@ -5,6 +5,7 @@
 ## 第1版第4次印刷
 
 * 7页，第2段的3~4行：在 2021 年没有看过的 数据上，损失用 $L^{\prime}$ 来表示 → 在 2021 年数据上的损失用 $L^{\prime}$ 来表示
+* 91页，第2段倒数第1行：Special Transformer Layer → Spatial Transformer Layer
 
 ## 第1版第3次印刷（2024.09）
 
