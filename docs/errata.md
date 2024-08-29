@@ -4,8 +4,28 @@
 
 ## 第1版第4次印刷
 
+* 4页，倒数第1段倒数第5行：$L$ 对参数 $w$ 的微分 → $L$ 关于参数 $w$ 的偏导数
+* 5页，倒数第3段：微分 → 偏导
+* 5页，倒数第2段：微分 → 偏导
+* 6页，倒数第3段第2行：$b$ 对 $L$ 的微分以及 $w$ 对 $L$ 的微分 → $L$ 关于 $b$ 的偏导数以及 $L$ 关于 $w$ 的偏导数 
+* 6页，倒数第2段：微分结果 → 偏导结果
+* 6页，倒数第1段：微分 → 偏导
 * 7页，第2段的3~4行：在 2021 年没有看过的 数据上，损失用 $L^{\prime}$ 来表示 → 在 2021 年数据上的损失用 $L^{\prime}$ 来表示
+* 15页，倒数第1段倒数第2行：微分 → 偏导
+* 15页，倒数第2段第2行：计算每一个未知参数对 $L$ 的微分 → 计算 $L$ 关于每一个未知参数的偏导数
+* 34页，第1段第2行：微分 → 偏导数
+* 34页，第2段第2~3行：二次微分 → 二次偏导数
+* 34页，第2段第3行：就是先把 $\boldsymbol{\theta}$  的第 $i$  个元素对  $L\left(\boldsymbol{\theta}^{\prime}\right)$  做微分 → 就是先求 $L\left(\boldsymbol{\theta}^{\prime}\right)$  关于 $\boldsymbol{\theta}$  的第 $i$  个元素的偏导数  
+* 34页，第2段第4行：再把 $\boldsymbol{\theta}$ 的第 $j$  个元素对  $\frac{\partial L\left(\boldsymbol{\theta}^{\prime}\right)}{\partial \theta_i}$ 做微分的结果 → 再求 $\frac{\partial L\left(\boldsymbol{\theta}^{\prime}\right)}{\partial \theta_i}$  关于 $\boldsymbol{\theta}$ 的第 $j$  个元素的偏导数
+* 34页，第3段第2行：微分 → 导数
+* 36页，倒数第2段：微分 → 导数
+* 37页，倒数第2段第2行：微分 → 导数
+* 51页，第1段第1行：参数 $\boldsymbol{\theta}^i$ 对损失 $L$ 的微分 → 损失 $L$ 关于参数 $\boldsymbol{\theta}^i$ 的偏导数
+
 * 91页，第2段倒数第1行：Special Transformer Layer → Spatial Transformer Layer
+* 110页，第1段第2行：偏微分 → 偏导数
+* 336页，倒数第2段倒数第6行：这个比值就是对损失做偏微分 → 这个比值是损失的偏导数
+* 338页，第1段第3行和倒数第2行：偏微分 → 偏导数
 
 ## 第1版第3次印刷（2024.09）
 
