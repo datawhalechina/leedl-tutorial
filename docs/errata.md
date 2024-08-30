@@ -22,6 +22,11 @@
 * 37页，倒数第2段第2行：微分 → 导数
 * 51页，第1段第1行：参数 $\boldsymbol{\theta}^i$ 对损失 $L$ 的微分 → 损失 $L$ 关于参数 $\boldsymbol{\theta}^i$ 的偏导数
 
+* 60页，图3.34 替换成：
+
+![](res/3-34.png ':size=650')
+
+* 63页，第2段第4行：$x_1^2$ 代表 $\boldsymbol{x}^2$ 的第二个元素 → $x_1^2$ 代表 $\boldsymbol{x}^2$ 的第一个元素
 * 91页，第2段倒数第1行：Special Transformer Layer → Spatial Transformer Layer
 * 110页，第1段第2行：偏微分 → 偏导数
 * 336页，倒数第2段倒数第6行：这个比值就是对损失做偏微分 → 这个比值是损失的偏导数
