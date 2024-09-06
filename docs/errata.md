@@ -20,7 +20,20 @@
 * 34页，第3段第2行：微分 → 导数
 * 36页，倒数第2段：微分 → 导数
 * 37页，倒数第2段第2行：微分 → 导数
+* 37页，删掉标题 “3.1.3 逃离鞍点的方法”
 * 51页，第1段第1行：参数 $\boldsymbol{\theta}^i$ 对损失 $L$ 的微分 → 损失 $L$ 关于参数 $\boldsymbol{\theta}^i$ 的偏导数
+
+* 52 页，式3.22替换为：
+
+$$
+\boldsymbol{\theta}^i_{t+1} \leftarrow \boldsymbol{\theta}^i_t-\frac{\eta}{\sigma^i_t} \boldsymbol{g}^i_t \quad \sigma^i_t=\sqrt{\frac{1}{t+1} \sum_{j=0}^t\left(\boldsymbol{g}^i_j\right)^2}
+$$
+
+* 52页，第2段第2行：$\boldsymbol{\theta}_1^i$ 这个参数 → 参数 $\boldsymbol{\theta}^1$
+
+* 55页，图3.27替换为：
+
+![](res/3-27.png ':size=650')
 
 * 60页，图3.34 替换成：
 
