@@ -22,7 +22,7 @@
 
 <img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple.png?raw=true" width="300">
 
-购买链接：[京东](https://u.jd.com/muCV8tI) | [当当](https://product.dangdang.com/29766946.html)
+购买链接：[京东](https://u.jd.com/muCV8tI) 
 
 <table border="0">
   <tbody>
@@ -32,13 +32,10 @@
         <br>
         <p>京东扫码购买</p>
       </td>
-      <td>
-    <img width="120" height="120" src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple_dangdang_QR.jpg" alt="pic"><br>
-        <p>当当扫码购买</p>
-      </td>
     </tr>
   </tbody>
 </table>
+
 
 
 豆瓣评分：https://book.douban.com/subject/36997460/
