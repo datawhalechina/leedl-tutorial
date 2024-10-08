@@ -150,7 +150,7 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 
 ```
 王琦，杨毅远，江季，深度学习详解，人民邮电出版社，https://github.com/datawhalechina/leedl-tutorial, 2024.
-Qi Wang, Yiyuan Yang, Ji Jiang，Essence of Deep Learning，Posts & Telecom Press，https://github.com/datawhalechina/leedl-tutorial, 2024.
+Qi Wang, Yiyuan Yang, Ji Jiang，LeeDL Tutorial，Posts & Telecom Press，https://github.com/datawhalechina/leedl-tutorial, 2024.
 ```
 
 ```bibtex
@@ -167,7 +167,7 @@ url = {https://github.com/datawhalechina/leedl-tutorial}
 ```
 ```bibtex
 @book{wang2024leedltutorialen,
-title = {Essence of Deep Learning},
+title = {LeeDL Tutorial},
 publisher = {Posts & Telecom Press},
 year = {2024},
 author = {Qi Wang，Yiyuan Yang，Ji Jiang},
