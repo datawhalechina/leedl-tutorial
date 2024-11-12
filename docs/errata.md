@@ -17,9 +17,9 @@
 * 34页，第2段第2~3行：二次微分 → 二次偏导数
 * 34页，第2段第3行：就是先把 $\boldsymbol{\theta}$  的第 $i$  个元素对  $L\left(\boldsymbol{\theta}^{\prime}\right)$  做微分 → 就是先求 $L\left(\boldsymbol{\theta}^{\prime}\right)$  关于 $\boldsymbol{\theta}$  的第 $i$  个元素的偏导数  
 * 34页，第2段第4行：再把 $\boldsymbol{\theta}$ 的第 $j$  个元素对  $\frac{\partial L\left(\boldsymbol{\theta}^{\prime}\right)}{\partial \theta_i}$ 做微分的结果 → 再求 $\frac{\partial L\left(\boldsymbol{\theta}^{\prime}\right)}{\partial \theta_i}$  关于 $\boldsymbol{\theta}$ 的第 $j$  个元素的偏导数
-* 34页，第3段第2行：微分 → 导数
-* 36页，倒数第2段：微分 → 导数
-* 37页，倒数第2段第2行：微分 → 导数
+* 34页，第3段第2行：微分 → 偏导数
+* 36页，倒数第2段：微分 → 偏导数
+* 37页，倒数第2段第2行：微分 → 偏导数
 * 37页，删掉标题 “3.1.3 逃离鞍点的方法”
 * 51页，第1段第1行：参数 $\boldsymbol{\theta}^i$ 对损失 $L$ 的微分 → 损失 $L$ 关于参数 $\boldsymbol{\theta}^i$ 的偏导数
 
@@ -52,7 +52,7 @@ $$
 | :----------------------------: | :--: | :--: |
 
 * 55页，倒数第2段的第4行和第5行：图3.22(b) → 图3.27
-* 106页，输入单元（即记忆元）→ 输入单元
+* 106页，倒数第1段第1行：输入单元（即记忆元）→ 输入单元
 * 122页，图6.5替换成：
 
 ![](res/6-5.png ':size=300')
