@@ -20,6 +20,16 @@
 
 ## 纸质版
 
+### 京东年度好书评选
+**《深度学习详解》正在参加京东年度好书评选，欢迎大家多多投票呀~**
+1. 复制口令到京东
+```
+11:/请您参与活动，⇻京◘Doσσng￥N9UHg6LYA4X￥ MF5681
+```
+2. 点击去“去投票”按钮
+3. 找到-科技科普-深度学习详解投票
+每天可以投3票，截止24日
+---
 <img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple.png?raw=true" width="300">
 
 推荐购买链接：[京东](https://u.jd.com/ta2MD1R) | [当当](https://product.dangdang.com/29766946.html)
