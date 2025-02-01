@@ -118,9 +118,9 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 [点击](https://github.com/datawhalechina/leedl-tutorial/tree/master/Homework)或者网页点击```Homework```文件夹进入配套代码
 
 ## 扩展资源
-- 对**强化学习玩我的世界（Minecraft）游戏**感兴趣的读者，可阅读[LS-Imagine](https://github.com/qiwang067/LS-Imagine)
+- 对**强化学习玩我的世界（Minecraft）游戏**感兴趣的读者，可阅读 [LS-Imagine](https://github.com/qiwang067/LS-Imagine)
 - 对**强化学习**感兴趣的读者，可阅读[蘑菇书EasyRL](https://github.com/datawhalechina/easy-rl)
-- 对**视觉强化学习**感兴趣的读者，可阅读[Awesome Visual RL](https://github.com/qiwang067/awesome-visual-rl)
+- 对**视觉强化学习**感兴趣的读者，可阅读 [Awesome Visual RL](https://github.com/qiwang067/awesome-visual-rl)
 
 ## 贡献者
 
