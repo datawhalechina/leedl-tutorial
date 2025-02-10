@@ -52,7 +52,7 @@
 
 地址：https://github.com/datawhalechina/leedl-tutorial/releases
 
-国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1RVBDLT3BYhN5OlI_AKWYGg 提取码: 2wr7
+国内地址(推荐国内读者使用)：链接: https://pan.baidu.com/s/1zPN1_pdISW5CKtI64Hc9ZA 提取码: 3q4w 
 
 ## 纸质版和PDF版的区别
 
