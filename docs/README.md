@@ -17,6 +17,30 @@
 
 <div align=center><img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/prof._lee_twitter.jpg?raw=true" height = "450" alt="李宏毅老师推荐。"></div>
 
+## 贡献者
+
+<table border="0">
+  <tbody>
+    <tr align="center" >
+      <td>
+         <a href="https://github.com/qiwang067"><img width="70" height="70" src="https://github.com/qiwang067.png?s=40" alt="pic"></a><br>
+         <a href="https://github.com/qiwang067">Qi Wang</a> 
+        <p> 上海交通大学博士生<br>中国科学院大学硕士</p>
+      </td>
+      <td>
+         <a href="https://yyysjz1997.github.io/"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
+         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a> 
+        <p> 牛津大学博士生<br>清华大学硕士</p>
+      </td>
+      <td>
+         <a href="https://github.com/JohnJim0816"><img width="70" height="70" src="https://github.com/JohnJim0816.png?s=40" alt="pic"></a><br>
+         <a href="https://github.com/JohnJim0816">John Jim</a>
+         <p>北京大学硕士</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## 纸质版
 
 <img src="https://github.com/datawhalechina/leedl-tutorial/blob/master/assets/apple.png?raw=true" width="300">
@@ -121,30 +145,6 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 - 对**强化学习玩我的世界（Minecraft）游戏**感兴趣的读者，可阅读 [LS-Imagine](https://github.com/qiwang067/LS-Imagine)
 - 对**强化学习**感兴趣的读者，可阅读[蘑菇书EasyRL](https://github.com/datawhalechina/easy-rl)
 - 对**视觉强化学习**感兴趣的读者，可阅读 [Awesome Visual RL](https://github.com/qiwang067/awesome-visual-rl)
-
-## 贡献者
-
-<table border="0">
-  <tbody>
-    <tr align="center" >
-      <td>
-         <a href="https://github.com/qiwang067"><img width="70" height="70" src="https://github.com/qiwang067.png?s=40" alt="pic"></a><br>
-         <a href="https://github.com/qiwang067">Qi Wang</a> 
-        <p> 上海交通大学博士生<br>中国科学院大学硕士</p>
-      </td>
-      <td>
-         <a href="https://yyysjz1997.github.io/"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
-         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a> 
-        <p> 牛津大学博士生<br>清华大学硕士</p>
-      </td>
-      <td>
-         <a href="https://github.com/JohnJim0816"><img width="70" height="70" src="https://github.com/JohnJim0816.png?s=40" alt="pic"></a><br>
-         <a href="https://github.com/JohnJim0816">John Jim</a>
-         <p>北京大学硕士</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 
 ## 引用信息
