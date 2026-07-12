@@ -24,12 +24,12 @@
     <tr align="center" >
       <td>
          <a href="https://github.com/qiwang067"><img width="70" height="70" src="https://github.com/qiwang067.png?s=40" alt="pic"></a><br>
-         <a href="https://github.com/qiwang067">Qi Wang</a> 
+         <a href="https://github.com/qiwang067">Qi Wang</a>
         <p> 上海交通大学博士生<br>中国科学院大学硕士</p>
       </td>
       <td>
          <a href="https://yyysjz1997.github.io/"><img width="70" height="70" src="https://github.com/yyysjz1997.png?s=40" alt="pic"></a><br>
-         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a> 
+         <a href="https://yyysjz1997.github.io/">Yiyuan Yang</a>
         <p> 牛津大学博士生<br>清华大学硕士</p>
       </td>
       <td>
@@ -113,7 +113,7 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 * **对抗攻击** @杨毅远
     * [x] 对抗攻击基本概念
     * [x] 白盒攻击vs黑盒攻击
-    * [x] 被动防守vs主动防守 
+    * [x] 被动防守vs主动防守
 * **可解释人工智能** @杨毅远
     * [x] 可解释人工智能概念与案例
     * [x] 可解释人工智能中的局部可解释性
@@ -124,7 +124,7 @@ PDF版本是全书初稿，人民邮电出版社的编辑老师们对初稿进�
 * **深度强化学习** @王琦
 * **终身学习** @江季
   *  [x] 灾难性遗忘
-  *  [x] 缓解灾难性遗忘 
+  *  [x] 缓解灾难性遗忘
 * **网络压缩** @王琦
   *  [x] 剪枝与彩票假设
   *  [x] 知识蒸馏
